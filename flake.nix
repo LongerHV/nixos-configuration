@@ -26,6 +26,9 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users."${username}" = import ./homes/longer.nix;
+              home-manager.extraSpecialArgs = {
+                nixpkgs.overlays = overlays;
+              };
             }
           ];
         };
@@ -37,6 +40,9 @@
           inherit system username;
           homeDirectory = "/home/${username}";
           configuration = import ./homes/longer.nix;
+          extraSpecialArgs = {
+            nixpkgs.overlays = overlays;
+          };
           stateVersion = "21.11";
         };
       };
