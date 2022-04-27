@@ -22,5 +22,10 @@
     shell = pkgs.zsh;
   };
 
+  programs.neovim = { enable = true; defaultEditor = true; };
+  environment.systemPackages = with pkgs; [
+    git
+  ];
+
   system.stateVersion = "21.11";
 }

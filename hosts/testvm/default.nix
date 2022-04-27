@@ -15,9 +15,5 @@
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
 
-  programs.neovim = { enable = true; defaultEditor = true; };
-  programs.git = { enable = true; };
-
   services.openssh.enable = true;
-  system.stateVersion = "21.11";
 }

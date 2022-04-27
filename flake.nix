@@ -5,11 +5,15 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
   outputs = inputs@{ nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
       username = "longer";
+      overlays = [
+        inputs.neovim-nightly-overlay.overlay
+      ];
     in
     {
       nixosConfigurations = {
