@@ -1,8 +1,7 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    unstable.nix
+  home.packages = with pkgs.unstable; [
     mc
     subversion
     neofetch

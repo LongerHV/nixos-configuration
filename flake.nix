@@ -12,7 +12,7 @@
     let
       username = "longer";
       overlay-unstable = final: prev: {
-        unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
       };
     in
     {
@@ -29,7 +29,7 @@
               ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users."${username}" = import ./homes/longer.nix;
+              home-manager.users."${username}" = import ./home;
             }
           ];
         };
@@ -37,17 +37,16 @@
 
       # Standalone home-manager configuration for non-NixOS systems
       homeConfigurations = {
-        longer = home-manager.lib.homeManagerConfiguration rec {
+        default = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-linux";
           inherit username;
           homeDirectory = "/home/${username}";
           configuration = { pkgs, ... }: {
-            home.packages = [ pkgs.unstable.home-manager ];
             nixpkgs.overlays = [
               neovim-nightly-overlay.overlay
               overlay-unstable
             ];
-            imports = [ ./homes/longer.nix ];
+            imports = [ ./home ./home/config/non-nixos.nix ];
           };
           stateVersion = "21.11";
         };
