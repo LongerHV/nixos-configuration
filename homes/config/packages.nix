@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    nix
+    unstable.nix
     mc
     subversion
     neofetch
