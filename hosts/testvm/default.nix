@@ -16,4 +16,6 @@
   networking.interfaces.enp1s0.useDHCP = true;
 
   services.openssh.enable = true;
+
+  system.stateVersion = "21.11";
 }

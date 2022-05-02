@@ -26,6 +26,4 @@
   environment.systemPackages = with pkgs; [
     git
   ];
-
-  system.stateVersion = "21.11";
 }

@@ -33,6 +33,22 @@
             }
           ];
         };
+        nasgul = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/nasgul
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs.overlays = [
+                neovim-nightly-overlay.overlay
+                overlay-unstable
+              ];
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users."${username}" = import ./home;
+            }
+          ];
+        };
       };
 
       # Standalone home-manager configuration for non-NixOS systems
