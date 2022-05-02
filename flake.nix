@@ -14,6 +14,15 @@
       overlay-unstable = final: prev: {
         unstable = nixpkgs-unstable.legacyPackages.${prev.system};
       };
+      common_home_manager_module = {
+        nixpkgs.overlays = [
+          neovim-nightly-overlay.overlay
+          overlay-unstable
+        ];
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.users."${username}" = import ./home;
+      };
     in
     {
       nixosConfigurations = {
@@ -22,15 +31,7 @@
           modules = [
             ./hosts/testvm
             home-manager.nixosModules.home-manager
-            {
-              nixpkgs.overlays = [
-                neovim-nightly-overlay.overlay
-                overlay-unstable
-              ];
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users."${username}" = import ./home;
-            }
+            common_home_manager_module
           ];
         };
         nasgul = nixpkgs.lib.nixosSystem {
@@ -38,15 +39,7 @@
           modules = [
             ./hosts/nasgul
             home-manager.nixosModules.home-manager
-            {
-              nixpkgs.overlays = [
-                neovim-nightly-overlay.overlay
-                overlay-unstable
-              ];
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users."${username}" = import ./home;
-            }
+            common_home_manager_module
           ];
         };
       };
