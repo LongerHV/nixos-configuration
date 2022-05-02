@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  TSCompiler = pkgs.gcc;
+in
 {
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -20,6 +23,7 @@
         require("plugins")
         require("config.theme")
         require("config.remaps")
+        require("nvim-treesitter.install").compilers = { "${TSCompiler}/bin/gcc" }
       EOF
     '';
     plugins = with pkgs.vimPlugins; [
@@ -70,7 +74,7 @@
       codespell
 
       # Treesitter parser compilation
-      gcc
+      TSCompiler
 
       # Telescope dependencies
       ripgrep
