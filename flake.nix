@@ -46,7 +46,7 @@
 
       # Standalone home-manager configuration for non-NixOS systems
       homeConfigurations = {
-        default = home-manager.lib.homeManagerConfiguration {
+        longer = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-linux";
           inherit username;
           homeDirectory = "/home/${username}";
