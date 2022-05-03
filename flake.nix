@@ -1,7 +1,7 @@
 {
   description = "My config";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/21.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-21.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
