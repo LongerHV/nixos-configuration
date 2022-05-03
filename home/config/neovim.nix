@@ -23,7 +23,12 @@ in
         require("plugins")
         require("config.theme")
         require("config.remaps")
-        require("nvim-treesitter.install").compilers = { "${TSCompiler}/bin/gcc" }
+
+        -- Set compiler for treesitter to use
+        local status, ps_install = pcall(require, "nvim-treesitter.install")
+        if(status) then
+          ps_install.compilers = { "${TSCompiler}/bin/gcc" }
+        end
       EOF
     '';
     plugins = with pkgs.vimPlugins; [
