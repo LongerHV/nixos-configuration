@@ -1,7 +1,8 @@
 { pkgs, ... }:
 
 let
-  TSCompiler = pkgs.gcc;
+  # Compiler for treesitter
+  TSCompiler = pkgs.unstable.gcc;
 in
 {
   home.sessionVariables = {
@@ -31,10 +32,10 @@ in
         end
       EOF
     '';
-    plugins = with pkgs.vimPlugins; [
+    plugins = with pkgs.unstable.vimPlugins; [
       packer-nvim
     ];
-    extraPackages = with pkgs; [
+    extraPackages = with pkgs.unstable; [
       # Essentials
       nodePackages.npm
       nodePackages.neovim
@@ -78,13 +79,10 @@ in
       texlab
       codespell
 
-      # Treesitter parser compilation
-      TSCompiler
-
       # Telescope dependencies
       ripgrep
       fd
-    ];
+    ] ++ [ TSCompiler ];
   };
 
   home.file = {
