@@ -33,6 +33,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/chonk" =
+    { device = "rpool/root/chonk";
+      fsType = "zfs";
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/EC83-EFDC";
       fsType = "vfat";

@@ -49,6 +49,7 @@ in
     interval = "weekly";
   };
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_hardened;
+  boot.tmpOnTmpfs = true;
   zramSwap.enable = true;
 
   networking.hostName = "nasgul";
