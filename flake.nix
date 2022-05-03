@@ -4,9 +4,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/21.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
   outputs = inputs@{ nixpkgs, nixpkgs-unstable, home-manager, neovim-nightly-overlay, ... }:
     let
@@ -14,11 +12,12 @@
       overlay-unstable = final: prev: {
         unstable = nixpkgs-unstable.legacyPackages.${prev.system};
       };
+      overlays = [
+        neovim-nightly-overlay.overlay
+        overlay-unstable
+      ];
       common_home_manager_module = {
-        nixpkgs.overlays = [
-          neovim-nightly-overlay.overlay
-          overlay-unstable
-        ];
+        nixpkgs.overlays = overlays;
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.users."${username}" = import ./home;
@@ -51,10 +50,7 @@
           inherit username;
           homeDirectory = "/home/${username}";
           configuration = { pkgs, ... }: {
-            nixpkgs.overlays = [
-              neovim-nightly-overlay.overlay
-              overlay-unstable
-            ];
+            nixpkgs.overlays = overlays;
             imports = [ ./home ./home/config/non-nixos.nix ];
           };
           stateVersion = "21.11";
