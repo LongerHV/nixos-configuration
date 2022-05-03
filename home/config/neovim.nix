@@ -26,9 +26,9 @@ in
         require("config.remaps")
 
         -- Set compiler for treesitter to use
-        local status, ps_install = pcall(require, "nvim-treesitter.install")
+        local status, ts_install = pcall(require, "nvim-treesitter.install")
         if(status) then
-          ps_install.compilers = { "${TSCompiler}/bin/gcc" }
+          ts_install.compilers = { "${TSCompiler}/bin/gcc" }
         end
       EOF
     '';
