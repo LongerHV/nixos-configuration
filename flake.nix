@@ -55,6 +55,16 @@
           };
           stateVersion = "21.11";
         };
+        mmieszczak = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          username = "mmieszczak";
+          homeDirectory = "/home/mmieszczak";
+          configuration = { pkgs, ... }: {
+            nixpkgs.overlays = overlays;
+            imports = [ ./home/work.nix ./home/config/non-nixos.nix ];
+          };
+          stateVersion = "21.11";
+        };
       };
     };
 }
