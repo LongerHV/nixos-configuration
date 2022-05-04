@@ -12,12 +12,4 @@
     wget
     ansible
   ];
-
-  programs = {
-    git = {
-      enable = true;
-      userName = "Michał Mieszczak";
-      userEmail = "michal@mieszczak.com.pl";
-    };
-  };
 }
