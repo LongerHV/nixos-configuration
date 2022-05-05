@@ -8,5 +8,4 @@
     ./config/zsh.nix
     ./config/devops.nix
   ];
-  home.sessionPath = [ "$HOME/.local/bin" ];
 }
