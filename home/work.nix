@@ -6,5 +6,6 @@
     ./config/neovim.nix
     ./config/tmux.nix
     ./config/zsh.nix
+    ./config/devops.nix
   ];
 }
