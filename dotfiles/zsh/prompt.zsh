@@ -29,6 +29,8 @@ SPACESHIP_CHAR_SYMBOL_ROOT="#"
 SPACESHIP_CHAR_SUFFIX=" "
 SPACESHIP_EXIT_CODE_SHOW=true
 SPACESHIP_VENV_SYMBOL="🐍 "
+SPACESHIP_KUBECTL_SHOW=true
+SPACESHIP_KUBECTL_VERSION_SHOW=false
 
 SPACESHIP_PROMPT_ORDER=(
   user          # Username section
@@ -36,6 +38,7 @@ SPACESHIP_PROMPT_ORDER=(
   dir           # Current directory section
   git           # Git section (git_branch + git_status)
   venv          # Python venv
+  kubectl       # Kubectl context
   line_sep      # Line break
   char          # Prompt character
 )
