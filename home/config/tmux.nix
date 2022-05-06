@@ -36,6 +36,9 @@
       # Start selection with 'v' and copy using 'y'
       bind-key -T copy-mode-vi v send-keys -X begin-selection
       bind-key -T copy-mode-vi y send-keys -X copy-selection
+
+      # Set wayland clipboard
+      set -s copy-command 'wl-copy'
     '';
   };
 }
