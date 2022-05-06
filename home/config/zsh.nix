@@ -46,7 +46,7 @@
     '';
     initExtra = ''
       # Source additional files
-      for f in $HOME/.config/zsh/*; do source "$f"; done
+      for f in $HOME/.config/zsh/*.zsh; do source "$f"; done
     '';
     localVariables = {
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=13,underline";
