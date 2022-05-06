@@ -31,4 +31,4 @@ remap("n", "<leader>j", ":m .+1<CR>==", { noremap = true })
 remap("n", "<leader>k", ":m .-2<CR>==", { noremap = true })
 
 -- Command shortcuts
-remap("n", "<leader>F", ":Format<CR>", { noremap = true })
+remap("n", "<leader>F", "<cmd>lua vim.lsp.buf.format { async = true }<cr>", { noremap = true })
