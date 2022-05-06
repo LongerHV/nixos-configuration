@@ -23,6 +23,7 @@ return require("packer").startup(function(use)
 			require("config.lsp")
 			require("config.lsp_cmp")
 			vim.cmd([[autocmd CursorHold,CursorHoldI * lua require("nvim-lightbulb").update_lightbulb()]])
+			require("luasnip/loaders/from_vscode").lazy_load()
 		end,
 	})
 	-- use 'nvim-lua/lsp_extensions.nvim'
