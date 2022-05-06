@@ -7,6 +7,7 @@ return {
 	dockerls = {},
 	bashls = {},
 	yamlls = {},
+	eslint = { cmd = { "eslint", "--stdio" } },
 	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
 	sumneko_lua = {
 		cmd = { "lua-language-server" },

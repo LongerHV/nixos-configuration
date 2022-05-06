@@ -22,7 +22,6 @@ null_ls.setup({
 
 		-- Lua
 		null_ls.builtins.diagnostics.selene,
-		null_ls.builtins.formatting.stylua,
 
 		-- Spell checking
 		null_ls.builtins.diagnostics.codespell.with({

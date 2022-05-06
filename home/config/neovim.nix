@@ -53,7 +53,6 @@ in
       # Lua
       sumneko-lua-language-server
       selene
-      stylua
 
       # Nix
       statix
@@ -75,6 +74,7 @@ in
       nodePackages.vscode-json-languageserver
       nodePackages.markdownlint-cli
       nodePackages.prettier
+      nodePackages.eslint
       taplo-lsp
       texlab
       codespell
