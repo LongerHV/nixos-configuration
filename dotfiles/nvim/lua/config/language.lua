@@ -1,5 +1,6 @@
 local null_ls = require("null-ls")
 null_ls.setup({
+	debug = true;
 	sources = {
 		-- Python
 		null_ls.builtins.formatting.autopep8,
@@ -36,6 +37,6 @@ null_ls.setup({
 		null_ls.builtins.code_actions.gitsigns,
 	},
 	on_attach = function()
-		vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+		vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({async=true})' ]])
 	end,
 })
