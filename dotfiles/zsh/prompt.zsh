@@ -39,6 +39,20 @@ SPACESHIP_PROMPT_ORDER=(
   git           # Git section (git_branch + git_status)
   venv          # Python venv
   kubectl       # Kubectl context
+)
+
+# Load custom sections from sections directory
+if [[ -d ~/.config/zsh/sections ]]; then
+  for section in ~/.config/zsh/sections/*.zsh
+  do
+    local 'section_name'
+    source $section
+    section_name=$(basename $section)
+    SPACESHIP_PROMPT_ORDER+=(${section_name%.*})
+  done
+fi
+
+SPACESHIP_PROMPT_ORDER+=(
   line_sep      # Line break
   char          # Prompt character
 )
@@ -47,4 +61,3 @@ SPACESHIP_RPROMPT_ORDER=(
   exit_code
   vi_mode
 )
-
