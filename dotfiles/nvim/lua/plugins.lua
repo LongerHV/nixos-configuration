@@ -22,7 +22,6 @@ return require("packer").startup(function(use)
 		config = function()
 			require("config.lsp")
 			require("config.lsp_cmp")
-			require("config.lsp_snippets")
 			vim.cmd([[autocmd CursorHold,CursorHoldI * lua require("nvim-lightbulb").update_lightbulb()]])
 		end,
 	})
