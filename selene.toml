@@ -1,0 +1,3 @@
+[rules]
+undefined_variable = "allow"
+unscoped_variables = "allow"
