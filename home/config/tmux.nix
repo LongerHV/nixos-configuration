@@ -36,6 +36,9 @@
 
       # Start selection with 'v' and copy using 'y'
       bind-key -T copy-mode-vi v send-keys -X begin-selection
+
+      # Custom
+      bind-key -r i run-shell "tmux neww cht.sh --shell"
     '';
   };
 }
