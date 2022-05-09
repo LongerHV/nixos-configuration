@@ -67,14 +67,18 @@ in
       shellcheck
       shellharden
 
+      # JavaScript (tsserver is not working)
+      nodePackages.prettier
+      nodePackages.eslint
+      # nodePackages.typescript
+      # nodePackages.typescript-language-server
+
       # Additional
       nodePackages.bash-language-server
       nodePackages.yaml-language-server
       nodePackages.dockerfile-language-server-nodejs
       nodePackages.vscode-json-languageserver
       nodePackages.markdownlint-cli
-      nodePackages.prettier
-      nodePackages.eslint
       taplo-lsp
       texlab
       codespell
