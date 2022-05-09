@@ -75,8 +75,16 @@ usermod -s ~/.nix-profile/bin/zsh $USER
 home-manager switch --flake .
 ```
 
+## TODO
+
+- Add Go setup (LSP, linting, formatting)
+- Add [refactoring](https://github.com/ThePrimeagen/refactoring.nvim) with
+  [Null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#refactoring)
+  integration
+- Figure out what is wrong with nix managed typescript-language-server in nvim
+
 ## Resources
 
-* [hlissner dotfiles](https://github.com/hlissner/dotfiles)
-* [adfaure nix configuration](https://github.com/adfaure/nix_configuration)
-* [Home-manager docs](https://nix-community.github.io/home-manager/index.html#ch-nix-flakes)
+- [hlissner dotfiles](https://github.com/hlissner/dotfiles)
+- [adfaure nix configuration](https://github.com/adfaure/nix_configuration)
+- [Home-manager docs](https://nix-community.github.io/home-manager/index.html#ch-nix-flakes)
