@@ -4,7 +4,7 @@
   home.packages = with pkgs.unstable; [
     kube3d
     kubectl
-    helm
+    kubernetes-helm
     ansible
     terraform
   ];
