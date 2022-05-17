@@ -30,7 +30,6 @@
               isNormalUser = true;
               extraGroups = [ "wheel" ];
             };
-
           }
         ] ++ modules;
       };
@@ -46,6 +45,7 @@
       };
     in
     {
+      # NixOS hosts configuration
       nixosConfigurations = {
         nasgul = mkHost "longer" [ ./hosts/nasgul ];
         isoimage = mkHost "nixos" [ isoModule ];
@@ -53,7 +53,9 @@
 
       # Standalone home-manager configuration for non-NixOS systems
       homeConfigurations = {
+        # Arch linux machine
         longer = mkHome "longer" [ ./home ];
+        # Ubuntu at work
         mmieszczak = mkHome "mmieszczak" [ ./home/work.nix ];
       };
     };
