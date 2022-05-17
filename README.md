@@ -75,6 +75,12 @@ usermod -s ~/.nix-profile/bin/zsh $USER
 home-manager switch --flake .
 ```
 
+## Live ISO
+
+```bash
+nix build .#nixosConfigurations.isoimage.config.system.build.isoImage
+```
+
 ## TODO
 
 - Add Go setup (LSP, linting, formatting)

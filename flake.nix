@@ -28,6 +28,7 @@
         testvm = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
+            ./hosts/hosts-common.nix
             ./hosts/testvm
             home-manager.nixosModules.home-manager
             common_home_manager_module
@@ -36,7 +37,17 @@
         nasgul = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
+            ./hosts/hosts-common.nix
             ./hosts/nasgul
+            home-manager.nixosModules.home-manager
+            common_home_manager_module
+          ];
+        };
+        isoimage = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/hosts-common.nix
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-plasma5.nix"
             home-manager.nixosModules.home-manager
             common_home_manager_module
           ];

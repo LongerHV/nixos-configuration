@@ -17,11 +17,7 @@ let
     };
 in
 {
-  imports =
-    [
-      ../hosts-common.nix
-      ./hardware-configuration.nix
-    ];
+  imports = [ ./hardware-configuration.nix ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "unrar"
