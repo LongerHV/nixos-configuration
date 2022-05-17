@@ -7,6 +7,7 @@ return {
 	dockerls = {},
 	bashls = {},
 	yamlls = {},
+	gopls = {},
 	-- tsserver = {},
 	eslint = { cmd = { "eslint", "--stdio" } },
 	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },

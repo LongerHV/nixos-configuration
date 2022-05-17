@@ -73,6 +73,10 @@ in
       # nodePackages.typescript
       # nodePackages.typescript-language-server
 
+      # Go
+      go
+      gopls
+
       # Additional
       nodePackages.bash-language-server
       nodePackages.yaml-language-server
