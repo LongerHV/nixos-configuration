@@ -16,12 +16,7 @@
     keyMap = "pl";
   };
 
-  users.users.longer = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    shell = pkgs.zsh;
-  };
-
+  users.defaultUserShell = pkgs.zsh;
   programs.neovim = { enable = true; defaultEditor = true; };
   environment.systemPackages = with pkgs; [
     git

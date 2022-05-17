@@ -8,7 +8,7 @@
   };
   outputs = inputs@{ nixpkgs, nixpkgs-unstable, home-manager, neovim-nightly-overlay, ... }:
     let
-      username = "longer";
+      isoModule = "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-plasma5.nix";
       overlay-unstable = final: prev: {
         unstable = nixpkgs-unstable.legacyPackages.${prev.system};
       };
@@ -16,66 +16,45 @@
         neovim-nightly-overlay.overlay
         overlay-unstable
       ];
-      common_home_manager_module = {
-        nixpkgs.overlays = overlays;
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users."${username}" = import ./home;
+      mkHost = username: modules: nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/hosts-common.nix
+          home-manager.nixosModules.home-manager
+          {
+            nixpkgs.overlays = overlays;
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users."${username}" = import ./home;
+            users.users."${username}" = {
+              isNormalUser = true;
+              extraGroups = [ "wheel" ];
+            };
+
+          }
+        ] ++ modules;
+      };
+      mkHome = username: imports: home-manager.lib.homeManagerConfiguration {
+        system = "x86_64-linux";
+        inherit username;
+        homeDirectory = "/home/${username}";
+        configuration = { pkgs, ... }: {
+          nixpkgs.overlays = overlays;
+          imports = [ ./home/config/non-nixos.nix ] ++ imports;
+        };
+        stateVersion = "21.11";
       };
     in
     {
       nixosConfigurations = {
-        testvm = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/hosts-common.nix
-            ./hosts/testvm
-            home-manager.nixosModules.home-manager
-            common_home_manager_module
-          ];
-        };
-        nasgul = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/hosts-common.nix
-            ./hosts/nasgul
-            home-manager.nixosModules.home-manager
-            common_home_manager_module
-          ];
-        };
-        isoimage = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/hosts-common.nix
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-plasma5.nix"
-            home-manager.nixosModules.home-manager
-            common_home_manager_module
-          ];
-        };
+        nasgul = mkHost "longer" [ ./hosts/nasgul ];
+        isoimage = mkHost "nixos" [ isoModule ];
       };
 
       # Standalone home-manager configuration for non-NixOS systems
       homeConfigurations = {
-        longer = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          inherit username;
-          homeDirectory = "/home/${username}";
-          configuration = { pkgs, ... }: {
-            nixpkgs.overlays = overlays;
-            imports = [ ./home ./home/config/non-nixos.nix ];
-          };
-          stateVersion = "21.11";
-        };
-        mmieszczak = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          username = "mmieszczak";
-          homeDirectory = "/home/mmieszczak";
-          configuration = { pkgs, ... }: {
-            nixpkgs.overlays = overlays;
-            imports = [ ./home/work.nix ./home/config/non-nixos.nix ];
-          };
-          stateVersion = "21.11";
-        };
+        longer = mkHome "longer" [ ./home ];
+        mmieszczak = mkHome "mmieszczak" [ ./home/work.nix ];
       };
     };
 }
