@@ -18,7 +18,8 @@
 
   users.defaultUserShell = pkgs.zsh;
   programs.neovim = { enable = true; defaultEditor = true; };
-  environment.systemPackages = with pkgs; [
-    git
-  ];
+  environment = {
+    systemPackages = with pkgs; [ git ];
+    pathsToLink = [ "/share/zsh" ];
+  };
 }
