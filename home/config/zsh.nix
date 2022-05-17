@@ -1,16 +1,6 @@
 { pkgs, config, ... }:
 
 {
-  home.packages = with pkgs; [
-    zsh-syntax-highlighting
-    zsh-history-substring-search
-    /* zsh-vi-mode */ /* https://github.com/jeffreytse/zsh-vi-mode/issues/122 */
-    zsh-nix-shell
-    zsh-you-should-use
-    zsh-z
-    spaceship-prompt
-  ];
-
   programs.zsh = {
     enable = true;
     history = {
@@ -31,22 +21,14 @@
       # Prompt
       source ${pkgs.spaceship-prompt}/lib/spaceship-prompt/spaceship.zsh
       autoload -U promptinit; promptinit
-
-      # Plugins
-      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-      source ${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-      # source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.zsh
-      source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
-      source ${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/you-should-use.plugin.zsh
-      # source ${pkgs.zsh-z}/share/zsh-z/zsh-z.plugin.zsh
-
-      # History search bindings
-      bindkey '^[[A' history-substring-search-up
-      bindkey '^[[B' history-substring-search-down
     '';
     initExtra = ''
       # Source additional files
       for f in $HOME/.config/zsh/*.zsh; do source "$f"; done
+
+      # History search bindings
+      bindkey '^[[A' history-substring-search-up
+      bindkey '^[[B' history-substring-search-down
     '';
     localVariables = {
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=13,underline";
@@ -57,8 +39,24 @@
     };
     enableAutosuggestions = true;
     enableCompletion = true;
+    enableSyntaxHighlighting = true;
     plugins = [
       {
+        name = "zsh-history-substring-search";
+        file = "zsh-history-substring-search.zsh";
+        src = "${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search";
+      }
+      {
+        name = "nix-shell";
+        src = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
+      }
+      {
+        name = "you-should-use";
+        src = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
+      }
+      {
+        /* https://github.com/jeffreytse/zsh-vi-mode/issues/122 */
+        # ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.zsh
         name = "zsh-vim-mode";
         src = pkgs.fetchFromGitHub {
           owner = "softmoth";
@@ -69,6 +67,7 @@
       }
       {
         # Package available in nixpkgs is not up to date
+        # ${pkgs.zsh-z}/share/zsh-z/zsh-z.plugin.zsh
         name = "zsh-z";
         src = pkgs.fetchFromGitHub {
           owner = "agkozak";
