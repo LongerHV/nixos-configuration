@@ -95,3 +95,4 @@ nix build .#nixosConfigurations.isoimage.config.system.build.isoImage
 - [adfaure nix configuration](https://github.com/adfaure/nix_configuration)
 - [Home-manager docs](https://nix-community.github.io/home-manager/index.html#ch-nix-flakes)
 - [Building NixOS ISO](https://ash64.eu/2022/03/08/custom-nixos-isos/)
+- [NixOS manual](https://nixos.org/manual/nix/stable)
