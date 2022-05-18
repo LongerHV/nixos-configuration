@@ -8,7 +8,7 @@ return {
 	yamlls = {},
 	gopls = {},
 	-- tsserver = {},
-	taplo = { cmd = { "taplo-lsp", "run" } },
+	taplo = {},
 	eslint = { cmd = { "eslint", "--stdio" } },
 	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
 	sumneko_lua = {

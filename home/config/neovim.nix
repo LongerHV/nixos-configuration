@@ -83,7 +83,7 @@ in
       nodePackages.dockerfile-language-server-nodejs
       nodePackages.vscode-json-languageserver
       nodePackages.markdownlint-cli
-      taplo-lsp
+      taplo-cli
       texlab
       codespell
 
