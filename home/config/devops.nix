@@ -7,5 +7,6 @@
     kubernetes-helm
     ansible
     terraform
+    poetry
   ];
 }
