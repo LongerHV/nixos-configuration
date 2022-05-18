@@ -3,12 +3,12 @@ return {
 	clangd = {},
 	rnix = {},
 	pyright = {},
-	taplo = {},
 	dockerls = {},
 	bashls = {},
 	yamlls = {},
 	gopls = {},
 	-- tsserver = {},
+	taplo = { cmd = { "taplo-lsp", "run" } },
 	eslint = { cmd = { "eslint", "--stdio" } },
 	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
 	sumneko_lua = {
