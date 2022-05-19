@@ -5,7 +5,7 @@ return {
 	pyright = {},
 	dockerls = {},
 	bashls = {},
-	yamlls = {},
+	yamlls = require("yaml-companion").setup({}),
 	gopls = {},
 	-- tsserver = {},
 	taplo = {},
