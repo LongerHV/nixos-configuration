@@ -73,6 +73,8 @@ return require("packer").startup(function(use)
 				},
 				view = {
 					width = 40,
+					number = true,
+					relativenumber = true,
 				},
 			})
 		end,
