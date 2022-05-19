@@ -197,6 +197,7 @@ return require("packer").startup(function(use)
 		config = function()
 			require("lualine").setup({
 				options = { theme = "OceanicNext", globalstatus = true },
+				extensions = { 'nvim-tree' },
 			})
 		end,
 	})
