@@ -5,6 +5,7 @@
     kube3d
     kubectl
     kubernetes-helm
+    azure-cli
     ansible
     terraform
     poetry
