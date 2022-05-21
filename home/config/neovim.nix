@@ -2,7 +2,7 @@
 
 let
   # Compiler for treesitter
-  TSCompiler = pkgs.unstable.gcc;
+  TSCompiler = pkgs.gcc;
 in
 {
   home.sessionVariables = {
