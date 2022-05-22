@@ -1,9 +1,5 @@
 { pkgs, ... }:
 
-let
-  # Compiler for treesitter
-  TSCompiler = pkgs.gcc;
-in
 {
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -28,7 +24,7 @@ in
         -- Set compiler for treesitter to use
         local status, ts_install = pcall(require, "nvim-treesitter.install")
         if(status) then
-          ts_install.compilers = { "${TSCompiler}/bin/gcc" }
+          ts_install.compilers = { "${pkgs.gcc}/bin/gcc" }
         end
       EOF
     '';
@@ -90,7 +86,7 @@ in
       # Telescope dependencies
       ripgrep
       fd
-    ] ++ [ TSCompiler ];
+    ];
   };
 
   home.file = {
