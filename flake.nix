@@ -7,8 +7,9 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    inputs.agenix.url = "github:ryantm/agenix";
   };
-  outputs = inputs@{ nixpkgs, nixpkgs-unstable, home-manager, neovim-nightly-overlay, ... }:
+  outputs = inputs@{ nixpkgs, nixpkgs-unstable, home-manager, neovim-nightly-overlay, agenix, ... }:
     let
       isoModule = "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-plasma5.nix";
       overlay-unstable = final: prev: {
@@ -22,6 +23,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/hosts-common.nix
+          agenix.nixosModule
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = overlays;
