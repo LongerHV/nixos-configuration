@@ -38,7 +38,8 @@
 
       # Python
       (python3.withPackages (ps: with ps; [
-        flake8
+        setuptools # Required by pylama for some reason
+        pylama
         autopep8
         isort
         yamllint
