@@ -6,7 +6,7 @@
     kubectl
     kubernetes-helm
     azure-cli
-    ansible
+    # ansible
     terraform
     poetry
   ];
