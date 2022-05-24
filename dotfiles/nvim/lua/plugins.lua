@@ -31,7 +31,8 @@ return require("packer").startup(function(use)
 	-- Linting and formatting
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
-		requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" },
+		requires = { "nvim-lua/plenary.nvim" },
+		after = { "nvim-lspconfig" },
 		config = function()
 			require("config.language")
 		end,

@@ -36,7 +36,5 @@ null_ls.setup({
 		-- Git
 		null_ls.builtins.code_actions.gitsigns,
 	},
-	on_attach = function()
-		vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({async=true})' ]])
-	end,
+	on_attach = require("config.lsp").common_on_attach,
 })

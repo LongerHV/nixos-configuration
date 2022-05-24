@@ -1,13 +1,15 @@
+local lsp = {}
 local lsp_config = require("lspconfig")
 local lsp_signature = require("lsp_signature")
 local lsp_installer = require("nvim-lsp-installer")
 local common_capabilities = vim.lsp.protocol.make_client_capabilities()
 common_capabilities = require("cmp_nvim_lsp").update_capabilities(common_capabilities)
 
-local common_on_attach = function(client, bufnr)
+function lsp.common_on_attach(client, bufnr)
 	local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
 	end
+
 	local function buf_set_option(...)
 		vim.api.nvim_buf_set_option(bufnr, ...)
 	end
@@ -42,7 +44,7 @@ end
 
 -- Setup servers installed by nix
 for server, config in pairs(require("config.lsp_servers")) do
-	config.on_attach = common_on_attach
+	config.on_attach = lsp.common_on_attach
 	config.capabilities = common_capabilities
 	config.capabilities.offsetEncoding = { "utf-16" }
 	lsp_config[server].setup(config)
@@ -51,9 +53,11 @@ end
 -- Setup servers installed by lsp-installer
 lsp_installer.on_server_ready(function(server)
 	local config = {
-		on_attach = common_on_attach,
+		on_attach = lsp.common_on_attach,
 		capabilities = common_capabilities,
 	}
 	server:setup(config)
 	vim.cmd([[ do User LspAttach Buffers ]])
 end)
+
+return lsp
