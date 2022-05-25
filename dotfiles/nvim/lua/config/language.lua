@@ -24,7 +24,8 @@ null_ls.setup({
 		-- Lua
 		null_ls.builtins.diagnostics.selene,
 
-		-- Spell checking
+		-- Spelling
+		null_ls.builtins.completion.spell,
 		null_ls.builtins.diagnostics.codespell.with({
 			args = { "--builtin", "clear,rare,code", "-" },
 		}),
