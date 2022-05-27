@@ -25,7 +25,7 @@ null_ls.setup({
 		null_ls.builtins.diagnostics.selene,
 
 		-- Spelling
-		null_ls.builtins.completion.spell,
+		-- null_ls.builtins.completion.spell,
 		null_ls.builtins.diagnostics.codespell.with({
 			args = { "--builtin", "clear,rare,code", "-" },
 		}),

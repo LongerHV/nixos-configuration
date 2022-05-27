@@ -89,7 +89,7 @@ return require("packer").startup(function(use)
 			-- "nvim-treesitter/playground",
 			"p00f/nvim-ts-rainbow",
 			"RRethy/nvim-treesitter-textsubjects",
-			"yioneko/nvim-yati",
+			-- "yioneko/nvim-yati",
 		},
 		run = ":TSUpdate",
 		config = function()
