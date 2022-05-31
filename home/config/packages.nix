@@ -12,5 +12,6 @@
     wget
     jq
     cht-sh
+    poetry
   ];
 }
