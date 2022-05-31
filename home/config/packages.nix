@@ -10,6 +10,7 @@
     openssh
     curl
     wget
+    jq
     cht-sh
   ];
 }
