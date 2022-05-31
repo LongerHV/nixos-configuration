@@ -40,7 +40,7 @@
       (python3.withPackages (ps: with ps; [
         setuptools # Required by pylama for some reason
         pylama
-        autopep8
+        black
         isort
         yamllint
         debugpy
