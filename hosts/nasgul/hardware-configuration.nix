@@ -34,7 +34,12 @@
     };
 
   fileSystems."/chonk" =
-    { device = "rpool/root/chonk";
+    { device = "chonk";
+      fsType = "zfs";
+    };
+
+  fileSystems."/chonk/media" =
+    { device = "chonk/media";
       fsType = "zfs";
     };
 
@@ -49,5 +54,5 @@
     };
 
   swapDevices = [ ];
-
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

@@ -18,6 +18,7 @@ let
 in
 {
   imports = [ ./hardware-configuration.nix ];
+  hardware.enableRedistributableFirmware = true;
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "unrar"
@@ -38,8 +39,9 @@ in
       }
     ];
   };
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.canTouchEfiVariables = false;
   boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = false;
   services.zfs.autoScrub = {
     enable = true;
     interval = "weekly";
@@ -53,6 +55,7 @@ in
 
   networking = {
     useDHCP = false;
+    enableIPv6 = false;
     usePredictableInterfaceNames = false;
     interfaces.eth0.useDHCP = true;
     firewall = {
@@ -69,9 +72,9 @@ in
     };
   };
 
-  users.users.longer.extraGroups = [ "multimedia" ];
-  users.groups."docker".members = [ "traefik" ];
-  users.groups."multimedia" = { };
+  users.groups.multimedia = { members = [ "longer" ]; };
+
+  virtualisation.docker.enable = true;
 
   services = {
     traefik = {
@@ -95,27 +98,21 @@ in
             sonarr_router = traefik_router "sonarr";
             radarr_router = traefik_router "radarr";
             prowlarr_router = traefik_router "prowlarr";
-            # jackett_router = traefik_router "jackett";
             transmission_router = traefik_router "transmission";
             netdata_router = traefik_router "netdata";
-            grafana_router = traefik_router "grafana";
-            prometheus_router = traefik_router "prometheus";
             jellyfin_router = traefik_router "jellyfin";
-            nextcloud_router = traefik_router "nextcloud";
+            # nextcloud_router = traefik_router "nextcloud";
             printer_router = traefik_router "printer";
           };
           services = {
-            transmission_service = traefik_service { url = "localhost"; port = 9091; };
             bazarr_service = traefik_service { url = "localhost"; port = 6767; };
             sonarr_service = traefik_service { url = "localhost"; port = 8989; };
             radarr_service = traefik_service { url = "localhost"; port = 7878; };
             prowlarr_service = traefik_service { url = "localhost"; port = 9696; };
-            # jackett_service = traefik_service { url = "localhost"; port = 9117; };
+            transmission_service = traefik_service { url = "localhost"; port = 9091; };
             netdata_service = traefik_service { url = "localhost"; port = 19999; };
-            grafana_service = traefik_service { url = "localhost"; port = 3000; };
-            prometheus_service = traefik_service { url = "localhost"; port = 9090; };
             jellyfin_service = traefik_service { url = "localhost"; port = 8096; };
-            nextcloud_service = traefik_service { url = "192.168.100.11"; port = 80; };
+            # nextcloud_service = traefik_service { url = "192.168.100.11"; port = 80; };
             printer_service = traefik_service { url = "192.168.1.183"; port = 80; };
           };
         };
@@ -125,33 +122,20 @@ in
       enable = true;
       passwordAuthentication = false;
     };
+    # mysql = {
+    #   enable = true;
+    #   package = pkgs.mariadb;
+    # };
     jellyfin = { enable = true; group = "multimedia"; };
     sonarr = { enable = true; group = "multimedia"; };
     radarr = { enable = true; group = "multimedia"; };
     bazarr = { enable = true; group = "multimedia"; };
     prowlarr = { enable = true; };
-    # jackett = { enable = true; group = "multimedia"; };
     netdata = {
       enable = true;
       config.global = {
         "update every" = "15";
       };
-    };
-    prometheus = {
-      enable = true;
-      exporters = {
-        # systemd.enable = true;
-        # smartctl.enable = true;
-        nextcloud = {
-          # enable = true;
-          url = "http://nextcloud.${my_domain}";
-          passwordFile = /etc/nextcloudpass;
-        };
-      };
-    };
-    grafana = {
-      enable = true;
-      domain = "grafana.${my_domain}";
     };
     transmission = {
       enable = true;
@@ -167,42 +151,42 @@ in
     };
   };
 
-  containers = {
-    nextcloud = {
-      ephemeral = true;
-      autoStart = true;
-      privateNetwork = true;
-      hostAddress = "192.168.100.2";
-      localAddress = "192.168.100.11";
-      config = { config, pkgs, ... }: {
-        networking.firewall.allowedTCPPorts = [ 80 ];
-        services.nextcloud = {
-          enable = true;
-          package = pkgs.nextcloud22;
-          hostName = "nextcloud.${my_domain}";
-          config.adminpassFile = "/etc/nextcloudpass";
-        };
-      };
-      forwardPorts = [
-        {
-          containerPort = 80;
-          hostPort = 81;
-          protocol = "tcp";
-        }
-      ];
-      bindMounts = {
-        "/etc/nextcloudpass" = {
-          hostPath = "/etc/nextcloudpass";
-          isReadOnly = true;
-        };
-        "/var/lib/nextcloud" = {
-          hostPath = "/var/lib/nextcloud";
-          # hostPath = "/chonk/nextcloud";
-          isReadOnly = false;
-        };
-      };
-    };
-  };
+  # containers = {
+  #   nextcloud = {
+  #     ephemeral = true;
+  #     autoStart = true;
+  #     privateNetwork = true;
+  #     hostAddress = "192.168.100.2";
+  #     localAddress = "192.168.100.11";
+  #     config = { config, pkgs, ... }: {
+  #       networking.firewall.allowedTCPPorts = [ 80 ];
+  #       services.nextcloud = {
+  #         enable = true;
+  #         package = pkgs.nextcloud22;
+  #         hostName = "nextcloud.${my_domain}";
+  #         config.adminpassFile = "/etc/nextcloudpass";
+  #       };
+  #     };
+  #     forwardPorts = [
+  #       {
+  #         containerPort = 80;
+  #         hostPort = 81;
+  #         protocol = "tcp";
+  #       }
+  #     ];
+  #     bindMounts = {
+  #       "/etc/nextcloudpass" = {
+  #         hostPath = "/etc/nextcloudpass";
+  #         isReadOnly = true;
+  #       };
+  #       "/var/lib/nextcloud" = {
+  #         hostPath = "/var/lib/nextcloud";
+  #         # hostPath = "/chonk/nextcloud";
+  #         isReadOnly = false;
+  #       };
+  #     };
+  #   };
+  # };
   system.stateVersion = "21.05";
 }
 
