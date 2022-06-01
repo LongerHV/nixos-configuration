@@ -43,6 +43,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/chonk/share" =
+    { device = "chonk/share";
+      fsType = "zfs";
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/EC83-EFDC";
       fsType = "vfat";
