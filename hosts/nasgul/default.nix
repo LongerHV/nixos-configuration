@@ -140,7 +140,7 @@ in
     transmission = {
       enable = true;
       group = "multimedia";
-      home = "/chonk/torrent";
+      home = "/chonk/media/torrent";
       downloadDirPermissions = "775";
       settings = {
         umask = 0;
