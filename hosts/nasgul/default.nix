@@ -163,7 +163,7 @@ in
       home = "/chonk/media/torrent";
       downloadDirPermissions = "775";
       settings = {
-        umask = 0;
+        umask = 2;
         rpc-authentication-required = false;
         rpc-host-whitelist-enabled = true;
         rpc-host-whitelist = "transmission.${my_domain}";
