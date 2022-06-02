@@ -83,6 +83,7 @@
       taplo-cli
       texlab
       codespell
+      gitlint
 
       # Telescope dependencies
       ripgrep
