@@ -2,11 +2,11 @@
 
 ## TODO
 
-[ ] Update to NixOS 22.05
+[x] Update to NixOS 22.05
 
-[ ] ZFS data pool
+[x] ZFS data pool
 
-[ ] Add `blocky` adblocker
+[x] Add `blocky` adblocker
 
 [ ] Add Cloudflare certificate
 
