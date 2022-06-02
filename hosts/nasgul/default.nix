@@ -77,6 +77,22 @@ in
   virtualisation.docker.enable = true;
 
   services = {
+    blocky = {
+      enable = true;
+      settings = {
+        port = 53;
+        upstream.default = [
+          "1.1.1.1"
+          "9.9.9.9"
+        ];
+        customDNS = {
+          customTTL = "1h";
+          mapping = {
+            "nasgul.lan" = "192.168.1.243";
+          };
+        };
+      };
+    };
     traefik = {
       enable = true;
       group = "docker";
