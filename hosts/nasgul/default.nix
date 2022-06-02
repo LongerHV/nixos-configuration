@@ -62,7 +62,11 @@ in
       allowedTCPPorts = [
         80
         443
-        8080
+        8080 # Traefik
+        53 # Blocky
+      ];
+      allowedUDPPorts = [
+        53 # Blocky
       ];
     };
     nat = {
