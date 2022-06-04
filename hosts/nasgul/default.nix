@@ -85,14 +85,26 @@ in
       enable = true;
       settings = {
         port = 53;
+        # Cloudflare and Quad9 upstream DNS servers (maybe change to unbound?)
         upstream.default = [
           "1.1.1.1"
           "9.9.9.9"
         ];
+        # Reverse lookup (does this even work?)
+        clientLookup = {
+          upstream = "192.168.1.1";
+        };
+        # My custom entries for local network
         customDNS = {
           customTTL = "1h";
           mapping = {
             "nasgul.lan" = "192.168.1.243";
+          };
+        };
+        # Redirect all .lan queries to the router
+        conditional = {
+          mapping = {
+            lan = "192.168.1.1";
           };
         };
       };
