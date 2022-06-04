@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -10,7 +11,7 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs@{ nixpkgs, nixpkgs-unstable, home-manager, neovim-nightly-overlay, agenix, ... }:
+  outputs = inputs@{ nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, neovim-nightly-overlay, agenix, ... }:
     let
       isoModule = "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-plasma5.nix";
       overlay-unstable = final: prev: {
@@ -52,7 +53,11 @@
     {
       # NixOS hosts configuration
       nixosConfigurations = {
-        nasgul = mkHost "longer" [ ./hosts/nasgul ];
+        nasgul = mkHost "longer" [
+          ./hosts/nasgul
+          nixos-hardware.nixosModules.common-cpu-amd
+          nixos-hardware.nixosModules.common-gpu-amd
+        ];
         isoimage = mkHost "nixos" [ isoModule ];
       };
 

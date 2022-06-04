@@ -18,7 +18,6 @@ let
 in
 {
   imports = [ ./hardware-configuration.nix ];
-  hardware.enableRedistributableFirmware = true;
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "unrar"

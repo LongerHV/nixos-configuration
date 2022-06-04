@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  hardware.enableRedistributableFirmware = true;
   nix = {
     package = pkgs.nix;
     extraOptions = ''
