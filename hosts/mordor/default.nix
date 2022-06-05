@@ -21,16 +21,15 @@
   boot.tmpOnTmpfs = true;
   zramSwap.enable = true;
 
-  networking.hostName = "mordor";
-  networking.hostId = "0c55ff12";
-
   networking = {
+    hostName = "mordor";
+    hostId = "0c55ff12";
     useDHCP = false;
     enableIPv6 = false;
+    networkmanager.enable = true;
     usePredictableInterfaceNames = false;
     interfaces.eth0.useDHCP = true;
   };
 
   system.stateVersion = "22.05";
 }
-

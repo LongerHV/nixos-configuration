@@ -34,7 +34,7 @@
             home-manager.users."${username}" = import home_import;
             users.users."${username}" = {
               isNormalUser = true;
-              extraGroups = [ "wheel" ];
+              extraGroups = [ "wheel" "networkmanager" ];
             };
           }
         ] ++ modules;
