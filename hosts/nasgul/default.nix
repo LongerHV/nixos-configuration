@@ -19,10 +19,6 @@ in
 {
   imports = [ ./hardware-configuration.nix ];
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "unrar"
-  ];
-
   boot.loader.grub = {
     enable = true;
     efiSupport = true;

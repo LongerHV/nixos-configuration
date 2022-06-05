@@ -1,8 +1,11 @@
 { pkgs, ... }:
+
 {
   environment = {
     systemPackages = with pkgs; [
       firefox
+      wl-clipboard
+      spotify
     ];
   };
 

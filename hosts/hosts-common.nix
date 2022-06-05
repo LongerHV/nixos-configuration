@@ -1,6 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "unrar"
+    "spotify"
+    "spotify-unwrapped"
+  ];
+
+
   hardware.enableRedistributableFirmware = true;
   nix = {
     package = pkgs.nix;
