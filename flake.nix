@@ -55,6 +55,7 @@
       nixosConfigurations = {
         mordor  = mkHost "longer" [
           ./hosts/mordor
+          ./hosts/with-gui.nix
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-gpu-amd
         ];
