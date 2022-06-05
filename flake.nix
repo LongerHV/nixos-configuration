@@ -21,7 +21,7 @@
         neovim-nightly-overlay.overlay
         overlay-unstable
       ];
-      mkHost = username: modules: nixpkgs.lib.nixosSystem {
+      mkHost = { username ? "longer", modules ? [ ], home_import ? ./home }: nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./hosts/hosts-common.nix
@@ -31,7 +31,7 @@
             nixpkgs.overlays = overlays;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users."${username}" = import ./home;
+            home-manager.users."${username}" = import home_import;
             users.users."${username}" = {
               isNormalUser = true;
               extraGroups = [ "wheel" ];
@@ -39,7 +39,7 @@
           }
         ] ++ modules;
       };
-      mkHome = username: imports: home-manager.lib.homeManagerConfiguration {
+      mkHome = { username ? "longer", imports ? [ ] }: home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
         inherit username;
         homeDirectory = "/home/${username}";
@@ -53,26 +53,35 @@
     {
       # NixOS hosts configuration
       nixosConfigurations = {
-        mordor  = mkHost "longer" [
-          ./hosts/mordor
-          ./hosts/with-gui.nix
-          nixos-hardware.nixosModules.common-cpu-intel
-          nixos-hardware.nixosModules.common-gpu-amd
-        ];
-        nasgul = mkHost "longer" [
-          ./hosts/nasgul
-          nixos-hardware.nixosModules.common-cpu-amd
-          nixos-hardware.nixosModules.common-gpu-amd
-        ];
-        isoimage = mkHost "nixos" [ isoModule ];
+        mordor = mkHost {
+          home_import = ./home/mordor.nix;
+          modules = [
+            ./hosts/mordor
+            ./hosts/with-gui.nix
+            nixos-hardware.nixosModules.common-cpu-intel
+            nixos-hardware.nixosModules.common-gpu-amd
+          ];
+        };
+        nasgul = mkHost {
+          modules = [
+            ./hosts/nasgul
+            nixos-hardware.nixosModules.common-cpu-amd
+            nixos-hardware.nixosModules.common-gpu-amd
+          ];
+        };
+        isoimage = mkHost {
+          username = "nixos";
+          modules = [ isoModule ];
+        };
       };
 
       # Standalone home-manager configuration for non-NixOS systems
       homeConfigurations = {
-        # Arch linux machine
-        longer = mkHome "longer" [ ./home ];
         # Ubuntu at work
-        mmieszczak = mkHome "mmieszczak" [ ./home/work.nix ];
+        mmieszczak = mkHome {
+          username = "mmieszczak";
+          imports = [ ./home/work.nix ];
+        };
       };
     };
 }

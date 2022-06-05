@@ -2,10 +2,7 @@
 
 {
   imports = [
-    ./config/packages.nix
-    ./config/neovim.nix
-    ./config/tmux.nix
-    ./config/zsh.nix
+    ./config/cli-packages.nix
     ./config/devops.nix
   ];
 }

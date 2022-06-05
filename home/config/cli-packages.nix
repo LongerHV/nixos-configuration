@@ -1,6 +1,12 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./neovim.nix
+    ./tmux.nix
+    ./zsh.nix
+  ];
+
   home.packages = with pkgs.unstable; [
     mc
     subversion
@@ -15,3 +21,4 @@
     poetry
   ];
 }
+
