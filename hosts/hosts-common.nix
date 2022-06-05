@@ -5,6 +5,9 @@
     "unrar"
     "spotify"
     "spotify-unwrapped"
+    "steam"
+    "steam-original"
+    "steam-runtime"
   ];
 
 
