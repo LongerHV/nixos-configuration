@@ -53,6 +53,11 @@
     {
       # NixOS hosts configuration
       nixosConfigurations = {
+        mordor  = mkHost "longer" [
+          ./hosts/mordor
+          nixos-hardware.nixosModules.common-cpu-intel
+          nixos-hardware.nixosModules.common-gpu-amd
+        ];
         nasgul = mkHost "longer" [
           ./hosts/nasgul
           nixos-hardware.nixosModules.common-cpu-amd
