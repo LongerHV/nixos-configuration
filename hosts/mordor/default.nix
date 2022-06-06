@@ -21,12 +21,20 @@
   boot.tmpOnTmpfs = true;
   zramSwap.enable = true;
 
+  services.dnsmasq = {
+    enable = true;
+  };
   networking = {
     hostName = "mordor";
     hostId = "0c55ff12";
     useDHCP = false;
     enableIPv6 = false;
-    networkmanager.enable = true;
+    nameservers = [ "192.168.1.243" "1.1.1.1" ];
+    dhcpcd.enable = false;
+    networkmanager = {
+      enable = true;
+      dns = "dnsmasq";
+    };
     usePredictableInterfaceNames = false;
     interfaces.eth0.useDHCP = true;
   };
