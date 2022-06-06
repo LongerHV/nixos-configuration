@@ -29,6 +29,7 @@ local indent_map = {
 	cpp = { tabstop = 2, shiftwidth = 2, expandtab = true },
 	nix = { tabstop = 2, shiftwidth = 2, expandtab = true },
 	js = { tabstop = 4, shiftwidth = 4, expandtab = true },
+	markdown = { tabstop = 4, shiftwidth = 4, expandtab = true },
 }
 local group = vim.api.nvim_create_augroup("MyCustomIndents", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
