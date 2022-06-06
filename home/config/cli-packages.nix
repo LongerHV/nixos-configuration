@@ -20,5 +20,11 @@
     cht-sh
     poetry
   ];
+
+  programs = {
+    gh = {
+      enable = true;
+    };
+  };
 }
 
