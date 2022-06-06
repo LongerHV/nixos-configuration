@@ -28,6 +28,7 @@ local indent_map = {
 	c = { tabstop = 2, shiftwidth = 2, expandtab = true },
 	cpp = { tabstop = 2, shiftwidth = 2, expandtab = true },
 	nix = { tabstop = 2, shiftwidth = 2, expandtab = true },
+	json = { tabstop = 2, shiftwidth = 2, expandtab = true },
 	js = { tabstop = 4, shiftwidth = 4, expandtab = true },
 	markdown = { tabstop = 4, shiftwidth = 4, expandtab = true },
 }
