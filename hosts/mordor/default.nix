@@ -29,7 +29,7 @@
     hostId = "0c55ff12";
     useDHCP = false;
     enableIPv6 = false;
-    nameservers = [ "192.168.1.243" "1.1.1.1" ];
+    nameservers = [ "192.168.1.243" ];
     dhcpcd.enable = false;
     networkmanager = {
       enable = true;
