@@ -20,6 +20,7 @@
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.tmpOnTmpfs = true;
   zramSwap.enable = true;
+  hardware.bluetooth.enable = true;
 
   services.dnsmasq = {
     enable = true;
