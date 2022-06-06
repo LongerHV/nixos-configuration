@@ -36,6 +36,7 @@
               isNormalUser = true;
               extraGroups = [ "wheel" "networkmanager" ];
             };
+            environment.systemPackages = [ agenix.defaultPackage.x86_64-linux ];
           }
         ] ++ modules;
       };
