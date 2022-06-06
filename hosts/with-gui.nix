@@ -14,6 +14,7 @@
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.layout = "pl";
 
+  security.rtkit.enable = true;
   sound.enable = true;
   services.pipewire = {
     enable = true;
