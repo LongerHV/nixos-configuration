@@ -32,7 +32,8 @@
   environment = {
     systemPackages = with pkgs; [
       git
-      bind
+      dnsutils
+      pciutils
     ];
     pathsToLink = [ "/share/zsh" ];
   };
