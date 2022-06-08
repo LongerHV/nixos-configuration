@@ -1,5 +1,7 @@
 # NASgul
 
+Personal NAS server.
+
 ## TODO
 
 [x] Update to NixOS 22.05
