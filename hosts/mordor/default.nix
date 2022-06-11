@@ -40,5 +40,11 @@
     interfaces.eth0.useDHCP = true;
   };
 
+  users.users.longer.extraGroups = [ "docker" ];
+  virtualisation.docker = {
+    enable = false;
+    storageDriver = "zfs";
+  };
+
   system.stateVersion = "22.05";
 }

@@ -27,6 +27,7 @@
     keyMap = "pl";
   };
 
+  environment.shells = [ pkgs.zsh ];
   users.defaultUserShell = pkgs.zsh;
   programs.neovim = { enable = true; defaultEditor = true; };
   environment = {

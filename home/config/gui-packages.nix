@@ -10,11 +10,4 @@
     brave
     signal-desktop
   ];
-
-  services = {
-    kdeconnect = {
-      enable = true;
-      indicator = true;
-    };
-  };
 }
