@@ -58,8 +58,6 @@
           home_import = ./home/mordor.nix;
           modules = [
             ./hosts/mordor
-            ./hosts/with-gui.nix
-            ./hosts/gaming.nix
             nixos-hardware.nixosModules.common-cpu-intel
             nixos-hardware.nixosModules.common-gpu-amd
           ];
