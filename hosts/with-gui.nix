@@ -17,6 +17,7 @@
       geary # email reader
       evince # document viewer
       totem # video player
+      pkgs.gnome-console
     ];
   };
 
@@ -30,6 +31,7 @@
   };
   services.xserver.desktopManager.gnome.enable = true;
   services.udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
+  programs.gnome-terminal.enable = true;
   programs.kdeconnect = {
     enable = true;
     package = pkgs.gnomeExtensions.gsconnect;

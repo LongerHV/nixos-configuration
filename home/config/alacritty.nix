@@ -4,6 +4,8 @@ let
   myFont = "Hack Nerd Font";
 in
 {
+  imports = [ ./fonts.nix ];
+
   programs.alacritty = {
     enable = true;
     settings = {

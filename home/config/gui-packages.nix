@@ -1,12 +1,9 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
-  imports = [ ./alacritty.nix ];
-
-  fonts.fontconfig.enable = true;
+  imports = [ ./alacritty.nix ./dconf.nix ];
 
   home.packages = with pkgs.unstable; [
-    (nerdfonts.override { fonts = [ "Hack" ]; })
     brave
     signal-desktop
   ];
