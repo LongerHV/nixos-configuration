@@ -13,7 +13,7 @@
   };
   outputs = inputs@{ nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, neovim-nightly-overlay, agenix, ... }:
     let
-      isoModule = "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-plasma5.nix";
+      isoModule = "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix";
       overlay-unstable = final: prev: {
         unstable = nixpkgs-unstable.legacyPackages.${prev.system};
       };
@@ -73,7 +73,8 @@
         };
         isoimage = mkHost {
           username = "nixos";
-          modules = [ isoModule ];
+          home_import = ./home/iso.nix;
+          modules = [ ./hosts/iso isoModule ];
         };
       };
 
