@@ -41,6 +41,7 @@
   };
 
   virtualisation.libvirtd.enable = true;
+  virtualisation.podman.enable = true;
   environment.systemPackages = with pkgs; [ virt-manager ];
   users.users.longer.extraGroups = [ "libvirtd" ];
 
