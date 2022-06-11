@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  imports = [ ./alacritty.nix ./dconf.nix ];
+  imports = [ ./alacritty.nix ./gnome.nix ];
 
   home.packages = with pkgs.unstable; [
     brave

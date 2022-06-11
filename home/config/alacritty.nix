@@ -2,6 +2,7 @@
 
 let
   myFont = "Hack Nerd Font";
+  colors = import ./colors.nix;
 in
 {
   imports = [ ./fonts.nix ];
@@ -35,36 +36,7 @@ in
         size = 14.0;
         offset = { x = 1; y = 1; };
       };
-      colors = {
-        primary = {
-          background = "#1b2b34";
-          foreground = "#d8dee9";
-        };
-        cursor = {
-          text = "#1b2b34";
-          cursor = "#ffffff";
-        };
-        normal = {
-          black = "#343d46";
-          red = "#EC5f67";
-          green = "#99C794";
-          yellow = "#FAC863";
-          blue = "#6699cc";
-          magenta = "#c594c5";
-          cyan = "#5fb3b3";
-          white = "#d8dee9";
-        };
-        bright = {
-          black = "#343d46";
-          red = "#EC5f67";
-          green = "#99C794";
-          yellow = "#FAC863";
-          blue = "#6699cc";
-          magenta = "#c594c5";
-          cyan = "#5fb3b3";
-          white = "#d8dee9";
-        };
-      };
+      colors = colors.alacritty_colors;
     };
   };
 }

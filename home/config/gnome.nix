@@ -6,6 +6,7 @@ let
     sha256 = "b09b411a9c7fc7dc5be312ca9e4e4b8ee354358daa792381f207c9f4946d95fe";
   };
   profileUUID = "9e6bced8-89d4-4c52-aead-bbd59cbaad09";
+  colors = import ./colors.nix;
 in
 {
   imports = [ ./fonts.nix ];
@@ -36,11 +37,11 @@ in
       font = "Hack Nerd Font 14";
       use-system-font = false;
       use-theme-colors = false;
-      background-color = "#1B2B34";
-      foreground-color = "#CDD3DE";
-      bold-color = "#CDD3DE";
+      background-color = colors.primary.background;
+      foreground-color = colors.primary.foreground;
+      bold-color = colors.primary.foreground;
       bold-color-same-as-fg = true;
-      palette = "['#1B2B34', '#EC5F67', '#99C794', '#FAC863', '#6699CC', '#C594C5', '#5FB3B3', '#A7ADBA', '#4F5B66', '#EC5F67', '#99C794', '#FAC863', '#6699CC', '#C594C5', '#5FB3B3', '#D8DEE9']";
+      inherit (colors) palette;
     };
   };
 }
