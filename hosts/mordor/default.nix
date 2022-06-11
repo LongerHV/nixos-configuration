@@ -40,11 +40,9 @@
     interfaces.eth0.useDHCP = true;
   };
 
-  users.users.longer.extraGroups = [ "docker" ];
-  virtualisation.docker = {
-    enable = false;
-    storageDriver = "zfs";
-  };
+  virtualisation.libvirtd.enable = true;
+  environment.systemPackages = with pkgs; [ virt-manager ];
+  users.users.longer.extraGroups = [ "libvirtd" ];
 
   system.stateVersion = "22.05";
 }
