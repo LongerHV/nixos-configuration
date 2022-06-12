@@ -1,7 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ../with-gui.nix ../gaming.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ../with-gui.nix
+    ../gaming.nix
+    ../cache.nix
+  ];
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub = {
