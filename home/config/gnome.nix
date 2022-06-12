@@ -42,6 +42,8 @@ in
       bold-color = colors.primary.foreground;
       bold-color-same-as-fg = true;
       inherit (colors) palette;
+      use-transparent-background = true;
+      background-transparency-percent = 15;
     };
   };
 }
