@@ -71,11 +71,19 @@ in
     };
   };
 
+  age.secrets = {
+    cachePrivKey.file = ../../secrets/nasgul-cache-priv-key.pem.age;
+  };
+
   users.groups.multimedia = { members = [ "longer" ]; };
 
   virtualisation.docker.enable = true;
 
   services = {
+    nix-serve = {
+      enable = true;
+      secretKeyFile = config.age.secrets.cachePrivKey.path;
+    };
     blocky = {
       enable = true;
       settings = {
@@ -128,6 +136,7 @@ in
             transmission_router = traefik_router "transmission";
             netdata_router = traefik_router "netdata";
             jellyfin_router = traefik_router "jellyfin";
+            cache_router = traefik_router "cache";
             # nextcloud_router = traefik_router "nextcloud";
             printer_router = traefik_router "printer";
           };
@@ -139,6 +148,7 @@ in
             transmission_service = traefik_service { url = "localhost"; port = 9091; };
             netdata_service = traefik_service { url = "localhost"; port = 19999; };
             jellyfin_service = traefik_service { url = "localhost"; port = 8096; };
+            cache_service = traefik_service { url = "localhost"; port = 5000; };
             # nextcloud_service = traefik_service { url = "192.168.100.11"; port = 80; };
             printer_service = traefik_service { url = "192.168.1.183"; port = 80; };
           };
