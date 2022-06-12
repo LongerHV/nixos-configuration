@@ -11,4 +11,5 @@ let
 in
 {
   "test.age".publicKeys = systems ++ users;
+  "nasgul-cache-priv-key.pem.age".publicKeys = [ nasgul nasgul_user ];
 }
