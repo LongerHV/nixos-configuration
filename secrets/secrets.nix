@@ -11,5 +11,7 @@ let
 in
 {
   "test.age".publicKeys = systems ++ users;
-  "nasgul-cache-priv-key.pem.age".publicKeys = [ nasgul nasgul_user ];
+  "nasgul_cache_priv_key.pem.age".publicKeys = [ nasgul nasgul_user ];
+  "nasgul_authelia_jwt_secret.age".publicKeys = [ nasgul nasgul_user ];
+  "nasgul_authelia_storage_encryption_key.age".publicKeys = [ nasgul nasgul_user ];
 }

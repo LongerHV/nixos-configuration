@@ -72,7 +72,9 @@ in
   };
 
   age.secrets = {
-    cachePrivKey.file = ../../secrets/nasgul-cache-priv-key.pem.age;
+    cache_priv_key.file = ../../secrets/nasgul_cache_priv_key.pem.age;
+    authelia_jwt_secret.file = ../../secrets/nasgul_authelia_jwt_secret.age;
+    authelia_storage_encryption_key.file = ../../secrets/nasgul_authelia_storage_encryption_key.age;
   };
 
   users.groups.multimedia = { members = [ "longer" ]; };
@@ -82,7 +84,7 @@ in
   services = {
     nix-serve = {
       enable = true;
-      secretKeyFile = config.age.secrets.cachePrivKey.path;
+      secretKeyFile = config.age.secrets.cache_priv_key.path;
     };
     blocky = {
       enable = true;
@@ -137,6 +139,7 @@ in
             netdata_router = traefik_router "netdata";
             jellyfin_router = traefik_router "jellyfin";
             cache_router = traefik_router "cache";
+            authelia_router = traefik_router "authelia";
             # nextcloud_router = traefik_router "nextcloud";
             printer_router = traefik_router "printer";
           };
@@ -149,6 +152,7 @@ in
             netdata_service = traefik_service { url = "localhost"; port = 19999; };
             jellyfin_service = traefik_service { url = "localhost"; port = 8096; };
             cache_service = traefik_service { url = "localhost"; port = 5000; };
+            authelia_service = traefik_service { url = "localhost"; port = 9092; };
             # nextcloud_service = traefik_service { url = "192.168.100.11"; port = 80; };
             printer_service = traefik_service { url = "192.168.1.183"; port = 80; };
           };
@@ -184,6 +188,63 @@ in
         rpc-authentication-required = false;
         rpc-host-whitelist-enabled = true;
         rpc-host-whitelist = "transmission.${my_domain}";
+      };
+    };
+    authelia = {
+      enable = true;
+      jwtSecretFile = config.age.secrets.authelia_jwt_secret.path;
+      storageEncryptionKeyFile = config.age.secrets.authelia_storage_encryption_key.path;
+      settings = {
+        theme = "dark";
+        default_2fa_method = "totp";
+        server = {
+          host = "0.0.0.0";
+          port = 9092;
+          path = "";
+        };
+        session = {
+          name = "authelia-session";
+          domain = "nasgul.lan";
+        };
+        authentication_backend = {
+          file = {
+            path = "/config/users_database.yml";
+            password = {
+              algorithm = "argon2id";
+              iterations = 1;
+              key_length = 32;
+              salt_length = 16;
+              memory = 1024;
+              parallelism = 8;
+            };
+          };
+        };
+        access_control = {
+          default_policy = "deny";
+          networks = [
+            {
+              name = "internal";
+              networks = [ "192.168.1.0/24" ];
+            }
+          ];
+          rules = [
+            {
+              domain = "*.lan";
+              policy = "one_factor";
+              networks = [ "internal" ];
+            }
+          ];
+        };
+        storage = {
+          local = {
+            path = "/config/dp.sqlite3";
+          };
+        };
+        notifier = {
+          filesystem = {
+            filename = "/config/notification.txt";
+          };
+        };
       };
     };
   };
