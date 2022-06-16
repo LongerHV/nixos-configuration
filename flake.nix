@@ -20,6 +20,7 @@
       overlays = [
         neovim-nightly-overlay.overlay
         overlay-unstable
+        (import ./packages/overlay.nix)
       ];
       mkHost = { username ? "longer", modules ? [ ], home_import ? ./home }: nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
