@@ -246,7 +246,7 @@ in
         };
         storage = {
           local = {
-            path = "${config.services.authelia.dataDir}/dp.sqlite3";
+            path = "${config.services.authelia.dataDir}/db.sqlite3";
           };
         };
         notifier = {
