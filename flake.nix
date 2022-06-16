@@ -27,7 +27,7 @@
         modules = [
           ./hosts/hosts-common.nix
           agenix.nixosModule
-          ./modules/authelia.nix
+          ./modules
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = overlays;
