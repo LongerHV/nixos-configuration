@@ -14,10 +14,6 @@ in
 {
   options.services.authelia = {
     enable = mkEnableOption "authelia";
-    image = mkOption {
-      type = types.str;
-      default = "authelia/authelia:4.35.6";
-    };
     dataDir = mkOption {
       default = "/var/lib/authelia";
       type = types.path;
@@ -30,7 +26,6 @@ in
     };
     settings = mkOption {
       type = types.attrs;
-      default = { };
     };
     user = mkOption {
       default = "authelia";

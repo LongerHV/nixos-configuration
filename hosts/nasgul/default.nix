@@ -87,6 +87,9 @@ in
 
   virtualisation.docker.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    authelia
+  ];
   services = {
     nix-serve = {
       enable = true;
