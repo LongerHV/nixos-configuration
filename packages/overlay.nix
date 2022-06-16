@@ -17,4 +17,5 @@ final: prev:
       ];
     });
   });
+  authelia = prev.callPackage ./authelia.nix { };
 }
