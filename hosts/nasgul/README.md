@@ -2,16 +2,44 @@
 
 Personal NAS server.
 
+## Features
+
+- Mirrored ZFS boot drives
+
+- 4x4TB hard drive Raid-Z1 array
+
+- Traefik reverse proxy
+
+- Authelia SSO (in progress)
+
+- Jellyfin media server
+
+- Sonarr/Radarr/Bazarr/Prowlarr media management
+
+- Transmission BitTorrent client
+
+- Netdata monitoring
+
+- NixOS cache
+
 ## TODO
 
-[x] Update to NixOS 22.05
+[ ] Integrate Authelia and Traefik
 
-[x] ZFS data pool
+[ ] Database (maria, postgresql?) - for authelia, gitea, nextcloud
 
-[x] Add `blocky` adblocker
+[ ] Do I need LDAP ??? (maybe Authelia file storage is sufficient?)
 
-[ ] Add Cloudflare certificate
+[ ] Redis (for authelia)
 
-[ ] 2FA for external traefik routes (keycloak, authelia, LDAP, dex?)
+[ ] Add Cloudflare certificate (+ setup SSL on Traefik)
 
 [ ] Nextcloud
+
+[ ] Gitea
+
+[ ] Prometheus + Grafana
+
+## Resources
+
+- [Authelia tutorial](https://www.smarthomebeginner.com/docker-authelia-tutorial/)
