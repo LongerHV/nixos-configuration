@@ -73,8 +73,14 @@ in
 
   age.secrets = {
     cache_priv_key.file = ../../secrets/nasgul_cache_priv_key.pem.age;
-    authelia_jwt_secret.file = ../../secrets/nasgul_authelia_jwt_secret.age;
-    authelia_storage_encryption_key.file = ../../secrets/nasgul_authelia_storage_encryption_key.age;
+    authelia_jwt_secret = {
+      file = ../../secrets/nasgul_authelia_jwt_secret.age;
+      owner = config.services.authelia.user;
+    };
+    authelia_storage_encryption_key = {
+      file = ../../secrets/nasgul_authelia_storage_encryption_key.age;
+      owner = config.services.authelia.user;
+    };
   };
 
   users.groups.multimedia = { members = [ "longer" ]; };
@@ -208,7 +214,7 @@ in
         };
         authentication_backend = {
           file = {
-            path = "/config/users_database.yml";
+            path = "${config.services.authelia.dataDir}/users_database.yml";
             password = {
               algorithm = "argon2id";
               iterations = 1;
@@ -237,12 +243,12 @@ in
         };
         storage = {
           local = {
-            path = "/config/dp.sqlite3";
+            path = "${config.services.authelia.dataDir}/dp.sqlite3";
           };
         };
         notifier = {
           filesystem = {
-            filename = "/config/notification.txt";
+            filename = "${config.services.authelia.dataDir}/notification.txt";
           };
         };
       };

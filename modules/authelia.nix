@@ -6,7 +6,7 @@ let
   cfg = config.services.authelia;
   opt = options.services.authelia;
   rootDir = "/var/lib/authelia";
-  configFile = writeTextFile {
+  configFile = pkgs.writeTextFile {
     name = "configuration.yml";
     text = builtins.toJSON cfg.settings;
   };
