@@ -26,7 +26,7 @@ Personal NAS server.
 
 [ ] Integrate Authelia and Traefik
 
-[ ] Database (maria, postgresql?) - for authelia, gitea, nextcloud
+[x] Database (mariadb) - for authelia, gitea, nextcloud
 
 [ ] Do I need LDAP ??? (maybe Authelia file storage is sufficient?)
 
@@ -36,7 +36,9 @@ Personal NAS server.
 
 [ ] Nextcloud
 
-[ ] Gitea
+[x] Gitea
+
+[ ] SMTP for Authelia
 
 [ ] Prometheus + Grafana
 
