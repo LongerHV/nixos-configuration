@@ -149,6 +149,7 @@ in
             jellyfin_router = traefik_router "jellyfin";
             cache_router = traefik_router "cache";
             authelia_router = traefik_router "authelia";
+            gitea_router = traefik_router "gitea";
             # nextcloud_router = traefik_router "nextcloud";
             printer_router = traefik_router "printer";
           };
@@ -162,6 +163,7 @@ in
             jellyfin_service = traefik_service { url = "localhost"; port = 8096; };
             cache_service = traefik_service { url = "localhost"; port = 5000; };
             authelia_service = traefik_service { url = "localhost"; port = 9092; };
+            gitea_service = traefik_service { url = "localhost"; port = 3000; };
             # nextcloud_service = traefik_service { url = "192.168.100.11"; port = 80; };
             printer_service = traefik_service { url = "192.168.1.183"; port = 80; };
           };
@@ -172,10 +174,29 @@ in
       enable = true;
       passwordAuthentication = false;
     };
-    # mysql = {
-    #   enable = true;
-    #   package = pkgs.mariadb;
-    # };
+    mysql = {
+      enable = true;
+      package = pkgs.mariadb_108;
+      dataDir = "/chonk/database";
+      ensureDatabases = [
+        "authelia"
+        "gitea"
+      ];
+      ensureUsers = [
+        {
+          name = config.services.authelia.user;
+          ensurePermissions = {
+            "authelia.*" = "ALL PRIVILEGES";
+          };
+        }
+        {
+          name = config.services.gitea.database.user;
+          ensurePermissions = {
+            "gitea.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
+    };
     jellyfin = { enable = true; group = "multimedia"; };
     sonarr = { enable = true; group = "multimedia"; };
     radarr = { enable = true; group = "multimedia"; };
@@ -197,6 +218,14 @@ in
         rpc-authentication-required = false;
         rpc-host-whitelist-enabled = true;
         rpc-host-whitelist = "transmission.${my_domain}";
+      };
+    };
+    gitea = {
+      enable = true;
+      repositoryRoot = "/chonk/repositories";
+      database = {
+        type = "mysql";
+        socket = "/run/mysqld/mysqld.sock";
       };
     };
     authelia = {
