@@ -8,4 +8,7 @@
     default = "longer";
     type = lib.types.str;
   };
+  options.myDomain = lib.mkOption {
+    type = lib.types.str;
+  };
 }
