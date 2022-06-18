@@ -83,7 +83,7 @@ in
     };
   };
 
-  users.groups.multimedia = { members = [ "longer" ]; };
+  users.groups.multimedia = { members = [ config.mainUser ]; };
 
   virtualisation.docker.enable = true;
 

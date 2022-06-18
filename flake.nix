@@ -30,6 +30,7 @@
           ./modules
           home-manager.nixosModules.home-manager
           {
+            mainUser = username;
             nixpkgs.overlays = overlays;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

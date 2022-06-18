@@ -48,7 +48,7 @@
   virtualisation.libvirtd.enable = true;
   virtualisation.podman = { enable = true; dockerCompat = true; };
   environment.systemPackages = with pkgs; [ virt-manager ];
-  users.users.longer.extraGroups = [ "libvirtd" ];
+  users.users.${config.mainUser}.extraGroups = [ "libvirtd" ];
 
   system.stateVersion = "22.05";
 }
