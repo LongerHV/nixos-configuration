@@ -10,6 +10,8 @@
     shellAliases = {
       ll = "ls -lh --color=auto";
       la = "ls -lah --color=auto";
+      ns = "sudo nixos-rebuild switch --flake .";
+      hs = "home-manager switch --flake .";
     };
     initExtraBeforeCompInit = ''
       # Completion
