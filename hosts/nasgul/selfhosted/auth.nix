@@ -27,7 +27,7 @@
         host = "0.0.0.0";
         port = 9092;
       };
-      log.level = "debug";
+      log.level = "info";
       totp.issuer = "authelia.com";
       session = {
         name = "authelia-session";
