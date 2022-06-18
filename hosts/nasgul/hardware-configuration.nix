@@ -58,6 +58,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/chonk/nextcloud" =
+    { device = "chonk/nextcloud";
+      fsType = "zfs";
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/EC83-EFDC";
       fsType = "vfat";

@@ -12,6 +12,8 @@ Personal NAS server.
 
 - Authelia SSO (in progress)
 
+- Nextcloud
+
 - Jellyfin media server
 
 - Sonarr/Radarr/Bazarr/Prowlarr media management
@@ -34,7 +36,7 @@ Personal NAS server.
 
 [ ] Add Cloudflare certificate (+ setup SSL on Traefik)
 
-[ ] Nextcloud
+[x] Nextcloud
 
 [x] Gitea
 
@@ -45,3 +47,4 @@ Personal NAS server.
 ## Resources
 
 - [Authelia tutorial](https://www.smarthomebeginner.com/docker-authelia-tutorial/)
+- [Declarative containers](https://blog.beardhatcode.be/2020/12/Declarative-Nixos-Containers.html)

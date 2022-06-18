@@ -15,6 +15,7 @@ let
         ];
       };
     };
+  inherit (config.age) secrets;
 in
 {
   imports = [ ./hardware-configuration.nix ];
@@ -53,6 +54,8 @@ in
     enableIPv6 = false;
     usePredictableInterfaceNames = false;
     interfaces.eth0.useDHCP = true;
+    nameservers = [ "127.0.0.1" ];
+    dhcpcd.extraConfig = "nohook resolv.conf";
     firewall = {
       allowedTCPPorts = [
         80
@@ -80,6 +83,10 @@ in
     authelia_storage_encryption_key = {
       file = ../../secrets/nasgul_authelia_storage_encryption_key.age;
       owner = config.services.authelia.user;
+    };
+    nextcloud_admin_password = {
+      file = ../../secrets/nasgul_nextcloud_admin_password.age;
+      owner = "nextcloud";
     };
   };
 
@@ -150,7 +157,7 @@ in
             cache_router = traefik_router "cache";
             authelia_router = traefik_router "authelia";
             gitea_router = traefik_router "gitea";
-            # nextcloud_router = traefik_router "nextcloud";
+            nextcloud_router = traefik_router "nextcloud";
             printer_router = traefik_router "printer";
           };
           services = {
@@ -164,7 +171,7 @@ in
             cache_service = traefik_service { url = "localhost"; port = 5000; };
             authelia_service = traefik_service { url = "localhost"; port = 9092; };
             gitea_service = traefik_service { url = "localhost"; port = 3000; };
-            # nextcloud_service = traefik_service { url = "192.168.100.11"; port = 80; };
+            nextcloud_service = traefik_service { url = "192.168.2.10"; port = 80; };
             printer_service = traefik_service { url = "192.168.1.183"; port = 80; };
           };
         };
@@ -176,8 +183,9 @@ in
     };
     mysql = {
       enable = true;
-      package = pkgs.mariadb_108;
+      package = pkgs.mariadb_106;
       dataDir = "/chonk/database";
+      settings.mysqld.innodb_read_only_compressed = 0;
       ensureDatabases = [
         "authelia"
         "gitea"
@@ -193,6 +201,12 @@ in
           name = config.services.gitea.database.user;
           ensurePermissions = {
             "gitea.*" = "ALL PRIVILEGES";
+          };
+        }
+        {
+          name = "nextcloud";
+          ensurePermissions = {
+            "nextcloud.*" = "ALL PRIVILEGES";
           };
         }
       ];
@@ -287,42 +301,64 @@ in
     };
   };
 
-  # containers = {
-  #   nextcloud = {
-  #     ephemeral = true;
-  #     autoStart = true;
-  #     privateNetwork = true;
-  #     hostAddress = "192.168.100.2";
-  #     localAddress = "192.168.100.11";
-  #     config = { config, pkgs, ... }: {
-  #       networking.firewall.allowedTCPPorts = [ 80 ];
-  #       services.nextcloud = {
-  #         enable = true;
-  #         package = pkgs.nextcloud22;
-  #         hostName = "nextcloud.${my_domain}";
-  #         config.adminpassFile = "/etc/nextcloudpass";
-  #       };
-  #     };
-  #     forwardPorts = [
-  #       {
-  #         containerPort = 80;
-  #         hostPort = 81;
-  #         protocol = "tcp";
-  #       }
-  #     ];
-  #     bindMounts = {
-  #       "/etc/nextcloudpass" = {
-  #         hostPath = "/etc/nextcloudpass";
-  #         isReadOnly = true;
-  #       };
-  #       "/var/lib/nextcloud" = {
-  #         hostPath = "/var/lib/nextcloud";
-  #         # hostPath = "/chonk/nextcloud";
-  #         isReadOnly = false;
-  #       };
-  #     };
-  #   };
-  # };
+  users.users.nextcloud = {
+    uid = 997;
+    home = "/var/lib/nextcloud";
+    group = "nextcloud";
+    isSystemUser = true;
+  };
+  users.groups.nextcloud = {
+    gid = 995;
+  };
+
+  containers = {
+    nextcloud = {
+      ephemeral = true;
+      autoStart = true;
+      privateNetwork = true;
+      hostAddress = "192.168.2.1";
+      localAddress = "192.168.2.10";
+      config = { config, pkgs, ... }: {
+        networking.firewall.allowedTCPPorts = [ 80 ];
+        networking.nameservers = [ "192.168.2.1" ];
+        networking.dhcpcd.extraConfig = "nohook resolv.conf";
+        services.nextcloud = {
+          enable = true;
+          package = pkgs.nextcloud24;
+          hostName = "nextcloud.${my_domain}";
+          config = {
+            dbtype = "mysql";
+            dbhost = "localhost:/run/mysqld/mysqld.sock";
+            adminpassFile = secrets.nextcloud_admin_password.path;
+          };
+        };
+        users.users.nextcloud = {
+          uid = 997;
+          home = "/var/lib/nextcloud";
+          group = "nextcloud";
+          isSystemUser = true;
+        };
+        users.groups.nextcloud = {
+          gid = 995;
+        };
+        system.stateVersion = "22.05";
+      };
+      bindMounts = {
+        ${secrets.nextcloud_admin_password.path} = {
+          hostPath = secrets.nextcloud_admin_password.path;
+          isReadOnly = true;
+        };
+        "/run/mysqld/mysqld.sock" = {
+          hostPath = "/run/mysqld/mysqld.sock";
+          isReadOnly = false;
+        };
+        "/var/lib/nextcloud" = {
+          hostPath = "/chonk/nextcloud";
+          isReadOnly = false;
+        };
+      };
+    };
+  };
   system.stateVersion = "21.05";
 }
 
