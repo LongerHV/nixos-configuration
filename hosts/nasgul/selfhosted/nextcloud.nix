@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   inherit (config) myDomain;
@@ -27,6 +27,7 @@ in
   };
 
   networking.nat.internalInterfaces = [ "ve-nextcloud" ];
+  systemd.services."container@nextcloud".after = lib.mkForce [ "network.target" "mysql.service" ];
 
   users = {
     users.nextcloud = {
