@@ -3,8 +3,17 @@
 let
   inherit (config) myDomain;
   inherit (config.age) secrets;
+  util = pkgs.callPackage ./util.nix { inherit config; };
 in
 {
+  services.traefik.dynamicConfigOptions.http = {
+    routers.nextcloud_router = util.traefik_router {
+      subdomain = "nextcloud";
+      middlewares = [ "nextcloud-redirectregex" ];
+    };
+    services.nextcloud_service = util.traefik_service { url = "192.168.2.10"; port = 80; };
+  };
+
   age.secrets = {
     nextcloud_admin_password = {
       file = ../../../secrets/nasgul_nextcloud_admin_password.age;
@@ -14,7 +23,7 @@ in
 
   networking.nat = {
     enable = true;
-    internalInterfaces = [ "ve-*" ];
+    internalInterfaces = [ "ve-nextcloud" ];
     externalInterface = "eth0";
   };
 
@@ -25,6 +34,7 @@ in
       group = "nextcloud";
       isSystemUser = true;
     };
+    users."${config.mainUser}".extraGroups = [ "nextcloud" ];
     groups.nextcloud = {
       gid = 995;
     };
@@ -41,6 +51,7 @@ in
         networking.firewall.allowedTCPPorts = [ 80 ];
         networking.nameservers = [ "192.168.2.1" ];
         networking.dhcpcd.extraConfig = "nohook resolv.conf";
+        time.timeZone = "Europe/Warsaw";
         services.nextcloud = {
           enable = true;
           package = pkgs.nextcloud24;
@@ -49,6 +60,7 @@ in
             dbtype = "mysql";
             dbhost = "localhost:/run/mysqld/mysqld.sock";
             adminpassFile = secrets.nextcloud_admin_password.path;
+            extraTrustedDomains = [ "nextcloud.local.${myDomain}" ];
           };
         };
         users.users.nextcloud = {

@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  util = pkgs.callPackage ./util.nix { inherit config; };
+in
 {
   age.secrets = {
     authelia_jwt_secret = {
@@ -15,6 +18,11 @@
   environment.systemPackages = with pkgs; [
     authelia
   ];
+
+  services.traefik.dynamicConfigOptions.http = {
+    routers.auth_router = util.traefik_router { subdomain = "auth"; };
+    services.auth_service = util.traefik_service { port = 9092; };
+  };
 
   services.authelia = {
     enable = true;

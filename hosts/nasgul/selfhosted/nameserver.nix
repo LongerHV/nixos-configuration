@@ -2,8 +2,8 @@
 
 {
   networking = {
-    nameservers = [ "127.0.0.1" ];
-    dhcpcd.extraConfig = "nohook resolv.conf";
+    # nameservers = [ "127.0.0.1" ];
+    # dhcpcd.extraConfig = "nohook resolv.conf";
     firewall = {
       allowedTCPPorts = [
         53
@@ -18,10 +18,10 @@
     enable = true;
     settings = {
       port = 53;
-      # Cloudflare and Quad9 upstream DNS servers (maybe change to unbound?)
+      # Cloudflare upstream DNS servers (maybe change to unbound?)
       upstream.default = [
         "1.1.1.1"
-        "9.9.9.9"
+        "1.0.0.1"
       ];
       # Reverse lookup (does this even work?)
       clientLookup = {
@@ -31,7 +31,7 @@
       customDNS = {
         customTTL = "1h";
         mapping = {
-          "${config.myDomain}" = "192.168.1.243";
+          "local.${config.myDomain}" = "192.168.1.243";
         };
       };
       # Redirect all .lan queries to the router

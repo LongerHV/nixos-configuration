@@ -8,7 +8,7 @@ Personal NAS server.
 
 - 4x4TB hard drive Raid-Z1 array
 
-- Traefik reverse proxy
+- Traefik reverse proxy (with SSL)
 
 - Authelia SSO (in progress)
 
@@ -34,7 +34,7 @@ Personal NAS server.
 
 [ ] Redis (for authelia)
 
-[ ] Add Cloudflare certificate (+ setup SSL on Traefik)
+[x] Add Cloudflare certificate (+ setup SSL on Traefik)
 
 [x] Nextcloud
 

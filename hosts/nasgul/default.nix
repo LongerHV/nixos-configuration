@@ -2,7 +2,7 @@
 
 {
   imports = [ ./hardware-configuration.nix ./selfhosted ];
-  myDomain = "nasgul.lan";
+  myDomain = "longerhv.xyz";
 
   boot.loader.grub = {
     enable = true;

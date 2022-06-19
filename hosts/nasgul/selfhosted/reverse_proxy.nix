@@ -1,20 +1,17 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
-  my_domain = "nasgul.lan";
-  traefik_router = service:
+  util = pkgs.callPackage ./util.nix { inherit config; };
+  tlsDomains = [
     {
-      rule = "Host(`${service}.${config.myDomain}`)";
-      service = "${service}_service";
-    };
-  traefik_service = { url, port }:
-    {
-      loadBalancer = {
-        servers = [
-          { url = "http://${url}:${builtins.toString port}"; }
-        ];
-      };
-    };
+      main = "${config.myDomain}";
+      sans = [ "*.${config.myDomain}" ];
+    }
+    # {
+    #   main = "local.${config.myDomain}";
+    #   sans = [ "*.local.${config.myDomain}" ];
+    # }
+  ];
   inherit (config.age) secrets;
 in
 {
@@ -24,50 +21,82 @@ in
     8080
   ];
 
+  age.secrets = {
+    cloudflare_email = {
+      file = ../../../secrets/cloudflare_email.age;
+      owner = "traefik";
+    };
+    cloudflare_token = {
+      file = ../../../secrets/cloudflare_token.age;
+      owner = "traefik";
+    };
+  };
+
+  users.users."${config.mainUser}".extraGroups = [ "traefik" ];
+
+  systemd.services.traefik.environment = {
+    CF_API_EMAIL_FILE = config.age.secrets.cloudflare_email.path;
+    CF_DNS_API_TOKEN_FILE = config.age.secrets.cloudflare_token.path;
+  };
+
   services.traefik = {
     enable = true;
     # group = "docker";
     staticConfigOptions = {
+      log.level = "info";
       # providers.docker = { };
       entryPoints = {
-        web = { address = ":80"; };
-        websecure = { address = ":443"; };
+        web = {
+          address = ":80";
+          http.redirections.entryPoint = {
+            to = "websecure";
+            scheme = "https";
+          };
+        };
+        websecure = {
+          address = ":443";
+          http.tls = {
+            certResolver = "cloudflare";
+            domains = tlsDomains;
+          };
+        };
       };
       api = {
         insecure = true;
         dashboard = true;
       };
+      certificatesResolvers.cloudflare = {
+        acme = {
+          email = "michal@mieszczak.com.pl";
+          storage = "${config.services.traefik.dataDir}/acme.json";
+          dnsChallenge = {
+            provider = "cloudflare";
+            resolvers = [
+              "1.1.1.1:53"
+              "1.0.0.1:53"
+            ];
+          };
+        };
+      };
     };
     dynamicConfigOptions = {
       http = {
-        routers = {
-          bazarr_router = traefik_router "bazarr";
-          sonarr_router = traefik_router "sonarr";
-          radarr_router = traefik_router "radarr";
-          prowlarr_router = traefik_router "prowlarr";
-          transmission_router = traefik_router "transmission";
-          netdata_router = traefik_router "netdata";
-          jellyfin_router = traefik_router "jellyfin";
-          cache_router = traefik_router "cache";
-          authelia_router = traefik_router "authelia";
-          gitea_router = traefik_router "gitea";
-          nextcloud_router = traefik_router "nextcloud";
-          printer_router = traefik_router "printer";
+        middlewares = {
+          nextcloud-redirectregex.redirectRegex = {
+            permanent = true;
+            regex = "https://(.*)/.well-known/(card|cal)dav";
+            replacement = "https://\${1}/remote.php/dav/";
+          };
+          local-ip-whitelist.IPWhiteList = {
+            sourceRange = [ "192.168.1.1/24" ];
+          };
+          # TODO: Add cloudflare proxy ip ranges if I ever decide to open this to the internet
+          external-ip-whitelist.IPWhiteList = {
+            sourceRange = [];
+          };
         };
-        services = {
-          bazarr_service = traefik_service { url = "localhost"; port = 6767; };
-          sonarr_service = traefik_service { url = "localhost"; port = 8989; };
-          radarr_service = traefik_service { url = "localhost"; port = 7878; };
-          prowlarr_service = traefik_service { url = "localhost"; port = 9696; };
-          transmission_service = traefik_service { url = "localhost"; port = 9091; };
-          netdata_service = traefik_service { url = "localhost"; port = 19999; };
-          jellyfin_service = traefik_service { url = "localhost"; port = 8096; };
-          cache_service = traefik_service { url = "localhost"; port = 5000; };
-          authelia_service = traefik_service { url = "localhost"; port = 9092; };
-          gitea_service = traefik_service { url = "localhost"; port = 3000; };
-          nextcloud_service = traefik_service { url = "192.168.2.10"; port = 80; };
-          printer_service = traefik_service { url = "192.168.1.183"; port = 80; };
-        };
+        routers.cache_router = util.traefik_router { subdomain = "cache"; };
+        services.cache_service = util.traefik_service { port = 5000; };
       };
     };
   };
