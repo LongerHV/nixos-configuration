@@ -10,5 +10,6 @@ _:
     ./nameserver.nix
     ./nextcloud.nix
     ./reverse_proxy.nix
+    ./wireguard.nix
   ];
 }

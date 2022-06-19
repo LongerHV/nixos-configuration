@@ -26,11 +26,7 @@ in
     };
   };
 
-  networking.nat = {
-    enable = true;
-    internalInterfaces = [ "ve-nextcloud" ];
-    externalInterface = "eth0";
-  };
+  networking.nat.internalInterfaces = [ "ve-nextcloud" ];
 
   users = {
     users.nextcloud = {
