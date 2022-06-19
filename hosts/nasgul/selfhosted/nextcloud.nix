@@ -7,6 +7,11 @@ let
 in
 {
   services.traefik.dynamicConfigOptions.http = {
+    middlewares.nextcloud-redirectregex.redirectRegex = {
+      permanent = true;
+      regex = "https://(.*)/.well-known/(card|cal)dav";
+      replacement = "https://\${1}/remote.php/dav/";
+    };
     routers.nextcloud_router = util.traefik_router {
       subdomain = "nextcloud";
       middlewares = [ "nextcloud-redirectregex" ];

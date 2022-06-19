@@ -9,6 +9,8 @@ in
     services.gitea_service = util.traefik_service { port = 3000; };
   };
 
+  users.users."${config.mainUser}".extraGroups = [ "gitea" ];
+
   services.gitea = {
     enable = true;
     repositoryRoot = "/chonk/repositories";

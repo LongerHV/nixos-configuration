@@ -19,7 +19,20 @@ in
     authelia
   ];
 
+  users.users."${config.mainUser}".extraGroups = [ "authelia" ];
+
   services.traefik.dynamicConfigOptions.http = {
+    middlewares.authelia.forwardAuth = {
+      address = "http://localhost:9092/api/verify?rd=https%3A%2F%2Fauth.local.longerhv.xyz%2F";
+      trustForwardHeader = true;
+      authResponseHeaders = [ "Remote-User" "Remote-Groups" "Remote-Name" "Remote-Email" ];
+      tls.insecureSkipVerify = true;
+    };
+    middlewares.authelia-basic.forwardAuth = {
+      address = "http://localhost:9092/api/verify?auth=basic";
+      trustForwardHeader = true;
+      authResponseHeaders = [ "Remote-User" "Remote-Groups" "Remote-Name" "Remote-Email" ];
+    };
     routers.auth_router = util.traefik_router { subdomain = "auth"; };
     services.auth_service = util.traefik_service { port = 9092; };
   };
@@ -64,17 +77,17 @@ in
       };
       access_control = {
         default_policy = "deny";
-        networks = [
-          {
-            name = "internal";
-            networks = [ "192.168.1.0/24" ];
-          }
-        ];
+        # networks = [
+        #   {
+        #     name = "internal";
+        #     networks = [ "192.168.1.0/24" ];
+        #   }
+        # ];
         rules = [
           {
-            domain = "*${config.myDomain}";
+            domain = "*.local.${config.myDomain}";
             policy = "one_factor";
-            networks = [ "internal" ];
+            # networks = [ "internal" ];
           }
         ];
       };

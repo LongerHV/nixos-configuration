@@ -82,17 +82,12 @@ in
     dynamicConfigOptions = {
       http = {
         middlewares = {
-          nextcloud-redirectregex.redirectRegex = {
-            permanent = true;
-            regex = "https://(.*)/.well-known/(card|cal)dav";
-            replacement = "https://\${1}/remote.php/dav/";
-          };
           local-ip-whitelist.IPWhiteList = {
             sourceRange = [ "192.168.1.1/24" ];
           };
           # TODO: Add cloudflare proxy ip ranges if I ever decide to open this to the internet
           external-ip-whitelist.IPWhiteList = {
-            sourceRange = [];
+            sourceRange = [ ];
           };
         };
         routers.cache_router = util.traefik_router { subdomain = "cache"; };

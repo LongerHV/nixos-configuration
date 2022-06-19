@@ -60,6 +60,7 @@ in
       inherit (cfg) group;
       home = cfg.dataDir;
       createHome = true;
+      homeMode = "750";
       isSystemUser = true;
     };
 
