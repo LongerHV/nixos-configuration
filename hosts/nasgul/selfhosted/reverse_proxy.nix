@@ -85,7 +85,11 @@ in
       http = {
         middlewares = {
           local-ip-whitelist.IPWhiteList = {
-            sourceRange = [ "192.168.1.1/24" ];
+            sourceRange = [
+              "10.100.0.0/8"
+              "172.16.0.0/12"
+              "192.168.1.0/16"
+            ];
           };
           # TODO: Add cloudflare proxy ip ranges if I ever decide to open this to the internet
           external-ip-whitelist.IPWhiteList = {

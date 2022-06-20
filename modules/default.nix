@@ -3,6 +3,7 @@
 {
   imports = [
     ./authelia.nix
+    ./dashy.nix
   ];
   options.mainUser = lib.mkOption {
     default = "longer";
