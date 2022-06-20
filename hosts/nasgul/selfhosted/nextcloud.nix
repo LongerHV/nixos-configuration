@@ -6,6 +6,7 @@ let
   util = pkgs.callPackage ./util.nix { inherit config; };
 in
 {
+  imports = [ ./database.nix ];
   services.traefik.dynamicConfigOptions.http = {
     middlewares.nextcloud-redirectregex.redirectRegex = {
       permanent = true;
@@ -42,6 +43,20 @@ in
     };
   };
 
+  services.mysql = {
+    settings.mysqld.innodb_read_only_compressed = 0;
+    ensureDatabases = [
+      "nextcloud"
+    ];
+    ensureUsers = [
+      {
+        name = "nextcloud";
+        ensurePermissions = {
+          "nextcloud.*" = "ALL PRIVILEGES";
+        };
+      }
+    ];
+  };
   containers = {
     nextcloud = {
       ephemeral = true;

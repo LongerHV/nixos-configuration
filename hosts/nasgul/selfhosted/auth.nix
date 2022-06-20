@@ -4,6 +4,7 @@ let
   util = pkgs.callPackage ./util.nix { inherit config; };
 in
 {
+  imports = [ ./database.nix ];
   age.secrets = {
     authelia_jwt_secret = {
       file = ../../../secrets/nasgul_authelia_jwt_secret.age;
@@ -37,6 +38,19 @@ in
     services.auth_service = util.traefik_service { port = 9092; };
   };
 
+  services.mysql = {
+    ensureDatabases = [
+      "authelia"
+    ];
+    ensureUsers = [
+      {
+        name = config.services.authelia.user;
+        ensurePermissions = {
+          "authelia.*" = "ALL PRIVILEGES";
+        };
+      }
+    ];
+  };
   services.authelia = {
     enable = true;
     jwtSecretFile = config.age.secrets.authelia_jwt_secret.path;

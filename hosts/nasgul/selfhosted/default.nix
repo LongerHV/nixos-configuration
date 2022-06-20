@@ -3,7 +3,7 @@ _:
 {
   imports = [
     ./auth.nix
-    ./database.nix
+    ./dashboard.nix
     ./git.nix
     ./monitoring.nix
     ./multimedia.nix

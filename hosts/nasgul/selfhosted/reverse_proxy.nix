@@ -15,6 +15,8 @@ let
   inherit (config.age) secrets;
 in
 {
+  imports = [ ./containers.nix ];
+
   networking.firewall.allowedTCPPorts = [
     80
     443
@@ -41,10 +43,10 @@ in
 
   services.traefik = {
     enable = true;
-    # group = "docker";
+    group = config.virtualisation.oci-containers.backend;
     staticConfigOptions = {
       log.level = "info";
-      # providers.docker = { };
+      providers.docker = { };
       entryPoints = {
         web = {
           address = ":80";
