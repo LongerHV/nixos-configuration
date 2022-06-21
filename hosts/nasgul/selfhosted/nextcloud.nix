@@ -73,11 +73,13 @@ in
           enable = true;
           package = pkgs.nextcloud24;
           hostName = "nextcloud.${myDomain}";
+          https = true;
           config = {
             dbtype = "mysql";
             dbhost = "localhost:/run/mysqld/mysqld.sock";
             adminpassFile = secrets.nextcloud_admin_password.path;
             extraTrustedDomains = [ "nextcloud.local.${myDomain}" ];
+            trustedProxies = [ "192.168.1.243" ];
           };
         };
         users.users.nextcloud = {
