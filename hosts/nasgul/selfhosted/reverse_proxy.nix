@@ -20,7 +20,6 @@ in
   networking.firewall.allowedTCPPorts = [
     80
     443
-    8080
   ];
 
   age.secrets = {
@@ -97,7 +96,9 @@ in
           };
         };
         routers.cache_router = util.traefik_router { subdomain = "cache"; };
+        routers.traefik_router = util.traefik_router { subdomain = "traefik"; };
         services.cache_service = util.traefik_service { port = 5000; };
+        services.traefik_service = util.traefik_service { port = 8080; };
       };
     };
   };
