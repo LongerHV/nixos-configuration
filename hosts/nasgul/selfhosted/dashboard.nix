@@ -5,6 +5,7 @@ let
     pageInfo = {
       title = "Longer's homelab";
       description = "Nyaa~~";
+      faviconApi = "local";
       navLinks = [
         {
           title = "GitHub";
@@ -17,7 +18,7 @@ let
       ];
     };
     appConfig = {
-      theme = "one-dark";
+      theme = "nord-frost";
       layout = "auto";
       iconSize = "medium";
       language = "pl";
@@ -29,6 +30,30 @@ let
           {
             title = "Sonarr";
             url = "https://sonarr.local.${config.myDomain}";
+            icon = "favicon";
+            statusCheck = true;
+          }
+          {
+            title = "Radarr";
+            url = "https://radarr.local.${config.myDomain}";
+            icon = "favicon";
+            statusCheck = true;
+          }
+          {
+            title = "Prowlarr";
+            url = "https://prowlarr.local.${config.myDomain}";
+            icon = "favicon";
+            statusCheck = true;
+          }
+          {
+            title = "Jellyfin";
+            url = "https://jellyfin.local.${config.myDomain}";
+            icon = "favicon";
+            statusCheck = true;
+          }
+          {
+            title = "Transmission";
+            url = "https://transmission.local.${config.myDomain}";
             icon = "favicon";
             statusCheck = true;
           }
