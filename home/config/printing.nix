@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs.unstable; [
-    super-slicer
+  home.packages = with pkgs; [
+    unstable.super-slicer
     freecad
-    openscad
+    unstable.openscad
   ];
 }
