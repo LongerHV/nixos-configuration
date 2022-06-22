@@ -51,7 +51,6 @@
           nixpkgs.overlays = overlays;
           imports = [ ./home/config/non-nixos.nix ] ++ imports;
         };
-        stateVersion = "21.11";
       };
     in
     {

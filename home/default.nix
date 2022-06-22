@@ -12,4 +12,5 @@
       userEmail = "michal@mieszczak.com.pl";
     };
   };
+  home.stateVersion = "21.11";
 }
