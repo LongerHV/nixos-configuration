@@ -18,7 +18,7 @@
     wget
     jq
     cht-sh
-    poetry
+    pkgs.poetry
   ];
 
   programs = {
