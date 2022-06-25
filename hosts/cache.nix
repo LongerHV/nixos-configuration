@@ -3,7 +3,7 @@ _:
 {
   nix.settings = {
     substituters = [
-      "http://cache.nasgul.lan"
+      "https://cache.local.longerhv.xyz"
       "https://cache.nixos.org"
     ];
     trusted-public-keys = [
