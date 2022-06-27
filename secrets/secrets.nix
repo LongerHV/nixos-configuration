@@ -10,15 +10,15 @@ let
   systems = [ mordor nasgul ];
 in
 {
-  "nasgul_wireguard_priv_key.age".publicKeys = [ nasgul nasgul_user ];
-  "nasgul_mullvad_priv_key.age".publicKeys = [ nasgul nasgul_user ];
-  "nasgul_cache_priv_key.pem.age".publicKeys = [ nasgul nasgul_user ];
-  "nasgul_authelia_jwt_secret.age".publicKeys = [ nasgul nasgul_user ];
-  "nasgul_authelia_storage_encryption_key.age".publicKeys = [ nasgul nasgul_user ];
-  "nasgul_authelia_hmac_secret.age".publicKeys = [ nasgul nasgul_user ];
-  "nasgul_authelia_issuer_private_key.age".publicKeys = [ nasgul nasgul_user ];
-  "nasgul_authelia_config.age".publicKeys = [ nasgul nasgul_user ];
-  "nasgul_nextcloud_admin_password.age".publicKeys = [ nasgul nasgul_user ];
-  "cloudflare_token.age".publicKeys = [ nasgul nasgul_user ];
-  "cloudflare_email.age".publicKeys = [ nasgul nasgul_user ];
+  "nasgul_wireguard_priv_key.age".publicKeys = [ nasgul nasgul_user arch_user ];
+  "nasgul_mullvad_priv_key.age".publicKeys = [ nasgul nasgul_user arch_user ];
+  "nasgul_cache_priv_key.pem.age".publicKeys = [ nasgul nasgul_user arch_user ];
+  "nasgul_authelia_jwt_secret.age".publicKeys = [ nasgul nasgul_user arch_user ];
+  "nasgul_authelia_storage_encryption_key.age".publicKeys = [ nasgul nasgul_user arch_user ];
+  "nasgul_authelia_hmac_secret.age".publicKeys = [ nasgul nasgul_user arch_user ];
+  "nasgul_authelia_issuer_private_key.age".publicKeys = [ nasgul nasgul_user arch_user ];
+  "nasgul_authelia_config.age".publicKeys = [ nasgul nasgul_user arch_user ];
+  "nasgul_nextcloud_admin_password.age".publicKeys = [ nasgul nasgul_user arch_user ];
+  "cloudflare_token.age".publicKeys = [ nasgul nasgul_user arch_user ];
+  "cloudflare_email.age".publicKeys = [ nasgul nasgul_user arch_user ];
 }
