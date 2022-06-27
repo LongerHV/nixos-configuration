@@ -2,8 +2,8 @@
 
 {
   networking = {
-    # nameservers = [ "127.0.0.1" ];
-    # dhcpcd.extraConfig = "nohook resolv.conf";
+    nameservers = [ "127.0.0.1" ];
+    dhcpcd.extraConfig = "nohook resolv.conf";
     firewall = {
       allowedTCPPorts = [
         53

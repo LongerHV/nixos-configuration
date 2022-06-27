@@ -73,8 +73,9 @@ let
         items = [
           rec {
             title = "Jellyfin";
-            url = "https://jellyfin.local.${config.myDomain}";
-            icon = "${url}/web/favicon.ico";
+            url = "https://jellyfin.local.${config.myDomain}/sso/OID/p/authelia";
+            icon = "${statusCheckUrl}/web/favicon.ico";
+            statusCheckUrl = "https://jellyfin.local.${config.myDomain}";
             statusCheck = true;
           }
           {

@@ -14,6 +14,18 @@ in
       file = ../../../secrets/nasgul_authelia_storage_encryption_key.age;
       owner = config.services.authelia.user;
     };
+    authelia_hmac_secret = {
+      file = ../../../secrets/nasgul_authelia_hmac_secret.age;
+      owner = config.services.authelia.user;
+    };
+    authelia_issuer_priv_key = {
+      file = ../../../secrets/nasgul_authelia_issuer_private_key.age;
+      owner = config.services.authelia.user;
+    };
+    authelia_secret_config = {
+      file = ../../../secrets/nasgul_authelia_config.age;
+      owner = config.services.authelia.user;
+    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -55,6 +67,9 @@ in
     enable = true;
     jwtSecretFile = config.age.secrets.authelia_jwt_secret.path;
     storageEncryptionKeyFile = config.age.secrets.authelia_storage_encryption_key.path;
+    oidcHmacSecretFile = config.age.secrets.authelia_hmac_secret.path;
+    oidcIssuerPrivKeyFile = config.age.secrets.authelia_issuer_priv_key.path;
+    settingsFile = config.age.secrets.authelia_secret_config.path;
     settings = {
       theme = "dark";
       default_2fa_method = "totp";

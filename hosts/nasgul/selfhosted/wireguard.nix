@@ -2,10 +2,13 @@
 
 {
   age.secrets.wireguard_priv_key.file = ../../../secrets/nasgul_wireguard_priv_key.age;
+  age.secrets.mullvad_priv_key.file = ../../../secrets/nasgul_mullvad_priv_key.age;
 
   networking = {
     nat.internalInterfaces = [ "wg0" ];
     firewall.allowedUDPPorts = [ 51820 ];
+
+    # Wireguard Server
     wireguard.interfaces.wg0 = {
       ips = [ "10.100.0.1/24" ];
       listenPort = 51820;

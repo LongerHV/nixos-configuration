@@ -25,7 +25,9 @@ in
 
   services.gitea = {
     enable = true;
+    rootUrl = "https://gitea.local.${config.myDomain}";
     repositoryRoot = "/chonk/repositories";
+    # disableRegistration = true;
     database = {
       type = "mysql";
       socket = "/run/mysqld/mysqld.sock";

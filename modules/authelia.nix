@@ -4,12 +4,16 @@ with lib;
 
 let
   cfg = config.services.authelia;
-  opt = options.services.authelia;
   rootDir = "/var/lib/authelia";
-  configFile = pkgs.writeTextFile {
+  storeConfigFile = pkgs.writeTextFile {
     name = "configuration.yml";
     text = builtins.toJSON cfg.settings;
   };
+  configPath = "${cfg.dataDir}/configuration.yml";
+  preStart =
+    if cfg.settingsFile != "" then
+      "${pkgs.jq}/bin/jq -s '.[0] * .[1]' ${storeConfigFile} ${cfg.settingsFile} > ${configPath} && chmod 400 ${configPath}"
+    else "cp ${storeConfigFile} ${configPath}";
 in
 {
   options.services.authelia = {
@@ -24,8 +28,19 @@ in
     storageEncryptionKeyFile = mkOption {
       type = types.path;
     };
+    oidcHmacSecretFile = mkOption {
+      type = types.path;
+    };
+    oidcIssuerPrivKeyFile = mkOption {
+      type = types.path;
+    };
     settings = mkOption {
       type = types.attrs;
+      default = { };
+    };
+    settingsFile = mkOption {
+      type = types.str;
+      default = "";
     };
     user = mkOption {
       default = "authelia";
@@ -43,8 +58,9 @@ in
       description = "Authelia SSO service";
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
+      preStart = "${preStart}";
       serviceConfig = {
-        ExecStart = "${pkgs.authelia}/bin/authelia --config ${configFile}";
+        ExecStart = "${pkgs.authelia}/bin/authelia --config ${configPath}";
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
@@ -53,6 +69,8 @@ in
       environment = {
         AUTHELIA_JWT_SECRET_FILE = cfg.jwtSecretFile;
         AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE = cfg.storageEncryptionKeyFile;
+        AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE = cfg.oidcHmacSecretFile;
+        AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE = cfg.oidcIssuerPrivKeyFile;
       };
     };
 

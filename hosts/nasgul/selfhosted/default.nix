@@ -5,6 +5,7 @@ _:
     ./auth.nix
     ./dashboard.nix
     ./git.nix
+    ./jupyter.nix
     ./monitoring.nix
     ./multimedia.nix
     ./nameserver.nix

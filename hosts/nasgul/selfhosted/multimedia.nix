@@ -26,7 +26,11 @@ in
         jellyfin_service = util.traefik_service { port = 8096; };
       };
     };
-    jellyfin = { enable = true; group = "multimedia"; };
+    jellyfin = {
+      enable = true;
+      package = pkgs.unstable.jellyfin;
+      group = "multimedia";
+    };
     sonarr = { enable = true; group = "multimedia"; };
     radarr = { enable = true; group = "multimedia"; };
     bazarr = { enable = true; group = "multimedia"; };
