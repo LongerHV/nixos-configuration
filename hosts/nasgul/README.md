@@ -26,21 +26,18 @@ Personal NAS server.
 
 ## TODO
 
-[ ] Integrate Authelia and Traefik
+[ ] Route transmission through wireguard (container?)
 
-[x] Database (mariadb) - for authelia, gitea, nextcloud
+[ ] Configure Nextcloud SSO (with Authelia OIDC)
 
-[ ] Do I need LDAP ??? (maybe Authelia file storage is sufficient?)
+[ ] Integrate Authelia and Traefik (single factor for local services)
 
-[ ] Redis (for authelia)
-
-[x] Add Cloudflare certificate (+ setup SSL on Traefik)
-
-[x] Nextcloud
-
-[x] Gitea
+[ ] Redis (for authelia and nextcloud)
 
 [ ] SMTP for Authelia
+
+[ ] Use MariaDB for Authelia
+([waiting for socket support](https://github.com/authelia/authelia/pull/3531))
 
 [ ] Prometheus + Grafana
 
