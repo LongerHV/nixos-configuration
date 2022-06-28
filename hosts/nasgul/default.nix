@@ -43,6 +43,14 @@
     };
   };
 
+  hardware.opengl = {
+    enable = true;
+    extraPackages = [
+      pkgs.vaapiVdpau
+      pkgs.libvdpau-va-gl
+    ];
+  };
+
   age.secrets = {
     cache_priv_key.file = ../../secrets/nasgul_cache_priv_key.pem.age;
   };

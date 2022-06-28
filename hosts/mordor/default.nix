@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -30,6 +30,12 @@
   services.dnsmasq = {
     enable = true;
   };
+  # services.mysql = {
+  #   enable = true;
+  #   package = pkgs.mariadb;
+  #   ensureUsers = [{ name = "longer"; ensurePermissions = { "authelia.*" = "ALL PRIVILEGES"; }; }];
+  #   ensureDatabases = [ "authelia" ];
+  # };
   networking = {
     hostName = "mordor";
     hostId = "0c55ff12";
@@ -49,6 +55,13 @@
   virtualisation.podman = { enable = true; dockerCompat = true; };
   environment.systemPackages = with pkgs; [ virt-manager ];
   users.users.${config.mainUser}.extraGroups = [ "libvirtd" ];
+  hardware.opengl = {
+    enable = true;
+    extraPackages = [
+      pkgs.vaapiVdpau
+      pkgs.libvdpau-va-gl
+    ];
+  };
 
   system.stateVersion = "22.05";
 }
