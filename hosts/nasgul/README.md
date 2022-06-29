@@ -26,20 +26,20 @@ Personal NAS server.
 
 ## TODO
 
-[ ] Route transmission through wireguard (container?)
+- [ ] Route transmission through wireguard (container?)
 
-[ ] Configure Nextcloud SSO (with Authelia OIDC)
+- [ ] Configure Nextcloud SSO (with Authelia OIDC)
 
-[ ] Integrate Authelia and Traefik (single factor for local services)
+- [ ] Integrate Authelia and Traefik (single factor for local services)
 
-[ ] Redis (for authelia and nextcloud)
+- [ ] Redis (for authelia and nextcloud)
 
-[ ] SMTP for Authelia
+- [ ] SMTP for Authelia
 
-[ ] Use MariaDB for Authelia
+- [ ] Use MariaDB for Authelia
 ([waiting for socket support](https://github.com/authelia/authelia/pull/3531))
 
-[ ] Prometheus + Grafana
+- [ ] Prometheus + Grafana
 
 ## Resources
 
