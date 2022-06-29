@@ -96,7 +96,7 @@ in
           };
         };
         routers.cache_router = util.traefik_router { subdomain = "cache"; };
-        routers.traefik_router = util.traefik_router { subdomain = "traefik"; };
+        routers.traefik_router = util.traefik_router { subdomain = "traefik"; middlewares = [ "authelia" ]; };
         services.cache_service = util.traefik_service { port = 5000; };
         services.traefik_service = util.traefik_service { port = 8080; };
       };

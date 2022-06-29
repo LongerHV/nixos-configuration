@@ -10,11 +10,11 @@ in
   services = {
     traefik.dynamicConfigOptions.http = {
       routers = {
-        sonarr_router = util.traefik_router { subdomain = "sonarr"; };
-        bazarr_router = util.traefik_router { subdomain = "bazarr"; };
-        radarr_router = util.traefik_router { subdomain = "radarr"; };
-        prowlarr_router = util.traefik_router { subdomain = "prowlarr"; };
-        transmission_router = util.traefik_router { subdomain = "transmission"; };
+        sonarr_router = util.traefik_router { subdomain = "sonarr"; middlewares = [ "authelia" ]; };
+        bazarr_router = util.traefik_router { subdomain = "bazarr"; middlewares = [ "authelia" ]; };
+        radarr_router = util.traefik_router { subdomain = "radarr"; middlewares = [ "authelia" ]; };
+        prowlarr_router = util.traefik_router { subdomain = "prowlarr"; middlewares = [ "authelia" ]; };
+        transmission_router = util.traefik_router { subdomain = "transmission"; middlewares = [ "authelia" ]; };
         jellyfin_router = util.traefik_router { subdomain = "jellyfin"; };
       };
       services = {

@@ -80,31 +80,31 @@ let
           }
           {
             title = "Sonarr";
-            url = "https://sonarr.local.${config.myDomain}";
+            url = "http://localhost:8989";
             icon = "favicon";
             statusCheck = true;
           }
           {
             title = "Radarr";
-            url = "https://radarr.local.${config.myDomain}";
+            url = "http://localhost:7878";
             icon = "favicon";
             statusCheck = true;
           }
           rec {
             title = "Bazarr";
-            url = "https://bazarr.local.${config.myDomain}";
+            url = "http://localhost:6767";
             icon = "${url}/static/favicon.ico";
             statusCheck = true;
           }
           {
             title = "Prowlarr";
-            url = "https://prowlarr.local.${config.myDomain}";
+            url = "http://localhost:9696";
             icon = "favicon";
             statusCheck = true;
           }
           rec {
             title = "Transmission";
-            url = "https://transmission.local.${config.myDomain}";
+            url = "http://localhost:9091";
             icon = "${url}/transmission/web/images/favicon.ico";
             statusCheck = true;
           }
@@ -115,19 +115,19 @@ let
         items = [
           {
             title = "Netdata";
-            url = "https://netdata.local.${config.myDomain}";
+            url = "localhost:19999";
             icon = "favicon";
             statusCheck = true;
           }
           {
             title = "Prometheus";
-            url = "https://prometheus.local.${config.myDomain}";
+            url = "localhost:9090";
             icon = "favicon";
             statusCheck = true;
           }
           rec {
             title = "Grafana";
-            url = "https://grafana.local.${config.myDomain}";
+            url = "localhost:300q";
             icon = "${url}/public/img/grafana_icon.svg";
             statusCheck = true;
           }
