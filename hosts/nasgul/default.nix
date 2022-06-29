@@ -41,6 +41,7 @@
       enable = true;
       externalInterface = "eth0";
     };
+    iproute2.enable = true;
   };
 
   hardware.opengl = {

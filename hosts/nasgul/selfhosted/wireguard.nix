@@ -28,5 +28,25 @@
         }
       ];
     };
+
+    # Dummy routing table to stop wireguard from routing all traffic
+    iproute2.rttablesExtraConfig = ''
+      200 vpn
+    '';
+
+    # Wireguard client
+    wg-quick.interfaces.wg1 = {
+      table = "vpn";
+      address = [ "10.64.25.31/32" ];
+      privateKeyFile = config.age.secrets.mullvad_priv_key.path;
+      peers = [
+        {
+          publicKey = "DMMY46sOiyCKaY+8BPUyDGqgyAk9jyw/qkwGQO3+I1U=";
+          allowedIPs = [ "0.0.0.0/0" ];
+          endpoint = "138.199.6.194:51820";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
   };
 }
