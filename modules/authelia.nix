@@ -12,7 +12,7 @@ let
   configPath = "${cfg.dataDir}/configuration.yml";
   preStart =
     if cfg.settingsFile != "" then
-      "${pkgs.jq}/bin/jq -s '.[0] * .[1]' ${storeConfigFile} ${cfg.settingsFile} > ${configPath} && chmod 400 ${configPath}"
+      "${pkgs.jq}/bin/jq -s '.[0] * .[1]' ${storeConfigFile} ${cfg.settingsFile} > ${configPath} && chown authelia:authelia ${configPath} && chmod 600 ${configPath}"
     else "cp ${storeConfigFile} ${configPath}";
 in
 {
