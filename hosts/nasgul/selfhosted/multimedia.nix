@@ -14,7 +14,7 @@ in
         bazarr_router = util.traefik_router { subdomain = "bazarr"; middlewares = [ "authelia" ]; };
         radarr_router = util.traefik_router { subdomain = "radarr"; middlewares = [ "authelia" ]; };
         prowlarr_router = util.traefik_router { subdomain = "prowlarr"; middlewares = [ "authelia" ]; };
-        transmission_router = util.traefik_router { subdomain = "transmission"; middlewares = [ "authelia" ]; };
+        deluge_router = util.traefik_router { subdomain = "deluge"; middlewares = [ "authelia" ]; };
         jellyfin_router = util.traefik_router { subdomain = "jellyfin"; };
       };
       services = {
@@ -22,7 +22,7 @@ in
         bazarr_service = util.traefik_service { port = 6767; };
         radarr_service = util.traefik_service { port = 7878; };
         prowlarr_service = util.traefik_service { port = 9696; };
-        transmission_service = util.traefik_service { port = 9091; };
+        deluge_service = util.traefik_service { port = 8112; };
         jellyfin_service = util.traefik_service { port = 8096; };
       };
     };
@@ -35,16 +35,21 @@ in
     radarr = { enable = true; group = "multimedia"; };
     bazarr = { enable = true; group = "multimedia"; };
     prowlarr = { enable = true; };
-    transmission = {
+    deluge = {
       enable = true;
       group = "multimedia";
-      home = "/chonk/media/torrent";
-      downloadDirPermissions = "775";
-      settings = {
-        umask = 2;
-        rpc-authentication-required = false;
-        rpc-host-whitelist-enabled = true;
-        rpc-host-whitelist = "transmission.local.${config.myDomain}";
+      web.enable = true;
+      dataDir = "/chonk/media/torrent";
+      declarative = true;
+      config = {
+        outgoing_interface = "wg1";
+        enabled_plugins = [ "Label" ];
+      };
+      authFile = pkgs.writeTextFile {
+        name = "deluge-auth";
+        text = ''
+          localclient::10
+        '';
       };
     };
   };
