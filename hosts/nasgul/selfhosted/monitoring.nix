@@ -27,6 +27,7 @@ in
       enable = true;
       port = 3001;
       domain = "grafana.${config.myDomain}";
+      auth.anonymous.enable = true;
     };
   };
 }
