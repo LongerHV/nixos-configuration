@@ -18,6 +18,9 @@ in
     imageTag = mkOption {
       type = types.str;
     };
+    port = mkOption {
+      type = types.int;
+    };
     settings = mkOption {
       type = types.attrs;
     };
@@ -31,6 +34,7 @@ in
         inherit (cfg) extraOptions;
         environment = {
           TZ = "${config.time.timeZone}";
+          PORT = builtins.toString cfg.port;
         };
         volumes = [
           "${configFile}:/app/public/conf.yml"

@@ -51,6 +51,7 @@ let
             title = "Traefik";
             url = "https://traefik.local.${config.myDomain}";
             icon = "${url}/dashboard/statics/icons/favicon.ico";
+            statusCheckUrl = "http://localhost:8080";
             statusCheck = true;
           }
           rec {
@@ -82,30 +83,35 @@ let
             title = "Sonarr";
             url = "https://sonarr.local.${config.myDomain}";
             icon = "favicon";
+            statusCheckUrl = "http://localhost:8989";
             statusCheck = true;
           }
           {
             title = "Radarr";
             url = "https://radarr.local.${config.myDomain}";
             icon = "favicon";
+            statusCheckUrl = "http://localhost:7878";
             statusCheck = true;
           }
           rec {
             title = "Bazarr";
             url = "https://bazarr.local.${config.myDomain}";
             icon = "${url}/static/favicon.ico";
+            statusCheckUrl = "http://localhost:6767";
             statusCheck = true;
           }
           {
             title = "Prowlarr";
             url = "https://prowlarr.local.${config.myDomain}";
             icon = "favicon";
+            statusCheckUrl = "http://localhost:9696";
             statusCheck = true;
           }
           rec {
-            title = "Transmission";
-            url = "https://transmission.local.${config.myDomain}";
-            icon = "${url}/transmission/web/images/favicon.ico";
+            title = "Deluge";
+            url = "https://deluge.local.${config.myDomain}";
+            icon = "${url}/icons/deluge.png";
+            statusCheckUrl = "http://localhost:8112";
             statusCheck = true;
           }
         ];
@@ -117,18 +123,21 @@ let
             title = "Netdata";
             url = "https://netdata.local.${config.myDomain}";
             icon = "favicon";
+            statusCheckUrl = "http://localhost:19999";
             statusCheck = true;
           }
           {
             title = "Prometheus";
             url = "https://prometheus.local.${config.myDomain}";
             icon = "favicon";
+            statusCheckUrl = "http://localhost:9090";
             statusCheck = true;
           }
           rec {
             title = "Grafana";
             url = "https://grafana.local.${config.myDomain}";
             icon = "${url}/public/img/grafana_icon.svg";
+            statusCheckUrl = "http://localhost:3001";
             statusCheck = true;
           }
         ];
@@ -142,14 +151,17 @@ in
   services.dashy = {
     enable = true;
     imageTag = "2.1.0";
+    port = 8082;
     inherit settings;
     extraOptions = [
       "--label"
       "traefik.http.routers.dashy.rule=Host(`dash.local.${config.myDomain}`)"
       "--label"
-      "traefik.http.services.dashy.loadBalancer.server.port=80"
-      "--dns"
-      "192.168.1.243"
+      "traefik.http.services.dashy.loadBalancer.server.port=8082"
+      # "--dns"
+      # "192.168.1.243"
+      "--network=host"
+      "--no-healthcheck"
     ];
   };
 }
