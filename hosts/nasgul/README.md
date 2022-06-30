@@ -10,7 +10,9 @@ Personal NAS server.
 
 - Traefik reverse proxy (with SSL)
 
-- Authelia SSO (in progress)
+- Authelia SSO
+
+- Dashy dashboard
 
 - Nextcloud
 
@@ -18,7 +20,7 @@ Personal NAS server.
 
 - Sonarr/Radarr/Bazarr/Prowlarr media management
 
-- Transmission BitTorrent client
+- Deluge BitTorrent client (routed through wireguard)
 
 - Netdata monitoring
 
@@ -26,11 +28,9 @@ Personal NAS server.
 
 ## TODO
 
-- [ ] Route transmission through wireguard (container?)
+- [ ] Extract dashboard entries to proper modules
 
 - [ ] Configure Nextcloud SSO (with Authelia OIDC)
-
-- [ ] Integrate Authelia and Traefik (single factor for local services)
 
 - [ ] Redis (for authelia and nextcloud)
 
