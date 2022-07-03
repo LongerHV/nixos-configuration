@@ -30,7 +30,9 @@ Personal NAS server.
 
 - [ ] Extract dashboard entries to proper modules
 
-- [ ] Configure Nextcloud SSO (with Authelia OIDC)
+- [ ] LDAP? (LDAP as Authelia backend, Jellyfin, Gitea, NextCloud)
+
+- [ ] Configure Nextcloud SSO (with Authelia OIDC or LDAP)
 
 - [ ] Redis (for authelia and nextcloud)
 
@@ -39,7 +41,9 @@ Personal NAS server.
 - [ ] Use MariaDB for Authelia
 ([waiting for socket support](https://github.com/authelia/authelia/pull/3531))
 
-- [ ] Prometheus + Grafana
+- MinIO (for backups and Loki)
+
+- [ ] Prometheus + Grafana + Loki
 
 ## Resources
 
