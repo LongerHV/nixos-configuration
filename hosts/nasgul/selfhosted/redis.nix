@@ -6,5 +6,6 @@ _:
   services.redis.servers."" = {
     enable = true;
     databases = 1;
+    port = 0;
   };
 }
