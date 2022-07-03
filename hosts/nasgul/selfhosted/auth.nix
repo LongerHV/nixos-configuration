@@ -2,6 +2,8 @@
 
 let
   util = pkgs.callPackage ./util.nix { inherit config; };
+  inherit (config.services) authelia;
+  redis = config.services.redis.servers.authelia;
 in
 {
   imports = [ ./database.nix ];
@@ -12,6 +14,10 @@ in
     };
     authelia_storage_encryption_key = {
       file = ../../../secrets/nasgul_authelia_storage_encryption_key.age;
+      owner = config.services.authelia.user;
+    };
+    authelia_session_secret = {
+      file = ../../../secrets/nasgul_authelia_session_secret.age;
       owner = config.services.authelia.user;
     };
     authelia_hmac_secret = {
@@ -28,8 +34,8 @@ in
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    authelia
+  environment.systemPackages = [
+    pkgs.authelia
   ];
 
   users.users."${config.mainUser}".extraGroups = [ "authelia" ];
@@ -48,6 +54,11 @@ in
     };
     routers.auth_router = util.traefik_router { subdomain = "auth"; };
     services.auth_service = util.traefik_service { port = 9092; };
+  };
+
+  services.redis.servers.authelia = {
+    enable = true;
+    inherit (authelia) user;
   };
 
   services.mysql = {
@@ -70,6 +81,7 @@ in
     oidcHmacSecretFile = config.age.secrets.authelia_hmac_secret.path;
     oidcIssuerPrivKeyFile = config.age.secrets.authelia_issuer_priv_key.path;
     settingsFile = config.age.secrets.authelia_secret_config.path;
+    sessionSecretFile = config.age.secrets.authelia_session_secret.path;
     settings = {
       theme = "dark";
       default_2fa_method = "totp";
@@ -80,11 +92,11 @@ in
       log.level = "info";
       totp.issuer = "authelia.com";
       session = {
-        name = "authelia-session";
-        domain = "${config.myDomain}";
-        expiration = "1h";
-        inactivity = "5m";
-        remember_me_duration = "1M";
+        domain = config.myDomain;
+        redis = {
+          host = redis.unixSocket;
+          port = 0;
+        };
       };
       regulation = {
         max_retries = 3;

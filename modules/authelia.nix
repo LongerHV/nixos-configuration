@@ -34,6 +34,9 @@ in
     oidcIssuerPrivKeyFile = mkOption {
       type = types.path;
     };
+    sessionSecretFile = mkOption {
+      type = types.path;
+    };
     settings = mkOption {
       type = types.attrs;
       default = { };
@@ -71,6 +74,7 @@ in
         AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE = cfg.storageEncryptionKeyFile;
         AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE = cfg.oidcHmacSecretFile;
         AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE = cfg.oidcIssuerPrivKeyFile;
+        AUTHELIA_SESSION_SECRET_FILE = cfg.sessionSecretFile;
       };
     };
 
