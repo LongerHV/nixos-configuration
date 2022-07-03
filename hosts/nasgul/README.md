@@ -14,6 +14,8 @@ Personal NAS server.
 
 - Dashy dashboard
 
+- Redis cache/session provider
+
 - Nextcloud
 
 - Jellyfin media server
@@ -28,20 +30,22 @@ Personal NAS server.
 
 ## TODO
 
+- [ ] Move Deluge and *Arr to a container and route traffic via wireguard
+
 - [ ] Extract dashboard entries to proper modules
 
 - [ ] LDAP? (LDAP as Authelia backend, Jellyfin, Gitea, NextCloud)
 
-- [ ] Configure Nextcloud SSO (with Authelia OIDC or LDAP)
+- [ ] Nextcloud - SSO (with Authelia OIDC or LDAP)
 
-- [ ] Redis (for authelia and nextcloud)
+- [ ] Nextcloud - redis cache
 
-- [ ] SMTP for Authelia
+- [ ] Authelia - SMTP
 
 - [ ] Use MariaDB for Authelia
 ([waiting for socket support](https://github.com/authelia/authelia/pull/3531))
 
-- MinIO (for backups and Loki)
+- [ ] MinIO (for backups and Loki)
 
 - [ ] Prometheus + Grafana + Loki
 
