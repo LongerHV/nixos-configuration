@@ -3,10 +3,10 @@
 let
   util = pkgs.callPackage ./util.nix { inherit config; };
   inherit (config.services) authelia;
-  redis = config.services.redis.servers.authelia;
+  redis = config.services.redis.servers."";
 in
 {
-  imports = [ ./database.nix ];
+  imports = [ ./database.nix ./redis.nix ];
   age.secrets = {
     authelia_jwt_secret = {
       file = ../../../secrets/nasgul_authelia_jwt_secret.age;
@@ -39,6 +39,7 @@ in
   ];
 
   users.users."${config.mainUser}".extraGroups = [ "authelia" ];
+  users.users."${authelia.user}".extraGroups = [ "redis" ];
 
   services.traefik.dynamicConfigOptions.http = {
     middlewares.authelia.forwardAuth = {
@@ -56,11 +57,6 @@ in
     services.auth_service = util.traefik_service { port = 9092; };
   };
 
-  services.redis.servers.authelia = {
-    enable = true;
-    inherit (authelia) user;
-  };
-
   services.mysql = {
     ensureDatabases = [
       "authelia"
@@ -74,6 +70,7 @@ in
       }
     ];
   };
+
   services.authelia = {
     enable = true;
     jwtSecretFile = config.age.secrets.authelia_jwt_secret.path;
@@ -96,6 +93,7 @@ in
         redis = {
           host = redis.unixSocket;
           port = 0;
+          database_index = 0;
         };
       };
       regulation = {
