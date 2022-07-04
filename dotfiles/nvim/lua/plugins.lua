@@ -224,6 +224,7 @@ return require("packer").startup(function(use)
 		requires = {
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-file-browser.nvim",
 			"kyazdani42/nvim-web-devicons",
 			"folke/which-key.nvim",
 		},

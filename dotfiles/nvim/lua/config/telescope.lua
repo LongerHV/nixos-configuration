@@ -1,6 +1,5 @@
 local telescope = require("telescope")
 local builtin = require("telescope.builtin")
-local utils = require("telescope.utils")
 local wk = require("which-key")
 
 telescope.setup({
@@ -13,6 +12,8 @@ telescope.setup({
 	},
 })
 
+telescope.load_extension("file_browser")
+
 wk.register({
 	T = { builtin.builtin, "Telescope - find picker" },
 	f = {
@@ -24,11 +25,6 @@ wk.register({
 		t = { builtin.treesitter, "Treesitter" },
 		r = { builtin.lsp_references, "References" },
 		c = { builtin.commands, "Commands" },
-		e = {
-			function()
-				builtin.file_browser({ cwd = utils.buffer_dir() })
-			end,
-			"File browser",
-		},
+		e = { telescope.extensions.file_browser.file_browser, "File browser" },
 	},
 }, { prefix = "<leader>" })

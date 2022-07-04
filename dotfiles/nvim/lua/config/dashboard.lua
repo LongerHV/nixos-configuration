@@ -1,27 +1,33 @@
+local db = require("dashboard")
 local remap = vim.api.nvim_set_keymap
 
 -- Dashboard header
-vim.g.dashboard_custom_header = {
+db.custom_header = {
 	"███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
 	"████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
 	"██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
 	"██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
 	"██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
 	"╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
+	"",
+	"",
 }
-
--- Set picker
-vim.g.dashboard_default_executive = "telescope"
 
 -- Remaps
 remap("n", "<Leader>ss", "<cmd>SessionSave<CR>", {})
 remap("n", "<Leader>sl", "<cmd>SessionLoad<CR>", {})
-vim.g.dashboard_custom_shortcut = {
-	last_session = "|",
-	find_history = "|",
-	find_file = "|",
-	new_file = "|",
-	change_colorscheme = "|",
-	find_word = "|",
-	book_marks = "|",
+
+db.custom_center = {
+	{ icon = "  ",
+		desc = "Find  File                              ",
+		action = "Telescope find_files find_command=rg,--hidden,--files",
+		shortcut = "SPC f f" },
+	{ icon = "  ",
+		desc = "File Browser                            ",
+		action = "Telescope file_browser",
+		shortcut = "SPC f e" },
+	{ icon = "  ",
+		desc = "Live grep                               ",
+		action = "Telescope live_grep",
+		shortcut = "SPC f g" },
 }
