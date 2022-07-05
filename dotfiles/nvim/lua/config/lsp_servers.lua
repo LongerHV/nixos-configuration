@@ -6,6 +6,7 @@ return {
 	dockerls = {},
 	bashls = {},
 	yamlls = require("yaml-companion").setup({}),
+	terraformls = {},
 	gopls = {},
 	-- tsserver = {},
 	taplo = {},

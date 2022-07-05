@@ -84,6 +84,7 @@
       texlab
       codespell
       gitlint
+      terraform-ls
 
       # Telescope dependencies
       ripgrep
