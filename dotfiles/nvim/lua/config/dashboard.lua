@@ -32,8 +32,8 @@ db.custom_center = {
 		shortcut = "SPC f g" },
 }
 
-vim.highlight.create("DashboardHeader", {guifg=vim.g.terminal_color_2})
-vim.highlight.create("DashboardCenter", {guifg=vim.g.terminal_color_2})
-vim.highlight.create("DashboardCenterIcon", {guifg=vim.g.terminal_color_4})
-vim.highlight.create("DashboardShortCut", {guifg=vim.g.terminal_color_5})
-vim.highlight.create("DashboardFooter", {guifg=vim.g.terminal_color_3})
+-- vim.highlight.create("DashboardHeader", {guifg=vim.g.terminal_color_2})
+-- vim.highlight.create("DashboardCenter", {guifg=vim.g.terminal_color_2})
+-- vim.highlight.create("DashboardCenterIcon", {guifg=vim.g.terminal_color_4})
+-- vim.highlight.create("DashboardShortCut", {guifg=vim.g.terminal_color_5})
+-- vim.highlight.create("DashboardFooter", {guifg=vim.g.terminal_color_3})
