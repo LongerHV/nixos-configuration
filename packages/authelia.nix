@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "authelia";
-  version = "v4.35.6";
+  version = "v4.36.2";
 
   src = fetchzip {
     url = "https://github.com/${pname}/${pname}/releases/download/${version}/${pname}-${version}-linux-amd64.tar.gz";
-    sha256 = "pNuE/RD7R7CZYT9t24nAULDho0H2al4L+WeUSuyYcJU=";
+    sha256 = "l7VKO28mcGqho2WiMzvRSmQ9PZaKKZs+vLOigVhqCjk=";
     stripRoot = false;
   };
 
