@@ -1,11 +1,15 @@
 { stdenv, lib, fetchzip, autoPatchelfHook, ... }:
 
-stdenv.mkDerivation rec {
+let
   pname = "authelia";
-  version = "v4.36.2";
+  version = "4.36.2";
+in
+stdenv.mkDerivation {
+  inherit pname;
+  inherit version;
 
   src = fetchzip {
-    url = "https://github.com/${pname}/${pname}/releases/download/${version}/${pname}-${version}-linux-amd64.tar.gz";
+    url = "https://github.com/${pname}/${pname}/releases/download/v${version}/${pname}-v${version}-linux-amd64.tar.gz";
     sha256 = "l7VKO28mcGqho2WiMzvRSmQ9PZaKKZs+vLOigVhqCjk=";
     stripRoot = false;
   };
