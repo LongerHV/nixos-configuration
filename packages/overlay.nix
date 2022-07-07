@@ -18,4 +18,16 @@ final: prev:
     });
   });
   authelia = prev.callPackage ./authelia.nix { };
+  zsh-z = prev.zsh-z.overrideAttrs (attrs: rec {
+    pname = "zsh-z";
+    version = "unstable-2022-06-30";
+
+    src = prev.pkgs.fetchFromGitHub {
+      owner = "agkozak";
+      repo = pname;
+      rev = "aaafebcd97424c570ee247e2aeb3da30444299cd";
+      sha256 = "9Wr4uZLk2CvINJilg4o72x0NEAl043lP30D3YnHk+ZA=";
+    };
+  });
+  zsh-vim-mode = prev.callPackage ./zsh-vim-mode.nix { };
 }
