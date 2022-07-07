@@ -6,6 +6,7 @@ _:
     ./dashboard.nix
     ./git.nix
     ./jupyter.nix
+    ./minio.nix
     ./monitoring.nix
     ./multimedia.nix
     ./nameserver.nix

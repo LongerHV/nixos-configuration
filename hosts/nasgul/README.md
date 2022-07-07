@@ -16,6 +16,8 @@ Personal NAS server.
 
 - Redis cache/session provider
 
+- MinIO object storage
+
 - Nextcloud
 
 - Jellyfin media server
@@ -45,7 +47,7 @@ Personal NAS server.
 - [ ] Use MariaDB for Authelia
 ([waiting for socket support](https://github.com/authelia/authelia/pull/3531))
 
-- [ ] MinIO (for backups and Loki)
+- [x] MinIO (for backups and Loki)
 
 - [ ] Prometheus + Grafana + Loki
 
