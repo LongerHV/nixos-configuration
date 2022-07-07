@@ -54,10 +54,16 @@ let
             statusCheckUrl = "http://localhost:8080";
             statusCheck = true;
           }
-          rec {
+          {
             title = "Authelia";
             url = "https://auth.local.${config.myDomain}";
             icon = "favicon";
+            statusCheck = true;
+          }
+          rec {
+            title = "MinIO";
+            url = "https://minio.local.${config.myDomain}";
+            icon = "${url}/favicon-32x32.png";
             statusCheck = true;
           }
           rec {
