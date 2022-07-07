@@ -40,8 +40,6 @@ Personal NAS server.
 
 - [ ] Nextcloud - redis cache
 
-- [ ] Blocky - redis cache
-
 - [ ] Authelia - SMTP
 
 - [ ] Use MariaDB for Authelia

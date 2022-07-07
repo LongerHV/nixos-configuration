@@ -1,6 +1,12 @@
-{ config, ... }:
+{ config, lib, ... }:
 
+let
+  redis = config.services.redis.servers."";
+  inherit (config.services) blocky;
+in
 {
+  imports = [ ./redis.nix ];
+
   networking = {
     nameservers = [ "127.0.0.1" ];
     dhcpcd.extraConfig = "nohook resolv.conf";
@@ -40,6 +46,25 @@
           lan = "192.168.1.1";
         };
       };
+      redis = {
+        address = redis.unixSocket;
+        database = 2;
+        required = true;
+      };
     };
+  };
+
+  users.users.blocky = {
+    group = "blocky";
+    extraGroups = [ "redis" ];
+    createHome = false;
+    isSystemUser = true;
+  };
+  users.groups.blocky= { };
+
+  systemd.services.blocky.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    User = "blocky";
+    Group = "blocky";
   };
 }
