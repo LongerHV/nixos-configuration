@@ -22,10 +22,6 @@
   boot.loader.efi.canTouchEfiVariables = false;
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
-  services.zfs.autoScrub = {
-    enable = true;
-    interval = "weekly";
-  };
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_hardened;
   boot.tmpOnTmpfs = true;
   zramSwap.enable = true;
@@ -64,6 +60,20 @@
     openssh = {
       enable = true;
       passwordAuthentication = false;
+    };
+    zfs = {
+      autoScrub = {
+        enable = true;
+        interval = "weekly";
+      };
+      autoSnapshot = {
+        enable = true;
+        daily = 7;
+        weekly = 4;
+        monthly = 3;
+        hourly = 0;
+        frequent = 0;
+      };
     };
   };
 
