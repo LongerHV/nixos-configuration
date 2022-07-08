@@ -72,6 +72,25 @@
         "type": "github"
       }
     },
+    "my-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "zsh-vim-mode": "zsh-vim-mode",
+        "zsh-z": "zsh-z"
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-XriDh5ZoWG1OK00ArrVnwIMbyqsjad2SH2gKrEWadWc=",
+        "path": "packages",
+        "type": "path"
+      },
+      "original": {
+        "path": "packages",
+        "type": "path"
+      }
+    },
     "neovim-flake": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -170,10 +189,43 @@
       "inputs": {
         "agenix": "agenix",
         "home-manager": "home-manager",
+        "my-overlay": "my-overlay",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable"
+      }
+    },
+    "zsh-vim-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1616290526,
+        "narHash": "sha256-a+6EWMRY1c1HQpNtJf5InCzU7/RphZjimLdXIXbO6cQ=",
+        "owner": "softmoth",
+        "repo": "zsh-vim-mode",
+        "rev": "1f9953b7d6f2f0a8d2cb8e8977baa48278a31eab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "softmoth",
+        "repo": "zsh-vim-mode",
+        "type": "github"
+      }
+    },
+    "zsh-z": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1656536492,
+        "narHash": "sha256-9Wr4uZLk2CvINJilg4o72x0NEAl043lP30D3YnHk+ZA=",
+        "owner": "agkozak",
+        "repo": "zsh-z",
+        "rev": "aaafebcd97424c570ee247e2aeb3da30444299cd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "agkozak",
+        "repo": "zsh-z",
+        "type": "github"
       }
     }
   },
