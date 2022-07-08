@@ -22,9 +22,18 @@
     enable = true;
     interval = "weekly";
   };
+  services.zfs.autoSnapshot = {
+    enable = true;
+    daily = 7;
+    weekly = 4;
+    monthly = 3;
+    hourly = 0;
+    frequent = 0;
+  };
   boot.kernelPackages = pkgs.unstable.linuxKernel.packages.linux_zen;
   boot.tmpOnTmpfs = true;
   zramSwap.enable = true;
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   hardware.bluetooth.enable = true;
 
   services.dnsmasq = {
