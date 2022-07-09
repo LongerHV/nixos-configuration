@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./selfhosted ];
+  imports = [ ./hardware-configuration.nix ./selfhosted ./snapshots.nix ];
   myDomain = "longerhv.xyz";
 
   boot.loader.grub = {
@@ -65,14 +65,6 @@
       autoScrub = {
         enable = true;
         interval = "weekly";
-      };
-      autoSnapshot = {
-        enable = true;
-        daily = 7;
-        weekly = 4;
-        monthly = 3;
-        hourly = 0;
-        frequent = 0;
       };
     };
   };
