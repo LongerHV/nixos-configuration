@@ -22,13 +22,23 @@
     enable = true;
     interval = "weekly";
   };
-  services.zfs.autoSnapshot = {
+  services.sanoid = {
     enable = true;
-    daily = 7;
-    weekly = 4;
-    monthly = 3;
-    hourly = 0;
-    frequent = 0;
+    templates.default = {
+      monthly = 3;
+      daily = 14;
+    };
+    datasets = {
+      "rpool/root" = {
+        useTemplate = [ "default" ];
+      };
+      "rpool/root/home" = {
+        useTemplate = [ "default" ];
+      };
+      "rpool/root/var" = {
+        useTemplate = [ "default" ];
+      };
+    };
   };
   boot.kernelPackages = pkgs.unstable.linuxKernel.packages.linux_zen;
   boot.tmpOnTmpfs = true;
