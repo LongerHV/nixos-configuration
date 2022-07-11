@@ -10,7 +10,7 @@
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    my-overlay.url = "path:packages";
+    my-overlay.url = "path:./packages";
     my-overlay.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = inputs@{ nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, neovim-nightly-overlay, agenix, my-overlay, ... }:

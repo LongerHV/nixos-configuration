@@ -83,11 +83,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-qUAFzqjH4fY1DNcT7lvKtnCZTdslDlczkWVxs1iDnik=",
-        "path": "packages",
+        "path": "./packages",
         "type": "path"
       },
       "original": {
-        "path": "packages",
+        "path": "./packages",
         "type": "path"
       }
     },
