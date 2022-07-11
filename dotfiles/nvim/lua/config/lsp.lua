@@ -2,6 +2,7 @@ local lsp = {}
 local lsp_config = require("lspconfig")
 local lsp_signature = require("lsp_signature")
 local lsp_installer = require("nvim-lsp-installer")
+local navic = require("nvim-navic")
 local common_capabilities = vim.lsp.protocol.make_client_capabilities()
 common_capabilities = require("cmp_nvim_lsp").update_capabilities(common_capabilities)
 
@@ -40,6 +41,10 @@ function lsp.common_on_attach(client, bufnr)
 	lsp_signature.on_attach({
 		floating_window_above_cur_line = true,
 	})
+
+	if client.name ~= "null-ls" then
+		navic.attach(client, bufnr)
+	end
 end
 
 -- Setup servers installed by nix

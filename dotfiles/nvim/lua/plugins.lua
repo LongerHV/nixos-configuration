@@ -19,6 +19,7 @@ return require("packer").startup(function(use)
 			"kosayoda/nvim-lightbulb",
 			"weilbith/nvim-code-action-menu",
 		},
+		after = { "nvim-navic" },
 		config = function()
 			require("config.lsp")
 			require("config.lsp_cmp")
@@ -203,6 +204,15 @@ return require("packer").startup(function(use)
 				extensions = { 'nvim-tree' },
 			})
 		end,
+	})
+	use({
+		"SmiteshP/nvim-navic",
+		config = function ()
+			require("nvim-navic").setup({
+				highlight = true,
+			})
+			vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+		end
 	})
 	use({
 		-- Color highlighter
