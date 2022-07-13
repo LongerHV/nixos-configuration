@@ -5,7 +5,7 @@ _:
     ./auth.nix
     ./dashboard.nix
     ./git.nix
-    ./jupyter.nix
+    # ./jupyter.nix
     ./minio.nix
     ./monitoring.nix
     ./multimedia.nix
