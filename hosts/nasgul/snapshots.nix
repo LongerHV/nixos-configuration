@@ -2,9 +2,12 @@ _:
 {
   services.sanoid = {
     enable = true;
+    interval = "daily";
     templates.default = {
-      monthly = 3;
+      hourly = 0;
       daily = 14;
+      monthly = 3;
+      yearly = 0;
     };
     datasets = {
       "rpool/root" = {
