@@ -60,11 +60,12 @@ in
     createHome = false;
     isSystemUser = true;
   };
-  users.groups.blocky= { };
+  users.groups.blocky = { };
 
   systemd.services.blocky.serviceConfig = {
     DynamicUser = lib.mkForce false;
     User = "blocky";
     Group = "blocky";
+    after = [ "redis.service" ];
   };
 }
