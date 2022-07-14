@@ -1,8 +1,5 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
-let
-  parsers = pkgs.unstable.tree-sitter.withPlugins (_: pkgs.unstable.tree-sitter.allGrammars);
-in
 {
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -23,11 +20,16 @@ in
         require("plugins")
         require("config.theme")
         require("config.remaps")
+
+        -- Set compiler for treesitter to use
+        local status, ts_install = pcall(require, "nvim-treesitter.install")
+        if(status) then
+          ts_install.compilers = { "${pkgs.gcc}/bin/gcc" }
+        end
       EOF
     '';
-    plugins = [
-      # parsers
-      pkgs.unstable.vimPlugins.packer-nvim
+    plugins = with pkgs.unstable.vimPlugins; [
+      packer-nvim
     ];
     extraPackages = with pkgs.unstable; [
       # Essentials
@@ -94,10 +96,6 @@ in
     ".config/nvim" = {
       recursive = true;
       source = ../../dotfiles/nvim;
-    };
-    "${config.xdg.configHome}/nvim/parser" = {
-      recursive = true;
-      source = parsers;
     };
   };
 }
