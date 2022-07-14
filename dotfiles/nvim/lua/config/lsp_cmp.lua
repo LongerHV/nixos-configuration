@@ -63,3 +63,12 @@ cmp.setup({
 		end,
 	},
 })
+
+-- Snippets
+vim.cmd([[autocmd CursorHold,CursorHoldI * lua require("nvim-lightbulb").update_lightbulb()]])
+require("luasnip/loaders/from_vscode").lazy_load()
+
+-- Autopairs
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+require("nvim-autopairs").setup({ check_ts = true })
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({}))

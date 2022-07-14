@@ -12,8 +12,10 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     my-overlay.url = "path:./packages";
     my-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-plugins.url = "path:./neovim_plugins";
+    neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs@{ nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, neovim-nightly-overlay, agenix, my-overlay, ... }:
+  outputs = inputs@{ nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, neovim-nightly-overlay, agenix, my-overlay, neovim-plugins, ... }:
     let
       isoModule = "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix";
       overlay-unstable = final: prev: {
@@ -23,6 +25,7 @@
         neovim-nightly-overlay.overlay
         overlay-unstable
         my-overlay.overlay
+        neovim-plugins.overlay
       ];
       mkHost = { username ? "longer", modules ? [ ], home_import ? ./home }: nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

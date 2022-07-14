@@ -16,20 +16,87 @@
       let mapleader=" "
 
       lua <<EOF
+        -- Set compiler for treesitter to use
+        local ts_install = require("nvim-treesitter.install")
+        ts_install.compilers = { "${pkgs.gcc}/bin/gcc" }
+
         require("config.general")
-        require("plugins")
+        require("config.lsp")
+        require("config.lsp_cmp")
+        require("config.language")
+        require("config.tree")
+        require("config.treesitter")
+        require("config.blankline")
+        require("config.debug")
+        require("config.comment")
+        require("config.dashboard")
+        require("config.telescope")
         require("config.theme")
         require("config.remaps")
 
-        -- Set compiler for treesitter to use
-        local status, ts_install = pcall(require, "nvim-treesitter.install")
-        if(status) then
-          ts_install.compilers = { "${pkgs.gcc}/bin/gcc" }
-        end
+        -- yaml companion
+        require("telescope").load_extension("yaml_schema")
+        local cfg = require("yaml-companion").setup({})
+        require("lspconfig")["yamlls"].setup(cfg)
+
+        -- which-key
+        vim.api.nvim_set_option("timeoutlen", 300)
+        require("which-key").setup({})
+
+        -- gitsigns
+        require("gitsigns").setup()
+
+        -- pounce
+        vim.api.nvim_set_keymap("n", "s", "<cmd>Pounce<cr>", { noremap = true })
+        vim.api.nvim_set_keymap("n", "S", "<cmd>PounceRepeat<cr>", { noremap = true })
+        require("pounce").setup({
+          accept_keys = "NTHDESIROAUFYW",
+        })
       EOF
     '';
-    plugins = with pkgs.unstable.vimPlugins; [
-      packer-nvim
+    plugins = with pkgs.nvimPlugins; [
+      nvim-cmp
+      nvim-lspconfig
+      cmp-path
+      cmp-buffer
+      cmp-nvim-lsp
+      cmp-nvim-lua
+      lsp_signature
+      nvim-lsp-installer
+      cmp_luasnip
+      LuaSnip
+      friendly-snippets
+      lspkind-nvim
+      nvim-lightbulb
+      nvim-code-action-menu
+      null-ls
+      plenary
+      yaml-companion
+      nvim-tree
+      nvim-web-devicons
+      nvim-treesitter
+      nvim-treesitter-textobjects
+      nvim-ts-rainbow
+      nvim-treesitter-textsubjects
+      nvim-dap
+      which-key
+      nvim-dap-ui
+      Comment
+      vim-surround
+      vim-repeat
+      nvim-autopairs
+      gitsigns
+      pounce
+      dashboard-nvim
+      oceanic-next
+      indent-blankline
+      lualine
+      nvim-navic
+      nvim-colorizer
+      dressing
+      telescope
+      popup
+      telescope-file-browser
     ];
     extraPackages = with pkgs.unstable; [
       # Essentials
