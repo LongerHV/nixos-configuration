@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  parsers = pkgs.tree-sitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
+in
 {
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -21,11 +24,8 @@
         require("config.theme")
         require("config.remaps")
 
-        -- Set compiler for treesitter to use
-        local status, ts_install = pcall(require, "nvim-treesitter.install")
-        if(status) then
-          ts_install.compilers = { "${pkgs.gcc}/bin/gcc" }
-        end
+        -- Set path to tree-sitter parsers in nix store
+        vim.opt.runtimepath:append("${parsers}")
       EOF
     '';
     plugins = with pkgs.unstable.vimPlugins; [
