@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
-  parsers = pkgs.tree-sitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
+  parsers = pkgs.unstable.tree-sitter.withPlugins (_: pkgs.unstable.tree-sitter.allGrammars);
 in
 {
   home.sessionVariables = {
@@ -23,13 +23,11 @@ in
         require("plugins")
         require("config.theme")
         require("config.remaps")
-
-        -- Set path to tree-sitter parsers in nix store
-        vim.opt.runtimepath:append("${parsers}")
       EOF
     '';
-    plugins = with pkgs.unstable.vimPlugins; [
-      packer-nvim
+    plugins = [
+      # parsers
+      pkgs.unstable.vimPlugins.packer-nvim
     ];
     extraPackages = with pkgs.unstable; [
       # Essentials
@@ -96,6 +94,10 @@ in
     ".config/nvim" = {
       recursive = true;
       source = ../../dotfiles/nvim;
+    };
+    "${config.xdg.configHome}/nvim/parser" = {
+      recursive = true;
+      source = parsers;
     };
   };
 }

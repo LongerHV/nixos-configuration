@@ -1,4 +1,5 @@
 require("nvim-treesitter.configs").setup({
+	parser_install_dir = "~/.config/nvim",
 	indent = { enable = true, disable = { "python", "yaml" } },
 	-- yati = { enable = true },
 	highlight = {
