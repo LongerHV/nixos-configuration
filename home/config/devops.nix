@@ -8,6 +8,7 @@
     kubernetes-helm
     azure-cli
     awscli2
+    eksctl
     ansible
     terraform
   ];
