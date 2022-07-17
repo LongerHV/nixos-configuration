@@ -85,5 +85,22 @@
     ];
   };
 
+  age.secrets = {
+    cache_priv_key.file = ../../secrets/mordor_cache_priv_key.pem.age;
+  };
+
+  services = {
+    # Enable openssh only to provide key for agenix
+    openssh = {
+      enable = true;
+      passwordAuthentication = false;
+      openFirewall = false;
+    };
+    nix-serve = {
+      enable = true;
+      openFirewall = true;
+      secretKeyFile = config.age.secrets.cache_priv_key.path;
+    };
+  };
   system.stateVersion = "22.05";
 }

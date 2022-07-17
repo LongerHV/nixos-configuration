@@ -9,6 +9,7 @@ let
   systems = [ mordor nasgul ];
 in
 {
+  # Nasgul
   "nasgul_wireguard_priv_key.age".publicKeys = [ nasgul nasgul_user mordor_user ];
   "nasgul_mullvad_priv_key.age".publicKeys = [ nasgul nasgul_user mordor_user ];
   "nasgul_cache_priv_key.pem.age".publicKeys = [ nasgul nasgul_user mordor_user ];
@@ -22,4 +23,7 @@ in
   "nasgul_minio_root_credentials.age".publicKeys = [ nasgul nasgul_user mordor_user ];
   "cloudflare_token.age".publicKeys = [ nasgul nasgul_user mordor_user ];
   "cloudflare_email.age".publicKeys = [ nasgul nasgul_user mordor_user ];
+
+  # Mordor
+  "mordor_cache_priv_key.pem.age".publicKeys = [ mordor mordor_user ];
 }
