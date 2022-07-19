@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   nierWallpaper = builtins.fetchurl {
@@ -44,6 +44,13 @@ in
       inherit (colors) palette;
       use-transparent-background = true;
       background-transparency-percent = 15;
+    };
+    "org/gnome/settings-daemon/plugins/color" = {
+      night-light-enabled = true;
+      # night-light-temperature = 3000; # Not working
+      night-light-schedule-automatic = false;
+      night-light-schedule-from = 0.0;
+      night-light-schedule-to = 0.0;
     };
   };
 }
