@@ -37,6 +37,10 @@
           {
             mainUser = username;
             nixpkgs.overlays = overlays;
+            nix.registry = {
+              nixpkgs.flake = nixpkgs;
+              unstable.flake = nixpkgs-unstable;
+            };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users."${username}" = import home_import;
@@ -55,6 +59,10 @@
         configuration = { pkgs, ... }: {
           nixpkgs.overlays = overlays;
           imports = [ ./home/config/non-nixos.nix ] ++ imports;
+          nix.registry = {
+            nixpkgs.flake = nixpkgs;
+            unstable.flake = nixpkgs-unstable;
+          };
         };
       };
     in
