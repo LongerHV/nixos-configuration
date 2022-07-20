@@ -74,7 +74,7 @@
       yaml-companion
       nvim-tree
       nvim-web-devicons
-      nvim-treesitter
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
       nvim-treesitter-textobjects
       nvim-ts-rainbow
       nvim-treesitter-textsubjects
