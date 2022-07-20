@@ -49,6 +49,13 @@
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   hardware.bluetooth.enable = true;
 
+  # FIXME: For some reason cpu will not go above 4GHz...
+  powerManagement = {
+    cpuFreqGovernor = "ondemand";
+    cpufreq.min = 800000;
+    cpufreq.max = 4700000;
+  };
+
   services.dnsmasq = {
     enable = true;
   };
