@@ -17,6 +17,7 @@
     curl
     wget
     jq
+    unzip
     cht-sh
     pkgs.poetry
   ];
