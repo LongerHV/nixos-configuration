@@ -62,10 +62,12 @@ in
   };
   users.groups.blocky = { };
 
-  systemd.services.blocky.serviceConfig = {
-    DynamicUser = lib.mkForce false;
-    User = "blocky";
-    Group = "blocky";
+  systemd.services.blocky = {
     after = [ "redis.service" ];
+    serviceConfig = {
+      DynamicUser = lib.mkForce false;
+      User = "blocky";
+      Group = "blocky";
+    };
   };
 }
