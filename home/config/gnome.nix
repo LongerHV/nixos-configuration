@@ -28,12 +28,16 @@ in
     "org/gnome/desktop/screensaver" = {
       picture-uri = "file://${nierWallpaper}";
     };
+    "org/gnome/terminal/legacy" = {
+      theme-variant = "dark";
+    };
     "org/gnome/terminal/legacy/profiles:" = {
       default = profileUUID;
       list = [ profileUUID ];
     };
     "org/gnome/terminal/legacy/profiles:/:${profileUUID}" = {
       visible-name = "Oceanic Next";
+      audible-bell = false;
       font = "Hack Nerd Font 14";
       use-system-font = false;
       use-theme-colors = false;
