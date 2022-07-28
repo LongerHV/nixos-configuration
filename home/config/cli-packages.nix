@@ -8,19 +8,20 @@
   ];
 
   home.packages = with pkgs.unstable; [
-    mc
-    subversion
-    neofetch
-    htop
-    colordiff
-    openssh
-    curl
-    wget
-    file
-    tree
-    jq
-    unzip
     cht-sh
+    colordiff
+    curl
+    file
+    htop
+    jq
+    mc
+    neofetch
+    openssh
+    subversion
+    tree
+    unzip
+    wget
+
     pkgs.poetry
   ];
 
