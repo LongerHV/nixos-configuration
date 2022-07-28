@@ -16,6 +16,8 @@
     openssh
     curl
     wget
+    file
+    tree
     jq
     unzip
     cht-sh
