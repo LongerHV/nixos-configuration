@@ -2,7 +2,7 @@
 
 {
   home.sessionVariables = {
-    EDITOR = "${pkgs.nvim}/bin/nvim";
+    EDITOR = "${pkgs.neovim}/bin/nvim";
   };
 
   programs.neovim = {
