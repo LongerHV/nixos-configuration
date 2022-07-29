@@ -51,6 +51,8 @@ Personal NAS server.
 
 - [ ] Prometheus + Grafana + Loki
 
+- [ ] InvoicePlane
+
 ## Resources
 
 - [Authelia tutorial](https://www.smarthomebeginner.com/docker-authelia-tutorial/)
