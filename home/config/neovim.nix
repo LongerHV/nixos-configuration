@@ -2,7 +2,7 @@
 
 {
   home.sessionVariables = {
-    EDITOR = "nvim";
+    EDITOR = "${pkgs.nvim}/bin/nvim";
   };
 
   programs.neovim = {
@@ -16,10 +16,6 @@
       let mapleader=" "
 
       lua <<EOF
-        -- Set compiler for treesitter to use
-        local ts_install = require("nvim-treesitter.install")
-        ts_install.compilers = { "${pkgs.gcc}/bin/gcc" }
-
         require("config.general")
         require("config.lsp")
         require("config.lsp_cmp")
