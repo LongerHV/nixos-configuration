@@ -26,6 +26,11 @@
           publicKey = "hL9VANFN7BItGrBVDT4nKpXhiyykyshvc0Zrk9bfWio=";
           allowedIPs = [ "10.100.0.2" ];
         }
+        {
+          # Golum
+          publicKey = "K/OYE5QPSZammNgpwEXpAx2+KPkZGveuyNM13qvQU1Q=";
+          allowedIPs = [ "10.100.0.3" ];
+        }
       ];
     };
 
