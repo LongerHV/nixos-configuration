@@ -31,6 +31,16 @@
           publicKey = "K/OYE5QPSZammNgpwEXpAx2+KPkZGveuyNM13qvQU1Q=";
           allowedIPs = [ "10.100.0.3" ];
         }
+        {
+          # iPad
+          publicKey = "KJ7qkIgdudj6bHdlcUAmSuGx74C7+sVSfBxPhwKVBRs=";
+          allowedIPs = [ "10.100.0.4" ];
+        }
+        {
+          # Dad
+          publicKey = "QyRmx4PseUd5YXD9IDnh/6HYQCXiJ1NtxJlT2EnvTXw=";
+          allowedIPs = [ "10.100.0.5" ];
+        }
       ];
     };
 
