@@ -84,6 +84,12 @@
             nixos-hardware.nixosModules.common-gpu-amd
           ];
         };
+        golum = mkHost {
+          modules = [
+            ./hosts/golum
+            nixos-hardware.nixosModules.common-cpu-intel
+          ];
+        };
         isoimage = mkHost {
           username = "nixos";
           home_import = ./home/iso.nix;
