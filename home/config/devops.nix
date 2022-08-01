@@ -10,6 +10,7 @@
     awscli2
     eksctl
     ansible
+    teleport.client
     terraform
   ];
 }
