@@ -156,7 +156,7 @@ in
 
   services.dashy = {
     enable = true;
-    imageTag = "2.1.0";
+    imageTag = "2.1.1";
     port = 8082;
     inherit settings;
     extraOptions = [
