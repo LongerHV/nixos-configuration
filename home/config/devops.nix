@@ -2,14 +2,15 @@
 
 {
   home.packages = with pkgs.unstable; [
+    ansible
+    awscli2
+    azure-cli
+    eksctl
     k9s
     kube3d
     kubectl
     kubernetes-helm
-    azure-cli
-    awscli2
-    eksctl
-    ansible
+    rancher
     teleport.client
     terraform
   ];
