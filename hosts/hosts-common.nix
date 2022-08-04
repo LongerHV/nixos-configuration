@@ -13,7 +13,7 @@
 
   hardware.enableRedistributableFirmware = true;
   nix = {
-    package = pkgs.nix;
+    package = pkgs.unstable.nix;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
