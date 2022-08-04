@@ -5,6 +5,7 @@
     ansible
     awscli2
     azure-cli
+    certbot
     eksctl
     k9s
     kube3d
