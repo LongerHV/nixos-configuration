@@ -35,6 +35,7 @@
         src = zsh-z;
       });
       zsh-vim-mode = prev.callPackage ./zsh-vim-mode.nix inputs prev;
+      invoiceninja = prev.callPackage ./invoiceninja.nix prev;
     };
   };
 }
