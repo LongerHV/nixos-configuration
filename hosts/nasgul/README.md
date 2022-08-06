@@ -28,6 +28,8 @@ Personal NAS server.
 
 - Netdata monitoring
 
+- Mailhog SMTP mockup
+
 - NixOS cache
 
 ## TODO
@@ -42,7 +44,9 @@ Personal NAS server.
 
 - [ ] Nextcloud - redis cache
 
-- [ ] Authelia - SMTP
+- [ ] Nextcloud - SMTP
+
+- [x] Authelia - SMTP (mailhog for now)
 
 - [ ] Use MariaDB for Authelia
 ([waiting for socket support](https://github.com/authelia/authelia/pull/3531))
@@ -51,7 +55,7 @@ Personal NAS server.
 
 - [ ] Prometheus + Grafana + Loki
 
-- [ ] InvoicePlane
+- [ ] Invoicing service (InvoicePlane, InvoiceNinja)
 
 ## Resources
 
