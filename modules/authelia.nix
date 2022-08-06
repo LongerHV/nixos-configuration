@@ -56,7 +56,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 authelia authelia - -" ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0750 ${cfg.user} ${cfg.group} - -" ];
     systemd.services.authelia = {
       description = "Authelia SSO service";
       after = [ "network-online.target" ];
