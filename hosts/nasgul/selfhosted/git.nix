@@ -6,7 +6,7 @@ let
   inherit (config.services) gitea;
 in
 {
-  imports = [ ./database.nix ./redis.nix ];
+  imports = [ ./database.nix ./redis.nix ./mail.nix ];
   users.users."${config.mainUser}".extraGroups = [ "gitea" ];
   users.users."${gitea.user}".extraGroups = [ "redis" ];
 
@@ -31,6 +31,7 @@ in
     enable = true;
     rootUrl = "https://gitea.local.${config.myDomain}";
     repositoryRoot = "/chonk/repositories";
+    cookieSecure = true;
     # disableRegistration = true;
     database = {
       type = "mysql";
@@ -45,6 +46,14 @@ in
         ENABLED = true;
         ADAPTER = "redis";
         HOST = "network=unix,addr=${redis.unixSocket},db=1,pool_rize=100,idle_timeout=180";
+      };
+      mailer = rec {
+        ENABLED = true;
+        PROTOCOL = "smtp";
+        SMTP_ADDR = "127.0.0.1";
+        SMTP_PORT = "1025";
+        HOST = "${SMTP_ADDR}:${SMTP_PORT}"; # Pre 1.18
+        FROM = "gitea@${config.myDomain}";
       };
     };
   };
