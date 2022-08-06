@@ -34,6 +34,10 @@ in
       file = ../../../secrets/nasgul_authelia_config.age;
       owner = config.services.authelia.user;
     };
+    authelia_mysql_password = {
+      file = ../../../secrets/nasgul_authelia_mysql_password.age;
+      owner = config.services.authelia.user;
+    };
   };
 
   environment.systemPackages = [
@@ -81,6 +85,7 @@ in
     oidcIssuerPrivKeyFile = config.age.secrets.authelia_issuer_priv_key.path;
     settingsFile = config.age.secrets.authelia_secret_config.path;
     sessionSecretFile = config.age.secrets.authelia_session_secret.path;
+    mysqlPasswordFile = config.age.secrets.authelia_mysql_password.path;
     settings = {
       theme = "dark";
       default_2fa_method = "totp";
@@ -133,18 +138,24 @@ in
         ];
       };
       storage = {
-        local = {
-          path = "${config.services.authelia.dataDir}/db.sqlite3";
+        # local = {
+        #   path = "${config.services.authelia.dataDir}/db.sqlite3";
+        # };
+        mysql = {
+          host = "localhost";
+          port = 3306;
+          database = "authelia";
+          username = config.services.authelia.user;
         };
       };
       notifier = {
         disable_startup_check = false;
         smtp = {
-            host = "127.0.0.1";
-            port = 1025;
-            sender = "auth@${config.myDomain}";
-            disable_require_tls = true;
-          };
+          host = "127.0.0.1";
+          port = 1025;
+          sender = "auth@${config.myDomain}";
+          disable_require_tls = true;
+        };
       };
     };
   };

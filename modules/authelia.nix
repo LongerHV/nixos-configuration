@@ -28,6 +28,9 @@ in
     storageEncryptionKeyFile = mkOption {
       type = types.path;
     };
+    mysqlPasswordFile = mkOption {
+      type = types.path;
+    };
     oidcHmacSecretFile = mkOption {
       type = types.path;
     };
@@ -72,6 +75,7 @@ in
       environment = {
         AUTHELIA_JWT_SECRET_FILE = cfg.jwtSecretFile;
         AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE = cfg.storageEncryptionKeyFile;
+        AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE = cfg.mysqlPasswordFile;
         AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE = cfg.oidcHmacSecretFile;
         AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE = cfg.oidcIssuerPrivKeyFile;
         AUTHELIA_SESSION_SECRET_FILE = cfg.sessionSecretFile;
