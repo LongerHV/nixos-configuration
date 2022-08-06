@@ -14,6 +14,8 @@ Personal NAS server.
 
 - Dashy dashboard
 
+- MariaDB
+
 - Redis cache/session provider
 
 - MinIO object storage
@@ -40,6 +42,8 @@ Personal NAS server.
 
 - [ ] LDAP? (LDAP as Authelia backend, Jellyfin, Gitea, NextCloud)
 
+- [ ] Authelia - Add groups and rules for services
+
 - [ ] Nextcloud - SSO (with Authelia OIDC or LDAP)
 
 - [ ] Nextcloud - redis cache
@@ -48,7 +52,9 @@ Personal NAS server.
 
 - [x] Authelia - SMTP (mailhog for now)
 
-- [ ] Use MariaDB for Authelia
+- [x] Use MariaDB for Authelia
+
+- [ ] Use mysql socket for Authelia.
 ([waiting for socket support](https://github.com/authelia/authelia/pull/3531))
 
 - [x] MinIO (for backups and Loki)
