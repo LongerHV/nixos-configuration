@@ -64,6 +64,7 @@ let
             title = "MinIO";
             url = "https://minio.local.${config.myDomain}";
             icon = "${url}/favicon-32x32.png";
+            statusCheckUrl = "http://localhost:9001";
             statusCheck = true;
           }
           rec {
