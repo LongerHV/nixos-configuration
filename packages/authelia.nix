@@ -2,7 +2,7 @@
 
 let
   pname = "authelia";
-  version = "4.36.2";
+  version = "4.36.3";
 in
 stdenv.mkDerivation {
   inherit pname;
@@ -10,7 +10,7 @@ stdenv.mkDerivation {
 
   src = fetchzip {
     url = "https://github.com/${pname}/${pname}/releases/download/v${version}/${pname}-v${version}-linux-amd64.tar.gz";
-    sha256 = "l7VKO28mcGqho2WiMzvRSmQ9PZaKKZs+vLOigVhqCjk=";
+    sha256 = "sha256-dNNqm+m5uOC5V5Qx537eSQa6IhmlNoSHNPS1GOrmwN0=";
     stripRoot = false;
   };
 
