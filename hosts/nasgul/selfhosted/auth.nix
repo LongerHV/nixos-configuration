@@ -6,7 +6,7 @@ let
   redis = config.services.redis.servers."";
 in
 {
-  imports = [ ./database.nix ./redis.nix ];
+  imports = [ ./database.nix ./redis.nix ./mail.nix ];
   age.secrets = {
     authelia_jwt_secret = {
       file = ../../../secrets/nasgul_authelia_jwt_secret.age;
@@ -137,9 +137,12 @@ in
       };
       notifier = {
         disable_startup_check = false;
-        filesystem = {
-          filename = "${config.services.authelia.dataDir}/notification.txt";
-        };
+        smtp = {
+            host = "127.0.0.1";
+            port = 1025;
+            sender = "auth@${config.myDomain}";
+            disable_require_tls = true;
+          };
       };
     };
   };
