@@ -17,6 +17,7 @@
     mc
     neofetch
     openssh
+    spotify-tui
     subversion
     tree
     unzip
