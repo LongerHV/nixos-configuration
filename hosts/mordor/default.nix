@@ -43,7 +43,7 @@
       };
     };
   };
-  boot.kernelPackages = pkgs.unstable.linuxKernel.packages.linux_zen;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.tmpOnTmpfs = true;
   zramSwap.enable = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
