@@ -56,6 +56,11 @@
     cpufreq.max = 4700000;
   };
 
+  programs.corectrl = {
+    enable = true;
+    gpuOverclock.enable = true;
+  };
+
   services.dnsmasq = {
     enable = true;
   };
