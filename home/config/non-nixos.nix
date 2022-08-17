@@ -6,7 +6,7 @@
     hostname
     unstable.home-manager
     # This must be here, enable option below does not ensure that nix is installed
-    nix
+    unstable.nix
   ];
 
   nix = {
