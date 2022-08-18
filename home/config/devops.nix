@@ -16,6 +16,7 @@ in
     kube3d
     kubectl
     kubernetes-helm
+    mysql-client
     rancher
     teleport.client
     terraform
