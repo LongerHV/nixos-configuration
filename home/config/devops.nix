@@ -15,7 +15,9 @@ in
     k9s
     kube3d
     kubectl
+    kubelogin-oidc
     kubernetes-helm
+    krew
     mysql-client
     rancher
     teleport.client
