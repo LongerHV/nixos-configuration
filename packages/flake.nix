@@ -37,6 +37,7 @@
       zsh-vim-mode = prev.callPackage ./zsh-vim-mode.nix inputs prev;
       invoiceninja = prev.callPackage ./invoiceninja.nix prev;
       qmk = prev.callPackage ./qmk.nix prev;
+      xerox-generic-driver = prev.callPackage ./xerox.nix prev;
     };
   };
 }

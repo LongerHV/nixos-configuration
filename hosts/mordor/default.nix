@@ -113,6 +113,12 @@
       openFirewall = true;
       secretKeyFile = config.age.secrets.cache_priv_key.path;
     };
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        xerox-generic-driver
+      ];
+    };
     udev.packages = [ pkgs.qmk-udev-rules ];
   };
   system.stateVersion = "22.05";
