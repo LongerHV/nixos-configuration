@@ -113,6 +113,7 @@
       openFirewall = true;
       secretKeyFile = config.age.secrets.cache_priv_key.path;
     };
+    udev.packages = [ pkgs.qmk-udev-rules ];
   };
   system.stateVersion = "22.05";
 }
