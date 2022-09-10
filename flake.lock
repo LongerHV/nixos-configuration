@@ -322,7 +322,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-heIMcxHNSOJ7L1GGYksp9iFMkrKCyhZ/xrScQy/W0rA=",
+        "narHash": "sha256-k58SbL2Qq6UoOkm8zOp/DVsXpCaxZBpAfEeu9AGXb+I=",
         "path": "./packages",
         "type": "path"
       },

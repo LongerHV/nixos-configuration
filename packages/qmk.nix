@@ -12,11 +12,11 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "qmk";
-  version = "1.1.0";
+  version = "1.1.1";
 
   src = python3.pkgs.fetchPypi {
     inherit pname version;
-    sha256 = "sha256-dxV3yeaOt/4IlpurNq60IHE6UlBi3OUqBu2kDajNpeE=";
+    sha256 = "sha256-3QKOCevNYfi9+MuCkp36/A4AfZelo4A7RYGbRkF3Mmk=";
   };
 
   nativeBuildInputs = with python3.pkgs; [
@@ -29,7 +29,7 @@ python3.pkgs.buildPythonApplication rec {
     appdirs
     argcomplete
     colorama
-    qmk-dotty-dict
+    dotty-dict
     hid
     hjson
     jsonschema
