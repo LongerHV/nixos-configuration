@@ -119,6 +119,10 @@
         xerox-generic-driver
       ];
     };
+    avahi = {
+      enable = true;
+      nssmdns = true;
+    };
     udev.packages = [ pkgs.qmk-udev-rules ];
   };
   system.stateVersion = "22.05";
