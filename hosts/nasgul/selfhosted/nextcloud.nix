@@ -17,7 +17,7 @@ in
       subdomain = "nextcloud";
       middlewares = [ "nextcloud-redirectregex" ];
     };
-    services.nextcloud_service = util.traefik_service { url = "192.168.2.10"; port = 80; };
+    services.nextcloud_service = util.traefik_service { url = "localhost"; port = 8086; };
   };
 
   age.secrets = {
@@ -34,6 +34,7 @@ in
     users.nextcloud = {
       uid = 997;
       home = "/var/lib/nextcloud";
+      createHome = true;
       group = "nextcloud";
       isSystemUser = true;
     };
@@ -43,69 +44,35 @@ in
     };
   };
 
-  services.mysql = {
-    settings.mysqld.innodb_read_only_compressed = 0;
-    ensureDatabases = [
-      "nextcloud"
-    ];
-    ensureUsers = [
-      {
-        name = "nextcloud";
-        ensurePermissions = {
-          "nextcloud.*" = "ALL PRIVILEGES";
-        };
-      }
-    ];
-  };
-  containers = {
-    nextcloud = {
-      ephemeral = true;
-      autoStart = true;
-      privateNetwork = true;
-      hostAddress = "192.168.2.1";
-      localAddress = "192.168.2.10";
-      config = { config, pkgs, ... }: {
-        networking.firewall.allowedTCPPorts = [ 80 ];
-        networking.nameservers = [ "192.168.2.1" ];
-        networking.dhcpcd.extraConfig = "nohook resolv.conf";
-        time.timeZone = "Europe/Warsaw";
-        services.nextcloud = {
-          enable = true;
-          package = pkgs.nextcloud24;
-          hostName = "nextcloud.${myDomain}";
-          https = true;
-          config = {
-            dbtype = "mysql";
-            dbhost = "localhost:/run/mysqld/mysqld.sock";
-            adminpassFile = secrets.nextcloud_admin_password.path;
-            extraTrustedDomains = [ "nextcloud.local.${myDomain}" ];
-            trustedProxies = [ "192.168.1.243" ];
+  services = {
+    mysql = {
+      settings.mysqld.innodb_read_only_compressed = 0;
+      ensureDatabases = [
+        "nextcloud"
+      ];
+      ensureUsers = [
+        {
+          name = "nextcloud";
+          ensurePermissions = {
+            "nextcloud.*" = "ALL PRIVILEGES";
           };
-        };
-        users.users.nextcloud = {
-          uid = 997;
-          home = "/var/lib/nextcloud";
-          group = "nextcloud";
-          isSystemUser = true;
-        };
-        users.groups.nextcloud = {
-          gid = 995;
-        };
-        system.stateVersion = "22.05";
-      };
-      bindMounts = {
-        ${secrets.nextcloud_admin_password.path} = {
-          hostPath = secrets.nextcloud_admin_password.path;
-          isReadOnly = true;
-        };
-        "/run/mysqld/mysqld.sock" = {
-          hostPath = "/run/mysqld/mysqld.sock";
-          isReadOnly = false;
-        };
-        "/var/lib/nextcloud" = {
-          hostPath = "/chonk/nextcloud";
-          isReadOnly = false;
-        };
+        }
+      ];
+    };
+
+    nginx.virtualHosts."localhost".listen = [{ addr = "127.0.0.1"; port = 8086; }];
+    nextcloud = {
+      enable = true;
+      package = pkgs.nextcloud24;
+      datadir = "/chonk/nextcloud";
+      hostName = "localhost";
+      https = true;
+      config = {
+        dbtype = "mysql";
+        dbhost = "localhost:/run/mysqld/mysqld.sock";
+        adminpassFile = secrets.nextcloud_admin_password.path;
+        extraTrustedDomains = [ "nextcloud.local.${myDomain}" "nextcloud.${myDomain}" ];
+        trustedProxies = [ "127.0.0.1" ];
       };
     };
   };
