@@ -18,7 +18,11 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    gc.automatic = true;
+    gc = {
+      automatic = true;
+      options = "--delete-old";
+      dates = "weekly";
+    };
   };
 
   time.timeZone = "Europe/Warsaw";
