@@ -38,6 +38,10 @@ in
       file = ../../../secrets/nasgul_authelia_mysql_password.age;
       owner = config.services.authelia.user;
     };
+    ldap_password = {
+      file = ../../../secrets/nasgul_ldap_password.age;
+      owner = config.services.authelia.user;
+    };
   };
 
   environment.systemPackages = [
@@ -86,6 +90,7 @@ in
     settingsFile = config.age.secrets.authelia_secret_config.path;
     sessionSecretFile = config.age.secrets.authelia_session_secret.path;
     mysqlPasswordFile = config.age.secrets.authelia_mysql_password.path;
+    ldapPasswordFile = config.age.secrets.ldap_password.path;
     settings = {
       theme = "dark";
       default_2fa_method = "totp";
@@ -109,16 +114,23 @@ in
         ban_time = 300;
       };
       authentication_backend = {
-        file = {
-          path = "${config.services.authelia.dataDir}/users_database.yml";
-          password = {
-            algorithm = "argon2id";
-            iterations = 1;
-            key_length = 32;
-            salt_length = 16;
-            memory = 1024;
-            parallelism = 8;
-          };
+        password_reset.disable = false;
+        refresh_interval = "1m";
+        ldap = {
+          implementation = "custom";
+          url = "ldap://localhost:3890";
+          timeout = "5m";
+          start_tls = false;
+          base_dn = "dc=longerhv,dc=xyz";
+          username_attribute = "uid";
+          additional_users_dn = "ou=people";
+          users_filter = "(&({username_attribute}={input})(objectClass=person))";
+          additional_groups_dn = "ou=groups";
+          groups_filter = "(member={dn})";
+          group_name_attribute = "cn";
+          mail_attribute = "mail";
+          display_name_attribute = "displayName";
+          user = "uid=admin,ou=people,dc=longerhv,dc=xyz";
         };
       };
       access_control = {

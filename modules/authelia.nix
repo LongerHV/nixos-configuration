@@ -40,6 +40,9 @@ in
     sessionSecretFile = mkOption {
       type = types.path;
     };
+    ldapPasswordFile = mkOption {
+      type = types.path;
+    };
     settings = mkOption {
       type = types.attrs;
       default = { };
@@ -79,6 +82,7 @@ in
         AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE = cfg.oidcHmacSecretFile;
         AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE = cfg.oidcIssuerPrivKeyFile;
         AUTHELIA_SESSION_SECRET_FILE = cfg.sessionSecretFile;
+        AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = cfg.ldapPasswordFile;
       };
     };
 
