@@ -10,7 +10,9 @@ Personal NAS server.
 
 - Traefik reverse proxy (with SSL)
 
-- Authelia SSO
+- LLDAP authentication server
+
+- Authelia SSO (using LLDAP)
 
 - Dashy dashboard
 
@@ -40,7 +42,9 @@ Personal NAS server.
 
 - [ ] Extract dashboard entries to proper modules
 
-- [ ] LDAP? (LDAP as Authelia backend, Jellyfin, Gitea, NextCloud)
+- [x] LDAP (LDAP as Authelia backend)
+
+- [ ] LLDAP - SMTP
 
 - [ ] Authelia - Add groups and rules for services
 
