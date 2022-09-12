@@ -6,6 +6,7 @@ _:
     ./dashboard.nix
     ./git.nix
     # ./jupyter.nix
+    ./lldap.nix
     ./minio.nix
     ./monitoring.nix
     ./multimedia.nix
