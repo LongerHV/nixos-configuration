@@ -11,4 +11,9 @@
     reaper
     qmk
   ];
+
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
 }
