@@ -13,7 +13,6 @@
 
 
   hardware.enableRedistributableFirmware = true;
-  boot.loader.grub.configurationLimit = lib.mkDefault 5;
   nix = {
     package = pkgs.unstable.nix;
     extraOptions = ''
@@ -21,7 +20,7 @@
     '';
     gc = {
       automatic = true;
-      options = "--delete-old";
+      options = "--delete-older-than 14d";
       dates = "weekly";
     };
   };
