@@ -13,6 +13,7 @@
 
 
   hardware.enableRedistributableFirmware = true;
+  boot.loader.grub.configurationLimit = lib.mkDefault 5;
   nix = {
     package = pkgs.unstable.nix;
     extraOptions = ''
