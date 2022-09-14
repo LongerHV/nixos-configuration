@@ -43,7 +43,8 @@
       };
     };
   };
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  # boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   boot.tmpOnTmpfs = true;
   zramSwap.enable = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
