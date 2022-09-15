@@ -25,6 +25,7 @@ in
   "nasgul_authelia_session_secret.age".publicKeys = [ nasgul nasgul_user mordor_user ];
   "nasgul_ldap_password.age".publicKeys = [ nasgul nasgul_user mordor_user ];
   "nasgul_minio_root_credentials.age".publicKeys = [ nasgul nasgul_user mordor_user ];
+  "nasgul_sendgrid_token.age".publicKeys = [ nasgul nasgul_user mordor_user ];
   "cloudflare_token.age".publicKeys = [ nasgul nasgul_user mordor_user ];
   "cloudflare_email.age".publicKeys = [ nasgul nasgul_user mordor_user ];
 

@@ -43,6 +43,9 @@ in
     ldapPasswordFile = mkOption {
       type = types.path;
     };
+    smtpPasswordFile = mkOption {
+      type = types.path;
+    };
     settings = mkOption {
       type = types.attrs;
       default = { };
@@ -83,6 +86,7 @@ in
         AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE = cfg.oidcIssuerPrivKeyFile;
         AUTHELIA_SESSION_SECRET_FILE = cfg.sessionSecretFile;
         AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = cfg.ldapPasswordFile;
+        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = cfg.smtpPasswordFile;
       };
     };
 

@@ -8,7 +8,7 @@ in
 {
   imports = [ ./database.nix ./redis.nix ./mail.nix ];
   users.users."${config.mainUser}".extraGroups = [ "gitea" ];
-  users.users."${gitea.user}".extraGroups = [ "redis" ];
+  users.users."${gitea.user}".extraGroups = [ "redis" "sendgrid" ];
 
   services.traefik.dynamicConfigOptions.http = {
     routers.gitea_router = util.traefik_router { subdomain = "gitea"; };
@@ -32,7 +32,7 @@ in
     rootUrl = "https://gitea.local.${config.myDomain}";
     repositoryRoot = "/chonk/repositories";
     cookieSecure = true;
-    # disableRegistration = true;
+    disableRegistration = true;
     database = {
       type = "mysql";
       socket = "/run/mysqld/mysqld.sock";
@@ -49,10 +49,9 @@ in
       };
       mailer = rec {
         ENABLED = true;
-        PROTOCOL = "smtp";
-        SMTP_ADDR = "127.0.0.1";
-        SMTP_PORT = "1025";
-        HOST = "${SMTP_ADDR}:${SMTP_PORT}"; # Pre 1.18
+        # Use PROTOCOL instead of MAILER_TYPE after 1.18
+        MAILER_TYPE = "sendmail";
+        SENDMAIL_PATH = "/run/wrappers/bin/sendmail";
         FROM = "gitea@${config.myDomain}";
       };
     };

@@ -49,7 +49,7 @@ in
   ];
 
   users.users."${config.mainUser}".extraGroups = [ "authelia" ];
-  users.users."${authelia.user}".extraGroups = [ "redis" ];
+  users.users."${authelia.user}".extraGroups = [ "redis" "sendgrid" ];
 
   services.traefik.dynamicConfigOptions.http = {
     middlewares.authelia.forwardAuth = {
@@ -91,6 +91,7 @@ in
     sessionSecretFile = config.age.secrets.authelia_session_secret.path;
     mysqlPasswordFile = config.age.secrets.authelia_mysql_password.path;
     ldapPasswordFile = config.age.secrets.ldap_password.path;
+    smtpPasswordFile = config.age.secrets.sendgrid_token.path;
     settings = {
       theme = "dark";
       default_2fa_method = "totp";
@@ -163,10 +164,10 @@ in
       notifier = {
         disable_startup_check = false;
         smtp = {
-          host = "127.0.0.1";
-          port = 1025;
-          sender = "auth@${config.myDomain}";
-          disable_require_tls = true;
+          host = "smtp.sendgrid.net";
+          port = 465;
+          username = "apikey";
+          sender = "authelia@${config.myDomain}";
         };
       };
     };
