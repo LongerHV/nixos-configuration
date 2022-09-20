@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.sessionVariables = {
-    EDITOR = "${pkgs.neovim}/bin/nvim";
+    EDITOR = "${config.home.profileDirectory}/bin/nvim";
   };
 
   programs.neovim = {
