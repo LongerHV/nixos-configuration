@@ -32,7 +32,7 @@ Personal NAS server.
 
 - Netdata monitoring
 
-- Mailhog SMTP mockup
+- SMTP + Sendmail (through SendGrid)
 
 - NixOS cache
 
@@ -52,7 +52,7 @@ Personal NAS server.
 
 - [ ] Nextcloud - redis cache
 
-- [ ] Nextcloud - SMTP
+- [x] Nextcloud - SMTP
 
 - [x] Authelia - SMTP (mailhog for now)
 
