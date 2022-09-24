@@ -15,14 +15,12 @@ vim.cmd("hi WinSeparator guibg=NONE")
 -- Status line
 require("lualine").setup({
 	options = { theme = "OceanicNext", globalstatus = true },
-	extensions = { 'nvim-tree' },
+	extensions = { "nvim-tree" },
+	winbar = {
+		lualine_b = { "filename" },
+		lualine_c = { "%{%v:lua.require'nvim-navic'.get_location()%}" },
+	},
 })
-
--- Winbar
-require("nvim-navic").setup({
-	highlight = true,
-})
-vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
 
 -- Colorizer
 require("colorizer").setup()
