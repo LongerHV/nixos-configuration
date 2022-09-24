@@ -10,7 +10,7 @@ require("Comment").setup({
 })
 
 vim.api.nvim_set_keymap(
-	"x",
+	"v",
 	"",
 	'<esc><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<cr>',
 	{}
