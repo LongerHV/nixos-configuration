@@ -42,7 +42,7 @@ function lsp.common_on_attach(client, bufnr)
 		floating_window_above_cur_line = true,
 	})
 
-	if client.name ~= "null-ls" then
+	if client.server_capabilities.documentSymbolProvider then
 		navic.attach(client, bufnr)
 	end
 end
