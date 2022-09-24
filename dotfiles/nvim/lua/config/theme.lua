@@ -16,9 +16,21 @@ vim.cmd("hi WinSeparator guibg=NONE")
 require("lualine").setup({
 	options = { theme = "OceanicNext", globalstatus = true },
 	extensions = { "nvim-tree" },
+	sections = {
+		lualine_a = { "mode" },
+		lualine_b = { "branch", "diff" },
+		lualine_c = { "diagnostics" },
+		lualine_x = {},
+		lualine_y = { "progress" },
+		lualine_z = { "location" },
+	},
 	winbar = {
-		lualine_b = { "filename" },
+		lualine_a = { "filename" },
+		lualine_b = {},
 		lualine_c = { "%{%v:lua.require'nvim-navic'.get_location()%}" },
+		lualine_x = { "encoding", "fileformat", "filetype" },
+		lualine_y = {},
+		lualine_z = {},
 	},
 })
 
