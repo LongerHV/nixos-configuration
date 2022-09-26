@@ -4,6 +4,7 @@ let
   util = pkgs.callPackage ./util.nix { inherit config; };
   inherit (config.services) authelia;
   redis = config.services.redis.servers."";
+  autheliaUrl = "http://${authelia.settings.server.host}:${builtins.toString authelia.settings.server.port}";
 in
 {
   imports = [ ./database.nix ./redis.nix ./mail.nix ];
@@ -53,13 +54,13 @@ in
 
   services.traefik.dynamicConfigOptions.http = {
     middlewares.authelia.forwardAuth = {
-      address = "http://localhost:9092/api/verify?rd=https%3A%2F%2Fauth.local.${config.myDomain}%2F";
+      address = "${autheliaUrl}/api/verify?rd=https%3A%2F%2Fauth.local.${config.myDomain}%2F";
       trustForwardHeader = true;
       authResponseHeaders = [ "Remote-User" "Remote-Groups" "Remote-Name" "Remote-Email" ];
       tls.insecureSkipVerify = true;
     };
     middlewares.authelia-basic.forwardAuth = {
-      address = "http://localhost:9092/api/verify?auth=basic";
+      address = "${autheliaUrl}/api/verify?auth=basic";
       trustForwardHeader = true;
       authResponseHeaders = [ "Remote-User" "Remote-Groups" "Remote-Name" "Remote-Email" ];
     };
@@ -96,7 +97,7 @@ in
       theme = "dark";
       default_2fa_method = "totp";
       server = {
-        host = "0.0.0.0";
+        host = "localhost";
         port = 9092;
       };
       log.level = "info";
