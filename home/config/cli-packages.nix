@@ -11,6 +11,7 @@
     cht-sh
     colordiff
     curl
+    exa
     file
     htop
     jq

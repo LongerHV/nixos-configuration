@@ -8,8 +8,8 @@
       size = 10000;
     };
     shellAliases = {
-      ll = "ls -lh --color=auto";
-      la = "ls -lah --color=auto";
+      ll = "${pkgs.exa}/bin/exa -l --icons";
+      la = "${pkgs.exa}/bin/exa -la --icons";
       ns = "sudo nixos-rebuild switch --flake .";
       hs = "home-manager switch --flake .";
     };
