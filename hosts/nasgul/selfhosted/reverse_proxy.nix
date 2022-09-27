@@ -85,6 +85,7 @@ in
         middlewares = {
           local-ip-whitelist.IPWhiteList = {
             sourceRange = [
+              "127.0.0.1/32"
               "10.100.0.0/8"
               "172.16.0.0/12"
               "192.168.1.0/16"
