@@ -137,13 +137,25 @@ in
       };
       access_control = {
         default_policy = "deny";
-        # networks = [
-        #   {
-        #     name = "internal";
-        #     networks = [ "192.168.1.0/24" ];
-        #   }
-        # ];
+        networks = [
+          {
+            name = "this-server";
+            networks = [
+              "127.0.0.1/32"
+              "192.168.1.243/32"
+            ];
+          }
+          #   {
+          #     name = "internal";
+          #     networks = [ "192.168.1.0/24" ];
+          #   }
+        ];
         rules = [
+          {
+            domain = "*.local.${config.myDomain}";
+            policy = "bypass";
+            networks = "this-server";
+          }
           {
             domain = "*.local.${config.myDomain}";
             policy = "one_factor";
