@@ -8,7 +8,7 @@ in
     routers.netdata_router = util.traefik_router { subdomain = "netdata"; middlewares = [ "authelia" ]; };
     routers.prometheus_router = util.traefik_router { subdomain = "prometheus"; middlewares = [ "authelia" ]; };
     # routers.loki_router = util.traefik_router { subdomain = "loki"; middlewares = [ "authelia" ]; };
-    routers.grafana_router = util.traefik_router { subdomain = "grafana"; middlewares = [ "authelia" ]; };
+    routers.grafana_router = util.traefik_router { subdomain = "grafana"; };
     services.netdata_service = util.traefik_service { port = 19999; };
     services.prometheus_service = util.traefik_service { port = 9090; };
     # services.loki_service = util.traefik_service { port = 8083; };

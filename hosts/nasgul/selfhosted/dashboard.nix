@@ -22,7 +22,7 @@ let
       layout = "auto";
       iconSize = "large";
       language = "pl";
-      faviconApi = "local";
+      statusCheck = true;
       hideComponents.hideSettings = true;
     };
     sections = [
@@ -32,94 +32,73 @@ let
           {
             title = "Dashy";
             url = "https://dash.local.${config.myDomain}";
-            icon = "favicon";
-            statusCheck = true;
+            icon = "hl-dashy";
           }
-          rec {
+          {
             title = "Nextcloud";
             url = "https://nextcloud.local.${config.myDomain}";
-            icon = "${url}/core/img/favicon.ico";
-            statusCheck = true;
+            icon = "hl-nextcloud";
           }
           {
             title = "Gitea";
             url = "https://gitea.local.${config.myDomain}";
-            icon = "favicon";
-            statusCheck = true;
+            icon = "hl-gitea";
           }
-          rec {
+          {
             title = "Traefik";
             url = "https://traefik.local.${config.myDomain}";
-            icon = "${url}/dashboard/statics/icons/favicon.ico";
-            statusCheckUrl = "http://localhost:8080";
-            statusCheck = true;
+            icon = "hl-traefik";
           }
           {
             title = "Authelia";
             url = "https://auth.local.${config.myDomain}";
-            icon = "favicon";
-            statusCheck = true;
+            icon = "hl-authelia";
           }
-          rec {
+          {
             title = "MinIO";
             url = "https://minio.local.${config.myDomain}";
-            icon = "${url}/favicon-32x32.png";
-            statusCheckUrl = "http://localhost:9001";
-            statusCheck = true;
+            icon = "hl-minio";
           }
           rec {
             title = "Nix cache";
             url = "https://cache.local.${config.myDomain}";
             statusCheckUrl = "${url}/nix-cache-info";
             icon = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nix-snowflake.svg";
-            statusCheck = true;
           }
         ];
       }
       {
         name = "Multimedia";
         items = [
-          rec {
+          {
             title = "Jellyfin";
             url = "https://jellyfin.local.${config.myDomain}/sso/OID/p/authelia";
-            icon = "${statusCheckUrl}/web/favicon.ico";
-            statusCheckUrl = "https://jellyfin.local.${config.myDomain}";
-            statusCheck = true;
+            icon = "hl-jellyfin";
           }
           {
             title = "Sonarr";
             url = "https://sonarr.local.${config.myDomain}";
-            icon = "favicon";
-            statusCheckUrl = "http://localhost:8989";
-            statusCheck = true;
+            icon = "hl-sonarr";
           }
           {
             title = "Radarr";
             url = "https://radarr.local.${config.myDomain}";
-            icon = "favicon";
-            statusCheckUrl = "http://localhost:7878";
-            statusCheck = true;
+            icon = "hl-radarr";
           }
-          rec {
+          {
             title = "Bazarr";
             url = "https://bazarr.local.${config.myDomain}";
-            icon = "${url}/static/favicon.ico";
-            statusCheckUrl = "http://localhost:6767";
-            statusCheck = true;
+            icon = "hl-bazarr";
           }
           {
             title = "Prowlarr";
             url = "https://prowlarr.local.${config.myDomain}";
-            icon = "favicon";
-            statusCheckUrl = "http://localhost:9696";
-            statusCheck = true;
+            icon = "hl-prowlarr";
           }
-          rec {
+          {
             title = "Deluge";
             url = "https://deluge.local.${config.myDomain}";
-            icon = "${url}/icons/deluge.png";
-            statusCheckUrl = "http://localhost:8112";
-            statusCheck = true;
+            icon = "hl-deluge";
           }
         ];
       }
@@ -129,23 +108,17 @@ let
           {
             title = "Netdata";
             url = "https://netdata.local.${config.myDomain}";
-            icon = "favicon";
-            statusCheckUrl = "http://localhost:19999";
-            statusCheck = true;
+            icon = "hl-netdata";
           }
           {
             title = "Prometheus";
             url = "https://prometheus.local.${config.myDomain}";
-            icon = "favicon";
-            statusCheckUrl = "http://localhost:9090";
-            statusCheck = true;
+            icon = "hl-prometheus";
           }
-          rec {
+          {
             title = "Grafana";
             url = "https://grafana.local.${config.myDomain}";
-            icon = "${url}/public/img/grafana_icon.svg";
-            statusCheckUrl = "http://localhost:3001";
-            statusCheck = true;
+            icon = "hl-grafana";
           }
         ];
       }
@@ -165,8 +138,6 @@ in
       "traefik.http.routers.dashy.rule=Host(`dash.local.${config.myDomain}`)"
       "--label"
       "traefik.http.services.dashy.loadBalancer.server.port=8082"
-      # "--dns"
-      # "192.168.1.243"
       "--network=host"
       "--no-healthcheck"
     ];

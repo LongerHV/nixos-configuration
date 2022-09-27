@@ -4,7 +4,7 @@ let
 in
 {
   services.traefik.dynamicConfigOptions.http = {
-    routers.minio_router = util.traefik_router { subdomain = "minio"; middlewares = [ "authelia" ]; };
+    routers.minio_router = util.traefik_router { subdomain = "minio"; };
     services.minio_service = util.traefik_service { port = 9001; };
   };
 
