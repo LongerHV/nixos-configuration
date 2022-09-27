@@ -27,13 +27,8 @@ let
     };
     sections = [
       {
-        name = "Utilities";
+        name = "Services";
         items = [
-          {
-            title = "Dashy";
-            url = "https://dash.local.${config.myDomain}";
-            icon = "hl-dashy";
-          }
           {
             title = "Nextcloud";
             url = "https://nextcloud.local.${config.myDomain}";
@@ -45,9 +40,33 @@ let
             icon = "hl-gitea";
           }
           {
+            title = "Jellyfin";
+            url = "https://jellyfin.local.${config.myDomain}/sso/OID/p/authelia";
+            icon = "hl-jellyfin";
+          }
+          {
+            title = "Wger";
+            url = "https://wger.local.${config.myDomain}";
+            icon = "hl-wger";
+          }
+        ];
+      }
+      {
+        name = "Utilities";
+        items = [
+          {
+            title = "Dashy";
+            url = "https://dash.local.${config.myDomain}";
+            icon = "hl-dashy";
+          }
+          {
             title = "Traefik";
             url = "https://traefik.local.${config.myDomain}";
             icon = "hl-traefik";
+          }
+          {
+            title = "LLDAP";
+            url = "https://ldap.local.${config.myDomain}";
           }
           {
             title = "Authelia";
@@ -70,11 +89,6 @@ let
       {
         name = "Multimedia";
         items = [
-          {
-            title = "Jellyfin";
-            url = "https://jellyfin.local.${config.myDomain}/sso/OID/p/authelia";
-            icon = "hl-jellyfin";
-          }
           {
             title = "Sonarr";
             url = "https://sonarr.local.${config.myDomain}";
@@ -127,6 +141,18 @@ let
 in
 {
   imports = [ ./containers.nix ];
+
+  # localhost entries for dashy
+  networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.local.${config.myDomain}") [
+    "traefik"
+    "sonarr"
+    "radarr"
+    "bazarr"
+    "prowlarr"
+    "deluge"
+    "netdata"
+    "prometheus"
+  ];
 
   services.dashy = {
     enable = true;
