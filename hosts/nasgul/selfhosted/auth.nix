@@ -139,27 +139,29 @@ in
         default_policy = "deny";
         networks = [
           {
-            name = "this-server";
-            networks = [
-              "127.0.0.1/32"
-              "192.168.1.243/32"
-            ];
+            name = "localhost";
+            networks = [ "127.0.0.1/32" ];
           }
-          #   {
-          #     name = "internal";
-          #     networks = [ "192.168.1.0/24" ];
-          #   }
+          {
+            name = "internal";
+            networks = [
+              "10.100.0.0/8"
+              "172.16.0.0/12"
+              "192.168.0.0/16"
+            ];
+
+          }
         ];
         rules = [
           {
             domain = "*.local.${config.myDomain}";
             policy = "bypass";
-            networks = "this-server";
+            networks = "localhost";
           }
           {
             domain = "*.local.${config.myDomain}";
             policy = "one_factor";
-            # networks = [ "internal" ];
+            networks = "internal";
             subject = [
               "group:admin"
             ];
