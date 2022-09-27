@@ -1,8 +1,5 @@
 { config, pkgs, ... }:
 
-let
-  util = pkgs.callPackage ./util.nix { inherit config; };
-in
 {
   users = {
     users.sendgrid = {
@@ -17,12 +14,6 @@ in
       file = ../../../secrets/nasgul_sendgrid_token.age;
       owner = "sendgrid";
       mode = "0440";
-    };
-  };
-  services = {
-    traefik.dynamicConfigOptions.http = {
-      routers.mailhog_router = util.traefik_router { subdomain = "mailhog"; middlewares = [ "authelia" ]; };
-      services.mailhog_service = util.traefik_service { port = 8025; };
     };
   };
   programs.msmtp = {
