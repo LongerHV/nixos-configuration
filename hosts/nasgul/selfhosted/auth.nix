@@ -148,13 +148,13 @@ in
             domain = "*.local.${config.myDomain}";
             policy = "one_factor";
             # networks = [ "internal" ];
+            subject = [
+              "group:admin"
+            ];
           }
         ];
       };
       storage = {
-        # local = {
-        #   path = "${config.services.authelia.dataDir}/db.sqlite3";
-        # };
         mysql = {
           host = "localhost";
           port = 3306;
