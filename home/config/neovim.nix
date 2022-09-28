@@ -136,6 +136,7 @@
       # Go
       go
       gopls
+      golangci-lint
 
       # Additional
       nodePackages.bash-language-server

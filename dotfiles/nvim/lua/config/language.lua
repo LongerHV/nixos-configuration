@@ -21,6 +21,9 @@ null_ls.setup({
 		-- C/C++
 		null_ls.builtins.diagnostics.cppcheck,
 
+		-- Go
+		null_ls.builtins.diagnostics.golangci_lint,
+
 		-- Lua
 		null_ls.builtins.diagnostics.selene,
 
