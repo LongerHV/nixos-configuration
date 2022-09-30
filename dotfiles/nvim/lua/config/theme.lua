@@ -32,6 +32,9 @@ require("lualine").setup({
 		lualine_y = {},
 		lualine_z = {},
 	},
+	inactive_winbar = {
+		lualine_a = { "filename" },
+	},
 })
 
 -- Colorizer
