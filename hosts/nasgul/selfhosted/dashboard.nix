@@ -142,7 +142,7 @@ in
 {
   imports = [ ./containers.nix ];
 
-  # localhost entries for dashy
+  # /etc/hosts entries for dashy, to bypass authelia during status checks
   networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.local.${config.myDomain}") [
     "traefik"
     "sonarr"
