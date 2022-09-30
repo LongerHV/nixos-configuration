@@ -63,6 +63,7 @@ in
         };
         clientGroupsBlock = {
           default = [ "ads" ];
+          "192.168.1.165/32" = [ ];
         };
       };
       redis = {
