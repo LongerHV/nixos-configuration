@@ -9,8 +9,10 @@
 
   home.packages = with pkgs; [
     reaper
+  ] ++ (with pkgs.unstable; [
     qmk
-  ];
+    protonup
+  ]);
 
   services.nextcloud-client = {
     enable = true;
