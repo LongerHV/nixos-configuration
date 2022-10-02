@@ -12,7 +12,9 @@ _:
     datasets = {
       "rpool/root" = {
         useTemplate = [ "default" ];
-        recursive = true;
+      };
+      "rpool/root/var" = {
+        useTemplate = [ "default" ];
       };
       "chonk" = {
         useTemplate = [ "default" ];
