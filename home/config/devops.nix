@@ -22,6 +22,7 @@ in
     rancher
     teleport.client
     terraform
+    tilt
   ] ++ [
     kubesel
   ];
