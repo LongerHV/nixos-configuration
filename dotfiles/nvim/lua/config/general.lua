@@ -16,6 +16,9 @@ vim.api.nvim_set_option("smartcase", true)
 -- Syntax highlighting
 vim.o.syntax = "enable"
 
+-- Hide command line
+vim.api.nvim_set_option("cmdheight", 0)
+
 -- Minimal number of lines to scroll when the cursor gets off the screen
 vim.api.nvim_set_option("scrolloff", 8)
 vim.api.nvim_set_option("sidescrolloff", 8)
