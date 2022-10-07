@@ -82,6 +82,8 @@ in
     ];
   };
 
+  systemd.services.authelia.after = [ "docker-lldap.service" ];
+
   services.authelia = {
     enable = true;
     jwtSecretFile = config.age.secrets.authelia_jwt_secret.path;
