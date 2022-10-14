@@ -18,7 +18,7 @@ in
     kubelogin-oidc
     kubernetes-helm
     krew
-    mysql-client
+    mariadb.client
     rancher
     teleport.client
     terraform
