@@ -46,7 +46,7 @@
             home-manager.users."${username}" = import home_import;
             users.users."${username}" = {
               isNormalUser = true;
-              extraGroups = [ "wheel" "networkmanager" ];
+              extraGroups = [ "wheel" "networkmanager" "keys" ];
             };
             environment.systemPackages = [ agenix.defaultPackage.x86_64-linux ];
           }

@@ -17,6 +17,8 @@
     package = pkgs.unstable.nix;
     extraOptions = ''
       experimental-features = nix-command flakes
+    '' + lib.optionalString (config.age.secrets ? "extra_access_tokens") ''
+      !include ${config.age.secrets.extra_access_tokens.path}
     '';
     gc = {
       automatic = true;

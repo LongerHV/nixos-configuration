@@ -11,6 +11,9 @@ let
   systems = [ mordor nasgul golum ];
 in
 {
+  # Tokens
+  "extra_access_tokens.age".publicKeys = [ nasgul mordor mordor_user ];
+
   # Nasgul
   "nasgul_wireguard_priv_key.age".publicKeys = [ nasgul nasgul_user mordor_user ];
   "nasgul_mullvad_priv_key.age".publicKeys = [ nasgul nasgul_user mordor_user ];
