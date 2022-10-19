@@ -8,6 +8,7 @@
   ];
 
   home.packages = with pkgs.unstable; [
+    bat
     cht-sh
     colordiff
     curl

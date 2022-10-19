@@ -13,6 +13,7 @@ in
     certbot
     eksctl
     k9s
+    kind
     kube3d
     kubectl
     kubelogin-oidc
