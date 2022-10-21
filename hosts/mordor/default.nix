@@ -84,6 +84,18 @@
     };
     usePredictableInterfaceNames = false;
     interfaces.eth0.useDHCP = true;
+    # Ignore wireguard related traffic
+    firewall = {
+      logReversePathDrops = true;
+      extraCommands = ''
+        ip46tables -t raw -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
+        ip46tables -t raw -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
+      '';
+      extraStopCommands = ''
+        ip46tables -t raw -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
+        ip46tables -t raw -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
+      '';
+    };
   };
 
   virtualisation.libvirtd.enable = true;
@@ -130,6 +142,7 @@
       nssmdns = true;
     };
     udev.packages = [ pkgs.qmk-udev-rules ];
+    wg-netmanager.enable = true;
   };
   system.stateVersion = "22.05";
 }
