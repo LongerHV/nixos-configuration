@@ -16,6 +16,7 @@
     file
     htop
     jq
+    lazygit
     mc
     neofetch
     openssh
@@ -29,8 +30,9 @@
   ];
 
   programs = {
-    gh = {
-      enable = true;
+    gh.enable = true;
+    zsh.shellAliases = {
+      lg = "lazygit";
     };
   };
 }
