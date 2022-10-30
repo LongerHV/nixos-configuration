@@ -1,18 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  users = {
-    users.sendgrid = {
-      group = "sendgrid";
-      isSystemUser = true;
-      createHome = false;
-    };
-    groups.sendgrid = { };
-  };
+  users.groups.sendgrid = { };
   age.secrets = {
     sendgrid_token = {
       file = ../../../secrets/nasgul_sendgrid_token.age;
-      owner = "sendgrid";
+      group = "sendgrid";
       mode = "0440";
     };
   };
