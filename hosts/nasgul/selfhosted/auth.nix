@@ -12,12 +12,10 @@ in
     authelia_jwt_secret = {
       file = ../../../secrets/nasgul_authelia_jwt_secret.age;
       owner = config.services.authelia.user;
-      mode = "0440";
     };
     authelia_storage_encryption_key = {
       file = ../../../secrets/nasgul_authelia_storage_encryption_key.age;
       owner = config.services.authelia.user;
-      mode = "0440";
     };
     authelia_session_secret = {
       file = ../../../secrets/nasgul_authelia_session_secret.age;
