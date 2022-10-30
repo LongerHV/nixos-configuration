@@ -8,8 +8,9 @@
 # All as root
 HOST=...  # set host variable to use proper configuration
 
-nix-shell -p git nixFlakes
+nix-shell
 git clone https://this.repo.url/ /etc/nixos
+cd /etc/nixos
 nixos-install --root /mnt --impure --flake .#$HOST
 
 # Reboot
@@ -46,19 +47,15 @@ sh <(curl -L https://nixos.org/nix/install) --no-daemon
 echo ". $HOME/.nix-profile/etc/profile.d/nix.sh" >> ~/.profile
 echo ". $HOME/.nix-profile/etc/profile.d/nix.sh" >> ~/.zprofile
 
-# Add home-manager channel
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
+# Open tempoary shell with nix and home-manager
+nix-shell
 export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
-
-# Make temporary shell with nix and home-manager
-nix-shell -p home-manager nix
 
 # Remove nix (this is necessary, so home-manager can install nix)
 nix-env -e nix
 
 # Install the configuration
-home-manager switch --extra-experimental-features nix-command --extra-experimental-features flakes --flake .#longer
+home-manager switch --extra-experimental-features nix-command --extra-experimental-features flakes --flake .#configname
 
 # Exit temporary shell
 exit
@@ -91,6 +88,7 @@ nix build .#nixosConfigurations.isoimage.config.system.build.isoImage
 
 ## Resources
 
+- [Nix config template](https://github.com/Misterio77/nix-starter-configs)
 - [hlissner dotfiles](https://github.com/hlissner/dotfiles)
 - [adfaure nix configuration](https://github.com/adfaure/nix_configuration)
 - [Home-manager docs](https://nix-community.github.io/home-manager/index.html#ch-nix-flakes)
