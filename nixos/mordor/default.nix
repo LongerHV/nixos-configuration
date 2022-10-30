@@ -57,7 +57,6 @@
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   hardware.bluetooth.enable = true;
 
-  # FIXME: For some reason cpu will not go above 4GHz...
   powerManagement = {
     cpuFreqGovernor = "ondemand";
     cpufreq.min = 800000;
@@ -72,12 +71,6 @@
   services.dnsmasq = {
     enable = true;
   };
-  # services.mysql = {
-  #   enable = true;
-  #   package = pkgs.mariadb;
-  #   ensureUsers = [{ name = "longer"; ensurePermissions = { "authelia.*" = "ALL PRIVILEGES"; }; }];
-  #   ensureDatabases = [ "authelia" ];
-  # };
   networking = {
     hostName = "mordor";
     hostId = "0c55ff12";
