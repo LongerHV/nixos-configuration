@@ -10,99 +10,88 @@
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    my-overlay.url = "path:./packages";
+    my-overlay.url = "path:./overlay";
     my-overlay.inputs.nixpkgs.follows = "nixpkgs";
     neovim-plugins.url = "path:./neovim_plugins";
     neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs@{ nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, neovim-nightly-overlay, agenix, my-overlay, neovim-plugins, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, neovim-nightly-overlay, agenix, my-overlay, neovim-plugins, ... }@inputs:
     let
-      isoModule = "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix";
-      overlay-unstable = final: prev: {
-        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
-      };
-      overlays = [
-        neovim-nightly-overlay.overlay
-        overlay-unstable
-        my-overlay.overlay
-        neovim-plugins.overlay
+      forAllSystems = nixpkgs.lib.genAttrs [
+        # "aarch64-linux"
+        "x86_64-linux"
       ];
-      mkHost = { username ? "longer", modules ? [ ], home_import ? ./home }: nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/hosts-common.nix
-          agenix.nixosModule
-          ./modules
-          home-manager.nixosModules.home-manager
-          {
-            mainUser = username;
-            nixpkgs.overlays = overlays;
-            nix.registry = {
-              nixpkgs.flake = nixpkgs;
-              unstable.flake = nixpkgs-unstable;
-            };
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users."${username}" = import home_import;
-            users.users."${username}" = {
-              isNormalUser = true;
-              extraGroups = [ "wheel" "networkmanager" "keys" ];
-            };
-            environment.systemPackages = [ agenix.defaultPackage.x86_64-linux ];
-          }
-        ] ++ modules;
-      };
-      mkHome = { username ? "longer", imports ? [ ] }: home-manager.lib.homeManagerConfiguration {
-        system = "x86_64-linux";
-        inherit username;
-        homeDirectory = "/home/${username}";
-        configuration = { pkgs, ... }: {
-          nixpkgs.overlays = overlays;
-          imports = [ ./home/config/non-nixos.nix ] ++ imports;
-          nix.registry = {
-            nixpkgs.flake = nixpkgs;
-            unstable.flake = nixpkgs-unstable;
-          };
-        };
-      };
+      defaultModules = [
+        agenix.nixosModule
+        home-manager.nixosModules.home-manager
+      ];
     in
-    {
-      # NixOS hosts configuration
+    rec {
+      overlays = {
+        default = my-overlay.overlay;
+        unstable = final: prev: {
+          unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+        };
+        neovimNightly = neovim-nightly-overlay.overlay;
+        neovimPlugins = neovim-plugins.overlay;
+      };
+
+      nixosModules = import ./modules/nixos;
+      homeManagerModules = import ./modules/home-manager;
+
+      devShells = forAllSystems (system: {
+        default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
+      });
+
+      legacyPackages = forAllSystems (system:
+        import inputs.nixpkgs {
+          inherit system;
+          overlays = builtins.attrValues overlays;
+          config.allowUnfree = true;
+        }
+      );
+
       nixosConfigurations = {
-        mordor = mkHost {
-          home_import = ./home/mordor.nix;
-          modules = [
-            ./hosts/mordor
-            nixos-hardware.nixosModules.common-cpu-intel
-            nixos-hardware.nixosModules.common-gpu-amd
+        mordor = nixpkgs.lib.nixosSystem {
+          pkgs = legacyPackages.x86_64-linux;
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
+            ./nixos/mordor
           ];
         };
-        nasgul = mkHost {
-          modules = [
-            ./hosts/nasgul
-            nixos-hardware.nixosModules.common-cpu-amd
-            nixos-hardware.nixosModules.common-gpu-amd
+        nasgul = nixpkgs.lib.nixosSystem {
+          pkgs = legacyPackages.x86_64-linux;
+          specialArgs = { inherit inputs; };
+          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
+            ./nixos/nasgul
           ];
         };
-        golum = mkHost {
-          modules = [
-            ./hosts/golum
-            nixos-hardware.nixosModules.common-cpu-intel
+        golum = nixpkgs.lib.nixosSystem {
+          pkgs = legacyPackages.x86_64-linux;
+          specialArgs = { inherit inputs; };
+          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
+            ./nixos/golum
           ];
         };
-        isoimage = mkHost {
-          username = "nixos";
-          home_import = ./home/iso.nix;
-          modules = [ ./hosts/iso isoModule ];
+        isoimage = nixpkgs.lib.nixosSystem {
+          pkgs = legacyPackages.x86_64-linux;
+          specialArgs = { inherit inputs; };
+          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+            ./nixos/iso
+          ];
         };
       };
 
-      # Standalone home-manager configuration for non-NixOS systems
       homeConfigurations = {
         # Ubuntu at work
-        mmieszczak = mkHome {
-          username = "mmieszczak";
-          imports = [ ./home/work.nix ];
+        mmieszczak = home-manager.lib.homeManagerConfiguration {
+          pkgs = legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs; };
+          modules = (builtins.attrValues homeManagerModules) ++ [
+            ./home-manager/work.nix
+          ];
         };
       };
     };

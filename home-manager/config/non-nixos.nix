@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   home.sessionPath = [ "$HOME/.local/bin" ];
@@ -15,5 +15,9 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    registry = {
+      nixpkgs.flake = inputs.nixpkgs;
+      unstable.flake = inputs.nixpkgs-unstable;
+    };
   };
 }

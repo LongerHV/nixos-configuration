@@ -323,11 +323,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-n7Z0DR2sspA1Jcajy9VEebAIwtQB0rpHKcHXnEBCtBA=",
-        "path": "./packages",
+        "path": "./overlay",
         "type": "path"
       },
       "original": {
-        "path": "./packages",
+        "path": "./overlay",
         "type": "path"
       }
     },

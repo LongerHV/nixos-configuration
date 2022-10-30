@@ -1,12 +1,16 @@
-{ config, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 {
   imports = [
+    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
     ./hardware-configuration.nix
     ../with-gui.nix
     ../gaming.nix
     ../cache.nix
   ];
+
+  home-manager.users."${config.mainUser}" = import ../../home-manager/mordor.nix;
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub = {

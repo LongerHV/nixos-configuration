@@ -1,8 +1,15 @@
-{ config, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./selfhosted ./snapshots.nix ];
+  imports = [
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
+    ./hardware-configuration.nix
+    ./selfhosted
+    ./snapshots.nix
+  ];
   myDomain = "longerhv.xyz";
+  home-manager.users."${config.mainUser}" = import ../../home-manager;
 
   boot.loader.grub = {
     enable = true;
@@ -85,10 +92,5 @@
     };
   };
 
-  users.users.${config.mainUser}.openssh.authorizedKeys.keys = [
-    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC29blSuefpfoJoNG11Ub41KgWfKitt0E1NfQnHPPrNOmQzmQDNtU7Qpt296WVhvvl4n8CgNWNT7NR986ndazBMb02LftrFHxa8mRZUd6axFAx47GyTsZHsvwLB8dGBOMp4HjzOvmRg+xo4EK3mDn17EjnsKcoW2/oO2P9sOqLIbf9LdSq5C3198ru8sUNleEQI7kmor4swZonQACEn8Xke+EozU3qZPbEiRKJEvV7OVLLVgon4TU5CnbUvuv3Vs3PEAzfH5jkcIxQPu4eE+BhwNiM0TXqhHaByqJHmFg2zgLQswp5vLwmjSlximrIiD0Fn1iLR9FTx7Oi17N2RJpsZSMDpNL33n7Yw6hH/gESlijabzsHnnphklcFblASg2+2dgyHUQd1v2Hnd20fFR0Qtcl+En1+o7g3y0mpdL4nH6j1lC5OPxz7ToEcLvdOh2t7ovPU7NukbJ269mzua5Ny2o9MeyYo4620whor2Ou88X52E2EhjlfyyhqghrfuiS14r4dpiRcXer2rlY7RCAuea14rnRy1H+gYLu3X0o84M0E0FlB8Vj9kVBOCaeNyo4Z4XajbeAvb6H/xxBWZ22UVIZwpkBtUC4i8/BKXnpyFptzHATNDhFVkWPWcOFCyy3KtgyKXHxKqy37iQS/yNuoxb0FdupV3WN5U9OXqT5xuCdw=="
-  ];
-
   system.stateVersion = "21.05";
 }
-
