@@ -5,10 +5,13 @@
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     ./hardware-configuration.nix
-    ../with-gui.nix
-    ../gaming.nix
     ../cache.nix
   ];
+
+  custom = {
+    gaming.enable = true;
+    gnome.enable = true;
+  };
 
   home-manager.users."${config.mainUser}" = import ../../home-manager/mordor.nix;
 
