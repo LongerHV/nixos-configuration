@@ -182,6 +182,21 @@
     },
     "flake-utils": {
       "locked": {
+        "lastModified": 1667077288,
+        "narHash": "sha256-bdC8sFNDpT0HK74u9fUkpbf1MEzVYJ+ka7NXCdgBoaA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "6ee9ebb6b1ee695d2cacc4faa053a7b9baa76817",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
+      "locked": {
         "lastModified": 1659877975,
         "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
         "owner": "numtide",
@@ -333,7 +348,7 @@
     },
     "neovim-flake": {
       "inputs": {
-        "flake-utils": "flake-utils",
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "neovim-nightly-overlay",
           "nixpkgs"
@@ -823,6 +838,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "my-overlay": "my-overlay",
         "neovim-nightly-overlay": "neovim-nightly-overlay",

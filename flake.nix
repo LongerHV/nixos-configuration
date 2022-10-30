@@ -4,6 +4,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -15,12 +16,21 @@
     neovim-plugins.url = "path:./neovim_plugins";
     neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = { nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, neovim-nightly-overlay, agenix, my-overlay, neovim-plugins, ... }@inputs:
+  outputs =
+    { nixpkgs
+    , nixpkgs-unstable
+    , nixos-hardware
+    , flake-utils
+    , home-manager
+    , neovim-nightly-overlay
+    , agenix
+    , my-overlay
+    , neovim-plugins
+    , ...
+    }@inputs:
     let
-      forAllSystems = nixpkgs.lib.genAttrs [
-        # "aarch64-linux"
-        "x86_64-linux"
-      ];
+      forAllSystems = nixpkgs.lib.genAttrs flake-utils.lib.defaultSystems;
+      systems = flake-utils.lib.system;
       defaultModules = [
         agenix.nixosModule
         home-manager.nixosModules.home-manager
@@ -54,7 +64,7 @@
       nixosConfigurations = {
         mordor = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
-          system = "x86_64-linux";
+          system = systems.x86_64-linux;
           specialArgs = { inherit inputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
             ./nixos/mordor
@@ -62,7 +72,7 @@
         };
         nasgul = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
-          system = "x86_64-linux";
+          system = systems.x86_64-linux;
           specialArgs = { inherit inputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
             ./nixos/nasgul
@@ -70,7 +80,7 @@
         };
         golum = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
-          system = "x86_64-linux";
+          system = systems.x86_64-linux;
           specialArgs = { inherit inputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
             ./nixos/golum
@@ -78,7 +88,7 @@
         };
         isoimage = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
-          system = "x86_64-linux";
+          system = systems.x86_64-linux;
           specialArgs = { inherit inputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
             "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
@@ -91,6 +101,7 @@
         # Ubuntu at work
         mmieszczak = home-manager.lib.homeManagerConfiguration {
           pkgs = legacyPackages.x86_64-linux;
+          system = systems.x86_64-linux;
           extraSpecialArgs = { inherit inputs; };
           modules = (builtins.attrValues homeManagerModules) ++ [
             ./home-manager/work.nix
