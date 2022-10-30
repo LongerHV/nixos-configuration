@@ -62,6 +62,7 @@
         };
         nasgul = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
+          system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
             ./nixos/nasgul
@@ -69,6 +70,7 @@
         };
         golum = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
+          system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
             ./nixos/golum
@@ -76,6 +78,7 @@
         };
         isoimage = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
+          system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
             "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
