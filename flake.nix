@@ -99,13 +99,13 @@
 
       homeConfigurations = {
         # Ubuntu at work
-        mmieszczak = home-manager.lib.homeManagerConfiguration {
+        mmieszczak = home-manager.lib.homeManagerConfiguration rec {
           pkgs = legacyPackages.x86_64-linux;
           system = systems.x86_64-linux;
+          username = "mmieszczak";
+          homeDirectory = "/home/${username}";
           extraSpecialArgs = { inherit inputs; };
-          modules = (builtins.attrValues homeManagerModules) ++ [
-            ./home-manager/work.nix
-          ];
+          configuration = import ./home-manager/work.nix;
         };
       };
     };
