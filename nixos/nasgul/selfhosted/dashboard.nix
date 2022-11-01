@@ -44,11 +44,6 @@ let
             url = "https://jellyfin.local.${config.myDomain}/sso/OID/p/authelia";
             icon = "hl-jellyfin";
           }
-          {
-            title = "Wger";
-            url = "https://wger.local.${config.myDomain}";
-            icon = "hl-wger";
-          }
         ];
       }
       {

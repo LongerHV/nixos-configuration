@@ -13,7 +13,6 @@ _:
     ./nameserver.nix
     ./nextcloud.nix
     ./reverse_proxy.nix
-    ./wger.nix
     ./wireguard.nix
   ];
 }
