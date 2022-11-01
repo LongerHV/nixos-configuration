@@ -10,6 +10,7 @@ in
       type = lib.types.bool;
     };
   };
+
   config = lib.mkIf cfg.enable {
     programs = {
       steam = {
@@ -17,6 +18,10 @@ in
         remotePlay.openFirewall = true;
       };
       gamemode.enable = true;
+      corectrl = {
+        enable = true;
+        gpuOverclock.enable = true;
+      };
     };
   };
 }
