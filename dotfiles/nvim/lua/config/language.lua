@@ -19,7 +19,7 @@ null_ls.setup({
 		null_ls.builtins.diagnostics.markdownlint,
 
 		-- C/C++
-		null_ls.builtins.diagnostics.cppcheck,
+		-- null_ls.builtins.diagnostics.cppcheck,
 
 		-- Go
 		null_ls.builtins.diagnostics.golangci_lint,
