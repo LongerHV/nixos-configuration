@@ -120,7 +120,7 @@
 
       # C, C++
       clang-tools
-      # cppcheck
+      pkgs.cppcheck
 
       # Shell scripting
       shfmt

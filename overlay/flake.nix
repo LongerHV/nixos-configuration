@@ -37,6 +37,15 @@
       zsh-vim-mode = prev.callPackage ./zsh-vim-mode.nix inputs prev;
       invoiceninja = prev.callPackage ./invoiceninja.nix prev;
       xerox-generic-driver = prev.callPackage ./xerox.nix prev;
+      cppcheck = prev.cppcheck.overrideAttrs (attrs: rec {
+        version = "2.9.1";
+        src = prev.fetchFromGitHub {
+          owner = "danmar";
+          repo = "cppcheck";
+          rev = version;
+          hash = "sha256-bKZOAGInks26NmzlKo1T8NREO9xoF8ZsssNDzyTJwlU=";
+        };
+      });
     };
   };
 }
