@@ -774,11 +774,11 @@
     "oceanic-next": {
       "flake": false,
       "locked": {
-        "lastModified": 1667388689,
-        "narHash": "sha256-AOzFK8fXHh/zHLjgX/+CtkklwR+A0aXpw9PG3i3DR/s=",
+        "lastModified": 1667391541,
+        "narHash": "sha256-lXzUyRNVSLnJEPf18XuLAhrVMp15hL79pvKlcUgwloc=",
         "owner": "LongerHV",
         "repo": "oceanic-next",
-        "rev": "50e4f0d3285f662654b96848dd0e69feea43cf37",
+        "rev": "e1a0ea9841d274b9d7a7a889b793974d60168c3d",
         "type": "github"
       },
       "original": {
