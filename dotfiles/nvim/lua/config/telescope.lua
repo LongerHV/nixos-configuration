@@ -1,5 +1,6 @@
 local telescope = require("telescope")
 local builtin = require("telescope.builtin")
+local yaml_companion = require("yaml-companion")
 local wk = require("which-key")
 
 telescope.setup({
@@ -26,5 +27,6 @@ wk.register({
 		r = { builtin.lsp_references, "References" },
 		c = { builtin.commands, "Commands" },
 		e = { telescope.extensions.file_browser.file_browser, "File browser" },
+		y = { yaml_companion.open_ui_select, "YAML schema" },
 	},
 }, { prefix = "<leader>" })
