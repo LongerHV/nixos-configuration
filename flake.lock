@@ -442,7 +442,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-k2fOTbO4fPrphmCMt0AyrsNu8YrZfUJ1wGGp6OrcXzA=",
+        "narHash": "sha256-G+6XQzpAdU7wsPE6FxLaqkv/dfzoIn4+F9DgOcpdENU=",
         "path": "./neovim_plugins",
         "type": "path"
       },
@@ -662,11 +662,11 @@
     "nvim-navic": {
       "flake": false,
       "locked": {
-        "lastModified": 1667016639,
-        "narHash": "sha256-uJKEzOhkWTN0TRheejFkmbQYxd1KA1fCYMyDlA2Hmt8=",
+        "lastModified": 1667365568,
+        "narHash": "sha256-NwYmcnqGh4YlPL8e+XdPNP5vdw0RO//SUn5yhb+yrP0=",
         "owner": "SmiteshP",
         "repo": "nvim-navic",
-        "rev": "eebc4f15132c587c52fcd2ce2f0da78fc19a16c0",
+        "rev": "2fad33454cd6e37527a2d41f310d77b552d8c1e0",
         "type": "github"
       },
       "original": {
@@ -694,11 +694,11 @@
     "nvim-treesitter": {
       "flake": false,
       "locked": {
-        "lastModified": 1667294202,
-        "narHash": "sha256-VaRNVRRCFXWLyx8JMu7mmOFaPSwSDkig6jHJh61hGJY=",
+        "lastModified": 1667339826,
+        "narHash": "sha256-OMTi1rwnCbDotl+izfs6vwbaERlZjwBOMzSWgqJCB+c=",
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter",
-        "rev": "7709eb4b47b8ee19e760aa2771c5735fda2798e1",
+        "rev": "c6992f69d303cee0b43fd59125cb7afb0262d8fe",
         "type": "github"
       },
       "original": {
@@ -774,15 +774,15 @@
     "oceanic-next": {
       "flake": false,
       "locked": {
-        "lastModified": 1612533325,
-        "narHash": "sha256-AhF4v5bSvaSWDu4LL6Rm8+20/M0rd7/9pTUcrLpfX/E=",
-        "owner": "mhartington",
+        "lastModified": 1667388689,
+        "narHash": "sha256-AOzFK8fXHh/zHLjgX/+CtkklwR+A0aXpw9PG3i3DR/s=",
+        "owner": "LongerHV",
         "repo": "oceanic-next",
-        "rev": "5ef31a34204f84714885ae9036f66a626036c3dc",
+        "rev": "50e4f0d3285f662654b96848dd0e69feea43cf37",
         "type": "github"
       },
       "original": {
-        "owner": "mhartington",
+        "owner": "LongerHV",
         "repo": "oceanic-next",
         "type": "github"
       }
