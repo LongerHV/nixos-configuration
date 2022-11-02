@@ -116,7 +116,8 @@
 
       # Nix
       statix
-      rnix-lsp
+      nixpkgs-fmt
+      nil
 
       # C, C++
       clang-tools

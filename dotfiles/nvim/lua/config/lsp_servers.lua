@@ -1,7 +1,7 @@
 -- Config for Language Servers installed by nix
 return {
 	clangd = {},
-	rnix = {},
+	nil_ls = {},
 	pyright = {},
 	dockerls = {},
 	bashls = {},
