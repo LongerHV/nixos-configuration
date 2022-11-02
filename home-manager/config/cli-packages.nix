@@ -5,6 +5,7 @@
     ./neovim.nix
     ./tmux.nix
     ./zsh.nix
+    ./k9s.nix
   ];
 
   home.packages = with pkgs.unstable; [
