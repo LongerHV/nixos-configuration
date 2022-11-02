@@ -20,7 +20,7 @@ require("lualine").setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff" },
 		lualine_c = { "diagnostics" },
-		lualine_x = {},
+		lualine_x = { "encoding", "fileformat", "filetype" },
 		lualine_y = { "progress" },
 		lualine_z = { "location" },
 	},
@@ -28,8 +28,14 @@ require("lualine").setup({
 		lualine_a = { "filename" },
 		lualine_b = {},
 		lualine_c = { "%{%v:lua.require'nvim-navic'.get_location()%}" },
-		lualine_x = { "encoding", "fileformat", "filetype" },
-		lualine_y = {},
+		lualine_x = {},
+		lualine_y = { function()
+			local schema = require("yaml-companion").get_buf_schema(0)
+			if schema and schema.result[1].name ~= "none" then
+				return schema.result[1].name
+			end
+			return ""
+		end },
 		lualine_z = {},
 	},
 	inactive_winbar = {
