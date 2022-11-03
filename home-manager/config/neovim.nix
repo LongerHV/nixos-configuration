@@ -41,13 +41,6 @@
 
         -- gitsigns
         require("gitsigns").setup()
-
-        -- pounce
-        vim.api.nvim_set_keymap("n", "s", "<cmd>Pounce<cr>", { noremap = true })
-        vim.api.nvim_set_keymap("n", "S", "<cmd>PounceRepeat<cr>", { noremap = true })
-        require("pounce").setup({
-          accept_keys = "NTHDESIROAUFYW",
-        })
       EOF
     '';
     plugins = with pkgs.nvimPlugins; [
@@ -73,7 +66,6 @@
       pkgs.master.vimPlugins.nvim-treesitter.withAllGrammars
       nvim-treesitter-textobjects
       nvim-ts-rainbow
-      nvim-treesitter-textsubjects
       nvim-dap
       which-key
       nvim-dap-ui
@@ -82,7 +74,6 @@
       vim-repeat
       nvim-autopairs
       gitsigns
-      pounce
       dashboard-nvim
       oceanic-next
       indent-blankline

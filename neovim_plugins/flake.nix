@@ -77,20 +77,12 @@
       url = "github:kyazdani42/nvim-web-devicons";
       flake = false;
     };
-    nvim-treesitter = {
-      url = "github:nvim-treesitter/nvim-treesitter";
-      flake = false;
-    };
     nvim-treesitter-textobjects = {
       url = "github:nvim-treesitter/nvim-treesitter-textobjects";
       flake = false;
     };
     nvim-ts-rainbow = {
       url = "github:p00f/nvim-ts-rainbow";
-      flake = false;
-    };
-    nvim-treesitter-textsubjects = {
-      url = "github:RRethy/nvim-treesitter-textsubjects";
       flake = false;
     };
     nvim-dap = {
@@ -123,10 +115,6 @@
     };
     gitsigns = {
       url = "github:lewis6991/gitsigns.nvim";
-      flake = false;
-    };
-    pounce = {
-      url = "github:rlane/pounce.nvim";
       flake = false;
     };
     dashboard-nvim = {
@@ -171,7 +159,7 @@
     };
   };
   outputs =
-    inputs@{ self
+    { self
     , nixpkgs
     , nvim-cmp
     , nvim-lspconfig
@@ -192,10 +180,8 @@
     , yaml-companion
     , nvim-tree
     , nvim-web-devicons
-    , nvim-treesitter
     , nvim-treesitter-textobjects
     , nvim-ts-rainbow
-    , nvim-treesitter-textsubjects
     , nvim-dap
     , which-key
     , nvim-dap-ui
@@ -204,7 +190,6 @@
     , vim-repeat
     , nvim-autopairs
     , gitsigns
-    , pounce
     , dashboard-nvim
     , oceanic-next
     , indent-blankline
@@ -313,11 +298,6 @@
             version = src.lastModifiedDate;
             src = nvim-web-devicons;
           };
-          nvim-treesitter = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
-            pname = "nvim-treesitter";
-            version = src.lastModifiedDate;
-            src = nvim-treesitter;
-          };
           nvim-treesitter-textobjects = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
             pname = "nvim-treesitter-textobjects";
             version = src.lastModifiedDate;
@@ -327,11 +307,6 @@
             pname = "nvim-ts-rainbow";
             version = src.lastModifiedDate;
             src = nvim-ts-rainbow;
-          };
-          nvim-treesitter-textsubjects = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
-            pname = "nvim-treesitter-textsubjects";
-            version = src.lastModifiedDate;
-            src = nvim-treesitter-textsubjects;
           };
           nvim-dap = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
             pname = "nvim-dap";
@@ -372,11 +347,6 @@
             pname = "gitsigns";
             version = src.lastModifiedDate;
             src = gitsigns;
-          };
-          pounce = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
-            pname = "pounce";
-            version = src.lastModifiedDate;
-            src = pounce;
           };
           dashboard-nvim = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
             pname = "dashboard-nvim";
