@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager/release-22.05";
@@ -19,6 +20,7 @@
   outputs =
     { nixpkgs
     , nixpkgs-unstable
+    , nixpkgs-master
     , nixos-hardware
     , flake-utils
     , home-manager
@@ -41,6 +43,9 @@
         default = my-overlay.overlay;
         unstable = final: prev: {
           unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+        };
+        master = final: prev: {
+          master = nixpkgs-master.legacyPackages.${prev.system};
         };
         neovimNightly = neovim-nightly-overlay.overlay;
         neovimPlugins = neovim-plugins.overlay;
