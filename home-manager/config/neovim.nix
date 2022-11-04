@@ -102,7 +102,7 @@
       nodePackages.pyright
 
       # Lua
-      sumneko-lua-language-server
+      pkgs.sumneko-lua-language-server
       selene
 
       # Nix
