@@ -43,7 +43,9 @@
         require("gitsigns").setup()
       EOF
     '';
-    plugins = with pkgs.nvimPlugins; [
+    plugins = (with pkgs.unstable.vimPlugins; [
+      nvim-treesitter.withAllGrammars
+    ]) ++ (with pkgs.nvimPlugins; [
       nvim-cmp
       nvim-lspconfig
       cmp-path
@@ -63,7 +65,6 @@
       yaml-companion
       nvim-tree
       nvim-web-devicons
-      pkgs.master.vimPlugins.nvim-treesitter.withAllGrammars
       nvim-treesitter-textobjects
       nvim-ts-rainbow
       nvim-dap
@@ -86,7 +87,7 @@
       telescope
       popup
       telescope-file-browser
-    ];
+    ]);
     extraPackages = with pkgs.unstable; [
       # Essentials
       nodePackages.npm
