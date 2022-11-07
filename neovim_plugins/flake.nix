@@ -89,6 +89,14 @@
       url = "github:mfussenegger/nvim-dap";
       flake = false;
     };
+    nvim-dap-go = {
+      url = "github:leoluz/nvim-dap-go";
+      flake = false;
+    };
+    nvim-dap-python = {
+      url = "github:mfussenegger/nvim-dap-python";
+      flake = false;
+    };
     which-key = {
       url = "github:folke/which-key.nvim";
       flake = false;
@@ -183,6 +191,8 @@
     , nvim-treesitter-textobjects
     , nvim-ts-rainbow
     , nvim-dap
+    , nvim-dap-go
+    , nvim-dap-python
     , which-key
     , nvim-dap-ui
     , Comment
@@ -312,6 +322,16 @@
             pname = "nvim-dap";
             version = src.lastModifiedDate;
             src = nvim-dap;
+          };
+          nvim-dap-go = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+            pname = "nvim-dap-go";
+            version = src.lastModifiedDate;
+            src = nvim-dap-go;
+          };
+          nvim-dap-python = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+            pname = "nvim-dap-python";
+            version = src.lastModifiedDate;
+            src = nvim-dap-python;
           };
           which-key = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
             pname = "which-key";

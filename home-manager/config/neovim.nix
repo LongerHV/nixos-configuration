@@ -67,6 +67,8 @@
       nvim-treesitter-textobjects
       nvim-ts-rainbow
       nvim-dap
+      nvim-dap-go
+      nvim-dap-python
       which-key
       nvim-dap-ui
       Comment
@@ -129,6 +131,7 @@
       go
       gopls
       golangci-lint
+      delve
 
       # Additional
       nodePackages.bash-language-server

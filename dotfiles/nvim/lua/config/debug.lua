@@ -1,6 +1,8 @@
 local dap = require("dap")
 local dapui = require("dapui")
 local wk = require("which-key")
+local dap_go = require('dap-go')
+local dap_python = require('dap-python')
 
 dapui.setup({})
 
@@ -25,21 +27,14 @@ wk.register({
 		o = { dap.step_out, "Step out" },
 		u = { dap.up, "Go up the stack" },
 		d = { dap.down, "Go down the stack" },
+		T = {
+			name = "Tests",
+			p = {dap_python.test_method, "Python"},
+			g = {dap_go.debug_test, "Golang"},
+		},
 	},
 }, { prefix = "<leader>" })
 
-dap.adapters.python = {
-	type = "executable",
-	command = "python",
-	args = { "-m", "debugpy.adapter" },
-}
-
-dap.configurations.python = {
-	{
-		type = "python",
-		request = "launch",
-		name = "Launch file",
-
-		program = "${file}",
-	},
-}
+dap_go.setup()
+dap_python.setup("python")
+dap_python.test_runner = "pytest"
