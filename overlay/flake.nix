@@ -29,7 +29,7 @@
         });
       });
       authelia = prev.callPackage ./authelia.nix prev;
-      zsh-z = prev.zsh-z.overrideAttrs (attrs: rec {
+      zsh-z = prev.zsh-z.overrideAttrs (attrs: {
         pname = "zsh-z";
         version = "unstable";
         src = zsh-z;
@@ -37,6 +37,7 @@
       zsh-vim-mode = prev.callPackage ./zsh-vim-mode.nix inputs prev;
       invoiceninja = prev.callPackage ./invoiceninja.nix prev;
       xerox-generic-driver = prev.callPackage ./xerox.nix prev;
+      usbasp-udev-rules = prev.callPackage ./usbasp-udev-rules.nix prev;
       cppcheck = prev.cppcheck.overrideAttrs (attrs: rec {
         version = "2.9.1";
         src = prev.fetchFromGitHub {
