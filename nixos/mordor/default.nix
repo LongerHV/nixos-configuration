@@ -136,7 +136,7 @@
       enable = true;
       nssmdns = true;
     };
-    udev.packages = with pkgs; [ qmk-udev-rules usbasp-udev-rules ];
+    udev.packages = with pkgs; [ qmk-udev-rules ];
     wg-netmanager.enable = true;
   };
   system.stateVersion = "22.05";

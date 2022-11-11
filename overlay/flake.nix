@@ -37,7 +37,6 @@
       zsh-vim-mode = prev.callPackage ./zsh-vim-mode.nix inputs prev;
       invoiceninja = prev.callPackage ./invoiceninja.nix prev;
       xerox-generic-driver = prev.callPackage ./xerox.nix prev;
-      usbasp-udev-rules = prev.callPackage ./usbasp-udev-rules.nix prev;
     };
   };
 }
