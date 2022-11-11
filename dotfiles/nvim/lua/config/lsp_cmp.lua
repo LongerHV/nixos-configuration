@@ -69,7 +69,6 @@ cmp.setup({
 })
 
 -- Snippets
-vim.cmd([[autocmd CursorHold,CursorHoldI * lua require("nvim-lightbulb").update_lightbulb()]])
 require("luasnip/loaders/from_vscode").lazy_load()
 
 -- Autopairs

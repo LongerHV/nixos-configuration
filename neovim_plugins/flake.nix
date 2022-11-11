@@ -49,10 +49,6 @@
       url = "github:onsails/lspkind-nvim";
       flake = false;
     };
-    nvim-lightbulb = {
-      url = "github:kosayoda/nvim-lightbulb";
-      flake = false;
-    };
     nvim-code-action-menu = {
       url = "github:weilbith/nvim-code-action-menu";
       flake = false;
@@ -181,7 +177,6 @@
     , LuaSnip
     , friendly-snippets
     , lspkind-nvim
-    , nvim-lightbulb
     , nvim-code-action-menu
     , null-ls
     , plenary
@@ -272,11 +267,6 @@
             pname = "lspkind-nvim";
             version = src.lastModifiedDate;
             src = lspkind-nvim;
-          };
-          nvim-lightbulb = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
-            pname = "nvim-lightbulb";
-            version = src.lastModifiedDate;
-            src = nvim-lightbulb;
           };
           nvim-code-action-menu = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
             pname = "nvim-code-action-menu";

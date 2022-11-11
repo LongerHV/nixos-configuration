@@ -58,7 +58,6 @@
       LuaSnip
       friendly-snippets
       lspkind-nvim
-      nvim-lightbulb
       nvim-code-action-menu
       null-ls
       plenary
