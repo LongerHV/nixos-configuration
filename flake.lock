@@ -431,6 +431,7 @@
         "oceanic-next": "oceanic-next",
         "plenary": "plenary",
         "popup": "popup",
+        "refactoring": "refactoring",
         "telescope": "telescope",
         "telescope-file-browser": "telescope-file-browser",
         "vim-repeat": "vim-repeat",
@@ -440,7 +441,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-y3zGhlzUFo1LAghXfgGO2F69DesFXuMPDnMeW/IlzvA=",
+        "narHash": "sha256-BDS7ouEC/tEG9NKFpef0rd+9FGY2PyNT38zxGbPlSjo=",
         "path": "./neovim_plugins",
         "type": "path"
       },
@@ -814,6 +815,22 @@
       "original": {
         "owner": "nvim-lua",
         "repo": "popup.nvim",
+        "type": "github"
+      }
+    },
+    "refactoring": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1662239899,
+        "narHash": "sha256-eh3rs004NFggOugjvhhFS+5NHhE85rZDU3QKFcsQZ4E=",
+        "owner": "ThePrimeagen",
+        "repo": "refactoring.nvim",
+        "rev": "c9ca8e3bbf7218101f16e6a03b15bf72b99b2cae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ThePrimeagen",
+        "repo": "refactoring.nvim",
         "type": "github"
       }
     },

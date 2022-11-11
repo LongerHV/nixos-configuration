@@ -161,6 +161,10 @@
       url = "github:nvim-telescope/telescope-file-browser.nvim";
       flake = false;
     };
+    refactoring = {
+      url = "github:ThePrimeagen/refactoring.nvim";
+      flake = false;
+    };
   };
   outputs =
     { self
@@ -205,6 +209,7 @@
     , telescope
     , popup
     , telescope-file-browser
+    , refactoring
     }: {
       overlay = final: prev: {
         nvimPlugins = {
@@ -407,6 +412,11 @@
             pname = "telescope-file-browser";
             version = src.lastModifiedDate;
             src = telescope-file-browser;
+          };
+          refactoring = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+            pname = "refactoring";
+            version = src.lastModifiedDate;
+            src = refactoring;
           };
         };
       };

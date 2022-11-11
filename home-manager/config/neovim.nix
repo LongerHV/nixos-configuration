@@ -28,6 +28,7 @@
         require("config.dashboard")
         require("config.telescope")
         require("config.theme")
+        require("config.refactoring")
         require("config.remaps")
 
         -- yaml companion
@@ -86,6 +87,7 @@
       telescope
       popup
       telescope-file-browser
+      refactoring
     ]);
     extraPackages = with pkgs.unstable; [
       # Essentials
