@@ -47,7 +47,7 @@ in
       bold-color-same-as-fg = true;
       inherit (colors) palette;
       use-transparent-background = true;
-      background-transparency-percent = 15;
+      background-transparency-percent = 10;
     };
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
