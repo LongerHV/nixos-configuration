@@ -106,7 +106,7 @@
       nodePackages.pyright
 
       # Lua
-      pkgs.sumneko-lua-language-server
+      sumneko-lua-language-server
       selene
 
       # Nix
@@ -116,7 +116,7 @@
 
       # C, C++
       clang-tools
-      pkgs.cppcheck
+      cppcheck
 
       # Shell scripting
       shfmt
