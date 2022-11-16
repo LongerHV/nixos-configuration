@@ -60,3 +60,12 @@ require("nvim-treesitter.configs").setup({
 		},
 	},
 })
+
+-- Workaround for TS rainbow messed up after file changes
+local group = vim.api.nvim_create_augroup("RainbowFix", { clear = true })
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost", "BufWritePost" }, {
+	group = group,
+	callback = function()
+		vim.cmd("TSDisable rainbow | TSEnable rainbow")
+	end,
+})
