@@ -1,8 +1,8 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   redis = config.services.redis.servers."";
-  inherit (config.services) blocky;
+  util = pkgs.callPackage ./util.nix { inherit config; };
 in
 {
   imports = [ ./redis.nix ];
@@ -20,10 +20,16 @@ in
     };
   };
 
+  services.traefik.dynamicConfigOptions.http = {
+      routers.blocky_router = util.traefik_router { subdomain = "blocky"; middlewares = [ "authelia" ]; };
+      services.blocky_service = util.traefik_service { port = 4000; };
+  };
+
   services.blocky = {
     enable = true;
     settings = {
       port = 53;
+      httpPort = 4000;
       # Cloudflare upstream DNS servers (maybe change to unbound?)
       upstream.default = [
         "1.1.1.1"

@@ -60,6 +60,12 @@ let
             icon = "hl-traefik";
           }
           {
+            title = "Blocky";
+            url = "https://blocky.local.${config.myDomain}";
+            # icon = "hl-blocky"; # Waiting for a new Dashy release using proper icons repo (https://github.com/Lissy93/dashy/issues/972)
+            icon = "https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/blocky.png";
+          }
+          {
             title = "LLDAP";
             url = "https://ldap.local.${config.myDomain}";
           }
@@ -140,6 +146,7 @@ in
   # /etc/hosts entries for dashy, to bypass authelia during status checks
   networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.local.${config.myDomain}") [
     "traefik"
+    "blocky"
     "sonarr"
     "radarr"
     "bazarr"
