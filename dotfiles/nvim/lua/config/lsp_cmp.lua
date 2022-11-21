@@ -54,9 +54,6 @@ cmp.setup({
 	},
 })
 
--- Snippets
-require("luasnip.loaders.from_vscode").lazy_load()
-
 -- Autopairs
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 require("nvim-autopairs").setup({ check_ts = true })
