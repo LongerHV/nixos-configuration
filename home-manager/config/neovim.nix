@@ -18,6 +18,7 @@
 
       lua <<EOF
         require("config.general")
+        require("config.snippets")
         require("config.lsp")
         require("config.lsp_cmp")
         require("config.language")
