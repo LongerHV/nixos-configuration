@@ -6,7 +6,6 @@ let
   util = pkgs.callPackage ./util.nix { inherit config; };
 in
 {
-  imports = [ ./database.nix ];
   services.traefik.dynamicConfigOptions.http = {
     middlewares.nextcloud-redirectregex.redirectRegex = {
       permanent = true;

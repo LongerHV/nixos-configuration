@@ -12,4 +12,5 @@
   gnome = import ./gnome.nix;
   system = import ./system.nix;
   user = import ./user.nix;
+  homelab = import ./homelab;
 }

@@ -5,8 +5,6 @@ let
   util = pkgs.callPackage ./util.nix { inherit config; };
 in
 {
-  imports = [ ./redis.nix ];
-
   networking = {
     nameservers = [ "127.0.0.1" ];
     dhcpcd.extraConfig = "nohook resolv.conf";

@@ -7,7 +7,7 @@ let
   autheliaUrl = "http://${authelia.settings.server.host}:${builtins.toString authelia.settings.server.port}";
 in
 {
-  imports = [ ./database.nix ./redis.nix ./mail.nix ];
+  imports = [ ./mail.nix ];
   age.secrets = {
     authelia_jwt_secret = {
       file = ../../../secrets/nasgul_authelia_jwt_secret.age;

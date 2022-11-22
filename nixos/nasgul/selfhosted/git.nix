@@ -6,7 +6,7 @@ let
   inherit (config.services) gitea;
 in
 {
-  imports = [ ./database.nix ./redis.nix ./mail.nix ];
+  imports = [ ./mail.nix ];
   users.users."${config.mainUser}".extraGroups = [ "gitea" ];
   users.users."${gitea.user}".extraGroups = [ "redis" "sendgrid" ];
 

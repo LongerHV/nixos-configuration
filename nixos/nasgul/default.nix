@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ./selfhosted
     ./snapshots.nix
+    ./homelab.nix
   ];
   myDomain = "longerhv.xyz";
   home-manager.users."${config.mainUser}" = import ../../home-manager;
