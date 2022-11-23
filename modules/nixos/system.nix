@@ -3,6 +3,9 @@
   config = {
     hardware.enableRedistributableFirmware = lib.mkDefault true;
 
+    boot.tmpOnTmpfs = lib.mkDefault true;
+    zramSwap.enable = lib.mkDefault true;
+
     time.timeZone = "Europe/Warsaw";
     i18n.defaultLocale = "pl_PL.UTF-8";
     console = {

@@ -5,11 +5,13 @@
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     ./hardware-configuration.nix
+    ./networking.nix
+    ./secrets.nix
     ./selfhosted
     ./snapshots.nix
     ./homelab.nix
   ];
-  myDomain = "longerhv.xyz";
+  myDomain = config.homelab.domain;
   home-manager.users."${config.mainUser}" = import ../../home-manager;
 
   boot.loader.grub = {
@@ -31,8 +33,6 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_hardened;
-  boot.tmpOnTmpfs = true;
-  zramSwap.enable = true;
 
   nix.settings = {
     substituters = [
@@ -45,35 +45,12 @@
     ];
   };
 
-  networking = {
-    hostName = "nasgul";
-    hostId = "48392063";
-    useDHCP = false;
-    enableIPv6 = false;
-    usePredictableInterfaceNames = false;
-    interfaces.eth0.useDHCP = true;
-    nat = {
-      enable = true;
-      externalInterface = "eth0";
-    };
-    iproute2.enable = true;
-  };
-
   hardware.opengl = {
     enable = true;
     extraPackages = [
       pkgs.vaapiVdpau
       pkgs.libvdpau-va-gl
     ];
-  };
-
-  age.secrets = {
-    cache_priv_key.file = ../../secrets/nasgul_cache_priv_key.pem.age;
-    extra_access_tokens = {
-      file = ../../secrets/extra_access_tokens.age;
-      mode = "0440";
-      group = config.users.groups.keys.name;
-    };
   };
 
   services = {

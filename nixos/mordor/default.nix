@@ -9,8 +9,8 @@
   ];
 
   custom = {
-    gaming.enable = true;
     gnome.enable = true;
+    gaming.enable = true;
   };
 
   home-manager.users."${config.mainUser}" = import ../../home-manager/mordor.nix;
@@ -52,8 +52,6 @@
   };
   # boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  boot.tmpOnTmpfs = true;
-  zramSwap.enable = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   hardware.bluetooth.enable = true;
 
