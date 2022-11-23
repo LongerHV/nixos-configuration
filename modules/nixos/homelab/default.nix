@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./gitea.nix
     ./mail.nix
     ./mysql.nix
     ./redis.nix

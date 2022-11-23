@@ -26,5 +26,6 @@
       # 2: Blocky
     };
     mysql.enable = true;
+    gitea.enable = true;
   };
 }
