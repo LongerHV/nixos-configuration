@@ -1,12 +1,8 @@
 { stdenv, lib, fetchzip, autoPatchelfHook, ... }:
 
-let
+stdenv.mkDerivation rec {
   pname = "authelia";
   version = "4.37.2";
-in
-stdenv.mkDerivation {
-  inherit pname;
-  inherit version;
 
   src = fetchzip {
     url = "https://github.com/${pname}/${pname}/releases/download/v${version}/${pname}-v${version}-linux-amd64.tar.gz";

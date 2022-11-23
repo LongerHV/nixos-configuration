@@ -83,15 +83,17 @@ in
 
   services.authelia = {
     enable = true;
-    jwtSecretFile = config.age.secrets.authelia_jwt_secret.path;
-    storageEncryptionKeyFile = config.age.secrets.authelia_storage_encryption_key.path;
-    oidcHmacSecretFile = config.age.secrets.authelia_hmac_secret.path;
-    oidcIssuerPrivKeyFile = config.age.secrets.authelia_issuer_priv_key.path;
+    environment = {
+      AUTHELIA_JWT_SECRET_FILE = config.age.secrets.authelia_jwt_secret.path;
+      AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE = config.age.secrets.authelia_storage_encryption_key.path;
+      AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE = config.age.secrets.authelia_mysql_password.path;
+      AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE = config.age.secrets.authelia_hmac_secret.path;
+      AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE = config.age.secrets.authelia_issuer_priv_key.path;
+      AUTHELIA_SESSION_SECRET_FILE = config.age.secrets.authelia_session_secret.path;
+      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.age.secrets.ldap_password.path;
+      AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.homelab.mail.smtp.passFile;
+    };
     settingsFile = config.age.secrets.authelia_secret_config.path;
-    sessionSecretFile = config.age.secrets.authelia_session_secret.path;
-    mysqlPasswordFile = config.age.secrets.authelia_mysql_password.path;
-    ldapPasswordFile = config.age.secrets.ldap_password.path;
-    smtpPasswordFile = config.homelab.mail.smtp.passFile;
     settings = {
       theme = "dark";
       default_2fa_method = "totp";

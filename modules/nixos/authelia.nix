@@ -4,16 +4,21 @@ with lib;
 
 let
   cfg = config.services.authelia;
-  rootDir = "/var/lib/authelia";
   storeConfigFile = pkgs.writeTextFile {
     name = "configuration.yml";
     text = builtins.toJSON cfg.settings;
   };
   configPath = "${cfg.dataDir}/configuration.yml";
   preStart =
-    if cfg.settingsFile != "" then
-      "${pkgs.jq}/bin/jq -s '.[0] * .[1]' ${storeConfigFile} ${cfg.settingsFile} > ${configPath} && chown authelia:authelia ${configPath} && chmod 600 ${configPath}"
-    else "cp ${storeConfigFile} ${configPath}";
+    if cfg.settingsFile != "" then ''
+      ${pkgs.jq}/bin/jq -s '.[0] * .[1]' ${storeConfigFile} ${cfg.settingsFile} > ${configPath}
+    ''
+    else ''
+      cp ${storeConfigFile} ${configPath}
+    '' + ''
+      chown authelia:authelia ${configPath}
+      chmod 600 ${configPath}"
+    '';
 in
 {
   options.services.authelia = {
@@ -22,29 +27,9 @@ in
       default = "/var/lib/authelia";
       type = types.path;
     };
-    jwtSecretFile = mkOption {
-      type = types.path;
-    };
-    storageEncryptionKeyFile = mkOption {
-      type = types.path;
-    };
-    mysqlPasswordFile = mkOption {
-      type = types.path;
-    };
-    oidcHmacSecretFile = mkOption {
-      type = types.path;
-    };
-    oidcIssuerPrivKeyFile = mkOption {
-      type = types.path;
-    };
-    sessionSecretFile = mkOption {
-      type = types.path;
-    };
-    ldapPasswordFile = mkOption {
-      type = types.path;
-    };
-    smtpPasswordFile = mkOption {
-      type = types.path;
+    environment = mkOption {
+      type = types.attrs;
+      default = { };
     };
     settings = mkOption {
       type = types.attrs;
@@ -78,16 +63,7 @@ in
         Group = cfg.group;
         Restart = "on-failure";
       };
-      environment = {
-        AUTHELIA_JWT_SECRET_FILE = cfg.jwtSecretFile;
-        AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE = cfg.storageEncryptionKeyFile;
-        AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE = cfg.mysqlPasswordFile;
-        AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE = cfg.oidcHmacSecretFile;
-        AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE = cfg.oidcIssuerPrivKeyFile;
-        AUTHELIA_SESSION_SECRET_FILE = cfg.sessionSecretFile;
-        AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = cfg.ldapPasswordFile;
-        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = cfg.smtpPasswordFile;
-      };
+      inherit (cfg) environment;
     };
 
     users.users."${cfg.user}" = {
