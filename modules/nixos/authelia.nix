@@ -12,8 +12,7 @@ let
   preStart =
     if cfg.settingsFile != "" then ''
       ${pkgs.jq}/bin/jq -s '.[0] * .[1]' ${storeConfigFile} ${cfg.settingsFile} > ${configPath}
-    ''
-    else ''
+    '' else ''
       cp ${storeConfigFile} ${configPath}
     '' + ''
       chown authelia:authelia ${configPath}
