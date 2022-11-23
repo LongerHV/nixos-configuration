@@ -6,7 +6,6 @@ let
   inherit (config.services) gitea;
 in
 {
-  imports = [ ./mail.nix ];
   users.users."${config.mainUser}".extraGroups = [ "gitea" ];
   users.users."${gitea.user}".extraGroups = [ "redis" "sendgrid" ];
 
@@ -47,12 +46,12 @@ in
         ADAPTER = "redis";
         HOST = "network=unix,addr=${redis.unixSocket},db=1,pool_rize=100,idle_timeout=180";
       };
-      mailer = rec {
+      mailer = {
         ENABLED = true;
         # Use PROTOCOL instead of MAILER_TYPE after 1.18
         MAILER_TYPE = "sendmail";
-        SENDMAIL_PATH = "/run/wrappers/bin/sendmail";
-        FROM = "gitea@${config.myDomain}";
+        SENDMAIL_PATH = config.homelab.mail.sendmailPath;
+        FROM = "gitea@${config.homelab.domain}";
       };
     };
   };

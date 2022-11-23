@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   services = {
@@ -8,6 +8,15 @@
   homelab = {
     domain = "longerhv.xyz";
     storage = "/chonk";
+    mail = {
+      enable = true;
+      smtp = {
+        host = "smtp.sendgrid.net";
+        port = 465;
+        user = "apikey";
+        passFile = config.age.secrets.sendgrid_token.path;
+      };
+    };
     redis = {
       enable = true;
       databases = 3;

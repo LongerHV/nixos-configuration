@@ -7,7 +7,6 @@ let
   autheliaUrl = "http://${authelia.settings.server.host}:${builtins.toString authelia.settings.server.port}";
 in
 {
-  imports = [ ./mail.nix ];
   age.secrets = {
     authelia_jwt_secret = {
       file = ../../../secrets/nasgul_authelia_jwt_secret.age;
@@ -92,7 +91,7 @@ in
     sessionSecretFile = config.age.secrets.authelia_session_secret.path;
     mysqlPasswordFile = config.age.secrets.authelia_mysql_password.path;
     ldapPasswordFile = config.age.secrets.ldap_password.path;
-    smtpPasswordFile = config.age.secrets.sendgrid_token.path;
+    smtpPasswordFile = config.homelab.mail.smtp.passFile;
     settings = {
       theme = "dark";
       default_2fa_method = "totp";
@@ -178,10 +177,9 @@ in
       notifier = {
         disable_startup_check = false;
         smtp = {
-          host = "smtp.sendgrid.net";
-          port = 465;
-          username = "apikey";
-          sender = "authelia@${config.myDomain}";
+          inherit (config.homelab.mail.smtp) host port;
+          username = config.homelab.mail.smtp.user;
+          sender = "authelia@${config.homelab.domain}";
         };
       };
     };

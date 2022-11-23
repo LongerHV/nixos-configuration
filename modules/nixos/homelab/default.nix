@@ -2,8 +2,9 @@
 
 {
   imports = [
-    ./redis.nix
+    ./mail.nix
     ./mysql.nix
+    ./redis.nix
   ];
   options.homelab = {
     domain = lib.mkOption {
