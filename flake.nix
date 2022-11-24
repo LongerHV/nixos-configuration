@@ -1,12 +1,12 @@
 {
   description = "My config";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
-    home-manager.url = "github:nix-community/home-manager/release-22.05";
+    home-manager.url = "github:nix-community/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
@@ -112,13 +112,12 @@
 
       homeConfigurations = {
         # Ubuntu at work
-        mmieszczak = home-manager.lib.homeManagerConfiguration rec {
+        mmieszczak = home-manager.lib.homeManagerConfiguration {
           pkgs = legacyPackages.x86_64-linux;
-          system = systems.x86_64-linux;
-          username = "mmieszczak";
-          homeDirectory = "/home/${username}";
           extraSpecialArgs = { inherit inputs; };
-          configuration = import ./home-manager/work.nix;
+          modules = [
+            ./home-manager/work.nix
+          ];
         };
       };
     };
