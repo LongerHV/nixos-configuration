@@ -115,7 +115,7 @@
         mmieszczak = home-manager.lib.homeManagerConfiguration {
           pkgs = legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs; };
-          modules = [
+          modules = (builtins.attrValues homeManagerModules) ++ [
             ./home-manager/work.nix
           ];
         };
