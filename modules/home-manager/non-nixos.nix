@@ -1,8 +1,11 @@
 { inputs, config, lib, pkgs, ... }:
 
+let
+  cfg = config.myHome.nonNixos;
+in
 {
-  options.nonNixos.enable = lib.mkEnableOption "nonNixos";
-  config = lib.mkIf config.nonNixos.enable {
+  options.myHome.nonNixos.enable = lib.mkEnableOption "nonNixos";
+  config = lib.mkIf cfg.enable {
     home.sessionPath = [ "$HOME/.local/bin" ];
     home.packages =  [
       pkgs.hostname

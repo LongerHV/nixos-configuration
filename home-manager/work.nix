@@ -2,7 +2,6 @@ _:
 
 {
   imports = [
-    # ./config/non-nixos.nix
     ./config/cli-packages.nix
     ./config/devops.nix
     ./config/gnome.nix
@@ -14,5 +13,7 @@ _:
     stateVersion = "22.05";
   };
 
-  nonNixos.enable = true;
+  myHome = {
+    nonNixos.enable = true;
+  };
 }
