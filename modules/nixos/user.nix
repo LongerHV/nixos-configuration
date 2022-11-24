@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ inputs, outputs, config, lib, pkgs, ... }:
 {
   options = {
     mainUser = lib.mkOption {
@@ -10,6 +10,8 @@
     home-manager = {
       useGlobalPkgs = lib.mkDefault true;
       useUserPackages = lib.mkDefault true;
+      extraSpecialArgs = { inherit inputs; };
+      sharedModules = builtins.attrValues outputs.homeManagerModules;
     };
     users = {
       defaultUserShell = pkgs.zsh;

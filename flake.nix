@@ -18,7 +18,8 @@
     neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
-    { nixpkgs
+    { self
+    , nixpkgs
     , nixpkgs-unstable
     , nixpkgs-master
     , nixos-hardware
@@ -31,6 +32,7 @@
     , ...
     }@inputs:
     let
+      inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs flake-utils.lib.defaultSystems;
       systems = flake-utils.lib.system;
       defaultModules = [
@@ -70,7 +72,7 @@
         mordor = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
           system = systems.x86_64-linux;
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs outputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
             ./nixos/mordor
           ];
@@ -78,7 +80,7 @@
         nasgul = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
           system = systems.x86_64-linux;
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs outputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
             ./nixos/nasgul
           ];
@@ -86,7 +88,7 @@
         golum = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
           system = systems.x86_64-linux;
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs outputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
             ./nixos/golum
           ];
@@ -94,7 +96,7 @@
         isoimage = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
           system = systems.x86_64-linux;
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs outputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
             "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
             ./nixos/iso
