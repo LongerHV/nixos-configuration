@@ -213,207 +213,207 @@
     }: {
       overlay = final: prev: {
         nvimPlugins = {
-          nvim-cmp = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-cmp = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-cmp";
             version = src.lastModifiedDate;
             src = nvim-cmp;
           };
-          nvim-lspconfig = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-lspconfig = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-lspconfig";
             version = src.lastModifiedDate;
             src = nvim-lspconfig;
           };
-          cmp-path = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          cmp-path = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "cmp-path";
             version = src.lastModifiedDate;
             src = cmp-path;
           };
-          cmp-buffer = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          cmp-buffer = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "cmp-buffer";
             version = src.lastModifiedDate;
             src = cmp-buffer;
           };
-          cmp-nvim-lsp = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          cmp-nvim-lsp = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "cmp-nvim-lsp";
             version = src.lastModifiedDate;
             src = cmp-nvim-lsp;
           };
-          cmp-nvim-lua = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          cmp-nvim-lua = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "cmp-nvim-lua";
             version = src.lastModifiedDate;
             src = cmp-nvim-lua;
           };
-          lsp_signature = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          lsp_signature = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "lsp_signature";
             version = src.lastModifiedDate;
             src = lsp_signature;
           };
-          nvim-lsp-installer = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-lsp-installer = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-lsp-installer";
             version = src.lastModifiedDate;
             src = nvim-lsp-installer;
           };
-          cmp_luasnip = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          cmp_luasnip = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "cmp_luasnip";
             version = src.lastModifiedDate;
             src = cmp_luasnip;
           };
-          LuaSnip = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          LuaSnip = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "LuaSnip";
             version = src.lastModifiedDate;
             src = LuaSnip;
           };
-          friendly-snippets = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          friendly-snippets = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "friendly-snippets";
             version = src.lastModifiedDate;
             src = friendly-snippets;
           };
-          lspkind-nvim = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          lspkind-nvim = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "lspkind-nvim";
             version = src.lastModifiedDate;
             src = lspkind-nvim;
           };
-          nvim-code-action-menu = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-code-action-menu = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-code-action-menu";
             version = src.lastModifiedDate;
             src = nvim-code-action-menu;
           };
-          null-ls = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          null-ls = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "null-ls";
             version = src.lastModifiedDate;
             src = null-ls;
           };
-          plenary = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          plenary = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "plenary";
             version = src.lastModifiedDate;
             src = plenary;
           };
-          yaml-companion = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          yaml-companion = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "yaml-companion";
             version = src.lastModifiedDate;
             src = yaml-companion;
           };
-          nvim-tree = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-tree = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-tree";
             version = src.lastModifiedDate;
             src = nvim-tree;
           };
-          nvim-web-devicons = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-web-devicons = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-web-devicons";
             version = src.lastModifiedDate;
             src = nvim-web-devicons;
           };
-          nvim-treesitter-textobjects = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-treesitter-textobjects = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-treesitter-textobjects";
             version = src.lastModifiedDate;
             src = nvim-treesitter-textobjects;
           };
-          nvim-ts-rainbow = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-ts-rainbow = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-ts-rainbow";
             version = src.lastModifiedDate;
             src = nvim-ts-rainbow;
           };
-          nvim-dap = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-dap = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-dap";
             version = src.lastModifiedDate;
             src = nvim-dap;
           };
-          nvim-dap-go = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-dap-go = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-dap-go";
             version = src.lastModifiedDate;
             src = nvim-dap-go;
           };
-          nvim-dap-python = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-dap-python = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-dap-python";
             version = src.lastModifiedDate;
             src = nvim-dap-python;
           };
-          which-key = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          which-key = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "which-key";
             version = src.lastModifiedDate;
             src = which-key;
           };
-          nvim-dap-ui = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-dap-ui = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-dap-ui";
             version = src.lastModifiedDate;
             src = nvim-dap-ui;
           };
-          Comment = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          Comment = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "Comment";
             version = src.lastModifiedDate;
             src = Comment;
           };
-          vim-surround = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          vim-surround = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "vim-surround";
             version = src.lastModifiedDate;
             src = vim-surround;
           };
-          vim-repeat = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          vim-repeat = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "vim-repeat";
             version = src.lastModifiedDate;
             src = vim-repeat;
           };
-          nvim-autopairs = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-autopairs = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-autopairs";
             version = src.lastModifiedDate;
             src = nvim-autopairs;
           };
-          gitsigns = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          gitsigns = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "gitsigns";
             version = src.lastModifiedDate;
             src = gitsigns;
           };
-          dashboard-nvim = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          dashboard-nvim = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "dashboard-nvim";
             version = src.lastModifiedDate;
             src = dashboard-nvim;
           };
-          oceanic-next = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          oceanic-next = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "oceanic-next";
             version = src.lastModifiedDate;
             src = oceanic-next;
           };
-          indent-blankline = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          indent-blankline = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "indent-blankline";
             version = src.lastModifiedDate;
             src = indent-blankline;
           };
-          lualine = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          lualine = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "lualine";
             version = src.lastModifiedDate;
             src = lualine;
           };
-          nvim-navic = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-navic = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-navic";
             version = src.lastModifiedDate;
             src = nvim-navic;
           };
-          nvim-colorizer = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          nvim-colorizer = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "nvim-colorizer";
             version = src.lastModifiedDate;
             src = nvim-colorizer;
           };
-          dressing = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          dressing = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "dressing";
             version = src.lastModifiedDate;
             src = dressing;
           };
-          telescope = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          telescope = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "telescope";
             version = src.lastModifiedDate;
             src = telescope;
           };
-          popup = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          popup = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "popup";
             version = src.lastModifiedDate;
             src = popup;
           };
-          telescope-file-browser = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          telescope-file-browser = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "telescope-file-browser";
             version = src.lastModifiedDate;
             src = telescope-file-browser;
           };
-          refactoring = prev.pkgs.vimUtils.buildNeovimPluginFrom2Nix rec {
+          refactoring = prev.pkgs.vimUtils.buildVimPluginFrom2Nix rec {
             pname = "refactoring";
             version = src.lastModifiedDate;
             src = refactoring;
