@@ -100,6 +100,14 @@
             ./nixos/iso
           ];
         };
+        playground = nixpkgs.lib.nixosSystem {
+          pkgs = legacyPackages.x86_64-linux;
+          system = systems.x86_64-linux;
+          specialArgs = { inherit inputs; };
+          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
+            ./nixos/playground
+          ];
+        };
       };
 
       homeConfigurations = {

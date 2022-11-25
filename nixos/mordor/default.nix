@@ -89,6 +89,11 @@
         ip46tables -t raw -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
       '';
     };
+    nat = {
+      enable = true;
+      internalInterfaces = [ "ve-+" ];
+      externalInterface = "eth0";
+    };
   };
 
   virtualisation.libvirtd.enable = true;
