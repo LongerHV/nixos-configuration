@@ -48,6 +48,7 @@
     enableAutosuggestions = true;
     enableCompletion = true;
     enableSyntaxHighlighting = true;
+    enableVteIntegration = true;
     plugins = [
       {
         name = "zsh-history-substring-search";
@@ -63,10 +64,8 @@
         src = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
       }
       {
-        /* https://github.com/jeffreytse/zsh-vi-mode/issues/122 */
-        # ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.zsh
-        name = "zsh-vim-mode";
-        src = "${pkgs.zsh-vim-mode}/share/zsh-vim-mode";
+        name = "zsh-vi-mode";
+        src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.zsh";
       }
       {
         name = "zsh-z";

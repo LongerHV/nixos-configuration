@@ -59,5 +59,4 @@ SPACESHIP_PROMPT_ORDER+=(
 
 SPACESHIP_RPROMPT_ORDER=(
   exit_code
-  vi_mode
 )
