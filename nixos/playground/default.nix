@@ -1,6 +1,7 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
+  imports = [ ./playground.nix ];
   boot.isContainer = true;
   networking.hostName = "playground";
   networking.useDHCP = false;

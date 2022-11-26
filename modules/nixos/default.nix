@@ -9,11 +9,9 @@
       myDomain = lib.mkDefault config.homelab.domain;
     };
   };
+  system = import ./system;
+  homelab = import ./homelab;
+
   authelia = import ./authelia.nix;
   dashy = import ./dashy.nix;
-  gaming = import ./gaming.nix;
-  gnome = import ./gnome.nix;
-  system = import ./system.nix;
-  user = import ./user.nix;
-  homelab = import ./homelab;
 }

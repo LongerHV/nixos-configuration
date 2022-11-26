@@ -1,5 +1,11 @@
-{ inputs, config, pkgs, lib, ... }:
+{ inputs, config, lib, pkgs, ... }:
+
 {
+  imports = [
+    ./gaming.nix
+    ./gnome.nix
+    ./user.nix
+  ];
   config = {
     hardware.enableRedistributableFirmware = lib.mkDefault true;
 
