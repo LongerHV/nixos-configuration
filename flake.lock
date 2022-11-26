@@ -338,7 +338,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-/TDFXR4pC1c6HOMBQdargmqs9CeT5Jcg3qsE0hQUD0w=",
+        "narHash": "sha256-GrekIaRtYzQ9497Vnss4yAIkAzVt8MtS2YC+sOK02ic=",
         "path": "./overlay",
         "type": "path"
       },
@@ -550,11 +550,11 @@
     "nvim-cmp": {
       "flake": false,
       "locked": {
-        "lastModified": 1669220554,
-        "narHash": "sha256-Yc5JaSGM67Khz8nAIwdgcBDAnYcKIhJz0DczYavciXE=",
+        "lastModified": 1669314007,
+        "narHash": "sha256-dDPuMcL0ApW4ft1j76I8sJu8SkQgqpGpf1CmPKTstaA=",
         "owner": "hrsh7th",
         "repo": "nvim-cmp",
-        "rev": "31a145c86642575cef6e6d78184da66ca57e2767",
+        "rev": "4c05626ccd70b1cab777c507b34f36ef27d41cbf",
         "type": "github"
       },
       "original": {
