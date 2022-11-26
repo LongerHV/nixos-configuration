@@ -5,23 +5,27 @@ let
   inherit (config.homelab) redis mysql mail;
   giteaService = config.services.gitea;
   redisService = config.services.redis.servers."";
+  repositoriesDir = "${config.homelab.storage}/repositories";
 in
 {
   options.homelab.gitea = {
     enable = lib.mkEnableOption "gitea";
   };
   config = lib.mkIf cfg.enable {
-    users.users."${config.mySystem.user}".extraGroups = [ "gitea" ];
     users.users."${giteaService.user}".extraGroups = builtins.concatLists [
       (lib.lists.optional redis.enable "redis")
       (lib.lists.optional mail.enable "sendgrid")
     ];
 
-    services.mysql = {
+    systemd.tmpfiles.rules = [
+      "d ${repositoriesDir} 750 ${giteaService.user} gitea - -"
+    ];
+
+    services.mysql = lib.mkIf mysql.enable {
       ensureDatabases = [ "gitea" ];
       ensureUsers = [
         {
-          name = config.services.gitea.database.user;
+          name = giteaService.database.user;
           ensurePermissions = {
             "gitea.*" = "ALL PRIVILEGES";
           };
@@ -32,7 +36,7 @@ in
     services.gitea = {
       enable = true;
       rootUrl = "https://gitea.local.${config.homelab.domain}";
-      repositoryRoot = "${config.homelab.storage}/repositories";
+      repositoryRoot = repositoriesDir;
       database = lib.mkIf mysql.enable {
         type = "mysql";
         socket = "/run/mysqld/mysqld.sock";
@@ -54,7 +58,7 @@ in
           ENABLED = true;
           # Use PROTOCOL instead of MAILER_TYPE after 1.18
           MAILER_TYPE = "sendmail";
-          SENDMAIL_PATH = config.homelab.mail.sendmailPath;
+          SENDMAIL_PATH = mail.sendmailPath;
           FROM = "gitea@${config.homelab.domain}";
         };
       };
