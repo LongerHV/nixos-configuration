@@ -5,7 +5,7 @@ let
 in
 {
   users.groups.multimedia = { };
-  users.users."${config.mainUser}".extraGroups = [ "multimedia" ];
+  users.users."${config.mySystem.user}".extraGroups = [ "multimedia" ];
 
   services = {
     traefik.dynamicConfigOptions.http = {

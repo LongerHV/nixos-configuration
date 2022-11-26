@@ -1,9 +1,7 @@
-_:
+{ lib, ... }:
 
 {
   imports = [
-    ./config/cli-packages.nix
-    ./config/devops.nix
     ./config/gnome.nix
   ];
 
@@ -14,9 +12,9 @@ _:
   };
 
   myHome = {
-    nonNixos.enable = true;
+    # nonNixos.enable = true;
     cli = {
-      devops = true;
+      devops.enable = true;
       personalGitEnable = false;
     };
   };

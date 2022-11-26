@@ -1,14 +1,11 @@
 { config, lib, ... }:
 
 let
-  cfg = config.custom.gaming;
+  cfg = config.mySystem.gaming;
 in
 {
-  options = {
-    custom.gaming.enable = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-    };
+  options.mySystem.gaming = {
+    enable = lib.mkEnableOption "gaming";
   };
 
   config = lib.mkIf cfg.enable {

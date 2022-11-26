@@ -37,7 +37,7 @@ in
       group = "nextcloud";
       isSystemUser = true;
     };
-    users."${config.mainUser}".extraGroups = [ "nextcloud" ];
+    users."${config.mySystem.user}".extraGroups = [ "nextcloud" ];
     groups.nextcloud = {
       gid = 995;
     };

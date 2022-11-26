@@ -46,7 +46,7 @@ in
     pkgs.authelia
   ];
 
-  users.users."${config.mainUser}".extraGroups = [ "authelia" ];
+  users.users."${config.mySystem.user}".extraGroups = [ "authelia" ];
   users.users."${authelia.user}".extraGroups = [ "redis" "sendgrid" ];
 
   services.traefik.dynamicConfigOptions.http = {

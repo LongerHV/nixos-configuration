@@ -11,7 +11,7 @@ in
     enable = lib.mkEnableOption "gitea";
   };
   config = lib.mkIf cfg.enable {
-    users.users."${config.mainUser}".extraGroups = [ "gitea" ];
+    users.users."${config.mySystem.user}".extraGroups = [ "gitea" ];
     users.users."${giteaService.user}".extraGroups = builtins.concatLists [
       (lib.lists.optional redis.enable "redis")
       (lib.lists.optional mail.enable "sendgrid")

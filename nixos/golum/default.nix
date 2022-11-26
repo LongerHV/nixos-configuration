@@ -5,7 +5,7 @@
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     ./hardware-configuration.nix
   ];
-  home-manager.users."${config.mainUser}" = import ../../home-manager;
+  home-manager.users."${config.mySystem.user}" = import ../../home-manager;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

@@ -33,7 +33,7 @@ in
     };
   };
 
-  users.users."${config.mainUser}".extraGroups = [ "traefik" ];
+  users.users."${config.mySystem.user}".extraGroups = [ "traefik" ];
 
   systemd.services.traefik.environment = {
     CF_API_EMAIL_FILE = config.age.secrets.cloudflare_email.path;

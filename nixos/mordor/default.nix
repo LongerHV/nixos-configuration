@@ -13,7 +13,7 @@
     gaming.enable = true;
   };
 
-  home-manager.users."${config.mainUser}" = import ../../home-manager/mordor.nix;
+  home-manager.users."${config.mySystem.user}" = import ../../home-manager/mordor.nix;
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub = {
@@ -99,7 +99,7 @@
   virtualisation.libvirtd.enable = true;
   virtualisation.podman = { enable = true; dockerCompat = true; };
   environment.systemPackages = with pkgs; [ virt-manager ];
-  users.users.${config.mainUser}.extraGroups = [ "libvirtd" ];
+  users.users.${config.mySystem.user}.extraGroups = [ "libvirtd" ];
   hardware.opengl = {
     enable = true;
     extraPackages = [

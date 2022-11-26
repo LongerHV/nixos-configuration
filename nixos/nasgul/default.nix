@@ -12,7 +12,6 @@
     ./homelab.nix
   ];
   myDomain = config.homelab.domain;
-  home-manager.users."${config.mainUser}" = import ../../home-manager;
 
   boot.loader.grub = {
     enable = true;

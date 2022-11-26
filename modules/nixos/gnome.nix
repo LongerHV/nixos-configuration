@@ -1,14 +1,11 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.gnome;
+  cfg = config.mySystem.gnome;
 in
 {
-  options = {
-    custom.gnome.enable = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-    };
+  options.mySystem.gnome = {
+    enable = lib.mkEnableOption "gnome";
   };
   config = lib.mkIf cfg.enable {
     environment = {

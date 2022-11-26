@@ -1,21 +1,27 @@
 { inputs, outputs, config, lib, pkgs, ... }:
+
+let
+  cfg = config.mySystem;
+in
 {
-  options = {
-    mainUser = lib.mkOption {
+  options.mySystem = {
+    user = lib.mkOption {
       default = "longer";
       type = lib.types.str;
     };
+    home-manager.enable = (lib.mkEnableOption "home-manager") // { default = true; };
   };
   config = {
-    home-manager = {
+    home-manager = lib.mkIf cfg.home-manager.enable {
       useGlobalPkgs = lib.mkDefault true;
       useUserPackages = lib.mkDefault true;
       extraSpecialArgs = { inherit inputs; };
       sharedModules = builtins.attrValues outputs.homeManagerModules;
+      users."${cfg.user}" = lib.mkDefault (import ../../home-manager);
     };
     users = {
       defaultUserShell = pkgs.zsh;
-      users.${config.mainUser} = {
+      users.${config.mySystem.user} = {
         isNormalUser = lib.mkDefault true;
         extraGroups = [ "wheel" "networkmanager" "keys" ];
         openssh.authorizedKeys.keys = [
