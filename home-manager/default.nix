@@ -2,15 +2,9 @@ _:
 
 {
   imports = [
-    ./config/cli-packages.nix
+    ./config/neovim.nix
+    ./config/tmux.nix
+    ./config/zsh.nix
+    ./config/k9s.nix
   ];
-
-  programs = {
-    git = {
-      enable = true;
-      userName = "Michał Mieszczak";
-      userEmail = "michal@mieszczak.com.pl";
-    };
-  };
-  home.stateVersion = "21.11";
 }
