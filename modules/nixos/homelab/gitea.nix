@@ -4,7 +4,7 @@ let
   cfg = config.homelab.gitea;
   inherit (config.homelab) redis mysql mail;
   giteaService = config.services.gitea;
-  redisService = config.services.redis;
+  redisService = config.services.redis.servers."";
 in
 {
   options.homelab.gitea = {
@@ -33,17 +33,18 @@ in
       enable = true;
       rootUrl = "https://gitea.local.${config.homelab.domain}";
       repositoryRoot = "${config.homelab.storage}/repositories";
-      cookieSecure = true;
-      disableRegistration = true;
       database = lib.mkIf mysql.enable {
         type = "mysql";
         socket = "/run/mysqld/mysqld.sock";
       };
       settings = {
-        session = lib.mkIf mysql.enable {
+        session = {
+          COOKIE_SECURE = true;
+          DISABLE_REGISTRATION = true;
+        } // (lib.attrsets.optionalAttrs mysql.enable {
           PROVIDER = "db";
           PROVIDER_CONFIG = "";
-        };
+        });
         cache = lib.mkIf redis.enable {
           ENABLED = true;
           ADAPTER = "redis";
