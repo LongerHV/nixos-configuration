@@ -9,6 +9,7 @@ in
     ./mail.nix
     ./mysql.nix
     ./redis.nix
+    ./traefik.nix
   ];
   options.homelab = {
     domain = lib.mkOption {
