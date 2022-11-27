@@ -12,7 +12,7 @@
   };
 
   myHome = {
-    # nonNixos.enable = true;
+    nonNixos.enable = true;
     cli = {
       devops.enable = true;
       personalGitEnable = false;
