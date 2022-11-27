@@ -4,18 +4,18 @@ let
   cfg = config.homelab.multimedia;
 in
 {
-  options.homelab.multimedia = {
-    enable = lib.mkEnableOption "multimedia";
-    jellyfin.enable = lib.mkEnableOption "jellyfin" // { default = cfg.enable; };
-    sonarr.enable = lib.mkEnableOption "sonarr" // { default = cfg.enable; };
-    radarr.enable = lib.mkEnableOption "radarr" // { default = cfg.enable; };
-    prowlarr.enable = lib.mkEnableOption "prowlarr" // { default = cfg.enable; };
-    bazarr.enable = lib.mkEnableOption "bazarr" // { default = cfg.enable; };
+  options.homelab.multimedia = with lib; {
+    enable = mkEnableOption "multimedia";
+    jellyfin.enable = mkEnableOption "jellyfin" // { default = cfg.enable; };
+    sonarr.enable = mkEnableOption "sonarr" // { default = cfg.enable; };
+    radarr.enable = mkEnableOption "radarr" // { default = cfg.enable; };
+    prowlarr.enable = mkEnableOption "prowlarr" // { default = cfg.enable; };
+    bazarr.enable = mkEnableOption "bazarr" // { default = cfg.enable; };
     deluge = {
-      enable = lib.mkEnableOption "deluge" // { default = cfg.enable; };
-      interface = lib.mkOption {
-        type = lib.types.str;
-        default = "";
+      enable = mkEnableOption "deluge" // { default = cfg.enable; };
+      interface = mkOption {
+        type = types.nullOr types.str;
+        default = null;
       };
     };
   };
@@ -54,7 +54,7 @@ in
         declarative = true;
         config = {
           enabled_plugins = [ "Label" ];
-        } // (lib.optionalAttrs (cfg.deluge.interface != "") {
+        } // (lib.optionalAttrs (cfg.deluge.interface != null) {
           outgoing_interface = "wg1";
         });
         authFile = pkgs.writeTextFile {
