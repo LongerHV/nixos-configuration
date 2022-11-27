@@ -41,5 +41,9 @@ in
     };
     mysql.enable = true;
     gitea.enable = true;
+    multimedia = {
+      enable = true;
+      deluge.interface = "wg1";
+    };
   };
 }
