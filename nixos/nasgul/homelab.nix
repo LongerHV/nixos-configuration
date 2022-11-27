@@ -4,10 +4,6 @@ let
   inherit (config.age) secrets;
 in
 {
-  services = {
-    mysql.package = pkgs.mariadb_106;
-  };
-
   homelab = {
     domain = "longerhv.xyz";
     storage = "/chonk";
@@ -39,7 +35,10 @@ in
       # 1: Gitea
       # 2: Blocky
     };
-    mysql.enable = true;
+    mysql = {
+      enable = true;
+      package = pkgs.mariadb_106;
+    };
     gitea.enable = true;
     multimedia = {
       enable = true;

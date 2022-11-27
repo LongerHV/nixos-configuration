@@ -6,6 +6,9 @@ in
 {
   options.homelab.mysql = {
     enable = lib.mkEnableOption "mysql";
+    package = lib.mkOption {
+      type = lib.types.package;
+    };
   };
   config = lib.mkIf cfg.enable {
     systemd.tmpfiles.rules = [
@@ -13,7 +16,7 @@ in
     ];
 
     services.mysql = {
-      enable = true;
+      inherit (cfg) enable package;
       dataDir = "${config.homelab.storage}/database";
     };
   };
