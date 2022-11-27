@@ -9,6 +9,7 @@ in
     sendmailPath = lib.mkOption {
       type = lib.types.str;
       default = "${config.security.wrapperDir}/sendmail";
+      readOnly = true;
       description = ''
         Path to a sendmail executable. Do not override.
       '';
