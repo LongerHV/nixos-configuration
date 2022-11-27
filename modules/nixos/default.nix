@@ -9,7 +9,7 @@
       myDomain = lib.mkDefault config.homelab.domain;
     };
   };
-  system = import ./system;
+  mySystem = import ./mySystem;
   homelab = import ./homelab;
 
   authelia = import ./authelia.nix;
