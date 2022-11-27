@@ -7,6 +7,7 @@ in
   imports = [
     ./gitea.nix
     ./mail.nix
+    ./multimedia.nix
     ./mysql.nix
     ./redis.nix
     ./traefik.nix
