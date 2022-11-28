@@ -54,9 +54,6 @@ fi
 
 SPACESHIP_PROMPT_ORDER+=(
   line_sep      # Line break
-  char          # Prompt character
-)
-
-SPACESHIP_RPROMPT_ORDER=(
   exit_code
+  char          # Prompt character
 )
