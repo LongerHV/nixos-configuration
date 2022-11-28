@@ -4,7 +4,7 @@
   programs.tmux = {
     enable = true;
     prefix = "C-a";
-    terminal = "screen-256color";
+    terminal = "tmux-256color";
     keyMode = "vi";
     escapeTime = 10;
     newSession = true;
