@@ -55,7 +55,7 @@ in
         config = {
           enabled_plugins = [ "Label" ];
         } // (lib.optionalAttrs (cfg.deluge.interface != null) {
-          outgoing_interface = "wg1";
+          outgoing_interface = cfg.deluge.interface;
         });
         authFile = pkgs.writeTextFile {
           name = "deluge-auth";
