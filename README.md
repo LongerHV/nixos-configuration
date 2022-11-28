@@ -49,13 +49,12 @@ echo ". $HOME/.nix-profile/etc/profile.d/nix.sh" >> ~/.zprofile
 
 # Open tempoary shell with nix and home-manager
 nix-shell
-export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
 
 # Remove nix (this is necessary, so home-manager can install nix)
 nix-env -e nix
 
-# Install the configuration
-home-manager switch --extra-experimental-features nix-command --extra-experimental-features flakes --flake .#configname
+# Install the configuration (replace `<configname>` with actual configuration name from `flake.nix`)
+home-manager switch --flake .#<configname>
 
 # Exit temporary shell
 exit
