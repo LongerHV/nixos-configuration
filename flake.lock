@@ -333,12 +333,11 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "zsh-vim-mode": "zsh-vim-mode",
         "zsh-z": "zsh-z"
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-GrekIaRtYzQ9497Vnss4yAIkAzVt8MtS2YC+sOK02ic=",
+        "narHash": "sha256-5/XSBCOJ2hnPooA9PNE+BlDYJQn+/FQrdu+RL3cZWuc=",
         "path": "./overlay",
         "type": "path"
       },
@@ -957,22 +956,6 @@
       "original": {
         "owner": "someone-stole-my-name",
         "repo": "yaml-companion.nvim",
-        "type": "github"
-      }
-    },
-    "zsh-vim-mode": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1616290526,
-        "narHash": "sha256-a+6EWMRY1c1HQpNtJf5InCzU7/RphZjimLdXIXbO6cQ=",
-        "owner": "softmoth",
-        "repo": "zsh-vim-mode",
-        "rev": "1f9953b7d6f2f0a8d2cb8e8977baa48278a31eab",
-        "type": "github"
-      },
-      "original": {
-        "owner": "softmoth",
-        "repo": "zsh-vim-mode",
         "type": "github"
       }
     },
