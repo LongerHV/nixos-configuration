@@ -20,7 +20,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     users.groups.multimedia = { };
     users.users."${config.mySystem.user}".extraGroups = [ "multimedia" ];
 
@@ -38,7 +38,7 @@ in
 
     services = {
       jellyfin = {
-        enable = true;
+        inherit (cfg.jellyfin) enable;
         package = pkgs.unstable.jellyfin;
         group = "multimedia";
       };
