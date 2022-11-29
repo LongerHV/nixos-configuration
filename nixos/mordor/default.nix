@@ -8,7 +8,7 @@
     ../cache.nix
   ];
 
-  custom = {
+  mySystem = {
     gnome.enable = true;
     gaming.enable = true;
   };
