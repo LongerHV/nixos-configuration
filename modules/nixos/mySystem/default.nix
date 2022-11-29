@@ -12,11 +12,11 @@
     boot.tmpOnTmpfs = lib.mkDefault true;
     zramSwap.enable = lib.mkDefault true;
 
-    time.timeZone = "Europe/Warsaw";
-    i18n.defaultLocale = "pl_PL.UTF-8";
+    time.timeZone = lib.mkDefault "Europe/Warsaw";
+    i18n.defaultLocale = lib.mkDefault "pl_PL.UTF-8";
     console = {
-      font = "Lat2-Terminus16";
-      keyMap = "pl";
+      font = lib.mkDefault "Lat2-Terminus16";
+      keyMap = lib.mkDefault "pl";
     };
 
     nix = {
@@ -30,14 +30,9 @@
       nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
       gc = {
         automatic = lib.mkDefault true;
-        options = "--delete-older-than 14d";
-        dates = "weekly";
+        options = lib.mkDefault "--delete-older-than 14d";
+        dates = lib.mkDefault "weekly";
       };
-    };
-
-    programs.neovim = {
-      enable = lib.mkDefault true;
-      defaultEditor = lib.mkDefault true;
     };
 
     environment = {
