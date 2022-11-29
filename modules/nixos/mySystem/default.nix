@@ -35,6 +35,10 @@
       };
     };
 
+    services = {
+      openssh.passwordAuthentication = false;
+    };
+
     environment = {
       systemPackages = with pkgs; [
         git

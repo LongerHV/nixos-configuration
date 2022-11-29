@@ -110,6 +110,15 @@
             ./nixos/playground
           ];
         };
+        smaug = nixpkgs.lib.nixosSystem {
+          pkgs = legacyPackages.aarch64-linux;
+          system = systems.aarch64-linux;
+          specialArgs = { inherit inputs outputs; };
+          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
+              "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+              ./nixos/smaug
+            ];
+        };
       };
 
       homeConfigurations = {
