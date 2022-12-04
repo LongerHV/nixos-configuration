@@ -18,6 +18,10 @@ let
         type = types.bool;
         default = true;
       };
+      authelia = mkOption {
+        type = types.bool;
+        default = false;
+      };
       middlewares = mkOption {
         type = types.listOf types.str;
         default = [ ];
@@ -41,7 +45,7 @@ let
     {
       rule = "Host(`${domain}`)";
       service = "${name}";
-      middlewares = value.middlewares ++ [ whitelist ];
+      middlewares = value.middlewares ++ [ whitelist ] ++ (lib.lists.optional value.authelia "authelia");
     };
 in
 {

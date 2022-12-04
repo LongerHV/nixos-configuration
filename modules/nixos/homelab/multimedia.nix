@@ -1,7 +1,8 @@
 { config, lib, pkgs, options, ... }:
 
 let
-  cfg = config.homelab.multimedia;
+  hl = config.homelab;
+  cfg = hl.multimedia;
 in
 {
   options.homelab.multimedia = with lib; {
@@ -28,13 +29,14 @@ in
       "d ${config.homelab.storage}/media 0770 - multimedia - -"
     ];
 
-    homelab.traefik.services =
+    homelab.traefik.services = lib.mkIf hl.traefik.enable (
       (lib.optionalAttrs cfg.jellyfin.enable { jellyfin = { port = 8096; }; }) //
-      (lib.optionalAttrs cfg.sonarr.enable { sonarr = { port = 8989; }; }) //
-      (lib.optionalAttrs cfg.radarr.enable { radarr = { port = 7878; }; }) //
-      (lib.optionalAttrs cfg.prowlarr.enable { prowlarr = { port = 9696; }; }) //
-      (lib.optionalAttrs cfg.bazarr.enable { bazarr = { port = config.services.bazarr.listenPort; }; }) //
-      (lib.optionalAttrs cfg.deluge.enable { deluge = { inherit (config.services.deluge.web) port; }; });
+      (lib.optionalAttrs cfg.sonarr.enable { sonarr = { port = 8989; authelia = true; }; }) //
+      (lib.optionalAttrs cfg.radarr.enable { radarr = { port = 7878; authelia = true; }; }) //
+      (lib.optionalAttrs cfg.prowlarr.enable { prowlarr = { port = 9696; authelia = true; }; }) //
+      (lib.optionalAttrs cfg.bazarr.enable { bazarr = { port = config.services.bazarr.listenPort; authelia = true; }; }) //
+      (lib.optionalAttrs cfg.deluge.enable { deluge = { inherit (config.services.deluge.web) port; authelia = true; }; })
+    );
 
     services = {
       jellyfin = {
