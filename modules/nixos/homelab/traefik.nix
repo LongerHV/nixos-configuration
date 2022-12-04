@@ -77,7 +77,7 @@ in
     services.traefik = {
       enable = true;
       group = lib.mkIf cfg.docker.enable "docker";
-      staticConfigOptions = {
+      staticConfigOptions = lib.recursiveUpdate {
         log.level = "info";
         providers = lib.mkIf cfg.docker.enable { docker = { }; };
         entryPoints = {
@@ -89,7 +89,7 @@ in
           insecure = true;
           dashboard = true;
         };
-      } // (lib.optionalAttrs hasTLS {
+      } (lib.optionalAttrs hasTLS {
         entryPoints = {
           web = {
             http.redirections.entryPoint = {
