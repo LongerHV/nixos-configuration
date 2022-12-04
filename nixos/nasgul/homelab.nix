@@ -9,14 +9,14 @@ in
     storage = "/chonk";
     traefik = {
       enable = true;
-      services.traefik.port = 8080;
-      services.cache.port = 5000;
       docker.enable = true;
       cloudflareTLS = {
         enable = true;
         apiEmailFile = secrets.cloudflare_email.path;
         dnsApiTokenFile = secrets.cloudflare_token.path;
       };
+      services.traefik = { port = 8080; authelia = true; };
+      services.cache = { port = 5000; };
     };
     mail = {
       enable = true;
