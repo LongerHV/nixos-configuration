@@ -13,6 +13,7 @@ vim.cmd("hi EndOfBuffer guibg=NONE ctermbg=NONE")
 vim.cmd("hi WinSeparator guibg=NONE")
 
 -- Status line
+local navic = require("nvim-navic")
 require("lualine").setup({
 	options = { theme = "OceanicNext", globalstatus = true },
 	extensions = { "nvim-tree" },
@@ -27,7 +28,12 @@ require("lualine").setup({
 	winbar = {
 		lualine_a = { "filename" },
 		lualine_b = {},
-		lualine_c = { "%{%v:lua.require'nvim-navic'.get_location()%}" },
+		lualine_c = { function ()
+			if navic.is_available() then
+				return navic.get_location()
+			end
+			return ""
+		end},
 		lualine_x = {},
 		lualine_y = { function()
 			local schema = require("yaml-companion").get_buf_schema(0)
