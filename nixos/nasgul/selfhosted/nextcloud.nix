@@ -62,7 +62,7 @@ in
     nginx.virtualHosts."localhost".listen = [{ addr = "127.0.0.1"; port = 8086; }];
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud24;
+      package = pkgs.nextcloud25;
       datadir = "/chonk/nextcloud";
       hostName = "localhost";
       https = true;
