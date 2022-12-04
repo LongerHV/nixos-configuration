@@ -125,16 +125,6 @@ let
             url = "https://netdata.local.${config.myDomain}";
             icon = "hl-netdata";
           }
-          {
-            title = "Prometheus";
-            url = "https://prometheus.local.${config.myDomain}";
-            icon = "hl-prometheus";
-          }
-          {
-            title = "Grafana";
-            url = "https://grafana.local.${config.myDomain}";
-            icon = "hl-grafana";
-          }
         ];
       }
     ];
