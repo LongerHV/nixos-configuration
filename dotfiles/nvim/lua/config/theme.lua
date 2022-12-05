@@ -30,9 +30,12 @@ require("lualine").setup({
 		lualine_b = {},
 		lualine_c = { function ()
 			if navic.is_available() then
-				return navic.get_location()
+				local location = navic.get_location()
+				if location ~= "" then
+					return location
+				end
 			end
-			return ""
+			return "..."
 		end},
 		lualine_x = {},
 		lualine_y = { function()
