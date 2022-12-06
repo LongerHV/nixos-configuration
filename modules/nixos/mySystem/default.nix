@@ -41,6 +41,7 @@
 
     environment = {
       systemPackages = with pkgs; [
+        agenix
         git
         dnsutils
         pciutils

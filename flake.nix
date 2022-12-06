@@ -51,6 +51,7 @@
         };
         neovimNightly = neovim-nightly-overlay.overlay;
         neovimPlugins = neovim-plugins.overlay;
+        agenix = agenix.overlay;
       };
 
       nixosModules = import ./modules/nixos;
