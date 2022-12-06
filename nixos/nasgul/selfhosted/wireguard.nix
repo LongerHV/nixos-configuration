@@ -50,6 +50,7 @@
     '';
 
     # Wireguard client
+    firewall.checkReversePath = false;
     wg-quick.interfaces.wg1 = {
       table = "vpn";
       address = [ "10.64.25.31/32" ];
