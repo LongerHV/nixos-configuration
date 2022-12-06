@@ -1,6 +1,6 @@
 # NASgul
 
-Personal NAS server.
+Personal NAS server
 
 ## Features
 
@@ -12,7 +12,7 @@ Personal NAS server.
 
 - LLDAP authentication server
 
-- Authelia SSO (using LLDAP)
+- Authelia SSO (using LLDAP as backend)
 
 - Dashy dashboard
 
@@ -38,36 +38,10 @@ Personal NAS server.
 
 ## TODO
 
-- [ ] Move Deluge and *Arr to a container and route traffic via wireguard
-
-- [ ] Extract dashboard entries to proper modules
-
-- [x] LDAP (LDAP as Authelia backend)
-
+- [ ] Backups (Scaleway S3 + restic?)
+- [ ] Move Deluge and \*Arr to a container and route traffic via wireguard
 - [ ] LLDAP - SMTP
-
-- [ ] Authelia - Add groups and rules for services
-
-- [ ] Nextcloud - SSO (with Authelia OIDC or LDAP)
-
+- [ ] Nextcloud - SSO (with Authelia OIDC)
 - [ ] Nextcloud - redis cache
-
-- [x] Nextcloud - SMTP
-
-- [x] Authelia - SMTP (mailhog for now)
-
-- [x] Use MariaDB for Authelia
-
-- [ ] Use mysql socket for Authelia.
-([waiting for socket support](https://github.com/authelia/authelia/pull/3531))
-
-- [x] MinIO (for backups and Loki)
-
 - [ ] Prometheus + Grafana + Loki
-
 - [ ] Invoicing service (InvoicePlane, InvoiceNinja)
-
-## Resources
-
-- [Authelia tutorial](https://www.smarthomebeginner.com/docker-authelia-tutorial/)
-- [Declarative containers](https://blog.beardhatcode.be/2020/12/Declarative-Nixos-Containers.html)

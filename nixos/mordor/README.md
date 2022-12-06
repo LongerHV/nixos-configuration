@@ -1,6 +1,6 @@
 # Mordor
 
-My dailydriver.
+My dailydriver
 
 ## TODO
 

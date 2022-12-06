@@ -53,8 +53,8 @@ nix-shell
 # Remove nix (this is necessary, so home-manager can install nix)
 nix-env -e nix
 
-# Install the configuration (replace `<configname>` with actual configuration name from `flake.nix`)
-home-manager switch --flake .#<configname>
+# Install the configuration
+home-manager switch --flake .#mmieszczak
 
 # Exit temporary shell
 exit
@@ -79,11 +79,11 @@ nix build .#nixosConfigurations.isoimage.config.system.build.isoImage
 
 ## TODO
 
-- [ ] Add [refactoring](https://github.com/ThePrimeagen/refactoring.nvim) with [Null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#refactoring) integration
-
+- [ ] Explore migrating to systemd-networkd
+- [ ] Migrate Ender 3 (3d printer) to NixOS (klipper + mooonraker + fluidd)
+- [ ] Refactor homelab stuff (move to modules/nixos/homelab)
+- [ ] Refactor home stuff (move to modules/home-manager)
 - [ ] Figure out what is wrong with nix managed typescript-language-server in nvim
-
-- [ ] Consider [Alejandra](https://github.com/kamadorueda/alejandra) for formatting nix
 
 ## Resources
 
