@@ -36,6 +36,7 @@ SPACESHIP_PROMPT_ORDER=(
   user          # Username section
   host          # Hostname section
   dir           # Current directory section
+  exit_code
   git           # Git section (git_branch + git_status)
   venv          # Python venv
   kubectl       # Kubectl context
@@ -54,6 +55,5 @@ fi
 
 SPACESHIP_PROMPT_ORDER+=(
   line_sep      # Line break
-  exit_code
   char          # Prompt character
 )
