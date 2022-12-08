@@ -2,8 +2,8 @@
 
 {
   home.packages = with pkgs; [
-    unstable.super-slicer-latest
+    super-slicer-latest
     freecad
-    unstable.openscad
+    openscad
   ];
 }
