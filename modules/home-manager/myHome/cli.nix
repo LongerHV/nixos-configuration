@@ -23,7 +23,7 @@ in
       };
     };
     home.packages = builtins.concatLists [
-      (with pkgs.unstable; [
+      (with pkgs; [
         bat
         cht-sh
         colordiff
@@ -41,7 +41,7 @@ in
         unzip
         wget
       ])
-      (lib.lists.optionals cfg.devops.enable (with pkgs.unstable; [
+      (lib.lists.optionals cfg.devops.enable (with pkgs; [
         ansible
         awscli2
         azure-cli

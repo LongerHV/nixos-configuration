@@ -91,7 +91,7 @@
       telescope-file-browser
       refactoring
     ]);
-    extraPackages = with pkgs.unstable; [
+    extraPackages = with pkgs; [
       # Essentials
       nodePackages.npm
       nodePackages.neovim
