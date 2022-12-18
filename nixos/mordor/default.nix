@@ -5,6 +5,7 @@
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     ./hardware-configuration.nix
+    ./networking.nix
     ../cache.nix
   ];
 
@@ -61,39 +62,9 @@
     cpufreq.max = 4700000;
   };
 
-  services.dnsmasq = {
-    enable = true;
-  };
   networking = {
     hostName = "mordor";
     hostId = "0c55ff12";
-    useDHCP = false;
-    enableIPv6 = false;
-    nameservers = [ "10.69.1.243" ];
-    dhcpcd.enable = false;
-    networkmanager = {
-      enable = true;
-      dns = "dnsmasq";
-    };
-    usePredictableInterfaceNames = false;
-    interfaces.eth0.useDHCP = true;
-    # Ignore wireguard related traffic
-    firewall = {
-      logReversePathDrops = true;
-      extraCommands = ''
-        ip46tables -t raw -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
-        ip46tables -t raw -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
-      '';
-      extraStopCommands = ''
-        ip46tables -t raw -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
-        ip46tables -t raw -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
-      '';
-    };
-    nat = {
-      enable = true;
-      internalInterfaces = [ "ve-+" ];
-      externalInterface = "eth0";
-    };
   };
 
   virtualisation.libvirtd.enable = true;
@@ -140,7 +111,6 @@
       nssmdns = true;
     };
     udev.packages = with pkgs; [ qmk-udev-rules ];
-    wg-netmanager.enable = true;
   };
   system.stateVersion = "22.05";
 }
