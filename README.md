@@ -83,6 +83,7 @@ nix build .#nixosConfigurations.isoimage.config.system.build.isoImage
 - [ ] Migrate Ender 3 (3d printer) to NixOS (klipper + mooonraker + fluidd)
 - [ ] Refactor homelab stuff (move to modules/nixos/homelab)
 - [ ] Refactor home stuff (move to modules/home-manager)
+- [ ] Use new ZFS mountpoints (instead of legacy)
 - [ ] Figure out what is wrong with nix managed typescript-language-server in nvim
 
 ## Resources
