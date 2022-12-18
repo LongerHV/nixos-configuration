@@ -41,8 +41,7 @@ in
       customDNS = {
         customTTL = "1h";
         mapping = {
-          "local.${config.myDomain}" = "192.168.1.243";
-          "xerox.local" = "192.168.1.197";
+          "local.${config.myDomain}" = "10.69.1.243";
         };
       };
       # Redirect all .lan queries to the router

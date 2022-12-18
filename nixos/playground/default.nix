@@ -10,7 +10,7 @@
   networking.resolvconf.extraConfig = ''
     resolv_conf_local_only=NO
     name_server_blacklist=127.0.0.1
-    name_servers=192.168.1.243
+    name_servers=1.1.1.1
   '';
   security.sudo.wheelNeedsPassword = false;
   system.stateVersion = "22.05";
