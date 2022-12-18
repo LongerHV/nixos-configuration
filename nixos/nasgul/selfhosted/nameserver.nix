@@ -35,7 +35,7 @@ in
       ];
       # Reverse lookup (does this even work?)
       clientLookup = {
-        upstream = "192.168.1.1";
+        upstream = "10.69.1.1";
       };
       # My custom entries for local network
       customDNS = {
@@ -47,7 +47,7 @@ in
       # Redirect all .lan queries to the router
       conditional = {
         mapping = {
-          lan = "192.168.1.1";
+          lan = "10.69.1.1";
         };
       };
       blocking = {
@@ -66,7 +66,7 @@ in
         };
         clientGroupsBlock = {
           default = [ "ads" ];
-          "192.168.1.165/32" = [ ];
+          "10.69.1.165/32" = [ ];
         };
       };
       redis = {
