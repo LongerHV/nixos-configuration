@@ -3,8 +3,12 @@ _:
 {
   networking = {
     useNetworkd = true;
+    enableIPv6 = false;
+    # "Predictable" interface names are not that predictable lol
     usePredictableInterfaceNames = false;
+    # NetworkManager is implicitly enabled by gnome
     networkmanager.enable = false;
+    # DHCPCD is still the default on NixOS
     dhcpcd.enable = false;
   };
   systemd.network = {
