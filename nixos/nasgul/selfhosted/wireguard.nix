@@ -41,6 +41,12 @@
           publicKey = "QyRmx4PseUd5YXD9IDnh/6HYQCXiJ1NtxJlT2EnvTXw=";
           allowedIPs = [ "10.100.0.5" ];
         }
+        {
+          # ASUS
+          publicKey = "PYHOfbbVxFBtJDI9PzKJaodItPBJe5KMzQV6QdgXD3c=";
+          allowedIPs = [ "10.100.0.6" ];
+        }
+
       ];
     };
 
