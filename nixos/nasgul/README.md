@@ -38,6 +38,7 @@ Personal NAS server
 
 ## TODO
 
+- [ ] Setup DoT for Blocky (route via Treafik?)
 - [ ] Backups (Scaleway S3 + restic?)
 - [ ] Move Deluge and \*Arr to a container and route traffic via wireguard
 - [ ] LLDAP - SMTP
