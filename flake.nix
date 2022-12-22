@@ -11,8 +11,6 @@
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    my-overlay.url = "path:./overlay";
-    my-overlay.inputs.nixpkgs.follows = "nixpkgs";
     neovim-plugins.url = "github:LongerHV/neovim-plugins-overlay";
     neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -26,7 +24,6 @@
     , home-manager
     , neovim-nightly-overlay
     , agenix
-    , my-overlay
     , neovim-plugins
     , ...
     }@inputs:
@@ -41,7 +38,7 @@
     in
     rec {
       overlays = {
-        default = my-overlay.overlay;
+        default = import ./overlay/default.nix;
         unstable = final: prev: {
           unstable = nixpkgs-unstable.legacyPackages.${prev.system};
         };

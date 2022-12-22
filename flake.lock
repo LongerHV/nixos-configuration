@@ -328,24 +328,6 @@
         "type": "github"
       }
     },
-    "my-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "zsh-z": "zsh-z"
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-5/XSBCOJ2hnPooA9PNE+BlDYJQn+/FQrdu+RL3cZWuc=",
-        "path": "./overlay",
-        "type": "path"
-      },
-      "original": {
-        "path": "./overlay",
-        "type": "path"
-      }
-    },
     "neovim-flake": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -839,7 +821,6 @@
         "agenix": "agenix",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "my-overlay": "my-overlay",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "neovim-plugins": "neovim-plugins",
         "nixos-hardware": "nixos-hardware",
@@ -956,22 +937,6 @@
       "original": {
         "owner": "someone-stole-my-name",
         "repo": "yaml-companion.nvim",
-        "type": "github"
-      }
-    },
-    "zsh-z": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1666902181,
-        "narHash": "sha256-6BNYzfTcjWm+0lJC83IdLxHwwG4/DKet2QNDvVBR6Eo=",
-        "owner": "agkozak",
-        "repo": "zsh-z",
-        "rev": "82f5088641862d0e83561bb251fb60808791c76a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "agkozak",
-        "repo": "zsh-z",
         "type": "github"
       }
     }
