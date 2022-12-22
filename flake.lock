@@ -422,11 +422,11 @@
         "yaml-companion": "yaml-companion"
       },
       "locked": {
-        "lastModified": 1671746448,
-        "narHash": "sha256-e+oOakf2hMjfAdTXRAYwdJzOiwhbJL+1GZP9NHjSgz0=",
+        "lastModified": 1671749705,
+        "narHash": "sha256-uGeJiEqfFgJ3y6JDSRQbQ2nr72Fbm2SJsP6ja1sBIMM=",
         "owner": "LongerHV",
         "repo": "neovim-plugins-overlay",
-        "rev": "118187c3e2bac5532ed987f3eb106d5b317a33f9",
+        "rev": "97425309197de2ae568ee01bcb9d98b54f348bfb",
         "type": "github"
       },
       "original": {
