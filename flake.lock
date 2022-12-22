@@ -440,14 +440,17 @@
         "yaml-companion": "yaml-companion"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-sbxa1Y7OAbJuBXuTKj7/qbs4aWLEb2HLeeCUwjZkaPA=",
-        "path": "./neovim_plugins",
-        "type": "path"
+        "lastModified": 1671746448,
+        "narHash": "sha256-e+oOakf2hMjfAdTXRAYwdJzOiwhbJL+1GZP9NHjSgz0=",
+        "owner": "LongerHV",
+        "repo": "neovim-plugins-overlay",
+        "rev": "118187c3e2bac5532ed987f3eb106d5b317a33f9",
+        "type": "github"
       },
       "original": {
-        "path": "./neovim_plugins",
-        "type": "path"
+        "owner": "LongerHV",
+        "repo": "neovim-plugins-overlay",
+        "type": "github"
       }
     },
     "nixos-hardware": {

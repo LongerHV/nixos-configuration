@@ -13,7 +13,7 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     my-overlay.url = "path:./overlay";
     my-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    neovim-plugins.url = "path:./neovim_plugins";
+    neovim-plugins.url = "github:LongerHV/neovim-plugins-overlay";
     neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
