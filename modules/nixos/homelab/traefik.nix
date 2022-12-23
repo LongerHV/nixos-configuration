@@ -51,7 +51,7 @@ in
 {
   options.homelab.traefik = with lib; {
     enable = mkEnableOption "traefik";
-    docker.enable = mkEnableOption "docker";
+    docker.enable = mkEnableOption "docker" // { default = config.virtualisation.docker.enable; };
     services = mkOption {
       type = types.attrsOf (types.submodule serviceOptions);
       default = { };
@@ -77,47 +77,49 @@ in
     services.traefik = {
       enable = true;
       group = lib.mkIf cfg.docker.enable "docker";
-      staticConfigOptions = lib.recursiveUpdate {
-        log.level = "info";
-        providers = lib.mkIf cfg.docker.enable { docker = { }; };
-        entryPoints = {
-          web = {
-            address = ":80";
-          };
-        };
-        api = {
-          insecure = true;
-          dashboard = true;
-        };
-      } (lib.optionalAttrs hasTLS {
-        entryPoints = {
-          web = {
-            http.redirections.entryPoint = {
-              to = "websecure";
-              scheme = "https";
+      staticConfigOptions = lib.recursiveUpdate
+        {
+          log.level = "info";
+          providers = lib.mkIf cfg.docker.enable { docker = { }; };
+          entryPoints = {
+            web = {
+              address = ":80";
             };
           };
-          websecure = {
-            address = ":443";
-            http.tls = {
-              certResolver = "cloudflare";
-              domains = [{ main = "${hl.domain}"; sans = [ "*.${hl.domain}" ]; }];
-            };
+          api = {
+            insecure = true;
+            dashboard = true;
           };
-        };
-        certificatesResolvers = {
-          cloudflare = {
-            acme = {
-              email = "michal@mieszczak.com.pl";
-              storage = "${config.services.traefik.dataDir}/acme.json";
-              dnsChallenge = {
-                provider = "cloudflare";
-                resolvers = [ "1.1.1.1:53" "1.0.0.1:53" ];
+        }
+        (lib.optionalAttrs hasTLS {
+          entryPoints = {
+            web = {
+              http.redirections.entryPoint = {
+                to = "websecure";
+                scheme = "https";
+              };
+            };
+            websecure = {
+              address = ":443";
+              http.tls = {
+                certResolver = "cloudflare";
+                domains = [{ main = "${hl.domain}"; sans = [ "*.${hl.domain}" ]; }];
               };
             };
           };
-        };
-      });
+          certificatesResolvers = {
+            cloudflare = {
+              acme = {
+                email = "michal@mieszczak.com.pl";
+                storage = "${config.services.traefik.dataDir}/acme.json";
+                dnsChallenge = {
+                  provider = "cloudflare";
+                  resolvers = [ "1.1.1.1:53" "1.0.0.1:53" ];
+                };
+              };
+            };
+          };
+        });
       dynamicConfigOptions = {
         http = {
           routers = builtins.mapAttrs mkRouter cfg.services;
