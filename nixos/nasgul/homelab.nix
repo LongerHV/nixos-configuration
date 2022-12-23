@@ -7,6 +7,7 @@ in
   homelab = {
     domain = "longerhv.xyz";
     storage = "/chonk";
+    authelia = { enable = true; };
     traefik = {
       enable = true;
       docker.enable = true;

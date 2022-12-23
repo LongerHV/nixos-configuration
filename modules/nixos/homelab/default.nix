@@ -5,6 +5,7 @@ let
 in
 {
   imports = [
+    ./authelia.nix
     ./gitea.nix
     ./mail.nix
     ./multimedia.nix

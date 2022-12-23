@@ -41,11 +41,16 @@ let
       prefix = if value.local then "${name}.local" else "${name}";
       domain = "${prefix}.${hl.domain}";
       whitelist = if value.local then "local-ip-whitelist" else "external-ip-whitelist";
+      usesAuthelia = value.authelia && hl.authelia.enable;
     in
     {
       rule = "Host(`${domain}`)";
       service = "${name}";
-      middlewares = value.middlewares ++ [ whitelist ] ++ (lib.lists.optional value.authelia "authelia");
+      middlewares = builtins.concatLists [
+        value.middlewares
+        [ whitelist ]
+        (lib.lists.optional usesAuthelia "authelia")
+      ];
     };
 in
 {
