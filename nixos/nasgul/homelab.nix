@@ -42,7 +42,15 @@ in
     gitea.enable = true;
     multimedia = {
       enable = true;
-      deluge.interface = "wg1";
+      jellyfin.enable = true;
+      sonarr.enable = true;
+      radarr.enable = true;
+      prowlarr.enable = true;
+      bazarr.enable = true;
+      deluge = {
+        enable = true;
+        interface = "wg1";
+      };
     };
   };
 }

@@ -34,6 +34,7 @@
       defaultModules = [
         agenix.nixosModule
         home-manager.nixosModules.home-manager
+        (import ./lib)
       ];
     in
     rec {
@@ -109,9 +110,9 @@
           system = systems.aarch64-linux;
           specialArgs = { inherit inputs outputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
-              "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-              ./nixos/smaug
-            ];
+            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+            ./nixos/smaug
+          ];
         };
       };
 

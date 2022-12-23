@@ -51,7 +51,7 @@ in
 {
   options.homelab.traefik = with lib; {
     enable = mkEnableOption "traefik";
-    docker.enable = mkEnableOption "docker" // { default = config.virtualisation.docker.enable; };
+    docker.enable = mkEnableOption "docker";
     services = mkOption {
       type = types.attrsOf (types.submodule serviceOptions);
       default = { };
