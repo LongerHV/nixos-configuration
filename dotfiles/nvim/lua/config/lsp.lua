@@ -44,6 +44,7 @@ function lsp.common_on_attach(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
 		navic.attach(client, bufnr)
 	end
+	client.server_capabilities.semanticTokensProvider = false
 end
 
 -- Setup servers installed by nix
