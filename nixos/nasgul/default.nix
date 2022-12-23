@@ -13,6 +13,11 @@
   ];
   myDomain = config.homelab.domain;
 
+  mySystem.home-manager = {
+    enable = true;
+    home = ../../home-manager/mordor.nix;
+  };
+
   boot.loader.grub = {
     enable = true;
     efiSupport = true;

@@ -36,7 +36,7 @@
     };
 
     services = {
-      openssh.passwordAuthentication = false;
+      openssh.passwordAuthentication = lib.mkDefault false;
     };
 
     environment = {

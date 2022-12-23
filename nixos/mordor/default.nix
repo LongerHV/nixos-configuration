@@ -12,9 +12,11 @@
   mySystem = {
     gnome.enable = true;
     gaming.enable = true;
+    home-manager = {
+      enable = true;
+      home = ../../home-manager/mordor.nix;
+    };
   };
-
-  home-manager.users."${config.mySystem.user}" = import ../../home-manager/mordor.nix;
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub = {

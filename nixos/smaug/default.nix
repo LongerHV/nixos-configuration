@@ -18,7 +18,6 @@
     ];
   };
 
-  mySystem.home-manager.enable = false;
   boot.loader.raspberryPi = {
     uboot.enable = true;
     version = 4;

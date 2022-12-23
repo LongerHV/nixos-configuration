@@ -16,6 +16,8 @@
   system.stateVersion = "22.05";
   nix.gc.automatic = false;
 
+  mySystem.home-manager.enable = true;
+
   # Workaround for broken home-manager
   systemd.tmpfiles.rules = [
     "d /nix/var/nix/gcroots/per-user/${config.mySystem.user} - ${config.mySystem.user} - - -"
