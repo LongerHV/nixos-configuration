@@ -26,23 +26,6 @@ in
     };
   };
 
-  networking.nat.internalInterfaces = [ "ve-nextcloud" ];
-  systemd.services."container@nextcloud".after = lib.mkForce [ "network.target" "mysql.service" ];
-
-  users = {
-    users.nextcloud = {
-      uid = 997;
-      home = "/var/lib/nextcloud";
-      createHome = true;
-      group = "nextcloud";
-      isSystemUser = true;
-    };
-    users."${config.mySystem.user}".extraGroups = [ "nextcloud" ];
-    groups.nextcloud = {
-      gid = 995;
-    };
-  };
-
   services = {
     mysql = {
       settings.mysqld.innodb_read_only_compressed = 0;
@@ -63,6 +46,7 @@ in
     nextcloud = {
       enable = true;
       package = pkgs.nextcloud25;
+      enableBrokenCiphersForSSE = false;
       datadir = "/chonk/nextcloud";
       hostName = "localhost";
       https = true;
