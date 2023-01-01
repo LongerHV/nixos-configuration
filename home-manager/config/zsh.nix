@@ -22,10 +22,6 @@
       # Completion
       zstyle ':completion:*' menu yes select
 
-      # Edit line in editor
-      autoload edit-command-line; zle -N edit-command-line
-      bindkey '^e' edit-command-line
-
       # Prompt
       source ${pkgs.spaceship-prompt}/lib/spaceship-prompt/spaceship.zsh
       autoload -U promptinit; promptinit
