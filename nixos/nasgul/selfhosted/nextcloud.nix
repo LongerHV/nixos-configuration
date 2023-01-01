@@ -4,6 +4,7 @@ let
   inherit (config) myDomain;
   inherit (config.age) secrets;
   util = pkgs.callPackage ./util.nix { inherit config; };
+  cfg = config.services.nextcloud;
 in
 {
   services.traefik.dynamicConfigOptions.http = {
@@ -42,19 +43,18 @@ in
       ];
     };
 
-    nginx.virtualHosts."localhost".listen = [{ addr = "127.0.0.1"; port = 8086; }];
+    nginx.virtualHosts."${cfg.hostName}".listen = [{ addr = "127.0.0.1"; port = 8086; }];
     nextcloud = {
       enable = true;
       package = pkgs.nextcloud25;
       enableBrokenCiphersForSSE = false;
       datadir = "/chonk/nextcloud";
-      hostName = "localhost";
+      hostName = "nextcloud.local.${myDomain}";
       https = true;
       config = {
         dbtype = "mysql";
         dbhost = "localhost:/run/mysqld/mysqld.sock";
         adminpassFile = secrets.nextcloud_admin_password.path;
-        extraTrustedDomains = [ "nextcloud.local.${myDomain}" "nextcloud.${myDomain}" ];
         trustedProxies = [ "127.0.0.1" ];
       };
     };
