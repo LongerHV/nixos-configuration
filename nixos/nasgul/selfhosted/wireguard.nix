@@ -63,9 +63,9 @@
       privateKeyFile = config.age.secrets.mullvad_priv_key.path;
       peers = [
         {
-          publicKey = "KYqwrr7VPNXZ69XYRKP8QiQmMrlPMZj4j5BlvapZihY=";
+          publicKey = "C3jAgPirUZG6sNYe4VuAgDEYunENUyG34X42y+SBngQ=";
           allowedIPs = [ "0.0.0.0/0" ];
-          endpoint = "91.193.4.82:51820";
+          endpoint = "193.32.127.69:51820";
           persistentKeepalive = 25;
         }
       ];
