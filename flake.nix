@@ -11,6 +11,7 @@
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    deploy-rs.url = "github:serokell/deploy-rs";
     neovim-plugins.url = "github:LongerHV/neovim-plugins-overlay";
     neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -24,6 +25,7 @@
     , home-manager
     , neovim-nightly-overlay
     , agenix
+    , deploy-rs
     , neovim-plugins
     , ...
     }@inputs:
@@ -126,5 +128,20 @@
           ];
         };
       };
+
+      deploy.nodes = {
+        nasgul = {
+          hostname = "nasgul.lan";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nasgul;
+            sshUser = "longer";
+            user = "root";
+            sshOpts = [ "-t" ];
+            magicRollback = false; # Disable because it breaks remote sudo :<
+          };
+        };
+      };
+
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
 }

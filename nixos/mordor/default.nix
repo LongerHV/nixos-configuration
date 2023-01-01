@@ -71,7 +71,7 @@
 
   virtualisation.libvirtd.enable = true;
   virtualisation.podman = { enable = true; dockerCompat = true; };
-  environment.systemPackages = with pkgs; [ virt-manager ];
+  environment.systemPackages = with pkgs; [ virt-manager deploy-rs ];
   users.users.${config.mySystem.user}.extraGroups = [ "libvirtd" ];
   hardware.opengl = {
     enable = true;
