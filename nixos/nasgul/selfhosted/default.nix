@@ -5,7 +5,6 @@ _:
     ./auth.nix
     ./dashboard.nix
     ./lldap.nix
-    ./minio.nix
     ./monitoring.nix
     ./nameserver.nix
     ./nextcloud.nix

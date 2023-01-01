@@ -74,11 +74,6 @@ let
             url = "https://auth.local.${config.myDomain}";
             icon = "hl-authelia";
           }
-          {
-            title = "MinIO";
-            url = "https://minio.local.${config.myDomain}";
-            icon = "hl-minio";
-          }
           rec {
             title = "Nix cache";
             url = "https://cache.local.${config.myDomain}";

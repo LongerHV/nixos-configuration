@@ -63,11 +63,6 @@
       fsType = "zfs";
     };
 
-  fileSystems."/chonk/minio" =
-    { device = "chonk/minio";
-      fsType = "zfs";
-    };
-
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/EC83-EFDC";
       fsType = "vfat";
