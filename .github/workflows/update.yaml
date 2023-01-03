@@ -1,0 +1,43 @@
+---
+name: Update flake lock
+
+"on":
+  schedule:
+    - cron: 0 1 * * *
+  workflow_dispatch:
+
+env:
+  BRANCH_NAME: auto-flake-update
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install nix
+        uses: cachix/install-nix-action@v18
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Create branch
+        run: |
+          git fetch
+          branch_exists=$(git branch --list $BRANCH_NAME)
+          if [ -z "$branch_exists" ]; then
+            git checkout -b $BRANCH_NAME
+          else
+            git checkout $BRANCH_NAME
+            git reset --hard origin/master
+          fi
+      - name: Update lock
+        run: |
+          git config user.name 'github-actions'
+          git config user.email 'actions@github.com'
+          nix flake update --commit-lock-file
+          git push --force --set-upstream origin $BRANCH_NAME
+      - name: Open a PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create --base master --head $BRANCH_NAME  --title "[Flake] Auto update lock" --body "" || exit 0
