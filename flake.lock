@@ -503,19 +503,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-master": {
-      "locked": {
-        "lastModified": 1670528666,
-        "narHash": "sha256-U2zCZ6gPIe0GjiRUA9mhbF6uzQ/g2DYWLdr61FnFAmE=",
-        "path": "/nix/store/87277gysh33s67zvzs01rba6h44n35gy-source",
-        "rev": "a8550d1553ff4b2deed7ff3e984cc958032b3eb7",
-        "type": "path"
-      },
-      "original": {
-        "id": "nixpkgs-master",
-        "type": "indirect"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1672350804,
@@ -878,7 +865,6 @@
         "neovim-plugins": "neovim-plugins",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }
     },

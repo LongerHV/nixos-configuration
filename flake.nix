@@ -19,7 +19,6 @@
     { self
     , nixpkgs
     , nixpkgs-unstable
-    , nixpkgs-master
     , nixos-hardware
     , flake-utils
     , home-manager
