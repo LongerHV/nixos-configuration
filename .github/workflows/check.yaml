@@ -14,4 +14,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: Check flake
-        run: nix flake check --no-build
+        run: |
+          # Build playground as workaround
+          # (deploy-rs checks output does not pass otherwise)
+          nix build .#nixosConfigurations.playground.config.system.build.toplevel
+          nix flake check --no-build
