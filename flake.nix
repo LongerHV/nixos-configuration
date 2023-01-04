@@ -35,7 +35,6 @@
       defaultModules = [
         agenix.nixosModule
         home-manager.nixosModules.home-manager
-        (import ./lib)
       ];
     in
     rec {

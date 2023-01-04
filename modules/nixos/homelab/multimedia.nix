@@ -1,4 +1,4 @@
-{ config, helper, lib, pkgs, options, ... }:
+{ config, lib, pkgs, options, ... }:
 
 let
   hl = config.homelab;
@@ -29,7 +29,7 @@ in
       "d ${config.homelab.storage}/media 0770 - multimedia - -"
     ];
 
-    homelab.traefik.services = lib.mkIf hl.traefik.enable (helper.mergeAttrsets [
+    homelab.traefik.services = lib.mkIf hl.traefik.enable (lib.mkMerge [
       (lib.optionalAttrs cfg.jellyfin.enable { jellyfin = { port = 8096; }; })
       (lib.optionalAttrs cfg.sonarr.enable { sonarr = { port = 8989; authelia = true; }; })
       (lib.optionalAttrs cfg.radarr.enable { radarr = { port = 7878; authelia = true; }; })
