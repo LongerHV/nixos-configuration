@@ -38,7 +38,7 @@ in
     };
     mysql = {
       enable = true;
-      package = pkgs.mariadb_106;
+      package = pkgs.mariadb_108;
     };
     gitea.enable = true;
     multimedia = {
