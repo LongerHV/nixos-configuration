@@ -16,7 +16,7 @@
   system.stateVersion = "22.05";
   nix.gc.automatic = false;
 
-  mySystem.home-manager.enable = true;
+  mySystem.home-manager.enable = false;
 
   # Workaround for broken home-manager
   systemd.tmpfiles.rules = [
