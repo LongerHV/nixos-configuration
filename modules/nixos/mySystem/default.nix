@@ -33,6 +33,9 @@
         options = lib.mkDefault "--delete-older-than 14d";
         dates = lib.mkDefault "weekly";
       };
+      settings = {
+        auto-optimise-store = lib.mkDefault true;
+      };
     };
 
     services = {
