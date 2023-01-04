@@ -1,0 +1,17 @@
+---
+name: Check flake
+
+"on":
+  - pull_request
+  - push
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install nix
+        uses: cachix/install-nix-action@v18
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Check flake
+        run: nix flake check --no-build
