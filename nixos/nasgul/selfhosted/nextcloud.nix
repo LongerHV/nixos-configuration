@@ -59,4 +59,8 @@ in
       };
     };
   };
+  systemd.services = lib.genAttrs [ "nextcloud-setup" "nextcloud-cron" ] (_: {
+    after = [ "mysql.service" ];
+    requires = [ "mysql.service" ];
+  });
 }

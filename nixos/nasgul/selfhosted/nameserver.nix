@@ -19,8 +19,8 @@ in
   };
 
   services.traefik.dynamicConfigOptions.http = {
-      routers.blocky_router = util.traefik_router { subdomain = "blocky"; middlewares = [ "authelia" ]; };
-      services.blocky_service = util.traefik_service { port = 4000; };
+    routers.blocky_router = util.traefik_router { subdomain = "blocky"; middlewares = [ "authelia" ]; };
+    services.blocky_service = util.traefik_service { port = 4000; };
   };
 
   services.blocky = {
@@ -73,6 +73,8 @@ in
         address = redis.unixSocket;
         database = 2;
         required = true;
+        connectionAttempts = 20;
+        connectionCooldown = "6s";
       };
     };
   };
