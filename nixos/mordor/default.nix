@@ -71,7 +71,11 @@
 
   virtualisation.libvirtd.enable = true;
   virtualisation.podman = { enable = true; dockerCompat = true; };
-  environment.systemPackages = with pkgs; [ virt-manager deploy-rs ];
+  environment.systemPackages = with pkgs; [
+    virt-manager
+    deploy-rs
+    unstable.yubioath-flutter
+  ];
   users.users.${config.mySystem.user}.extraGroups = [ "libvirtd" ];
   hardware.opengl = {
     enable = true;
@@ -112,7 +116,8 @@
       enable = true;
       nssmdns = true;
     };
-    udev.packages = with pkgs; [ qmk-udev-rules ];
+    udev.packages = with pkgs; [ qmk-udev-rules yubikey-personalization ];
+    pcscd.enable = true;
   };
   system.stateVersion = "22.05";
 }
