@@ -52,7 +52,8 @@ let
           {
             title = "Dashy";
             url = "https://dash.local.${config.myDomain}";
-            icon = "hl-dashy";
+            # icon = "hl-dashy"; # Broken for some reason
+            icon = "https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/dashy.png";
           }
           {
             title = "Traefik";
