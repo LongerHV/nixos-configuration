@@ -73,7 +73,6 @@
         };
         nasgul = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
-          system = systems.x86_64-linux;
           specialArgs = { inherit inputs outputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
             ./nixos/nasgul

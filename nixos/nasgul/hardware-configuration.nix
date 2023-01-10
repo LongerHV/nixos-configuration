@@ -8,18 +8,13 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "mpt3sas" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
     { device = "rpool/root";
-      fsType = "zfs";
-    };
-
-  fileSystems."/home" =
-    { device = "rpool/root/home";
       fsType = "zfs";
     };
 
@@ -33,33 +28,8 @@
       fsType = "zfs";
     };
 
-  fileSystems."/chonk" =
-    { device = "chonk";
-      fsType = "zfs";
-    };
-
-  fileSystems."/chonk/media" =
-    { device = "chonk/media";
-      fsType = "zfs";
-    };
-
-  fileSystems."/chonk/share" =
-    { device = "chonk/share";
-      fsType = "zfs";
-    };
-
-  fileSystems."/chonk/database" =
-    { device = "chonk/database";
-      fsType = "zfs";
-    };
-
-  fileSystems."/chonk/repositories" =
-    { device = "chonk/repositories";
-      fsType = "zfs";
-    };
-
-  fileSystems."/chonk/nextcloud" =
-    { device = "chonk/nextcloud";
+  fileSystems."/home" =
+    { device = "rpool/root/home";
       fsType = "zfs";
     };
 
@@ -73,5 +43,48 @@
       fsType = "vfat";
     };
 
+  fileSystems."/chonk" =
+    { device = "chonk";
+      fsType = "zfs";
+    };
+
+  fileSystems."/chonk/media" =
+    { device = "chonk/media";
+      fsType = "zfs";
+    };
+
+  fileSystems."/chonk/database" =
+    { device = "chonk/database";
+      fsType = "zfs";
+    };
+
+  fileSystems."/chonk/nextcloud" =
+    { device = "chonk/nextcloud";
+      fsType = "zfs";
+    };
+
+  fileSystems."/chonk/repositories" =
+    { device = "chonk/repositories";
+      fsType = "zfs";
+    };
+
+  fileSystems."/chonk/share" =
+    { device = "chonk/share";
+      fsType = "zfs";
+    };
+
   swapDevices = [ ];
+
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.docker0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.eth0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wg0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wg1.useDHCP = lib.mkDefault true;
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
