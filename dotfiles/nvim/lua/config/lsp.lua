@@ -4,6 +4,7 @@ local lsp_signature = require("lsp_signature")
 local lsp_installer = require("nvim-lsp-installer")
 local navic = require("nvim-navic")
 local common_capabilities = require("cmp_nvim_lsp").default_capabilities()
+common_capabilities.semanticTokensProvider = nil
 
 function lsp.common_on_attach(client, bufnr)
 	local function buf_set_keymap(...)
@@ -44,7 +45,8 @@ function lsp.common_on_attach(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
 		navic.attach(client, bufnr)
 	end
-	client.server_capabilities.semanticTokensProvider = false
+
+	client.server_capabilities.semanticTokensProvider = nil
 end
 
 -- Setup servers installed by nix
