@@ -54,6 +54,7 @@ in
         kubernetes-helm
         teleport.client
         terraform
+        tilt
       ]))
     ];
   };
