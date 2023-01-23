@@ -55,6 +55,8 @@
         default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
       });
 
+      templates = import ./templates;
+
       legacyPackages = forAllSystems (system:
         import inputs.nixpkgs {
           inherit system;
