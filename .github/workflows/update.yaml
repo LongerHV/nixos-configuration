@@ -21,6 +21,8 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Check out repository code
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
       - name: Create branch
         run: |
           git fetch
@@ -36,7 +38,6 @@ jobs:
           git config user.name 'github-actions'
           git config user.email 'actions@github.com'
           nix flake update --commit-lock-file
-          git remote set-url origin "https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}"
           git push --force --set-upstream origin $BRANCH_NAME
       - name: Open a PR
         env:
