@@ -39,6 +39,6 @@ jobs:
           git push --force --set-upstream origin $BRANCH_NAME
       - name: Open a PR
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           gh pr create --base master --head $BRANCH_NAME  --title "[Flake] Auto update lock" --body "" || exit 0
