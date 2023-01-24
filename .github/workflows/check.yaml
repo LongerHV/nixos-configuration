@@ -3,6 +3,8 @@ name: Check flake
 
 "on":
   push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
