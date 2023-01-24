@@ -36,7 +36,7 @@ jobs:
           git config user.name 'github-actions'
           git config user.email 'actions@github.com'
           nix flake update --commit-lock-file
-          git remote set-url orign "https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}"
+          git remote set-url origin "https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}"
           git push --force --set-upstream origin $BRANCH_NAME
       - name: Open a PR
         env:
