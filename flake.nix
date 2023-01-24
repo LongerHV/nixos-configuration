@@ -45,7 +45,7 @@
           unstable = nixpkgs-unstable.legacyPackages.${prev.system};
         };
         neovimNightly = neovim-nightly-overlay.overlay;
-        neovimPlugins = neovim-plugins.overlay;
+        neovimPlugins = neovim-plugins.overlays.default;
         agenix = agenix.overlay;
       };
 

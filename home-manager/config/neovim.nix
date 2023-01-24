@@ -48,7 +48,6 @@
     '';
     plugins = (with pkgs.unstable.vimPlugins; [
       nvim-treesitter.withAllGrammars
-      nvim-tree-lua
     ]) ++ (with pkgs.nvimPlugins; [
       nvim-cmp
       nvim-lspconfig
@@ -66,7 +65,7 @@
       null-ls
       plenary
       yaml-companion
-      # nvim-tree # broken?
+      nvim-tree
       nvim-web-devicons
       nvim-treesitter-textobjects
       nvim-ts-rainbow
