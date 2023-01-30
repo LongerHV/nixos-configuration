@@ -56,6 +56,8 @@
         default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
       });
 
+      formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-fmt);
+
       templates = import ./templates;
 
       legacyPackages = forAllSystems (system:

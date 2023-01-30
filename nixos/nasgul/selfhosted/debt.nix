@@ -4,5 +4,4 @@
 let
   util = pkgs.callPackage ./util.nix { inherit config; };
 in
-{
-}
+{ }

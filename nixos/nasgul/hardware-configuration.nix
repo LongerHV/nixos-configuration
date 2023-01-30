@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "mpt3sas" "sd_mod" ];
@@ -14,62 +15,74 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "rpool/root";
+    {
+      device = "rpool/root";
       fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "rpool/root/nix";
+    {
+      device = "rpool/root/nix";
       fsType = "zfs";
     };
 
   fileSystems."/var" =
-    { device = "rpool/root/var";
+    {
+      device = "rpool/root/var";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "rpool/root/home";
+    {
+      device = "rpool/root/home";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/EC83-EFDC";
+    {
+      device = "/dev/disk/by-uuid/EC83-EFDC";
       fsType = "vfat";
     };
 
   fileSystems."/boot-fallback" =
-    { device = "/dev/disk/by-uuid/EC84-4BF0";
+    {
+      device = "/dev/disk/by-uuid/EC84-4BF0";
       fsType = "vfat";
     };
 
   fileSystems."/chonk" =
-    { device = "chonk";
+    {
+      device = "chonk";
       fsType = "zfs";
     };
 
   fileSystems."/chonk/media" =
-    { device = "chonk/media";
+    {
+      device = "chonk/media";
       fsType = "zfs";
     };
 
   fileSystems."/chonk/database" =
-    { device = "chonk/database";
+    {
+      device = "chonk/database";
       fsType = "zfs";
     };
 
   fileSystems."/chonk/nextcloud" =
-    { device = "chonk/nextcloud";
+    {
+      device = "chonk/nextcloud";
       fsType = "zfs";
     };
 
   fileSystems."/chonk/repositories" =
-    { device = "chonk/repositories";
+    {
+      device = "chonk/repositories";
       fsType = "zfs";
     };
 
   fileSystems."/chonk/share" =
-    { device = "chonk/share";
+    {
+      device = "chonk/share";
       fsType = "zfs";
     };
 
