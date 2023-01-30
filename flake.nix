@@ -34,7 +34,7 @@
       forAllSystems = nixpkgs.lib.genAttrs flake-utils.lib.defaultSystems;
       systems = flake-utils.lib.system;
       defaultModules = [
-        agenix.nixosModule
+        agenix.nixosModules.default
         home-manager.nixosModules.home-manager
       ];
     in
