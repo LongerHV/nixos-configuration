@@ -8,10 +8,18 @@ return {
 	yamlls = require("yaml-companion").setup({}),
 	terraformls = {},
 	gopls = {},
-	-- tsserver = {},
+	tsserver = {
+		init_options = {
+			tsserver = {
+				path = "/nix/store/7dl36ia2p7xcb51lzlly9iyb5w2049qq-typescript-4.8.4/bin/tsserver"
+			}
+		}
+	},
 	taplo = {},
-	eslint = { cmd = { "eslint", "--stdio" } },
-	jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
+	cssls = {},
+	eslint = { settings = { format = false } },
+	jsonls = { init_options = { provideFormatter = false } },
+	html = { init_options = { provideFormatter = false } },
 	sumneko_lua = {
 		cmd = { "lua-language-server" },
 		settings = {

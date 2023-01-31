@@ -51,9 +51,3 @@ require("lualine").setup({
 		lualine_a = { "filename" },
 	},
 })
-
--- Colorizer
-require("colorizer").setup()
-
--- Decorations
-require("dressing").setup({})

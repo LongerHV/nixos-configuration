@@ -1,7 +1,6 @@
 local lsp = {}
 local lsp_config = require("lspconfig")
 local lsp_signature = require("lsp_signature")
-local lsp_installer = require("nvim-lsp-installer")
 local navic = require("nvim-navic")
 local common_capabilities = require("cmp_nvim_lsp").default_capabilities()
 common_capabilities.semanticTokensProvider = nil
@@ -56,15 +55,5 @@ for server, config in pairs(require("config.lsp_servers")) do
 	config.capabilities.offsetEncoding = { "utf-16" }
 	lsp_config[server].setup(config)
 end
-
--- Setup servers installed by lsp-installer
-lsp_installer.on_server_ready(function(server)
-	local config = {
-		on_attach = lsp.common_on_attach,
-		capabilities = common_capabilities,
-	}
-	server:setup(config)
-	vim.cmd([[ do User LspAttach Buffers ]])
-end)
 
 return lsp
