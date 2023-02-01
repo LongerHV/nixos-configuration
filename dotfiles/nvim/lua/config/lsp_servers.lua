@@ -8,13 +8,7 @@ return {
 	yamlls = require("yaml-companion").setup({}),
 	terraformls = {},
 	gopls = {},
-	tsserver = {
-		init_options = {
-			tsserver = {
-				path = "/nix/store/7dl36ia2p7xcb51lzlly9iyb5w2049qq-typescript-4.8.4/bin/tsserver"
-			}
-		}
-	},
+	tsserver = { init_options = { tsserver = { path = "" } } },
 	taplo = {},
 	cssls = {},
 	eslint = { settings = { format = false } },
