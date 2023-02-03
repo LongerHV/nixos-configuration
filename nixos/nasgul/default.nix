@@ -33,17 +33,6 @@
   boot.zfs.forceImportRoot = false;
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_hardened;
 
-  nix.settings = {
-    substituters = [
-      "http://mordor.lan:5000"
-      "https://cache.nixos.org"
-    ];
-    trusted-public-keys = [
-      "mordor.lan:fY4rXQ7QqtaxsokDAA57U0kuXvlo9pzn3XgLs79TZX4"
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    ];
-  };
-
   hardware.opengl = {
     enable = true;
     extraPackages = [
