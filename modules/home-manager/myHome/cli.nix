@@ -42,6 +42,13 @@ in
         wget
       ])
       (lib.lists.optionals cfg.devops.enable (with pkgs; [
+        (writeShellScriptBin "kcon"
+          ''
+            k=${kubectl}/bin/kubectl
+            f=${fzf}/bin/fzf
+            $k config get-contexts -o name | $f --height=10 | xargs $k config use-context
+          ''
+        )
         ansible
         awscli2
         azure-cli
