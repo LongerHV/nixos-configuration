@@ -72,7 +72,7 @@
           default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
           lint = nixpkgs.legacyPackages.${system}.callPackage
             ({ pkgs, ... }: pkgs.mkShellNoCC {
-              nativeBuildInputs = with pkgs; [ actionlint selene statix nixpkgs-fmt ];
+              nativeBuildInputs = with pkgs; [ actionlint selene statix nixpkgs-fmt yamllint ];
             })
             { };
         });
