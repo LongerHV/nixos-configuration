@@ -49,6 +49,7 @@ in
             $k config get-contexts -o name | $f --height=10 | xargs $k config use-context
           ''
         )
+        act
         ansible
         awscli2
         azure-cli

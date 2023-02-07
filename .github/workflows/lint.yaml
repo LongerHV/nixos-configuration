@@ -1,0 +1,31 @@
+---
+name: Run linters
+
+"on":
+  - push
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Install nix
+        uses: cachix/install-nix-action@v18
+
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Build shell
+        run: nix build .#devShells.x86_64-linux.lint
+
+      - name: Lint GitHub Actions
+        run: nix develop .#devShells.x86_64-linux.lint --command actionlint
+
+      - name: Lint lua
+        run: nix develop .#devShells.x86_64-linux.lint --command selene .
+
+      - name: Lint nix (statix)
+        run: nix develop .#devShells.x86_64-linux.lint --command statix check
+
+      - name: Lint nix (nixpkgs-fmt)
+        run: nix develop .#devShells.x86_64-linux.lint --command nixpkgs-fmt --check .

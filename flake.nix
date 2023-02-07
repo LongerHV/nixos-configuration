@@ -67,9 +67,15 @@
       nixosModules = import ./modules/nixos;
       homeManagerModules = import ./modules/home-manager;
 
-      devShells = forAllSystems (system: {
-        default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
-      });
+      devShells = forAllSystems
+        (system: {
+          default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
+          lint = nixpkgs.legacyPackages.${system}.callPackage
+            ({ pkgs, ... }: pkgs.mkShellNoCC {
+              nativeBuildInputs = with pkgs; [ actionlint selene statix nixpkgs-fmt ];
+            })
+            { };
+        });
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-fmt);
 
