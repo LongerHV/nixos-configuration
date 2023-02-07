@@ -234,6 +234,7 @@
       codespell
       gitlint
       terraform-ls
+      actionlint
 
       # Telescope dependencies
       ripgrep

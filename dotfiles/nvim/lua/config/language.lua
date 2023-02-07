@@ -41,6 +41,8 @@ null_ls.setup({
 		-- Git
 		null_ls.builtins.code_actions.gitsigns,
 		null_ls.builtins.diagnostics.gitlint,
+
+		null_ls.builtins.diagnostics.actionlint,
 	},
 	on_attach = require("config.lsp").common_on_attach,
 })

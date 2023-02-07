@@ -26,11 +26,11 @@ jobs:
       - name: Create branch
         run: |
           git fetch
-          branch_exists=$(git branch --list $BRANCH_NAME)
+          branch_exists=$(git branch --list "$BRANCH_NAME")
           if [ -z "$branch_exists" ]; then
-            git checkout -b $BRANCH_NAME
+            git checkout -b "$BRANCH_NAME"
           else
-            git checkout $BRANCH_NAME
+            git checkout "$BRANCH_NAME"
             git reset --hard origin/master
           fi
       - name: Update lock
@@ -38,9 +38,9 @@ jobs:
           git config user.name 'github-actions'
           git config user.email 'actions@github.com'
           nix flake update --commit-lock-file
-          git push --force --set-upstream origin $BRANCH_NAME
+          git push --force --set-upstream origin "$BRANCH_NAME"
       - name: Open a PR
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          gh pr create --base master --head $BRANCH_NAME  --title "[Flake] Auto update lock" --body "" || exit 0
+          gh pr create --base master --head "$BRANCH_NAME"  --title "[Flake] Auto update lock" --body "" || exit 0
