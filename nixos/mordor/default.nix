@@ -69,13 +69,16 @@
   };
 
   virtualisation.libvirtd.enable = true;
-  virtualisation.podman = { enable = true; dockerCompat = true; };
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "zfs";
+  };
   environment.systemPackages = with pkgs; [
     virt-manager
     deploy-rs
     unstable.yubioath-flutter
   ];
-  users.users.${config.mySystem.user}.extraGroups = [ "libvirtd" ];
+  users.users.${config.mySystem.user}.extraGroups = [ "libvirtd" "docker" ];
   hardware.opengl = {
     enable = true;
     extraPackages = [
