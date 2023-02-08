@@ -4,9 +4,9 @@ let
   cfg = config.myHome.cli;
 in
 {
+  imports = [ ./devops.nix ];
   options.myHome.cli = {
     enable = (lib.mkEnableOption "cli") // { default = true; };
-    devops.enable = lib.mkEnableOption "devops";
     personalGitEnable = (lib.mkEnableOption "personalGitEnable") // { default = true; };
   };
 
@@ -22,48 +22,25 @@ in
         userEmail = lib.mkIf cfg.personalGitEnable "michal@mieszczak.com.pl";
       };
     };
-    home.packages = builtins.concatLists [
-      (with pkgs; [
-        bat
-        cht-sh
-        colordiff
-        curl
-        exa
-        file
-        htop
-        jq
-        lazygit
-        neofetch
-        openssh
-        spotify-tui
-        subversion
-        tree
-        unzip
-        wget
-      ])
-      (lib.lists.optionals cfg.devops.enable (with pkgs; [
-        (writeShellScriptBin "kcon"
-          ''
-            k=${kubectl}/bin/kubectl
-            f=${fzf}/bin/fzf
-            $k config get-contexts -o name | $f --height=10 | xargs $k config use-context
-          ''
-        )
-        act
-        ansible
-        awscli2
-        azure-cli
-        eksctl
-        k9s
-        kind
-        kube3d
-        kubectl
-        kubelogin-oidc
-        kubernetes-helm
-        teleport.client
-        terraform
-        tilt
-      ]))
+    home.packages = with pkgs; [
+      bat
+      cht-sh
+      colordiff
+      curl
+      exa
+      file
+      htop
+      jq
+      lazygit
+      neofetch
+      openssh
+      spotify-tui
+      subversion
+      tree
+      unzip
+      wget
+      yj
+      yq
     ];
   };
 }
