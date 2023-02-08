@@ -23,6 +23,7 @@ in
       };
     };
     home.packages = with pkgs; [
+      act
       bat
       cht-sh
       colordiff
