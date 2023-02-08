@@ -16,16 +16,21 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build shell
-        run: nix build .#devShells.x86_64-linux.lint
+        run: |
+          nix build .#devShells.x86_64-linux.lint
+          # shellcheck disable=SC2016
+          # EVs must be expanded in a sub shell
+          nix develop .#devShells.x86_64-linux.lint \
+            --command bash -c 'echo PATH="$PATH" >> "$GITHUB_ENV"'
 
       - name: Lint GitHub Actions
-        run: nix develop .#devShells.x86_64-linux.lint --command actionlint
+        run: actionlint
 
       - name: Lint lua
-        run: nix develop .#devShells.x86_64-linux.lint --command selene .
+        run: selene .
 
       - name: Lint nix (statix)
-        run: nix develop .#devShells.x86_64-linux.lint --command statix check
+        run: statix check
 
       - name: Lint nix (nixpkgs-fmt)
-        run: nix develop .#devShells.x86_64-linux.lint --command nixpkgs-fmt --check .
+        run: nixpkgs-fmt --check .
