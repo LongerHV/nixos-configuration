@@ -15,9 +15,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Build shell
+      - name: Pull linters and set PATH
         run: |
-          nix build .#devShells.x86_64-linux.lint
           # shellcheck disable=SC2016
           # EVs must be expanded in a sub shell
           nix develop .#devShells.x86_64-linux.lint \
