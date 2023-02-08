@@ -19,11 +19,14 @@ jobs:
         run: |
           # shellcheck disable=SC2016
           # EVs must be expanded in a sub shell
-          nix develop --accept-flake-config .#devShells.x86_64-linux.lint \
+          nix develop --accept-flake-config .#lint \
             --command bash -c 'echo PATH="$PATH" >> "$GITHUB_ENV"'
 
       - name: Lint GitHub Actions
         run: actionlint
+
+      - name: Lint yaml
+        run: yamllint .
 
       - name: Lint lua
         run: selene .
