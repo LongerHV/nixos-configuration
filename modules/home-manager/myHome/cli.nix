@@ -30,6 +30,7 @@ in
       curl
       exa
       file
+      fzf
       htop
       jq
       lazygit
