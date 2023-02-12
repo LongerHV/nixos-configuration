@@ -4,6 +4,7 @@ let
   inherit (config.age) secrets;
 in
 {
+  services.gitea.package = pkgs.unstable.gitea;
   homelab = {
     domain = "longerhv.xyz";
     storage = "/chonk";
