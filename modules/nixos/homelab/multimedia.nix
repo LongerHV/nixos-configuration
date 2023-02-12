@@ -41,7 +41,6 @@ in
     services = {
       jellyfin = {
         inherit (cfg.jellyfin) enable;
-        package = pkgs.unstable.jellyfin;
         group = "multimedia";
       };
       sonarr = { inherit (cfg.sonarr) enable; group = "multimedia"; };

@@ -4,7 +4,6 @@ let
   inherit (config.age) secrets;
 in
 {
-  services.gitea.package = pkgs.unstable.gitea;
   homelab = {
     domain = "longerhv.xyz";
     storage = "/chonk";
@@ -54,5 +53,10 @@ in
         interface = "wg1";
       };
     };
+  };
+
+  services = {
+    gitea.package = pkgs.unstable.gitea;
+    jellyfin.package = pkgs.unstable.jellyfin;
   };
 }
