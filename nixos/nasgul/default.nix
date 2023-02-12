@@ -32,6 +32,7 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_hardened;
+  nix.settings.trusted-users = [ config.mySystem.user ];
 
   hardware.opengl = {
     enable = true;
