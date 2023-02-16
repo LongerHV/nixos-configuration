@@ -36,6 +36,9 @@ in
         ];
       };
     };
-    programs.zsh.enable = true; # Workaround for https://github.com/nix-community/home-manager/issues/2751
+    programs.zsh = {
+      enable = true; # Workaround for https://github.com/nix-community/home-manager/issues/2751
+      enableCompletion = false;
+    };
   };
 }
