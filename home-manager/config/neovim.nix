@@ -195,7 +195,7 @@
       nodePackages.pyright
 
       # Lua
-      sumneko-lua-language-server
+      unstable.lua-language-server
       selene
 
       # Nix

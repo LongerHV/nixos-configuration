@@ -14,7 +14,7 @@ return {
 	eslint = { settings = { format = false } },
 	jsonls = { init_options = { provideFormatter = false } },
 	html = { init_options = { provideFormatter = false } },
-	sumneko_lua = {
+	lua_ls = {
 		cmd = { "lua-language-server" },
 		settings = {
 			Lua = {
