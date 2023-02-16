@@ -5,6 +5,7 @@ let
   inherit (config.age) secrets;
   util = pkgs.callPackage ./util.nix { inherit config; };
   cfg = config.services.nextcloud;
+  redis = config.services.redis.servers."";
 in
 {
   services.traefik.dynamicConfigOptions.http = {
@@ -27,6 +28,7 @@ in
     };
   };
 
+  users.users.nextcloud.extraGroups = [ "redis" ];
   services = {
     mysql = {
       settings.mysqld.innodb_read_only_compressed = 0;
@@ -57,10 +59,23 @@ in
         adminpassFile = secrets.nextcloud_admin_password.path;
         trustedProxies = [ "127.0.0.1" ];
       };
+      caching = {
+        redis = true;
+        apcu = false;
+      };
+      extraOptions = {
+        "memcache.local" = "\\OC\\Memcache\\Redis";
+        redis = {
+          host = redis.unixSocket;
+          port = 0;
+          dbindex = 3;
+          timeout = 1.5;
+        };
+      };
     };
   };
   systemd.services = lib.genAttrs [ "nextcloud-setup" "nextcloud-cron" ] (_: {
-    after = [ "mysql.service" ];
-    requires = [ "mysql.service" ];
+    after = [ "mysql.service" "redis.service" ];
+    requires = [ "mysql.service" "redis.service" ];
   });
 }

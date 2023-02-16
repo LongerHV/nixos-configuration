@@ -30,11 +30,12 @@ in
     };
     redis = {
       enable = true;
-      databases = 3;
+      databases = 4;
       # Databases:
       # 0: Authelia
       # 1: Gitea
       # 2: Blocky
+      # 3: Nextcloud
     };
     mysql = {
       enable = true;
