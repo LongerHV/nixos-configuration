@@ -29,6 +29,7 @@ in
         plugin = pkgs.unstable.vimPlugins.nvim-treesitter.withAllGrammars;
         type = "lua";
         config = ''
+
           require("config.treesitter")
         '';
       }
@@ -231,7 +232,6 @@ in
       nodePackages.vscode-langservers-extracted
       nodePackages.markdownlint-cli
       taplo-cli
-      texlab
       codespell
       gitlint
       terraform-ls

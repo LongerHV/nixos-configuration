@@ -60,7 +60,13 @@ function lsp.setup_servers(json_config)
 	end
 	local lsp_servers = vim.json.decode(f:read("all*"))
 	f:close()
+	if lsp_servers == nil then
+		return
+	end
 	for server, config in pairs(lsp_servers) do
+		if server == "lua_ls" then
+			config.settings.Lua.workspace.library = vim.api.nvim_get_runtime_file("", true)
+		end
 		config.on_attach = lsp.common_on_attach
 		config.capabilities = common_capabilities
 		config.capabilities.offsetEncoding = { "utf-16" }

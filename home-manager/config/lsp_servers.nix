@@ -16,6 +16,11 @@
   jsonls = { init_options.provideFormatter = false; };
   html = { init_options.provideFormatter = false; };
   lua_ls = {
-    settings.Lua.telemetry.enable = false;
+    settings.Lua = {
+      runtime.version = "LuaJIT";
+      diagnostics.globals = [ "vim" ];
+      workspace.library = {};
+      telemetry.enable = false;
+    };
   };
 }
