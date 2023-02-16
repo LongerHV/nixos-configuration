@@ -19,7 +19,7 @@
     settings.Lua = {
       runtime.version = "LuaJIT";
       diagnostics.globals = [ "vim" ];
-      workspace.library = {};
+      workspace.library = { };
       telemetry.enable = false;
     };
   };
