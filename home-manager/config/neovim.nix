@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  lspServers = pkgs.writeText "lsp_servers.json" (builtins.toJSON (import ./lsp_servers.nix { inherit pkgs; }));
+in
 {
   home.sessionVariables = {
     EDITOR = "${config.home.profileDirectory}/bin/nvim";
@@ -43,9 +46,7 @@
         plugin = nvim-lspconfig;
         type = "lua";
         config = ''
-          servers = require("config.lsp_servers")
-          servers.tsserver.init_options.tsserver.path = "${pkgs.nodePackages.typescript}/bin/tsserver"
-          require("config.lsp")
+          require("config.lsp").setup_servers("${lspServers}")
           require("config.lsp_cmp")
         '';
       }

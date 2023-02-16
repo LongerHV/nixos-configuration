@@ -46,14 +46,26 @@ function lsp.common_on_attach(client, bufnr)
 	end
 
 	client.server_capabilities.semanticTokensProvider = nil
+
+	-- Disable tsserver formatting, as it conflicts with prettier
+	if client.name == "tsserver" then
+		client.server_capabilities.documentFormattingProvider = false
+	end
 end
 
--- Setup servers installed by nix
-for server, config in pairs(require("config.lsp_servers")) do
-	config.on_attach = lsp.common_on_attach
-	config.capabilities = common_capabilities
-	config.capabilities.offsetEncoding = { "utf-16" }
-	lsp_config[server].setup(config)
+function lsp.setup_servers(json_config)
+	local f = io.open(json_config, "r")
+	if not f then
+		return
+	end
+	local lsp_servers = vim.json.decode(f:read("all*"))
+	f:close()
+	for server, config in pairs(lsp_servers) do
+		config.on_attach = lsp.common_on_attach
+		config.capabilities = common_capabilities
+		config.capabilities.offsetEncoding = { "utf-16" }
+		lsp_config[server].setup(config)
+	end
 end
 
 return lsp
