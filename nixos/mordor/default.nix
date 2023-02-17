@@ -78,7 +78,7 @@
     deploy-rs
     unstable.yubioath-flutter
   ];
-  users.users.${config.mySystem.user}.extraGroups = [ "libvirtd" "docker" ];
+  users.users.${config.mySystem.user}.extraGroups = [ "libvirtd" "docker" "dialout" ];
   hardware.opengl = {
     enable = true;
     extraPackages = [
