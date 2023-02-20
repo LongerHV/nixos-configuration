@@ -24,6 +24,7 @@ in
       kubectl
       kubelogin-oidc
       kubernetes-helm
+      unstable.kubeshark
       teleport.client
       terraform
       tilt
