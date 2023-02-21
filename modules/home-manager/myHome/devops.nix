@@ -24,6 +24,7 @@ in
       kubectl
       kubelogin-oidc
       kubernetes-helm
+      kubeseal
       unstable.kubeshark
       teleport.client
       terraform
