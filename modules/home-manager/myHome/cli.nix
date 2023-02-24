@@ -4,7 +4,6 @@ let
   cfg = config.myHome.cli;
 in
 {
-  imports = [ ./devops.nix ];
   options.myHome.cli = {
     enable = (lib.mkEnableOption "cli") // { default = true; };
     personalGitEnable = (lib.mkEnableOption "personalGitEnable") // { default = true; };

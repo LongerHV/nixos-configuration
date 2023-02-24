@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 let
-  cfg = config.myHome.cli;
+  cfg = config.myHome.devops;
   kcon = with pkgs; (writeShellScriptBin "kcon"
     ''
       k=${kubectl}/bin/kubectl
@@ -11,8 +11,8 @@ let
   );
 in
 {
-  options.myHome.cli.devops.enable = lib.mkEnableOption "devops";
-  config = lib.mkIf (cfg.enable && cfg.devops.enable) {
+  options.myHome.devops.enable = lib.mkEnableOption "devops";
+  config = lib.mkIf cfg.enable {
     home.packages = (with pkgs; [
       ansible
       awscli2
