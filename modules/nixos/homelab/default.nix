@@ -6,6 +6,7 @@ in
 {
   imports = [
     ./authelia.nix
+    ./backups.nix
     ./gitea.nix
     ./mail.nix
     ./multimedia.nix

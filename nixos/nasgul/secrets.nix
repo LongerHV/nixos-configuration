@@ -30,5 +30,13 @@
       file = ../../secrets/cloudflare_token.age;
       owner = "traefik";
     };
+
+    # Restic
+    restic_credentials = {
+      file = ../../secrets/nasgul_restic_s3_key.age;
+    };
+    restic_password = {
+      file = ../../secrets/nasgul_restic_password.age;
+    };
   };
 }
