@@ -41,6 +41,7 @@ in
       tree
       unzip
       wget
+      xh
       yj
       yq
     ];
