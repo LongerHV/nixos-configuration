@@ -13,7 +13,7 @@ in
   };
   config = lib.mkIf cfg.enable {
     users.users."${gitea.user}".extraGroups = builtins.concatLists [
-      (lib.lists.optional hl.redis.enable "redis")
+      [ "redis" ]
       (lib.lists.optional hl.mail.enable "sendgrid")
     ];
 
@@ -23,7 +23,9 @@ in
 
     homelab = {
       mysql.enable = true;
-      traefik = lib.mkIf hl.traefik.enable {
+      redis.enable = true;
+      traefik = {
+        enable = true;
         services.gitea = { port = gitea.httpPort; };
       };
 
@@ -68,7 +70,7 @@ in
           PROVIDER = "db";
           PROVIDER_CONFIG = "";
         });
-        cache = lib.mkIf hl.redis.enable {
+        cache = {
           ENABLED = true;
           ADAPTER = "redis";
           HOST = "network=unix,addr=${redis.unixSocket},db=1,pool_rize=100,idle_timeout=180";
