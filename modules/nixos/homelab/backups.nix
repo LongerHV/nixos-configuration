@@ -2,15 +2,16 @@
 
 let
   cfg = config.homelab.backups;
-  default = {
+  mkServiceBackup = name: settings: {
     initialize = true;
-    inherit (cfg) repository passwordFile environmentFile;
-  };
+    repository = "${cfg.bucket}/${name}";
+    inherit (cfg) passwordFile environmentFile;
+  } // settings;
 in
 {
   options.homelab.backups = with lib; {
     enable = mkEnableOption "backups";
-    repository = mkOption {
+    bucket = mkOption {
       type = types.str;
     };
     passwordFile = mkOption {
@@ -25,6 +26,6 @@ in
   };
 
   config.services.restic.backups = lib.mkIf cfg.enable (
-    builtins.mapAttrs (name: settings: default // settings) cfg.services
+    builtins.mapAttrs mkServiceBackup cfg.services
   );
 }

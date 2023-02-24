@@ -9,7 +9,7 @@ in
     storage = "/chonk";
     backups = {
       enable = true;
-      repository = "s3:s3.us-east-005.backblazeb2.com/nasgulbackup";
+      bucket = "s3:s3.us-east-005.backblazeb2.com/nasgulbackup";
       passwordFile = secrets.restic_password.path;
       environmentFile = secrets.restic_credentials.path;
     };
