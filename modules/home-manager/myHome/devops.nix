@@ -2,7 +2,7 @@
 
 let
   cfg = config.myHome.devops;
-  kcon = with pkgs; (writeShellScriptBin "kcon"
+  kctx = with pkgs; (writeShellScriptBin "kctx"
     ''
       k=${kubectl}/bin/kubectl
       f=${fzf}/bin/fzf
@@ -30,7 +30,7 @@ in
       terraform
       tilt
     ]) ++ [
-      kcon
+      kctx
     ];
   };
 }
