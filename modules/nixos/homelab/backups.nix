@@ -25,7 +25,8 @@ in
     };
   };
 
-  config.services.restic.backups = lib.mkIf cfg.enable (
-    builtins.mapAttrs mkServiceBackup cfg.services
-  );
+  config = lib.mkIf cfg.enable {
+    users.groups.restic = { };
+    services.restic.backups = builtins.mapAttrs mkServiceBackup cfg.services;
+  };
 }

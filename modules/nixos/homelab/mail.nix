@@ -28,6 +28,7 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
+    users.groups.sendgrid = { };
     programs.msmtp = {
       enable = true;
       accounts.default = {

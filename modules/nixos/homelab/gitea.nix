@@ -13,8 +13,19 @@ in
   };
   config = lib.mkIf cfg.enable {
     users.users."${gitea.user}".extraGroups = builtins.concatLists [
-      [ "redis" ]
+      [ "redis" "restic" ]
       (lib.lists.optional hl.mail.enable "sendgrid")
+    ];
+
+    security.sudo.extraRules = [
+      # Allow gitea user to stop the service during backups
+      {
+        users = [ "gitea" ];
+        commands = [
+          { command = "/run/current-system/sw/bin/systemctl stop gitea.service"; options = [ "NOPASSWD" ]; }
+          { command = "/run/current-system/sw/bin/systemctl start gitea.service"; options = [ "NOPASSWD" ]; }
+        ];
+      }
     ];
 
     systemd.tmpfiles.rules = [
@@ -30,12 +41,13 @@ in
       };
 
       backups.services.gitea = {
+        inherit (gitea) user;
         backupPrepareCommand = ''
-          systemctl stop gitea.service
+          /run/wrappers/bin/sudo systemctl stop gitea.service
           ${hl.mysql.package}/bin/mysqldump --databases gitea > ${gitea.stateDir}/dump/gitea.sql
         '';
         backupCleanupCommand = ''
-          systemctl start gitea.service
+          /run/wrappers/bin/sudo systemctl start gitea.service
           rm ${gitea.stateDir}/dump/gitea.sql
         '';
         paths = [ repositoriesDir gitea.stateDir ];

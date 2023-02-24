@@ -1,8 +1,6 @@
 { config, ... }:
 
 {
-  users.groups.sendgrid = { }; # Access to SMTP password file
-
   age.secrets = {
     # Nix-serve
     cache_priv_key.file = ../../secrets/nasgul_cache_priv_key.pem.age;
@@ -34,9 +32,13 @@
     # Restic
     restic_credentials = {
       file = ../../secrets/nasgul_restic_s3_key.age;
+      mode = "0440";
+      group = "restic";
     };
     restic_password = {
       file = ../../secrets/nasgul_restic_password.age;
+      mode = "0440";
+      group = "restic";
     };
 
     # Nextcloud
