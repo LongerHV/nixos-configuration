@@ -5,7 +5,11 @@ let
   mkServiceBackup = name: settings: {
     initialize = true;
     repository = "${cfg.bucket}/${name}";
-    inherit (cfg) passwordFile environmentFile;
+    timerConfig = {
+      OnCalendar = "00:00";
+      RandomizedDelaySec = "4h";
+    };
+    inherit (cfg) pruneOpts passwordFile environmentFile;
   } // settings;
 in
 {
@@ -13,6 +17,14 @@ in
     enable = mkEnableOption "backups";
     bucket = mkOption {
       type = types.str;
+    };
+    pruneOpts = mkOption {
+      type = types.listOf types.str;
+      default = [
+        "--keep-daily 7"
+        "--keep-weekly 4"
+        "--keep-monthly 3"
+      ];
     };
     passwordFile = mkOption {
       type = types.str;
