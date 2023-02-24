@@ -21,8 +21,23 @@ in
       "d ${repositoriesDir} 750 ${gitea.user} gitea - -"
     ];
 
-    homelab.traefik = lib.mkIf hl.traefik.enable {
-      services.gitea = { port = gitea.httpPort; };
+    homelab = {
+      mysql.enable = true;
+      traefik = lib.mkIf hl.traefik.enable {
+        services.gitea = { port = gitea.httpPort; };
+      };
+
+      backups.services.gitea = {
+        backupPrepareCommand = ''
+          systemctl stop gitea.service
+          ${hl.mysql.package}/bin/mysqldump --databases gitea > ${gitea.stateDir}/dump/gitea.sql
+        '';
+        backupCleanupCommand = ''
+          systemctl start gitea.service
+          rm ${gitea.stateDir}/dump/gitea.sql
+        '';
+        paths = [ repositoriesDir gitea.stateDir ];
+      };
     };
 
     services.mysql = lib.mkIf hl.mysql.enable {
@@ -41,7 +56,7 @@ in
       enable = true;
       rootUrl = "https://gitea.local.${config.homelab.domain}";
       repositoryRoot = repositoriesDir;
-      database = lib.mkIf hl.mysql.enable {
+      database = {
         type = "mysql";
         socket = "/run/mysqld/mysqld.sock";
       };
