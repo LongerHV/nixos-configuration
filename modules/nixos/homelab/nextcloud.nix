@@ -3,10 +3,11 @@
 let
   hl = config.homelab;
   cfg = hl.nextcloud;
+  inherit (config.services) nextcloud;
   redis = config.services.redis.servers."";
   port = 8086;
   datadir = "${hl.storage}/nextcloud";
-  hostName  = "nextcloud.local.${hl.domain}";
+  hostName = "nextcloud.local.${hl.domain}";
 in
 {
   options.homelab.nextcloud = with lib; {
@@ -20,7 +21,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.nextcloud.extraGroups = [ "redis" ];
+    users.users.nextcloud.extraGroups = [ "redis" "restic" ];
 
     systemd = {
       tmpfiles.rules = [
@@ -39,6 +40,22 @@ in
         enable = true;
         services.nextcloud = { inherit port; middlewares = [ "nextcloud-redirectregex" ]; };
       };
+      backups.services.nextcloud =
+        let
+          occ = "${nextcloud.occ}/bin/nextcloud-occ";
+        in
+        {
+          user = "nextcloud";
+          backupPrepareCommand = ''
+            ${occ} maintenance:mode --on
+            ${hl.mysql.package}/bin/mysqldump --databases nextcloud > /tmp/nextcloud.sql
+          '';
+          backupCleanupCommand = ''
+            ${occ} maintenance:mode --off
+            rm /tmp/nextcloud.sql
+          '';
+          paths = [ datadir nextcloud.home "/tmp/nextcloud.sql" ];
+        };
     };
 
     services = {
