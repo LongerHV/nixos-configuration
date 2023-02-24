@@ -51,10 +51,7 @@ in
     multimedia = {
       enable = true;
       jellyfin.enable = true;
-      sonarr.enable = true;
-      radarr.enable = true;
-      prowlarr.enable = true;
-      bazarr.enable = true;
+      arr.enable = true;
       deluge = {
         enable = true;
         interface = "wg1";

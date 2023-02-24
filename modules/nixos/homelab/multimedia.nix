@@ -8,10 +8,7 @@ in
   options.homelab.multimedia = with lib; {
     enable = mkEnableOption "multimedia";
     jellyfin.enable = mkEnableOption "jellyfin";
-    sonarr.enable = mkEnableOption "sonarr";
-    radarr.enable = mkEnableOption "radarr";
-    prowlarr.enable = mkEnableOption "prowlarr";
-    bazarr.enable = mkEnableOption "bazarr";
+    arr.enable = mkEnableOption "arr";
     deluge = {
       enable = mkEnableOption "deluge";
       interface = mkOption {
@@ -31,10 +28,12 @@ in
 
     homelab.traefik.services = lib.mkIf hl.traefik.enable (lib.mkMerge [
       (lib.optionalAttrs cfg.jellyfin.enable { jellyfin = { port = 8096; }; })
-      (lib.optionalAttrs cfg.sonarr.enable { sonarr = { port = 8989; authelia = true; }; })
-      (lib.optionalAttrs cfg.radarr.enable { radarr = { port = 7878; authelia = true; }; })
-      (lib.optionalAttrs cfg.prowlarr.enable { prowlarr = { port = 9696; authelia = true; }; })
-      (lib.optionalAttrs cfg.bazarr.enable { bazarr = { port = config.services.bazarr.listenPort; authelia = true; }; })
+      (lib.optionalAttrs cfg.arr.enable {
+        sonarr = { port = 8989; authelia = true; };
+        radarr = { port = 7878; authelia = true; };
+        prowlarr = { port = 9696; authelia = true; };
+        bazarr = { port = config.services.bazarr.listenPort; authelia = true; };
+      })
       (lib.optionalAttrs cfg.deluge.enable { deluge = { inherit (config.services.deluge.web) port; authelia = true; }; })
     ]);
 
@@ -43,10 +42,10 @@ in
         inherit (cfg.jellyfin) enable;
         group = "multimedia";
       };
-      sonarr = { inherit (cfg.sonarr) enable; group = "multimedia"; };
-      radarr = { inherit (cfg.radarr) enable; group = "multimedia"; };
-      bazarr = { inherit (cfg.bazarr) enable; group = "multimedia"; };
-      prowlarr = { inherit (cfg.prowlarr) enable; };
+      sonarr = { inherit (cfg.arr) enable; group = "multimedia"; };
+      radarr = { inherit (cfg.arr) enable; group = "multimedia"; };
+      bazarr = { inherit (cfg.arr) enable; group = "multimedia"; };
+      prowlarr = { inherit (cfg.arr) enable; };
       deluge = {
         inherit (cfg.deluge) enable;
         group = "multimedia";
