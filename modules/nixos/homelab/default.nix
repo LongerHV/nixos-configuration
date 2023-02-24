@@ -11,6 +11,7 @@ in
     ./mail.nix
     ./multimedia.nix
     ./mysql.nix
+    ./nextcloud.nix
     ./redis.nix
     ./traefik.nix
   ];

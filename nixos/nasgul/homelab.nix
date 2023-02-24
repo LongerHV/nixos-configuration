@@ -47,6 +47,11 @@ in
       enable = true;
       package = pkgs.mariadb_108;
     };
+    nextcloud = {
+      enable = true;
+      package = pkgs.nextcloud25;
+      adminpassFile = secrets.nextcloud_admin_password.path;
+    };
     gitea.enable = true;
     multimedia = {
       enable = true;

@@ -38,5 +38,11 @@
     restic_password = {
       file = ../../secrets/nasgul_restic_password.age;
     };
+
+    # Nextcloud
+    nextcloud_admin_password = {
+      file = ../../secrets/nasgul_nextcloud_admin_password.age;
+      owner = "nextcloud";
+    };
   };
 }
