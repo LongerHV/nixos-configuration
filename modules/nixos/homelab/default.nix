@@ -9,6 +9,7 @@ in
     ./backups.nix
     ./gitea.nix
     ./mail.nix
+    ./monitoring.nix
     ./multimedia.nix
     ./mysql.nix
     ./nextcloud.nix

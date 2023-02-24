@@ -13,6 +13,9 @@ in
       passwordFile = secrets.restic_password.path;
       environmentFile = secrets.restic_credentials.path;
     };
+    monitoring = {
+      enable = true;
+    };
     authelia = { enable = true; };
     traefik = {
       enable = true;
