@@ -150,6 +150,7 @@ in
     "deluge"
     "netdata"
     "prometheus"
+    "grafana"
   ];
 
   services.dashy = {
