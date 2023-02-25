@@ -25,7 +25,6 @@ in
         apiEmailFile = secrets.cloudflare_email.path;
         dnsApiTokenFile = secrets.cloudflare_token.path;
       };
-      services.traefik = { port = 8080; authelia = true; };
       services.cache = { port = 5000; };
     };
     mail = {

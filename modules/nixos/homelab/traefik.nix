@@ -92,7 +92,6 @@ in
             };
           };
           api = {
-            insecure = true;
             dashboard = true;
           };
         }
@@ -127,7 +126,13 @@ in
         });
       dynamicConfigOptions = {
         http = {
-          routers = builtins.mapAttrs mkRouter cfg.services;
+          routers = builtins.mapAttrs mkRouter cfg.services // {
+            traefik = {
+              rule = "Host(`traefik.local.${hl.domain}`)";
+              service = "api@internal";
+              middlewares = [ "authelia" ];
+            };
+          };
           services = builtins.mapAttrs mkService cfg.services;
           middlewares = {
             local-ip-whitelist.IPWhiteList = {
