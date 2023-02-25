@@ -162,6 +162,8 @@ in
       "--label"
       "traefik.http.routers.dashy.rule=Host(`dash.local.${config.myDomain}`)"
       "--label"
+      "traefik.http.routers.dashy.entryPoints=web,websecure"
+      "--label"
       "traefik.http.services.dashy.loadBalancer.server.port=8082"
       "--network=host"
       "--no-healthcheck"

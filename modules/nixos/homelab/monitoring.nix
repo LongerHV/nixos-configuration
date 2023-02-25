@@ -4,6 +4,7 @@ let
   hl = config.homelab;
   cfg = hl.monitoring;
   inherit (config.services) prometheus grafana;
+  inherit (prometheus) exporters;
 in
 {
   options.homelab.monitoring = with lib; {
@@ -16,6 +17,8 @@ in
         enable = true;
         services.grafana = { port = grafana.settings.server.http_port; authelia = true; };
         services.prometheus = { inherit (prometheus) port; authelia = true; };
+        services.node-exporter = { inherit (exporters.node) port; metrics = true; };
+        services.smartctl-exporter = { inherit (exporters.smartctl) port; metrics = true; };
       };
     };
     services = {
@@ -45,8 +48,9 @@ in
             static_configs = [
               {
                 targets = [
-                  "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
-                  "127.0.0.1:${toString config.services.prometheus.exporters.smartctl.port}"
+                  "node-exporter.local.${hl.domain}:8080"
+                  "smartctl-exporter.local.${hl.domain}:8080"
+                  "traefik-metrics.local.${hl.domain}:8080"
                 ];
               }
             ];
@@ -54,5 +58,10 @@ in
         ];
       };
     };
+    networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.local.${config.myDomain}") [
+      "node-exporter"
+      "smartctl-exporter"
+      "traefik-metrics"
+    ];
   };
 }

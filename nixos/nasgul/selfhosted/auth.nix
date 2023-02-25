@@ -61,9 +61,8 @@ in
       trustForwardHeader = true;
       authResponseHeaders = [ "Remote-User" "Remote-Groups" "Remote-Name" "Remote-Email" ];
     };
-    routers.auth_router = util.traefik_router { subdomain = "auth"; };
-    services.auth_service = util.traefik_service { port = 9092; };
   };
+  homelab.traefik.services.auth.port = 9092;
 
   services.mysql = {
     ensureDatabases = [

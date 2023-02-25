@@ -2,7 +2,6 @@
 
 let
   redis = config.services.redis.servers."";
-  util = pkgs.callPackage ./util.nix { inherit config; };
 in
 {
   networking = {
@@ -18,9 +17,9 @@ in
     };
   };
 
-  services.traefik.dynamicConfigOptions.http = {
-    routers.blocky_router = util.traefik_router { subdomain = "blocky"; middlewares = [ "authelia" ]; };
-    services.blocky_service = util.traefik_service { port = 4000; };
+  homelab.traefik.services.blocky = {
+    port = 4000;
+    authelia = true;
   };
 
   services.blocky = {

@@ -14,6 +14,10 @@ let
       port = mkOption {
         type = types.port;
       };
+      metrics = mkOption {
+        type = types.bool;
+        default = false;
+      };
       local = mkOption {
         type = types.bool;
         default = true;
@@ -40,15 +44,19 @@ let
     let
       prefix = if value.local then "${name}.local" else "${name}";
       domain = "${prefix}.${hl.domain}";
-      whitelist = if value.local then "local-ip-whitelist" else "external-ip-whitelist";
+      whitelist = [ (if value.local then "local-ip-whitelist" else "external-ip-whitelist") ];
       usesAuthelia = value.authelia && hl.authelia.enable;
     in
     {
       rule = "Host(`${domain}`)";
       service = "${name}";
+      entrypoints =
+        if value.metrics
+        then [ "metrics" ]
+        else ([ "web" ] ++ lib.lists.optional hasTLS "websecure");
       middlewares = builtins.concatLists [
         value.middlewares
-        [ whitelist ]
+        (if value.metrics then [ "localhost-only" ] else whitelist)
         (lib.lists.optional usesAuthelia "authelia")
       ];
     };
@@ -82,20 +90,21 @@ in
     services.traefik = {
       enable = true;
       group = lib.mkIf cfg.docker.enable "docker";
-      staticConfigOptions = lib.recursiveUpdate
+      staticConfigOptions = lib.mkMerge [
         {
           log.level = "info";
           providers = lib.mkIf cfg.docker.enable { docker = { }; };
-          entryPoints = {
-            web = {
-              address = ":80";
-            };
-          };
-          api = {
-            dashboard = true;
-          };
+          entryPoints.web.address = ":80";
+          api.dashboard = true;
         }
-        (lib.optionalAttrs hasTLS {
+        (lib.mkIf hl.monitoring.enable {
+          entryPoints.metrics.address = ":8080";
+          metrics.prometheus = {
+            entryPoint = "metrics";
+            manualRouting = true;
+          };
+        })
+        (lib.mkIf hasTLS {
           entryPoints = {
             web = {
               http.redirections.entryPoint = {
@@ -123,18 +132,32 @@ in
               };
             };
           };
-        });
+        })
+      ];
       dynamicConfigOptions = {
         http = {
-          routers = builtins.mapAttrs mkRouter cfg.services // {
-            traefik = {
-              rule = "Host(`traefik.local.${hl.domain}`)";
-              service = "api@internal";
-              middlewares = [ "authelia" ];
-            };
-          };
+          routers = lib.mkMerge [
+            (builtins.mapAttrs mkRouter cfg.services)
+            {
+              traefik = {
+                rule = "Host(`traefik.local.${hl.domain}`)";
+                service = "api@internal";
+                middlewares = [ "authelia" ];
+                entrypoints = [ "web" ] ++ lib.lists.optional hasTLS "websecure";
+              };
+            }
+            (lib.mkIf hl.monitoring.enable {
+              traefik-metrics = {
+                rule = "Host(`traefik-metrics.local.${hl.domain}`)";
+                service = "prometheus@internal";
+                middlewares = [ "localhost-only" ];
+                entrypoints = [ "metrics" ];
+              };
+            })
+          ];
           services = builtins.mapAttrs mkService cfg.services;
           middlewares = {
+            localhost-only.IPWhitelist.sourceRange = [ "127.0.0.1/32" ];
             local-ip-whitelist.IPWhiteList = {
               sourceRange = [
                 "127.0.0.1/32"
