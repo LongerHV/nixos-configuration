@@ -4,6 +4,8 @@ let
   hl = config.homelab;
   cfg = hl.traefik;
   hasTLS = cfg.cloudflareTLS.enable;
+  # entrypoints = [ "web" ] ++ lib.lists.optional hasTLS "websecure";
+  entrypoints = [ (if hasTLS then "websecure" else "web") ];
 
   serviceOptions = _: with lib; {
     options = {
@@ -50,10 +52,7 @@ let
     {
       rule = "Host(`${domain}`)";
       service = "${name}";
-      entrypoints =
-        if value.metrics
-        then [ "metrics" ]
-        else ([ "web" ] ++ lib.lists.optional hasTLS "websecure");
+      inherit entrypoints;
       middlewares = builtins.concatLists [
         value.middlewares
         (if value.metrics then [ "localhost-only" ] else whitelist)
@@ -98,9 +97,7 @@ in
           api.dashboard = true;
         }
         (lib.mkIf hl.monitoring.enable {
-          entryPoints.metrics.address = ":8080";
           metrics.prometheus = {
-            entryPoint = "metrics";
             manualRouting = true;
           };
         })
@@ -143,7 +140,7 @@ in
                 rule = "Host(`traefik.local.${hl.domain}`)";
                 service = "api@internal";
                 middlewares = [ "authelia" ];
-                entrypoints = [ "web" ] ++ lib.lists.optional hasTLS "websecure";
+                inherit entrypoints;
               };
             }
             (lib.mkIf hl.monitoring.enable {
@@ -151,7 +148,7 @@ in
                 rule = "Host(`traefik-metrics.local.${hl.domain}`)";
                 service = "prometheus@internal";
                 middlewares = [ "localhost-only" ];
-                entrypoints = [ "metrics" ];
+                inherit entrypoints;
               };
             })
           ];

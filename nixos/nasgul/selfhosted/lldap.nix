@@ -35,7 +35,7 @@ in
       "--label"
       "traefik.http.routers.ldap.rule=Host(`ldap.local.${config.myDomain}`)"
       "--label"
-      "traefik.http.routers.ldap.entryPoints=web,websecure"
+      "traefik.http.routers.ldap.entryPoints=websecure"
       "--label"
       "traefik.http.services.ldap.loadBalancer.server.port=17170"
     ];

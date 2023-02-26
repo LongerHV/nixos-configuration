@@ -9,6 +9,10 @@ in
 {
   options.homelab.monitoring = with lib; {
     enable = mkEnableOption "monitoring";
+    targets = mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -44,14 +48,14 @@ in
         };
         scrapeConfigs = [
           {
-            job_name = "nasgul";
+            job_name = config.networking.hostName;
             static_configs = [
               {
                 targets = [
-                  "node-exporter.local.${hl.domain}:8080"
-                  "smartctl-exporter.local.${hl.domain}:8080"
-                  "traefik-metrics.local.${hl.domain}:8080"
-                ];
+                  "node-exporter.local.${hl.domain}"
+                  "smartctl-exporter.local.${hl.domain}"
+                  "traefik-metrics.local.${hl.domain}"
+                ] ++ cfg.targets;
               }
             ];
           }
