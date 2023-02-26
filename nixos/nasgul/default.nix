@@ -12,6 +12,13 @@
     ./homelab.nix
   ];
   myDomain = config.homelab.domain;
+  mySystem = {
+    home-manager = {
+      enable = true;
+      home = ./home.nix;
+    };
+  };
+
 
   boot.loader.grub = {
     enable = true;
