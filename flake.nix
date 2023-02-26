@@ -50,7 +50,7 @@
       systems = flake-utils.lib.system;
       defaultModules = [
         agenix.nixosModules.default
-        home-manager.nixosModules.home-manager
+        home-manager.nixosModules.default
       ];
     in
     rec {
