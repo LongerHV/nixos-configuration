@@ -3,9 +3,8 @@
 {
   home.stateVersion = "21.11";
   imports = [
-    ./default.nix
-    ./config/gui-packages.nix
-    ./config/printing.nix
+    ../../home-manager/config/gui-packages.nix
+    ../../home-manager/config/printing.nix
   ];
 
   myHome = {

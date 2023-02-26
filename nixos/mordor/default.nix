@@ -13,7 +13,7 @@
     gaming.enable = true;
     home-manager = {
       enable = true;
-      home = ../../home-manager/mordor.nix;
+      home = ./home.nix;
     };
   };
 

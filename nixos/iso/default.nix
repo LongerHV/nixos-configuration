@@ -5,7 +5,7 @@
     user = "nixos";
     home-manager = {
       enable = true;
-      home = ../../home-manager/iso.nix;
+      home = ./home.nix;
     };
   };
   environment.systemPackages = with pkgs; [
