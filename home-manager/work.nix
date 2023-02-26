@@ -3,7 +3,6 @@
 {
   imports = [
     ./config/gnome.nix
-    ./config/tmux.nix
     ./config/zsh.nix
   ];
 
@@ -17,5 +16,6 @@
     nonNixos.enable = true;
     devops.enable = true;
     cli.personalGitEnable = false;
+    tmux.enable = true;
   };
 }

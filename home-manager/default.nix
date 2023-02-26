@@ -2,7 +2,7 @@ _:
 
 {
   imports = [
-    ./config/tmux.nix
     ./config/zsh.nix
   ];
+  myHome.tmux.enable = true;
 }

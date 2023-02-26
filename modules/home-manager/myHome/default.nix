@@ -6,5 +6,6 @@ _:
     ./devops.nix
     ./neovim
     ./non-nixos.nix
+    ./tmux.nix
   ];
 }
