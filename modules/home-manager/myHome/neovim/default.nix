@@ -5,8 +5,8 @@ let
 in
 {
   options.myHome.neovim = with lib; {
-    enable = mkEnableOption "neovim" // { default = true; };
-    enableLSP = mkEnableOption "enableLSP" // { default = true; };
+    enable = mkEnableOption "neovim";
+    enableLSP = mkEnableOption "enableLSP";
   };
 
   config = lib.mkIf cfg.enable {

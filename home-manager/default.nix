@@ -1,5 +1,10 @@
 _:
 
 {
-  myHome.zsh.enable = true;
+  myHome = {
+    neovim = {
+      enable = true;
+    };
+    zsh.enable = true;
+  };
 }
