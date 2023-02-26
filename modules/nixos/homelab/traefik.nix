@@ -144,7 +144,7 @@ in
             }
             (lib.mkIf hl.monitoring.enable {
               traefik-metrics = {
-                rule = "Host(`traefik-metrics.local.${hl.domain}`)";
+                rule = "Host(`traefik.local.${hl.domain}`) && Path(`/metrics`)";
                 service = "prometheus@internal";
                 middlewares = [ "localhost-only" ];
                 inherit entrypoints;

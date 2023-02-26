@@ -54,7 +54,7 @@ in
                 targets = [
                   "node-exporter.local.${hl.domain}"
                   "smartctl-exporter.local.${hl.domain}"
-                  "traefik-metrics.local.${hl.domain}"
+                  "traefik.local.${hl.domain}"
                 ] ++ cfg.targets;
               }
             ];

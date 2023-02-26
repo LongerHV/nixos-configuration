@@ -6,6 +6,7 @@ let
   inherit (config.services) gitea;
   redis = config.services.redis.servers."";
   repositoriesDir = "${config.homelab.storage}/repositories";
+  domain = "gitea.local.${hl.domain}";
 in
 {
   options.homelab.gitea = {
@@ -42,7 +43,7 @@ in
 
       services.gitea = {
         enable = true;
-        rootUrl = "https://gitea.local.${hl.domain}";
+        rootUrl = "https://${domain}";
         repositoryRoot = repositoriesDir;
         database = {
           type = "mysql";
@@ -88,15 +89,15 @@ in
     })
 
     (lib.mkIf hl.monitoring.enable {
-      homelab.monitoring.targets = [ gitea.rootUrl ];
+      homelab.monitoring.targets = [ domain ];
       services.gitea.settings.metrics.ENABLED = true;
       services.traefik.dynamicConfigOptions.http.routers.gitea-monitoring = {
-        rule = "Host(`${gitea.rootUrl}`) && Path(`/metrics`)";
+        rule = "Host(`${domain}`) && Path(`/metrics`)";
         service = "gitea";
         middlewares = [ "localhost-only" ];
-        entrypoints = "websecure";
+        entrypoints = if hl.traefik.cloudflareTLS.enable then "websecure" else "web";
       };
-      networking.hosts."127.0.0.1" = [ gitea.rootUrl ];
+      networking.hosts."127.0.0.1" = [ domain ];
     })
 
     (lib.mkIf hl.mail.enable {
