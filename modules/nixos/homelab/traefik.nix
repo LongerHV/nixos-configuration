@@ -4,7 +4,6 @@ let
   hl = config.homelab;
   cfg = hl.traefik;
   hasTLS = cfg.cloudflareTLS.enable;
-  # entrypoints = [ "web" ] ++ lib.lists.optional hasTLS "websecure";
   entrypoints = [ (if hasTLS then "websecure" else "web") ];
 
   serviceOptions = _: with lib; {

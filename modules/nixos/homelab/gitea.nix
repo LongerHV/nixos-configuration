@@ -11,36 +11,69 @@ in
   options.homelab.gitea = {
     enable = lib.mkEnableOption "gitea";
   };
-  config = lib.mkIf cfg.enable {
-    users.users."${gitea.user}".extraGroups = builtins.concatLists [
-      [ "redis" "restic" ]
-      (lib.lists.optional hl.mail.enable "sendgrid")
-    ];
 
-    security.sudo.extraRules = [
-      # Allow gitea user to stop the service during backups
-      {
-        users = [ "gitea" ];
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
+      users.users."${gitea.user}".extraGroups = [ "redis" ];
+      systemd.tmpfiles.rules = [
+        "d ${repositoriesDir} 750 ${gitea.user} gitea - -"
+      ];
+
+      homelab = {
+        mysql.enable = true;
+        redis.enable = true;
+        traefik = {
+          enable = true;
+          services.gitea = { port = gitea.httpPort; };
+        };
+      };
+
+      services.mysql = {
+        ensureDatabases = [ "gitea" ];
+        ensureUsers = [
+          {
+            name = gitea.database.user;
+            ensurePermissions = {
+              "gitea.*" = "ALL PRIVILEGES";
+            };
+          }
+        ];
+      };
+
+      services.gitea = {
+        enable = true;
+        rootUrl = "https://gitea.local.${hl.domain}";
+        repositoryRoot = repositoriesDir;
+        database = {
+          type = "mysql";
+          socket = "/run/mysqld/mysqld.sock";
+        };
+        settings = {
+          session = {
+            COOKIE_SECURE = true;
+            DISABLE_REGISTRATION = true;
+            PROVIDER = "db";
+            PROVIDER_CONFIG = "";
+          };
+          cache = {
+            ENABLED = true;
+            ADAPTER = "redis";
+            HOST = "network=unix,addr=${redis.unixSocket},db=1,pool_rize=100,idle_timeout=180";
+          };
+        };
+      };
+    }
+
+    (lib.mkIf hl.backups.enable {
+      users.users."${gitea.user}".extraGroups = [ "restic" ];
+      security.sudo.extraRules = [{
+        users = [ gitea.user ];
         commands = [
           { command = "/run/current-system/sw/bin/systemctl stop gitea.service"; options = [ "NOPASSWD" ]; }
           { command = "/run/current-system/sw/bin/systemctl start gitea.service"; options = [ "NOPASSWD" ]; }
         ];
-      }
-    ];
-
-    systemd.tmpfiles.rules = [
-      "d ${repositoriesDir} 750 ${gitea.user} gitea - -"
-    ];
-
-    homelab = {
-      mysql.enable = true;
-      redis.enable = true;
-      traefik = {
-        enable = true;
-        services.gitea = { port = gitea.httpPort; };
-      };
-
-      backups.services.gitea = {
+      }];
+      homelab.backups.services.gitea = {
         inherit (gitea) user;
         backupPrepareCommand = ''
           /run/wrappers/bin/sudo systemctl stop gitea.service
@@ -52,49 +85,31 @@ in
         '';
         paths = [ repositoriesDir gitea.stateDir ];
       };
-    };
+    })
 
-    services.mysql = lib.mkIf hl.mysql.enable {
-      ensureDatabases = [ "gitea" ];
-      ensureUsers = [
-        {
-          name = gitea.database.user;
-          ensurePermissions = {
-            "gitea.*" = "ALL PRIVILEGES";
-          };
-        }
-      ];
-    };
-
-    services.gitea = {
-      enable = true;
-      rootUrl = "https://gitea.local.${config.homelab.domain}";
-      repositoryRoot = repositoriesDir;
-      database = {
-        type = "mysql";
-        socket = "/run/mysqld/mysqld.sock";
-      };
-      settings = {
-        session = {
-          COOKIE_SECURE = true;
-          DISABLE_REGISTRATION = true;
-        } // (lib.attrsets.optionalAttrs hl.mysql.enable {
-          PROVIDER = "db";
-          PROVIDER_CONFIG = "";
-        });
-        cache = {
-          ENABLED = true;
-          ADAPTER = "redis";
-          HOST = "network=unix,addr=${redis.unixSocket},db=1,pool_rize=100,idle_timeout=180";
-        };
-        mailer = lib.mkIf hl.mail.enable {
-          ENABLED = true;
-          # Use PROTOCOL instead of MAILER_TYPE after 1.18
-          MAILER_TYPE = "sendmail";
-          SENDMAIL_PATH = hl.mail.sendmailPath;
-          FROM = "gitea@${config.homelab.domain}";
+    (lib.mkIf hl.monitoring.enable {
+      homelab.monitoring.targets = [ gitea.rootUrl ];
+      services.gitea.settings.metrics.ENABLED = true;
+      services.traefik.dynamicConfigOptions.http.routers = {
+        gitea-monitoring = {
+          rule = "Host(`${gitea.rootUrl}`) && Path(`/metrics`)";
+          service = "gitea";
+          middlewares = [ "localhost-only" ];
+          entrypoints = "websecure";
         };
       };
-    };
-  };
+      networking.hosts."127.0.0.1" = [ gitea.rootUrl ];
+    })
+
+    (lib.mkIf hl.mail.enable {
+      users.users."${gitea.user}".extraGroups = [ "sendgrid" ];
+      services.gitea.settings.mailer = {
+        ENABLED = true;
+        # Use PROTOCOL instead of MAILER_TYPE after 1.18
+        MAILER_TYPE = "sendmail";
+        SENDMAIL_PATH = hl.mail.sendmailPath;
+        FROM = "gitea@${config.homelab.domain}";
+      };
+    })
+  ]);
 }
