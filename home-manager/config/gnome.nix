@@ -1,10 +1,6 @@
 { config, pkgs, lib, ... }:
 
 let
-  nierWallpaper = builtins.fetchurl {
-    url = "https://images6.alphacoders.com/655/655990.jpg";
-    sha256 = "b09b411a9c7fc7dc5be312ca9e4e4b8ee354358daa792381f207c9f4946d95fe";
-  };
   profileUUID = "9e6bced8-89d4-4c52-aead-bbd59cbaad09";
   colors = import ./colors.nix;
 in
@@ -22,11 +18,11 @@ in
       monospace-font-name = "Hack Nerd Font";
     };
     "org/gnome/desktop/background" = {
-      picture-uri = "file://${nierWallpaper}";
-      picture-uri-dark = "file://${nierWallpaper}";
+      picture-uri = "file://${pkgs.nierWallpaper}";
+      picture-uri-dark = "file://${pkgs.nierWallpaper}";
     };
     "org/gnome/desktop/screensaver" = {
-      picture-uri = "file://${nierWallpaper}";
+      picture-uri = "file://${pkgs.nierWallpaper}";
     };
     "org/gnome/terminal/legacy" = {
       theme-variant = "dark";
