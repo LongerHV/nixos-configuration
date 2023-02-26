@@ -90,13 +90,11 @@ in
     (lib.mkIf hl.monitoring.enable {
       homelab.monitoring.targets = [ gitea.rootUrl ];
       services.gitea.settings.metrics.ENABLED = true;
-      services.traefik.dynamicConfigOptions.http.routers = {
-        gitea-monitoring = {
-          rule = "Host(`${gitea.rootUrl}`) && Path(`/metrics`)";
-          service = "gitea";
-          middlewares = [ "localhost-only" ];
-          entrypoints = "websecure";
-        };
+      services.traefik.dynamicConfigOptions.http.routers.gitea-monitoring = {
+        rule = "Host(`${gitea.rootUrl}`) && Path(`/metrics`)";
+        service = "gitea";
+        middlewares = [ "localhost-only" ];
+        entrypoints = "websecure";
       };
       networking.hosts."127.0.0.1" = [ gitea.rootUrl ];
     })
