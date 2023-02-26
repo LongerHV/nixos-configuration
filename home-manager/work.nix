@@ -3,7 +3,6 @@
 {
   imports = [
     ./config/gnome.nix
-    ./config/neovim.nix
     ./config/tmux.nix
     ./config/zsh.nix
   ];
