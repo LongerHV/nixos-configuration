@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  imports = [ ./alacritty.nix ./gnome.nix ];
+  imports = [ ./gnome.nix ];
 
   home.packages = with pkgs; [
     brave
