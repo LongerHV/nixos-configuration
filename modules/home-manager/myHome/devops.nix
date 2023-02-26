@@ -14,6 +14,7 @@ in
   options.myHome.devops.enable = lib.mkEnableOption "devops";
   config = lib.mkIf cfg.enable {
     home.packages = (with pkgs; [
+      act
       ansible
       awscli2
       azure-cli

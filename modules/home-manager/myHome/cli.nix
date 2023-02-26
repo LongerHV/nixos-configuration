@@ -22,7 +22,6 @@ in
       };
     };
     home.packages = with pkgs; [
-      act
       bat
       cht-sh
       colordiff
@@ -32,11 +31,8 @@ in
       fzf
       htop
       jq
-      lazygit
       neofetch
       openssh
-      spotify-tui
-      subversion
       tree
       unzip
       wget
