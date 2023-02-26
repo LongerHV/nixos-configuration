@@ -1,8 +1,5 @@
 _:
 
 {
-  imports = [
-    ./config/zsh.nix
-  ];
-  myHome.tmux.enable = true;
+  myHome.zsh.enable = true;
 }

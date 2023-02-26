@@ -3,7 +3,6 @@
 {
   imports = [
     ./config/gnome.nix
-    ./config/zsh.nix
   ];
 
   home = rec {
@@ -17,5 +16,6 @@
     devops.enable = true;
     cli.personalGitEnable = false;
     tmux.enable = true;
+    zsh.enable = true;
   };
 }

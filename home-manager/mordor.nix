@@ -7,6 +7,7 @@
     ./config/printing.nix
   ];
 
+  myHome.tmux.enable = true;
   home.packages = with pkgs; [
     reaper
     qmk
