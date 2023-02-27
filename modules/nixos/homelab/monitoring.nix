@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   hl = config.homelab;
@@ -9,10 +9,6 @@ in
 {
   options.homelab.monitoring = with lib; {
     enable = mkEnableOption "monitoring";
-    targets = mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -28,11 +24,28 @@ in
     services = {
       grafana = {
         enable = true;
+        declarativePlugins = with pkgs.grafanaPlugins; [ grafana-piechart-panel ];
         settings = {
           server = {
             domain = "grafana.local.${hl.domain}";
             http_port = 3001;
           };
+        };
+        provision = {
+          datasources.settings.datasources = [{
+            name = "Prometheus";
+            type = "prometheus";
+            uid = "PBFA97CFB590B2093";
+            access = "proxy";
+            url = "http://localhost:${builtins.toString prometheus.port}";
+            isDefault = true;
+            version = 1;
+            editable = false;
+          }];
+          dashboards.settings.providers = [{
+            name = "system";
+            options.path = ./dashboards/node.json;
+          }];
         };
       };
       prometheus = {
@@ -54,8 +67,7 @@ in
                 targets = [
                   "node-exporter.local.${hl.domain}"
                   "smartctl-exporter.local.${hl.domain}"
-                  "traefik.local.${hl.domain}"
-                ] ++ cfg.targets;
+                ];
               }
             ];
           }

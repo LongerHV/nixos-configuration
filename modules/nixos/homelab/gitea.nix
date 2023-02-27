@@ -89,7 +89,14 @@ in
     })
 
     (lib.mkIf hl.monitoring.enable {
-      homelab.monitoring.targets = [ domain ];
+      services.prometheus.scrapeConfigs = [{
+        job_name = "gitea";
+        static_configs = [{ targets = [ domain ]; }];
+      }];
+      services.grafana.provision.dashboards.settings.providers = [{
+        name = "gitea";
+        options.path = ./dashboards/gitea.json;
+      }];
       services.gitea.settings.metrics.ENABLED = true;
       services.traefik.dynamicConfigOptions.http.routers.gitea-monitoring = {
         rule = "Host(`${domain}`) && Path(`/metrics`)";
