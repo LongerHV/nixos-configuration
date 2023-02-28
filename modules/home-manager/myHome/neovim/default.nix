@@ -37,7 +37,7 @@ in
             type = "lua";
             config = ''
 
-          require("config.treesitter")
+              require("config.treesitter")
           '';
           }
           nvim-treesitter-textobjects
