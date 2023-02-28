@@ -36,6 +36,11 @@ in
         ];
       };
     };
+    programs.neovim = {
+      enable = true;
+      package = pkgs.neovim-nightly.overrideAttrs (_: { CFLAGS = "-O3"; });
+      defaultEditor = true;
+    };
     programs.zsh = {
       enable = true; # Workaround for https://github.com/nix-community/home-manager/issues/2751
       enableCompletion = false;
