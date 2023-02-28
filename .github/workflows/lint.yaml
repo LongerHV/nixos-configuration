@@ -8,19 +8,15 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    defaults:
+      run:
+        shell: nix develop --accept-flake-config .#lint --command bash -e {0}
     steps:
       - name: Install nix
         uses: cachix/install-nix-action@v18
 
       - name: Check out repository code
         uses: actions/checkout@v3
-
-      - name: Pull linters and set PATH
-        run: |
-          # shellcheck disable=SC2016
-          # EVs must be expanded in a sub shell
-          nix develop --accept-flake-config .#lint \
-            --command bash -c 'echo PATH="$PATH" >> "$GITHUB_ENV"'
 
       - name: Lint GitHub Actions
         run: actionlint
