@@ -32,6 +32,20 @@
           "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext"
           "https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts"
         ];
+        telemetry = [
+          "https://v.firebog.net/hosts/Easyprivacy.txt"
+          "https://v.firebog.net/hosts/Prigent-Ads.txt"
+          "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts"
+          "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt"
+          "https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt"
+        ];
+      };
+      whiteLists = {
+        ads = [
+          (pkgs.writeText "whitelist.txt" ''
+            piwik.pro
+          '')
+        ];
       };
       clientGroupsBlock = {
         default = [ "ads" ];
