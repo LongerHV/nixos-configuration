@@ -17,6 +17,7 @@ in
       enable = true;
     };
     authelia = { enable = true; };
+    blocky.enable = true;
     traefik = {
       enable = true;
       docker.enable = true;

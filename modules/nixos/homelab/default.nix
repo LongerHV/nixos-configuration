@@ -7,6 +7,7 @@ in
   imports = [
     ./authelia.nix
     ./backups.nix
+    ./blocky.nix
     ./gitea.nix
     ./mail.nix
     ./monitoring.nix

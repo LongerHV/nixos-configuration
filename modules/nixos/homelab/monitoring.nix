@@ -36,6 +36,7 @@ in
             check_for_plugin_updates = false;
           };
           security.disable_gravatar = true;
+          panels.disable_sanitize_html = true;
         };
         provision = {
           datasources.settings.datasources = [{
