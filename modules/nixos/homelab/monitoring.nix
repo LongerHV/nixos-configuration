@@ -30,6 +30,12 @@ in
             domain = "grafana.local.${hl.domain}";
             http_port = 3001;
           };
+          analytics = {
+            reporting_enabled = false;
+            check_for_updates = false;
+            check_for_plugin_updates = false;
+          };
+          security.disable_gravatar = true;
         };
         provision = {
           datasources.settings.datasources = [{
