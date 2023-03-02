@@ -95,7 +95,10 @@ in
             providers = lib.mkIf cfg.docker.enable { docker = { }; };
             entryPoints.web.address = ":80";
             api.dashboard = true;
-            global.checknewversion = false;
+            global = {
+              checknewversion = false;
+              sendanonymoususage = false;
+            };
           }
           (lib.mkIf hasTLS {
             entryPoints = {
@@ -183,6 +186,5 @@ in
       };
       networking.hosts."127.0.0.1" = [ "traefik.local.${hl.domain}" ];
     })
-
   ]);
 }
