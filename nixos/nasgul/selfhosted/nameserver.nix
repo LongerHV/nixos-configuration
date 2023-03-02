@@ -23,13 +23,13 @@
       blockType = "zeroIP";
       blackLists = {
         ads = [
-          # "https://adaway.org/hosts.txt"
-          # "https://v.firebog.net/hosts/AdguardDNS.txt"
-          # "https://v.firebog.net/hosts/Admiral.txt"
+          "https://adaway.org/hosts.txt"
+          "https://v.firebog.net/hosts/AdguardDNS.txt"
+          "https://v.firebog.net/hosts/Admiral.txt"
           "https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt"
-          # "https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt"
-          # "https://v.firebog.net/hosts/Easylist.txt"
-          # "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext"
+          "https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt"
+          "https://v.firebog.net/hosts/Easylist.txt"
+          "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext"
           "https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts"
         ];
       };

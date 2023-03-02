@@ -34,6 +34,7 @@ in
           httpPort = lib.mkDefault 4000;
           # Cloudflare upstream DNS servers
           upstream.default = [ "1.1.1.1" "1.0.0.1" ];
+          bootstrapDns = "tcp+udp:1.1.1.1";
           redis = {
             address = redis.unixSocket;
             database = 2;
