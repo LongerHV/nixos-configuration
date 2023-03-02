@@ -95,6 +95,7 @@ in
             providers = lib.mkIf cfg.docker.enable { docker = { }; };
             entryPoints.web.address = ":80";
             api.dashboard = true;
+            global.checknewversion = false;
           }
           (lib.mkIf hasTLS {
             entryPoints = {
