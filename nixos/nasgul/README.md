@@ -35,14 +35,3 @@ Personal NAS server
 - SMTP + Sendmail (through SendGrid)
 
 - NixOS cache
-
-## TODO
-
-- [ ] Setup DoT for Blocky (route via Treafik?)
-- [ ] Backups (Scaleway S3 + restic?)
-- [ ] Move Deluge and \*Arr to a container and route traffic via wireguard
-- [ ] LLDAP - SMTP
-- [ ] Nextcloud - SSO (with Authelia OIDC)
-- [ ] Nextcloud - redis cache
-- [ ] Prometheus + Grafana + Loki
-- [ ] Invoicing service (InvoicePlane, InvoiceNinja)
