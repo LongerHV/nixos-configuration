@@ -8,6 +8,10 @@ in
 {
   options.myHome.gnome = with lib; {
     enable = mkEnableOption "gnome";
+    wallpaper = mkOption {
+      type = types.package;
+      default = pkgs.nierWallpaper;
+    };
     font = {
       package = mkOption {
         type = types.package;
@@ -38,11 +42,11 @@ in
         monospace-font-name = cfg.font.name;
       };
       "org/gnome/desktop/background" = {
-        picture-uri = "file://${pkgs.nierWallpaper}";
-        picture-uri-dark = "file://${pkgs.nierWallpaper}";
+        picture-uri = "file://${cfg.wallpaper}";
+        picture-uri-dark = "file://${cfg.wallpaper}";
       };
       "org/gnome/desktop/screensaver" = {
-        picture-uri = "file://${pkgs.nierWallpaper}";
+        picture-uri = "file://${cfg.wallpaper}";
       };
       "org/gnome/terminal/legacy" = {
         theme-variant = "dark";
