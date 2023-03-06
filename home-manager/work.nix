@@ -1,5 +1,3 @@
-{ lib, ... }:
-
 {
   imports = [
     ./config/gnome.nix
@@ -13,6 +11,7 @@
 
   myHome = {
     nonNixos.enable = true;
+    gnome.enable = true;
     devops.enable = true;
     cli.personalGitEnable = false;
     tmux.enable = true;

@@ -2,12 +2,9 @@
 
 {
   home.stateVersion = "21.11";
-  imports = [
-    ../../home-manager/config/gui-packages.nix
-    ../../home-manager/config/printing.nix
-  ];
 
   myHome = {
+    gnome.enable = true;
     tmux.enable = true;
     zsh.enable = true;
     neovim = {
@@ -17,9 +14,14 @@
   };
 
   home.packages = with pkgs; [
-    reaper
-    qmk
+    brave
+    freecad
+    openscad
     protonup
+    qmk
+    reaper
+    signal-desktop
+    super-slicer-latest
   ];
 
   services.nextcloud-client = {

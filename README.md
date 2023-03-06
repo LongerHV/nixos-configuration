@@ -82,7 +82,6 @@ nix build .#nixosConfigurations.isoimage.config.system.build.isoImage
 - [ ] Explore migrating to systemd-networkd
 - [ ] Migrate Ender 3 (3d printer) to NixOS (klipper + mooonraker + fluidd)
 - [ ] Refactor homelab stuff (move to modules/nixos/homelab)
-- [ ] Refactor home stuff (move to modules/home-manager)
 - [ ] Use new ZFS mountpoints (instead of legacy)
 
 ## Resources

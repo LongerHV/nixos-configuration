@@ -1,5 +1,3 @@
-_:
-
 {
   myHome = {
     neovim = {
