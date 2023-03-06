@@ -102,7 +102,7 @@ in
         rule = "Host(`${domain}`) && Path(`/metrics`)";
         service = "gitea";
         middlewares = [ "localhost-only" ];
-        entrypoints = if hl.traefik.cloudflareTLS.enable then "websecure" else "web";
+        entrypoints = [ hl.traefik.entrypoint ];
       };
       networking.hosts."127.0.0.1" = [ domain ];
     })

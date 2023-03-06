@@ -162,7 +162,7 @@ in
       "--label"
       "traefik.http.routers.dashy.rule=Host(`dash.local.${config.myDomain}`)"
       "--label"
-      "traefik.http.routers.dashy.entryPoints=websecure"
+      "traefik.http.routers.dashy.entryPoints=${config.homelab.traefik.entrypoint}"
       "--label"
       "traefik.http.services.dashy.loadBalancer.server.port=8082"
       "--network=host"

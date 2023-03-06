@@ -4,7 +4,6 @@ let
   hl = config.homelab;
   cfg = hl.traefik;
   hasTLS = cfg.cloudflareTLS.enable;
-  entrypoints = [ (if hasTLS then "websecure" else "web") ];
 
   serviceOptions = _: with lib; {
     options = {
@@ -51,7 +50,7 @@ let
     {
       rule = "Host(`${domain}`)";
       service = "${name}";
-      inherit entrypoints;
+      entrypoints = [ cfg.entrypoint ];
       middlewares = builtins.concatLists [
         value.middlewares
         (if value.metrics then [ "localhost-only" ] else whitelist)
@@ -69,12 +68,16 @@ in
     };
     cloudflareTLS = {
       enable = mkEnableOption "cloudflareTLS";
-      apiEmailFile = lib.mkOption {
+      apiEmailFile = mkOption {
         type = types.str;
       };
-      dnsApiTokenFile = lib.mkOption {
+      dnsApiTokenFile = mkOption {
         type = types.str;
       };
+    };
+    entrypoint = mkOption {
+      default = if hasTLS then "websecure" else "web";
+      readOnly = true;
     };
   };
 
@@ -139,7 +142,7 @@ in
                   rule = "Host(`traefik.local.${hl.domain}`)";
                   service = "api@internal";
                   middlewares = [ "authelia" ];
-                  inherit entrypoints;
+                  entrypoints = [ cfg.entrypoint ];
                 };
               }
             ];
@@ -172,7 +175,7 @@ in
             rule = "Host(`traefik.local.${hl.domain}`) && Path(`/metrics`)";
             service = "prometheus@internal";
             middlewares = [ "localhost-only" ];
-            inherit entrypoints;
+            entrypoints = [ cfg.entrypoint ];
           };
         };
         prometheus.scrapeConfigs = [{
