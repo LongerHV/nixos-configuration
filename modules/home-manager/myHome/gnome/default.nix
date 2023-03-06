@@ -35,7 +35,7 @@ in
       "org/gnome/desktop/sound".event-sounds = false;
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
-        monospace-font-name = "Hack Nerd Font";
+        monospace-font-name = cfg.font.name;
       };
       "org/gnome/desktop/background" = {
         picture-uri = "file://${pkgs.nierWallpaper}";
