@@ -48,7 +48,7 @@
         ];
       };
       clientGroupsBlock = {
-        default = [ "ads" ];
+        default = [ "ads" "telemetry" ];
         "10.69.1.165/32" = [ ];
       };
     };
