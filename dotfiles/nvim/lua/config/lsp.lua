@@ -63,6 +63,10 @@ function lsp.setup_servers(json_config)
 	if lsp_servers == nil then
 		return
 	end
+	local ok, yaml_companion = pcall(require, "yaml-companion")
+	if ok then
+		lsp_servers.yamlls = yaml_companion.setup({})
+	end
 	for server, config in pairs(lsp_servers) do
 		if server == "lua_ls" then
 			config.settings.Lua.workspace.library = vim.api.nvim_get_runtime_file("", true)

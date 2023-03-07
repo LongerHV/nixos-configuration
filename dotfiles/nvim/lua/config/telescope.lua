@@ -29,7 +29,7 @@ wk.register({
 	},
 }, { prefix = "<leader>" })
 
-local ok, yaml_companion = pcall(require, "yaml_companion")
+local ok, yaml_companion = pcall(require, "yaml-companion")
 if ok then
 	wk.register({
 		f = {

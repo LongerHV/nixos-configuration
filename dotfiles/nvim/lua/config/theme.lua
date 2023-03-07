@@ -1,4 +1,4 @@
-local yaml_companion_ok, yaml_companion = pcall(require, "yaml_companion")
+local yaml_companion_ok, yaml_companion = pcall(require, "yaml-companion")
 
 -- Color theme
 vim.cmd("colorscheme OceanicNext")
