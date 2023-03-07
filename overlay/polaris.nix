@@ -1,4 +1,4 @@
-{ buildGoModule, fetchFromGitHub, packr, ... }:
+{ buildGoModule, fetchFromGitHub, installShellFiles, packr, ... }:
 
 buildGoModule rec {
   pname = "polaris-scan";
@@ -10,7 +10,10 @@ buildGoModule rec {
     rev = version;
     sha256 = "sha256-LteclhYNMFNuGjFSuhPuY9ZA1Vlq4DPdcCGAQaujwh8=";
   };
+
   vendorSha256 = "sha256-3htwwRkUOf8jLyLfRlhcWhftBImmcUglc/PP/Yk2oF0=";
+
+  nativeBuildInputs = [ installShellFiles ];
 
   ldflags = [
     "-s"
@@ -21,6 +24,13 @@ buildGoModule rec {
 
   preBuild = ''
     ${packr}/bin/packr2 -v --ignore-imports
+  '';
+
+  postInstall = ''
+    installShellCompletion --cmd polaris \
+      --bash <($out/bin/polaris completion bash) \
+      --fish <($out/bin/polaris completion fish) \
+      --zsh <($out/bin/polaris completion zsh)
   '';
 
   doInstallCheck = true;
