@@ -25,6 +25,7 @@ in
       kubernetes-helm
       kubeseal
       unstable.kubeshark
+      polaris-scan
       teleport.client
       terraform
       tilt
