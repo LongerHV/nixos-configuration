@@ -1,8 +1,4 @@
 {
-  imports = [
-    ./config/gnome.nix
-  ];
-
   home = rec {
     username = "mmieszczak";
     homeDirectory = "/home/${username}";
