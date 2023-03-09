@@ -1,5 +1,3 @@
-_:
-
 {
   imports = [
     ./auth.nix
@@ -8,7 +6,5 @@ _:
     ./monitoring.nix
     ./nameserver.nix
     ./wireguard.nix
-
-    ./debt.nix
   ];
 }

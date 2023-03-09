@@ -1,47 +1,11 @@
 { config, pkgs, ... }:
 
 let
-  util = pkgs.callPackage ./util.nix { inherit config; };
   inherit (config.services) authelia;
   redis = config.services.redis.servers."";
   autheliaUrl = "http://${authelia.settings.server.host}:${builtins.toString authelia.settings.server.port}";
 in
 {
-  age.secrets = {
-    authelia_jwt_secret = {
-      file = ../../../secrets/nasgul_authelia_jwt_secret.age;
-      owner = config.services.authelia.user;
-    };
-    authelia_storage_encryption_key = {
-      file = ../../../secrets/nasgul_authelia_storage_encryption_key.age;
-      owner = config.services.authelia.user;
-    };
-    authelia_session_secret = {
-      file = ../../../secrets/nasgul_authelia_session_secret.age;
-      owner = config.services.authelia.user;
-    };
-    authelia_hmac_secret = {
-      file = ../../../secrets/nasgul_authelia_hmac_secret.age;
-      owner = config.services.authelia.user;
-    };
-    authelia_issuer_priv_key = {
-      file = ../../../secrets/nasgul_authelia_issuer_private_key.age;
-      owner = config.services.authelia.user;
-    };
-    authelia_secret_config = {
-      file = ../../../secrets/nasgul_authelia_config.age;
-      owner = config.services.authelia.user;
-    };
-    authelia_mysql_password = {
-      file = ../../../secrets/nasgul_authelia_mysql_password.age;
-      owner = config.services.authelia.user;
-    };
-    ldap_password = {
-      file = ../../../secrets/nasgul_ldap_password.age;
-      owner = config.services.authelia.user;
-    };
-  };
-
   environment.systemPackages = [
     pkgs.authelia
   ];

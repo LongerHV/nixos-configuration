@@ -1,9 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  age.secrets.wireguard_priv_key.file = ../../../secrets/nasgul_wireguard_priv_key.age;
-  age.secrets.mullvad_priv_key.file = ../../../secrets/nasgul_mullvad_priv_key.age;
-
   networking = {
     nat.internalInterfaces = [ "wg0" ];
     firewall.allowedUDPPorts = [ 51820 ];

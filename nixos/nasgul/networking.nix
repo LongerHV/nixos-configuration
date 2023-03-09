@@ -1,5 +1,3 @@
-_:
-
 {
   networking = {
     hostName = "nasgul";

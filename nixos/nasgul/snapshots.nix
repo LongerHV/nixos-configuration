@@ -1,4 +1,3 @@
-_:
 {
   services.sanoid = {
     enable = true;
