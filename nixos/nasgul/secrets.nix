@@ -82,7 +82,7 @@
     };
 
     # Wireguard
-    age.secrets.wireguard_priv_key.file = ../../secrets/nasgul_wireguard_priv_key.age;
-    age.secrets.mullvad_priv_key.file = ../../secrets/nasgul_mullvad_priv_key.age;
+    wireguard_priv_key.file = ../../secrets/nasgul_wireguard_priv_key.age;
+    mullvad_priv_key.file = ../../secrets/nasgul_mullvad_priv_key.age;
   };
 }
