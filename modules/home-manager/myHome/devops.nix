@@ -2,11 +2,13 @@
 
 let
   cfg = config.myHome.devops;
-  kctx = with pkgs; (writeShellScriptBin "kctx" ''
-    k=${kubectl}/bin/kubectl
-    f=${fzf}/bin/fzf
-    $k config get-contexts -o name | $f --height=10 | xargs $k config use-context
-  '');
+  kctx = with pkgs; (writeShellApplication {
+    name = "kctx";
+    runtimeInputs = [ kubectl fzf ];
+    text = ''
+      kubectl config get-contexts -o name | fzf --height=10 | xargs kubectl config use-context
+    '';
+  });
 in
 {
   options.myHome.devops.enable = lib.mkEnableOption "devops";
