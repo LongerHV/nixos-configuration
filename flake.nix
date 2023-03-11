@@ -167,28 +167,23 @@
         };
       };
 
-      deploy.nodes = {
-        nasgul = {
-          hostname = "nasgul.lan";
-          profiles.system = {
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nasgul;
-            sshUser = "longer";
-            user = "root";
-            sshOpts = [ "-t" ];
-            magicRollback = false; # Disable because it breaks remote sudo :<
+      deploy.nodes =
+        let
+          mkDeployConfig = hostname: configuration: {
+            inherit hostname;
+            profiles.system = {
+              path = deploy-rs.lib.x86_64-linux.activate.nixos configuration;
+              sshUser = "longer";
+              user = "root";
+              sshOpts = [ "-t" ];
+              magicRollback = false; # Disable because it breaks remote sudo :<
+            };
           };
+        in
+        {
+          nasgul = mkDeployConfig "nasgul.lan" self.nixosConfigurations.nasgul;
+          dol-guldur = mkDeployConfig "dol-guldur.longerhv.xyz" self.nixosConfigurations.dol-guldur;
         };
-        dol-guldur = {
-          hostname = "dol-guldur.longerhv.xyz";
-          profiles.system = {
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.dol-guldur;
-            sshUser = "longer";
-            user = "root";
-            sshOpts = [ "-t" ];
-            magicRollback = false; # Disable because it breaks remote sudo :<
-          };
-        };
-      };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
