@@ -104,6 +104,13 @@
             ./nixos/nasgul
           ];
         };
+        dol-guldur = nixpkgs.lib.nixosSystem {
+          pkgs = legacyPackages.x86_64-linux;
+          specialArgs = { inherit inputs outputs; };
+          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
+            ./nixos/dol-guldur
+          ];
+        };
         golum = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.x86_64-linux;
           system = systems.x86_64-linux;
@@ -165,6 +172,16 @@
           hostname = "nasgul.lan";
           profiles.system = {
             path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nasgul;
+            sshUser = "longer";
+            user = "root";
+            sshOpts = [ "-t" ];
+            magicRollback = false; # Disable because it breaks remote sudo :<
+          };
+        };
+        dol-guldur = {
+          hostname = "dol-guldur.longerhv.xyz";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.dol-guldur;
             sshUser = "longer";
             user = "root";
             sshOpts = [ "-t" ];
