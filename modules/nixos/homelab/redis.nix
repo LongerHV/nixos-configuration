@@ -12,10 +12,13 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    services.redis.servers."" = {
-      enable = true;
-      inherit (cfg) databases;
-      port = 0;
+    services.redis = {
+      vmOverCommit = true;
+      servers."" = {
+        enable = true;
+        inherit (cfg) databases;
+        port = 0;
+      };
     };
   };
 }
