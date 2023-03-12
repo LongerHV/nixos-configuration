@@ -24,9 +24,9 @@
   networking.hostName = "dol-guldur";
   networking.networkmanager.enable = true;
 
-  services.openssh = {
-    enable = true;
-    passwordAuthentication = false;
+  services = {
+    openssh.enable = true;
+    fail2ban.enable = true;
   };
 
   system.stateVersion = "22.11";
