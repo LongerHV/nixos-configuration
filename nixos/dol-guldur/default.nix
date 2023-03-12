@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./homelab.nix
+    ./networking.nix
   ];
 
   mySystem = {
@@ -22,7 +23,6 @@
   nix.settings.trusted-users = [ config.mySystem.user ];
 
   networking.hostName = "dol-guldur";
-  networking.networkmanager.enable = true;
 
   services = {
     openssh.enable = true;
