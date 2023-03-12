@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   inherit (config.services) authelia;
@@ -14,8 +14,9 @@ in
   users.users."${authelia.user}".extraGroups = [ "redis" "sendgrid" ];
 
   services.traefik.dynamicConfigOptions.http = {
+    routers.traefik.middlewares = [ "authelia" ];
     middlewares.authelia.forwardAuth = {
-      address = "${autheliaUrl}/api/verify?rd=https%3A%2F%2Fauth.local.${config.myDomain}%2F";
+      address = "${autheliaUrl}/api/verify?rd=https%3A%2F%2Fauth.${config.myDomain}%2F";
       trustForwardHeader = true;
       authResponseHeaders = [ "Remote-User" "Remote-Groups" "Remote-Name" "Remote-Email" ];
       tls.insecureSkipVerify = true;
@@ -26,7 +27,24 @@ in
       authResponseHeaders = [ "Remote-User" "Remote-Groups" "Remote-Name" "Remote-Email" ];
     };
   };
-  homelab.traefik.services.auth.port = 9092;
+
+  homelab.traefik.services = lib.mkMerge [
+    { auth.port = 9092; }
+    (lib.genAttrs [
+      "bazarr"
+      "blocky"
+      "deluge"
+      "gitea"
+      "grafana"
+      "netdata"
+      "prometheus"
+      "prowlarr"
+      "radarr"
+      "sonarr"
+    ]
+      (_: { middlewares = [ "authelia" ]; })
+    )
+  ];
 
   services.mysql = {
     ensureDatabases = [
@@ -118,12 +136,12 @@ in
         ];
         rules = [
           {
-            domain = "*.local.${config.myDomain}";
+            domain = "*.${config.myDomain}";
             policy = "bypass";
             networks = "localhost";
           }
           {
-            domain = "*.local.${config.myDomain}";
+            domain = "*.${config.myDomain}";
             policy = "one_factor";
             networks = "internal";
             subject = [

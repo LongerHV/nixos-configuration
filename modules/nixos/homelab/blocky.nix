@@ -4,7 +4,7 @@ let
   hl = config.homelab;
   cfg = hl.blocky;
   redis = config.services.redis.servers."";
-  domain = "blocky.local.${hl.domain}";
+  domain = "blocky.${hl.domain}";
 in
 {
   options.homelab.blocky = with lib; {
@@ -15,7 +15,7 @@ in
     {
       homelab = {
         redis.enable = true;
-        traefik.services.blocky = { port = 4000; authelia = true; };
+        traefik.services.blocky = { port = 4000; };
       };
 
       networking = {
@@ -74,12 +74,7 @@ in
         name = "blocky";
         options.path = ./dashboards/blocky.json;
       }];
-      services.traefik.dynamicConfigOptions.http.routers.blocky-monitoring = {
-        rule = "Host(`${domain}`) && Path(`/metrics`)";
-        service = "blocky";
-        middlewares = [ "localhost-only" ];
-        entrypoints = [ hl.traefik.entrypoint ];
-      };
+      homelab.traefik.metrics.blocky.service = "blocky";
       networking.hosts."127.0.0.1" = [ domain ];
     })
   ]);

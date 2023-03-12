@@ -6,7 +6,7 @@ let
   inherit (config.services) gitea;
   redis = config.services.redis.servers."";
   repositoriesDir = "${config.homelab.storage}/repositories";
-  domain = "gitea.local.${hl.domain}";
+  domain = "gitea.${hl.domain}";
 in
 {
   options.homelab.gitea = {
@@ -98,12 +98,7 @@ in
         options.path = ./dashboards/gitea.json;
       }];
       services.gitea.settings.metrics.ENABLED = true;
-      services.traefik.dynamicConfigOptions.http.routers.gitea-monitoring = {
-        rule = "Host(`${domain}`) && Path(`/metrics`)";
-        service = "gitea";
-        middlewares = [ "localhost-only" ];
-        entrypoints = [ hl.traefik.entrypoint ];
-      };
+      homelab.traefik.metrics.gitea.service = "gitea";
       networking.hosts."127.0.0.1" = [ domain ];
     })
 

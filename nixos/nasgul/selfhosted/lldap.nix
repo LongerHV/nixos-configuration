@@ -33,7 +33,7 @@ in
     extraOptions = [
       "--network=host"
       "--label"
-      "traefik.http.routers.ldap.rule=Host(`ldap.local.${config.myDomain}`)"
+      "traefik.http.routers.ldap.rule=Host(`ldap.${config.myDomain}`)"
       "--label"
       "traefik.http.routers.ldap.entryPoints=${config.homelab.traefik.entrypoint}"
       "--label"

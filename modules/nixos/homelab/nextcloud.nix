@@ -7,7 +7,7 @@ let
   redis = config.services.redis.servers."";
   port = 8086;
   datadir = "${hl.storage}/nextcloud";
-  hostName = "nextcloud.local.${hl.domain}";
+  hostName = "nextcloud.${hl.domain}";
 in
 {
   options.homelab.nextcloud = with lib; {

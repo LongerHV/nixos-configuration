@@ -14,21 +14,30 @@ let
       port = mkOption {
         type = types.port;
       };
-      metrics = mkOption {
-        type = types.bool;
-        default = false;
-      };
-      local = mkOption {
-        type = types.bool;
-        default = true;
-      };
-      authelia = mkOption {
-        type = types.bool;
-        default = false;
+      ipWhitelist = mkOption {
+        type = types.str;
+        default = "";
       };
       middlewares = mkOption {
         type = types.listOf types.str;
         default = [ ];
+      };
+    };
+  };
+
+  metricsOptions = _: with lib; {
+    options = {
+      host = mkOption {
+        type = types.str;
+        default = "127.0.0.1";
+      };
+      port = mkOption {
+        type = types.port;
+        default = 0;
+      };
+      service = mkOption {
+        type = types.str;
+        default = "";
       };
     };
   };
@@ -42,21 +51,20 @@ let
   };
   mkRouter = name: value:
     let
-      prefix = if value.local then "${name}.local" else "${name}";
-      domain = "${prefix}.${hl.domain}";
-      whitelist = [ (if value.local then "local-ip-whitelist" else "external-ip-whitelist") ];
-      usesAuthelia = value.authelia && hl.authelia.enable;
+      ipWhitelist = if (value.ipWhitelist != "") then value.ipWhitelist else cfg.defaultIPWhitelist;
     in
     {
-      rule = "Host(`${domain}`)";
-      service = "${name}";
+      rule = "Host(`${name}.${hl.domain}`)";
+      service = name;
       entrypoints = [ cfg.entrypoint ];
-      middlewares = builtins.concatLists [
-        value.middlewares
-        (if value.metrics then [ "localhost-only" ] else whitelist)
-        (lib.lists.optional usesAuthelia "authelia")
-      ];
+      middlewares = value.middlewares ++ lib.lists.optional (ipWhitelist != "") ipWhitelist;
     };
+  mkMetricsRouter = name: value: lib.nameValuePair "${name}-metrics" {
+    rule = "Host(`${name}.${hl.domain}`) && Path(`/metrics`)";
+    service = if (value.service != "") then value.service else name;
+    entrypoints = [ cfg.entrypoint ];
+    middlewares = [ "localhost-only" ];
+  };
 in
 {
   options.homelab.traefik = with lib; {
@@ -64,6 +72,10 @@ in
     docker.enable = mkEnableOption "docker" // { default = config.virtualisation.docker.enable; };
     services = mkOption {
       type = types.attrsOf (types.submodule serviceOptions);
+      default = { };
+    };
+    metrics = mkOption {
+      type = types.attrsOf (types.submodule metricsOptions);
       default = { };
     };
     cloudflareTLS = {
@@ -78,6 +90,10 @@ in
     entrypoint = mkOption {
       default = if hasTLS then "websecure" else "web";
       readOnly = true;
+    };
+    defaultIPWhitelist = mkOption {
+      type = types.str;
+      default = "local-ip-whitelist";
     };
   };
 
@@ -139,9 +155,9 @@ in
               (builtins.mapAttrs mkRouter cfg.services)
               {
                 traefik = {
-                  rule = "Host(`traefik.local.${hl.domain}`)";
+                  rule = "Host(`traefik.${hl.domain}`)";
                   service = "api@internal";
-                  middlewares = [ "authelia" ];
+                  middlewares = lib.lists.optional (cfg.defaultIPWhitelist != "") cfg.defaultIPWhitelist;
                   entrypoints = [ cfg.entrypoint ];
                 };
               }
@@ -157,10 +173,6 @@ in
                   "192.168.0.0/16"
                 ];
               };
-              # TODO: Add cloudflare proxy ip ranges if I ever decide to open this to the internet
-              external-ip-whitelist.IPWhiteList = {
-                sourceRange = [ ];
-              };
             };
           };
         };
@@ -168,26 +180,25 @@ in
     }
 
     (lib.mkIf hl.monitoring.enable {
+      homelab.traefik.metrics.traefik.service = "prometheus@internal";
       services = {
         traefik = {
           staticConfigOptions.metrics.prometheus.manualRouting = true;
-          dynamicConfigOptions.http.routers.traefik-metrics = {
-            rule = "Host(`traefik.local.${hl.domain}`) && Path(`/metrics`)";
-            service = "prometheus@internal";
-            middlewares = [ "localhost-only" ];
-            entrypoints = [ cfg.entrypoint ];
+          dynamicConfigOptions.http = {
+            routers = lib.mapAttrs' mkMetricsRouter cfg.metrics;
+            services = builtins.mapAttrs mkService (lib.filterAttrs (n: v: v.port != 0) cfg.metrics);
           };
         };
         prometheus.scrapeConfigs = [{
           job_name = "traefik";
-          static_configs = [{ targets = [ "traefik.local.${hl.domain}" ]; }];
+          static_configs = [{ targets = [ "traefik.${hl.domain}" ]; }];
         }];
         grafana.provision.dashboards.settings.providers = [{
           name = "traefik";
           options.path = ./dashboards/traefik.json;
         }];
       };
-      networking.hosts."127.0.0.1" = [ "traefik.local.${hl.domain}" ];
+      networking.hosts."127.0.0.1" = [ "traefik.${hl.domain}" ];
     })
   ]);
 }

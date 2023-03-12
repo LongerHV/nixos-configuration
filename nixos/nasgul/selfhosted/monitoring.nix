@@ -1,10 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  homelab.traefik.services.netdata = {
-    port = 19999;
-    authelia = true;
-  };
+  homelab.traefik.services.netdata.port = 19999;
 
   services = {
     netdata = {

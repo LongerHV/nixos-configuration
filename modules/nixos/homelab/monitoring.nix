@@ -15,10 +15,10 @@ in
     homelab = {
       traefik = {
         enable = true;
-        services.grafana = { port = grafana.settings.server.http_port; authelia = true; };
-        services.prometheus = { inherit (prometheus) port; authelia = true; };
-        services.node-exporter = { inherit (exporters.node) port; metrics = true; };
-        services.smartctl-exporter = { inherit (exporters.smartctl) port; metrics = true; };
+        services.grafana = { port = grafana.settings.server.http_port; };
+        services.prometheus = { inherit (prometheus) port; };
+        metrics.node-exporter = { inherit (exporters.node) port; };
+        metrics.smartctl-exporter = { inherit (exporters.smartctl) port; };
       };
     };
     services = {
@@ -27,7 +27,7 @@ in
         declarativePlugins = with pkgs.grafanaPlugins; [ grafana-piechart-panel ];
         settings = {
           server = {
-            domain = "grafana.local.${hl.domain}";
+            domain = "grafana.${hl.domain}";
             http_port = 3001;
           };
           analytics = {
@@ -72,8 +72,8 @@ in
             static_configs = [
               {
                 targets = [
-                  "node-exporter.local.${hl.domain}"
-                  "smartctl-exporter.local.${hl.domain}"
+                  "node-exporter.${hl.domain}"
+                  "smartctl-exporter.${hl.domain}"
                 ];
               }
             ];
@@ -81,7 +81,7 @@ in
         ];
       };
     };
-    networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.local.${config.myDomain}") [
+    networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.${config.myDomain}") [
       "node-exporter"
       "smartctl-exporter"
       "traefik-metrics"

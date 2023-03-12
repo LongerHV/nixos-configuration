@@ -31,17 +31,17 @@ let
         items = [
           {
             title = "Nextcloud";
-            url = "https://nextcloud.local.${config.myDomain}";
+            url = "https://nextcloud.${config.myDomain}";
             icon = "hl-nextcloud";
           }
           {
             title = "Gitea";
-            url = "https://gitea.local.${config.myDomain}";
+            url = "https://gitea.${config.myDomain}";
             icon = "hl-gitea";
           }
           {
             title = "Jellyfin";
-            url = "https://jellyfin.local.${config.myDomain}/sso/OID/p/authelia";
+            url = "https://jellyfin.${config.myDomain}/sso/OID/p/authelia";
             icon = "hl-jellyfin";
           }
         ];
@@ -51,33 +51,33 @@ let
         items = [
           {
             title = "Dashy";
-            url = "https://dash.local.${config.myDomain}";
+            url = "https://dash.${config.myDomain}";
             # icon = "hl-dashy"; # Broken for some reason
             icon = "https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/dashy.png";
           }
           {
             title = "Traefik";
-            url = "https://traefik.local.${config.myDomain}";
+            url = "https://traefik.${config.myDomain}";
             icon = "hl-traefik";
           }
           {
             title = "Blocky";
-            url = "https://blocky.local.${config.myDomain}";
+            url = "https://blocky.${config.myDomain}";
             # icon = "hl-blocky"; # Waiting for a new Dashy release using proper icons repo (https://github.com/Lissy93/dashy/issues/972)
             icon = "https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/blocky.png";
           }
           {
             title = "LLDAP";
-            url = "https://ldap.local.${config.myDomain}";
+            url = "https://ldap.${config.myDomain}";
           }
           {
             title = "Authelia";
-            url = "https://auth.local.${config.myDomain}";
+            url = "https://auth.${config.myDomain}";
             icon = "hl-authelia";
           }
           rec {
             title = "Nix cache";
-            url = "https://cache.local.${config.myDomain}";
+            url = "https://cache.${config.myDomain}";
             statusCheckUrl = "${url}/nix-cache-info";
             icon = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nix-snowflake.svg";
           }
@@ -88,27 +88,27 @@ let
         items = [
           {
             title = "Sonarr";
-            url = "https://sonarr.local.${config.myDomain}";
+            url = "https://sonarr.${config.myDomain}";
             icon = "hl-sonarr";
           }
           {
             title = "Radarr";
-            url = "https://radarr.local.${config.myDomain}";
+            url = "https://radarr.${config.myDomain}";
             icon = "hl-radarr";
           }
           {
             title = "Bazarr";
-            url = "https://bazarr.local.${config.myDomain}";
+            url = "https://bazarr.${config.myDomain}";
             icon = "hl-bazarr";
           }
           {
             title = "Prowlarr";
-            url = "https://prowlarr.local.${config.myDomain}";
+            url = "https://prowlarr.${config.myDomain}";
             icon = "hl-prowlarr";
           }
           {
             title = "Deluge";
-            url = "https://deluge.local.${config.myDomain}";
+            url = "https://deluge.${config.myDomain}";
             icon = "hl-deluge";
           }
         ];
@@ -118,17 +118,17 @@ let
         items = [
           {
             title = "Netdata";
-            url = "https://netdata.local.${config.myDomain}";
+            url = "https://netdata.${config.myDomain}";
             icon = "hl-netdata";
           }
           {
             title = "Prometheus";
-            url = "https://prometheus.local.${config.myDomain}";
+            url = "https://prometheus.${config.myDomain}";
             icon = "hl-prometheus";
           }
           {
             title = "Grafana";
-            url = "https://grafana.local.${config.myDomain}";
+            url = "https://grafana.${config.myDomain}";
             icon = "hl-grafana";
           }
         ];
@@ -140,7 +140,7 @@ in
   imports = [ ./containers.nix ];
 
   # /etc/hosts entries for dashy, to bypass authelia during status checks
-  networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.local.${config.myDomain}") [
+  networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.${config.myDomain}") [
     "traefik"
     "blocky"
     "sonarr"
@@ -160,7 +160,7 @@ in
     inherit settings;
     extraOptions = [
       "--label"
-      "traefik.http.routers.dashy.rule=Host(`dash.local.${config.myDomain}`)"
+      "traefik.http.routers.dashy.rule=Host(`dash.${config.myDomain}`)"
       "--label"
       "traefik.http.routers.dashy.entryPoints=${config.homelab.traefik.entrypoint}"
       "--label"

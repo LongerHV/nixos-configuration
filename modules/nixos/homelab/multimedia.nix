@@ -7,10 +7,7 @@ in
 {
   options.homelab.multimedia = with lib; {
     enable = mkEnableOption "multimedia";
-    jellyfin.enable = mkEnableOption "jellyfin";
-    arr.enable = mkEnableOption "arr";
     deluge = {
-      enable = mkEnableOption "deluge";
       interface = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -26,28 +23,30 @@ in
       "d ${config.homelab.storage}/media 0770 - multimedia - -"
     ];
 
-    homelab.traefik.services = lib.mkIf hl.traefik.enable (lib.mkMerge [
-      (lib.optionalAttrs cfg.jellyfin.enable { jellyfin = { port = 8096; }; })
-      (lib.optionalAttrs cfg.arr.enable {
-        sonarr = { port = 8989; authelia = true; };
-        radarr = { port = 7878; authelia = true; };
-        prowlarr = { port = 9696; authelia = true; };
-        bazarr = { port = config.services.bazarr.listenPort; authelia = true; };
-      })
-      (lib.optionalAttrs cfg.deluge.enable { deluge = { inherit (config.services.deluge.web) port; authelia = true; }; })
-    ]);
+    homelab.traefik = {
+      enable = true;
+      services = {
+        jellyfin.port = 8096;
+        sonarr.port = 8989;
+        radarr.port = 7878;
+        prowlarr.port = 9696;
+        bazarr.port = config.services.bazarr.listenPort;
+        deluge.port = config.services.deluge.web.port;
+      };
+
+    };
 
     services = {
       jellyfin = {
-        inherit (cfg.jellyfin) enable;
+        enable = true;
         group = "multimedia";
       };
-      sonarr = { inherit (cfg.arr) enable; group = "multimedia"; };
-      radarr = { inherit (cfg.arr) enable; group = "multimedia"; };
-      bazarr = { inherit (cfg.arr) enable; group = "multimedia"; };
-      prowlarr = { inherit (cfg.arr) enable; };
+      sonarr = { enable = true; group = "multimedia"; };
+      radarr = { enable = true; group = "multimedia"; };
+      bazarr = { enable = true; group = "multimedia"; };
+      prowlarr = { enable = true; };
       deluge = {
-        inherit (cfg.deluge) enable;
+        enable = true;
         group = "multimedia";
         web.enable = true;
         dataDir = "${config.homelab.storage}/media/torrent";

@@ -5,7 +5,7 @@ let
 in
 {
   homelab = {
-    domain = "longerhv.xyz";
+    domain = "local.longerhv.xyz";
     storage = "/chonk";
     backups = {
       enable = true;
@@ -58,12 +58,7 @@ in
     gitea.enable = true;
     multimedia = {
       enable = true;
-      jellyfin.enable = true;
-      arr.enable = true;
-      deluge = {
-        enable = true;
-        interface = "wg1";
-      };
+      deluge.interface = "wg1";
     };
   };
 
