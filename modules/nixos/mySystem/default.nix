@@ -38,8 +38,9 @@
       };
     };
 
-    services = {
-      openssh.passwordAuthentication = lib.mkDefault false;
+    services.openssh = with lib; {
+      passwordAuthentication = mkDefault false;
+      permitRootLogin = mkDefault "no";
     };
 
     environment = {
