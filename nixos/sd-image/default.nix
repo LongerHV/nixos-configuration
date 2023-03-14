@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 
 {
+  mySystem.user = "nixos";
+
   boot = {
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
     # ttyAMA0 is the serial console broken out to the GPIO
@@ -21,9 +23,8 @@
 
   networking = {
     hostName = "nixos";
-    networkmanager = {
-      enable = true;
-    };
+    wireless.enable = false;
+    networkmanager.enable = true;
   };
   services.openssh.enable = true;
 

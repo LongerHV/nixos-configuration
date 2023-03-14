@@ -129,18 +129,18 @@
             ./nixos/playground
           ];
         };
-        # smaug = nixpkgs.lib.nixosSystem {
-        #   pkgs = legacyPackages.aarch64-linux;
-        #   specialArgs = { inherit inputs outputs; };
-        #   modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
-        #     ./nixos/smaug
-        #   ];
-        # };
+        smaug = nixpkgs.lib.nixosSystem {
+          pkgs = legacyPackages.aarch64-linux;
+          specialArgs = { inherit inputs outputs; };
+          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
+            ./nixos/smaug
+          ];
+        };
         sd-image = nixpkgs.lib.nixosSystem {
           pkgs = legacyPackages.aarch64-linux;
           specialArgs = { inherit inputs outputs; };
           modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
-            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix"
             ./nixos/sd-image
           ];
         };
@@ -190,6 +190,7 @@
         in
         {
           nasgul = mkDeployConfig "nasgul.lan" self.nixosConfigurations.nasgul;
+          smaug = mkDeployConfig "smaug.lan" self.nixosConfigurations.smaug;
           dol-guldur = mkDeployConfig "dol-guldur.longerhv.xyz" self.nixosConfigurations.dol-guldur;
         };
 
