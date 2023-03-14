@@ -20,7 +20,7 @@
   };
 
   networking = {
-    hostName = "smaug";
+    hostName = "nixos";
     networkmanager = {
       enable = true;
     };
