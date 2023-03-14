@@ -179,13 +179,17 @@
         let
           mkDeployConfig = hostname: configuration: {
             inherit hostname;
-            profiles.system = {
-              path = deploy-rs.lib.x86_64-linux.activate.nixos configuration;
-              sshUser = "longer";
-              user = "root";
-              sshOpts = [ "-t" ];
-              magicRollback = false; # Disable because it breaks remote sudo :<
-            };
+            profiles.system =
+              let
+                inherit (configuration.config.nixpkgs.hostPlatform) system;
+              in
+              {
+                path = deploy-rs.lib."${system}".activate.nixos configuration;
+                sshUser = "longer";
+                user = "root";
+                sshOpts = [ "-t" ];
+                magicRollback = false; # Disable because it breaks remote sudo :<
+              };
           };
         in
         {
