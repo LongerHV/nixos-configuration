@@ -2,6 +2,7 @@
 
 let
   cfg = config.mySystem;
+  nvim = if cfg.home-manager.enable then (pkgs.neovim-nightly.overrideAttrs (_: { CFLAGS = "-O3"; })) else pkgs.neovim-unwrapped;
 in
 {
   options.mySystem = {
@@ -38,7 +39,7 @@ in
     };
     programs.neovim = {
       enable = true;
-      package = pkgs.neovim-nightly.overrideAttrs (_: { CFLAGS = "-O3"; });
+      package = nvim;
       defaultEditor = true;
     };
     programs.zsh = {
