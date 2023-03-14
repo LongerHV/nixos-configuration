@@ -32,5 +32,6 @@
     min-free = ${toString (100 * 1024 * 1024)}
     max-free = ${toString (1024 * 1024 * 1024)}
   '';
+  nixpkgs.hostPlatform = "aarch64-linux";
   system.stateVersion = "22.11";
 }
