@@ -1,7 +1,10 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./klipper.nix
+  ];
 
   boot = {
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
