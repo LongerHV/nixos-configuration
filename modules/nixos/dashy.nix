@@ -1,45 +1,72 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
   cfg = config.services.dashy;
-  configFile = pkgs.runCommand "conf.yml"
-    {
-      buildInputs = [ pkgs.yj ];
-      preferLocalBuild = true;
-    } ''
-    yj -jy < ${pkgs.writeText "config.json" (builtins.toJSON cfg.settings)} > $out
-  '';
+  format = pkgs.formats.yaml { };
+  configFile = format.generate "conf.yml" cfg.settings;
 in
 {
-  options.services.dashy = {
+  options.services.dashy = with lib; {
     enable = mkEnableOption "dashy";
-    imageTag = mkOption {
-      type = types.str;
+    package = mkOption {
+      type = types.package;
+      default = pkgs.dashy;
     };
     port = mkOption {
       type = types.int;
+      default = 4000;
+    };
+    user = mkOption {
+      type = types.str;
+      default = "dashy";
+    };
+    group = mkOption {
+      type = types.str;
+      default = "dashy";
+    };
+    dataDir = mkOption {
+      type = types.path;
+      default = "/var/lib/dashy";
+    };
+    mutableConfig = mkOption {
+      type = types.bool;
+      default = false;
     };
     settings = mkOption {
       type = types.attrs;
+      default = { };
     };
-    extraOptions = mkOption { };
   };
 
-  config = mkIf cfg.enable {
-    virtualisation.oci-containers.containers = {
-      dashy = {
-        image = "lissy93/dashy:${cfg.imageTag}";
-        inherit (cfg) extraOptions;
-        environment = {
-          TZ = "${config.time.timeZone}";
-          PORT = builtins.toString cfg.port;
-        };
-        volumes = [
-          "${configFile}:/app/public/conf.yml"
-          # "/tmp/conf.yml:/app/public/conf.yml"
-        ];
+  config = lib.mkIf cfg.enable {
+    users.users."${cfg.user}" = {
+      inherit (cfg) group;
+      isSystemUser = true;
+      home = cfg.dataDir;
+      createHome = true;
+    };
+    users.groups."${cfg.group}" = { };
+    systemd.services.dashy = {
+      after = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
+      preStart = ''
+        mkdir -p ${cfg.dataDir}/public
+      '' + (if cfg.mutableConfig then ''
+        [ -f ${cfg.dataDir}/public/conf.yml ] || \
+          cp ${cfg.package}/libexec/Dashy/deps/Dashy/public/conf.yml ${cfg.dataDir}/public/conf.yml
+          chmod u+w ${cfg.dataDir}/public/conf.yml
+      '' else ''
+        ln -sf ${configFile} ${cfg.dataDir}/public/conf.yml
+      '');
+      serviceConfig = {
+        ExecStart = "${cfg.package}/bin/dashy";
+        WorkingDirectory = cfg.dataDir;
+        User = cfg.user;
+        Group = cfg.group;
+        Restart = "always";
+      };
+      environment = {
+        PORT = builtins.toString cfg.port;
       };
     };
   };

@@ -7,6 +7,7 @@ let
   tag = "v0.4.1";
 in
 {
+  imports = [ ./containers.nix ];
   users = {
     users.lldap = {
       inherit uid;

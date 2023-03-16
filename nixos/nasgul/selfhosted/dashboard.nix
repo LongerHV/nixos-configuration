@@ -137,8 +137,6 @@ let
   };
 in
 {
-  imports = [ ./containers.nix ];
-
   # /etc/hosts entries for dashy, to bypass authelia during status checks
   networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.${config.myDomain}") [
     "traefik"
@@ -153,20 +151,11 @@ in
     "grafana"
   ];
 
+  homelab.traefik.services.dash.port = 8082;
+
   services.dashy = {
     enable = true;
-    imageTag = "2.1.1";
     port = 8082;
     inherit settings;
-    extraOptions = [
-      "--label"
-      "traefik.http.routers.dashy.rule=Host(`dash.${config.myDomain}`)"
-      "--label"
-      "traefik.http.routers.dashy.entryPoints=${config.homelab.traefik.entrypoint}"
-      "--label"
-      "traefik.http.services.dashy.loadBalancer.server.port=8082"
-      "--network=host"
-      "--no-healthcheck"
-    ];
   };
 }
