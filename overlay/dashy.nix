@@ -8,12 +8,12 @@
 }:
 
 let
-  version = "baf9b5a66ed2ca39ba7f0d0ca95449b1e5f92764";
+  version = "2.1.1";
   src = fetchFromGitHub {
     owner = "Lissy93";
     repo = "dashy";
     rev = version;
-    sha256 = "sha256-0VDu1a+Opt/C2SWiT1hHm+gn7WQ/dnZJHRwgw0kgDa4=";
+    sha256 = "sha256-8+J0maC8M2m+raiIlAl0Bo4HOvuuapiBhoSb0fM8f9M=";
   };
   nodejs = nodejs-16_x;
   yarn2nix = yarn2nix-moretea.override {
@@ -27,7 +27,7 @@ yarn2nix.mkYarnPackage {
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = src + "/yarn.lock";
-    sha256 = "sha256-0OuvjxsLNvuwXeVxNUqp+NlfKaH13WAUrbfUMpZ5VT4=";
+    sha256 = "sha256-RxreSjhbWovPbqjK6L9GdIEhH4uVY+RvWyJYwIytn4g=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
