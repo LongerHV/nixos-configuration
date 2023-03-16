@@ -3,8 +3,6 @@ name: Check flake
 
 "on":
   push:
-    branches:
-      - master
   pull_request:
     branches:
       - master
@@ -18,9 +16,9 @@ jobs:
         uses: cachix/install-nix-action@v18
       - name: Check out repository code
         uses: actions/checkout@v3
+      - name: Workaround for broken check
+        run: |
+          nix show-derivation .#dashy
       - name: Check flake
         run: |
-          # Build playground as workaround
-          # (deploy-rs checks output does not pass otherwise)
-          nix build .#nixosConfigurations.playground.config.system.build.toplevel
           nix flake check --no-build
