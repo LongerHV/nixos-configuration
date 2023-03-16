@@ -52,9 +52,10 @@ in
       preStart = ''
         mkdir -p ${cfg.dataDir}/public
       '' + (if cfg.mutableConfig then ''
-        [ -f ${cfg.dataDir}/public/conf.yml ] || \
+        if [ ! -f ${cfg.dataDir}/public/conf.yml ]; then
           cp ${cfg.package}/libexec/Dashy/deps/Dashy/public/conf.yml ${cfg.dataDir}/public/conf.yml
           chmod u+w ${cfg.dataDir}/public/conf.yml
+        fi
       '' else ''
         ln -sf ${configFile} ${cfg.dataDir}/public/conf.yml
       '');
