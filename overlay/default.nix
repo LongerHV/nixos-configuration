@@ -1,7 +1,6 @@
 final: prev: {
   authelia = prev.callPackage ./authelia.nix prev;
-  # Must wait for Dashy 2.1.2 (now it requires `yarn build` after config changes)
-  # dashy = prev.callPackage ./dashy.nix prev;
+  dashy = prev.callPackage ./dashy.nix prev;
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
 
   zsh-z = prev.zsh-z.overrideAttrs (attrs: rec {
