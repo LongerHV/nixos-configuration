@@ -26,11 +26,11 @@ in
       kubelogin-oidc
       kubernetes-helm
       kubeseal
-      unstable.kubeshark
-      polaris-scan
       teleport.client
       terraform
       tilt
+      unstable.kubernetes-polaris
+      unstable.kubeshark
     ]) ++ [
       kctx
     ];
