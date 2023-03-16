@@ -1,0 +1,12 @@
+diff --git a/server.js b/server.js
+index 3920f748..b37bf3da 100644
+--- a/server.js
++++ b/server.js
+@@ -72,6 +72,7 @@ const app = express()
+   // Load SSL redirection middleware
+   .use(sslServer.middleware)
+   // Serves up static files
++  .use(express.static('public'))
+   .use(express.static(path.join(__dirname, 'dist')))
+   .use(express.static(path.join(__dirname, 'public'), { index: 'initialization.html' }))
+   // Load middlewares for parsing JSON, and supporting HTML5 history routing

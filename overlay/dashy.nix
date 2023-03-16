@@ -31,9 +31,11 @@ yarn2nix.mkYarnPackage {
   };
 
   nativeBuildInputs = [ makeWrapper ];
+  patches = [ ./dashy.patch ];
 
   # https://stackoverflow.com/questions/74726224/opensslerrorstack-error03000086digital-envelope-routinesinitialization-e
   NODE_OPTIONS = "--openssl-legacy-provider";
+
 
   buildPhase = ''
     export HOME=$(mktemp -d)
