@@ -13,7 +13,7 @@ in
       default = pkgs.dashy;
     };
     port = mkOption {
-      type = types.int;
+      type = types.port;
       default = 4000;
     };
     user = mkOption {
@@ -66,9 +66,7 @@ in
         Group = cfg.group;
         Restart = "always";
       };
-      environment = {
-        PORT = builtins.toString cfg.port;
-      };
+      environment.PORT = builtins.toString cfg.port;
     };
   };
 }
