@@ -85,7 +85,7 @@ in
       log.level = "info";
       totp.issuer = "authelia.com";
       session = {
-        domain = config.homelab.domain;
+        inherit (config.homelab) domain;
         redis = {
           host = redis.unixSocket;
           port = 0;
