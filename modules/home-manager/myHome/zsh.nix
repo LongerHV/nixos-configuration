@@ -38,6 +38,7 @@
         # History search bindings
         bindkey '^[[A' history-substring-search-up
         bindkey '^[[B' history-substring-search-down
+        bindkey '^[[Z' reverse-menu-complete
       '';
       localVariables = {
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=13,underline";
