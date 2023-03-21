@@ -48,10 +48,6 @@
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs flake-utils.lib.defaultSystems;
       systems = flake-utils.lib.system;
-      defaultModules = [
-        agenix.nixosModules.default
-        home-manager.nixosModules.default
-      ];
     in
     rec {
       overlays = {
@@ -91,78 +87,86 @@
         }
       );
 
-      nixosConfigurations = {
-        mordor = nixpkgs.lib.nixosSystem {
-          pkgs = legacyPackages.x86_64-linux;
-          specialArgs = { inherit inputs outputs; };
-          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
-            ./nixos/mordor
+      nixosConfigurations =
+        let
+          defaultModules = (builtins.attrValues nixosModules) ++ [
+            agenix.nixosModules.default
+            home-manager.nixosModules.default
           ];
-        };
-        nasgul = nixpkgs.lib.nixosSystem {
-          pkgs = legacyPackages.x86_64-linux;
           specialArgs = { inherit inputs outputs; };
-          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
-            ./nixos/nasgul
-          ];
+        in
+        {
+          mordor = nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages.x86_64-linux;
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              ./nixos/mordor
+            ];
+          };
+          nasgul = nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages.x86_64-linux;
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              ./nixos/nasgul
+            ];
+          };
+          dol-guldur = nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages.x86_64-linux;
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              ./nixos/dol-guldur
+            ];
+          };
+          golum = nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages.x86_64-linux;
+            system = systems.x86_64-linux;
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              ./nixos/golum
+            ];
+          };
+          playground = nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages.x86_64-linux;
+            system = systems.x86_64-linux;
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              ./nixos/playground
+            ];
+          };
+          smaug = nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages.aarch64-linux;
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              ./nixos/smaug
+            ];
+          };
+          sd-image = nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages.aarch64-linux;
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix"
+              ./nixos/sd-image
+            ];
+          };
+          isoimage = nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages.x86_64-linux;
+            system = systems.x86_64-linux;
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+              ./nixos/iso
+            ];
+          };
+          isoimage-server = nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages.x86_64-linux;
+            system = systems.x86_64-linux;
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+              { mySystem.user = "nixos"; }
+            ];
+          };
         };
-        dol-guldur = nixpkgs.lib.nixosSystem {
-          pkgs = legacyPackages.x86_64-linux;
-          specialArgs = { inherit inputs outputs; };
-          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
-            ./nixos/dol-guldur
-          ];
-        };
-        golum = nixpkgs.lib.nixosSystem {
-          pkgs = legacyPackages.x86_64-linux;
-          system = systems.x86_64-linux;
-          specialArgs = { inherit inputs outputs; };
-          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
-            ./nixos/golum
-          ];
-        };
-        playground = nixpkgs.lib.nixosSystem {
-          pkgs = legacyPackages.x86_64-linux;
-          system = systems.x86_64-linux;
-          specialArgs = { inherit inputs outputs; };
-          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
-            ./nixos/playground
-          ];
-        };
-        smaug = nixpkgs.lib.nixosSystem {
-          pkgs = legacyPackages.aarch64-linux;
-          specialArgs = { inherit inputs outputs; };
-          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
-            ./nixos/smaug
-          ];
-        };
-        sd-image = nixpkgs.lib.nixosSystem {
-          pkgs = legacyPackages.aarch64-linux;
-          specialArgs = { inherit inputs outputs; };
-          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
-            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix"
-            ./nixos/sd-image
-          ];
-        };
-        isoimage = nixpkgs.lib.nixosSystem {
-          pkgs = legacyPackages.x86_64-linux;
-          system = systems.x86_64-linux;
-          specialArgs = { inherit inputs outputs; };
-          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-            ./nixos/iso
-          ];
-        };
-        isoimage-server = nixpkgs.lib.nixosSystem {
-          pkgs = legacyPackages.x86_64-linux;
-          system = systems.x86_64-linux;
-          specialArgs = { inherit inputs outputs; };
-          modules = (builtins.attrValues nixosModules) ++ defaultModules ++ [
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-            { mySystem.user = "nixos"; }
-          ];
-        };
-      };
 
       homeConfigurations = {
         # Ubuntu at work
