@@ -10,7 +10,7 @@
     customDNS = {
       customTTL = "1h";
       mapping = {
-        "${config.myDomain}" = "10.69.1.243";
+        "${config.homelab.domain}" = "10.69.1.243";
       };
     };
     # Redirect all .lan queries to the router

@@ -11,7 +11,6 @@
     ./snapshots.nix
     ./homelab.nix
   ];
-  myDomain = config.homelab.domain;
   mySystem = {
     home-manager = {
       enable = true;

@@ -81,7 +81,7 @@ in
         ];
       };
     };
-    networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.${config.myDomain}") [
+    networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.${hl.domain}") [
       "node-exporter"
       "smartctl-exporter"
       "traefik-metrics"

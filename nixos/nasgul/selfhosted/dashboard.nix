@@ -2,7 +2,7 @@
 
 {
   # /etc/hosts entries for dashy, to bypass authelia during status checks
-  networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.${config.myDomain}") [
+  networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.${config.homelab.domain}") [
     "traefik"
     "blocky"
     "sonarr"
@@ -50,17 +50,17 @@
           items = [
             {
               title = "Nextcloud";
-              url = "https://nextcloud.${config.myDomain}";
+              url = "https://nextcloud.${config.homelab.domain}";
               icon = "hl-nextcloud";
             }
             {
               title = "Gitea";
-              url = "https://gitea.${config.myDomain}";
+              url = "https://gitea.${config.homelab.domain}";
               icon = "hl-gitea";
             }
             {
               title = "Jellyfin";
-              url = "https://jellyfin.${config.myDomain}/sso/OID/p/authelia";
+              url = "https://jellyfin.${config.homelab.domain}/sso/OID/p/authelia";
               icon = "hl-jellyfin";
             }
           ];
@@ -70,33 +70,33 @@
           items = [
             {
               title = "Dashy";
-              url = "https://dash.${config.myDomain}";
+              url = "https://dash.${config.homelab.domain}";
               # icon = "hl-dashy"; # Broken for some reason
               icon = "https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/dashy.png";
             }
             {
               title = "Traefik";
-              url = "https://traefik.${config.myDomain}";
+              url = "https://traefik.${config.homelab.domain}";
               icon = "hl-traefik";
             }
             {
               title = "Blocky";
-              url = "https://blocky.${config.myDomain}";
+              url = "https://blocky.${config.homelab.domain}";
               # icon = "hl-blocky"; # Waiting for a new Dashy release using proper icons repo (https://github.com/Lissy93/dashy/issues/972)
               icon = "https://raw.githubusercontent.com/walkxcode/Dashboard-Icons/main/png/blocky.png";
             }
             {
               title = "LLDAP";
-              url = "https://ldap.${config.myDomain}";
+              url = "https://ldap.${config.homelab.domain}";
             }
             {
               title = "Authelia";
-              url = "https://auth.${config.myDomain}";
+              url = "https://auth.${config.homelab.domain}";
               icon = "hl-authelia";
             }
             rec {
               title = "Nix cache";
-              url = "https://cache.${config.myDomain}";
+              url = "https://cache.${config.homelab.domain}";
               statusCheckUrl = "${url}/nix-cache-info";
               icon = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nix-snowflake.svg";
             }
@@ -107,27 +107,27 @@
           items = [
             {
               title = "Sonarr";
-              url = "https://sonarr.${config.myDomain}";
+              url = "https://sonarr.${config.homelab.domain}";
               icon = "hl-sonarr";
             }
             {
               title = "Radarr";
-              url = "https://radarr.${config.myDomain}";
+              url = "https://radarr.${config.homelab.domain}";
               icon = "hl-radarr";
             }
             {
               title = "Bazarr";
-              url = "https://bazarr.${config.myDomain}";
+              url = "https://bazarr.${config.homelab.domain}";
               icon = "hl-bazarr";
             }
             {
               title = "Prowlarr";
-              url = "https://prowlarr.${config.myDomain}";
+              url = "https://prowlarr.${config.homelab.domain}";
               icon = "hl-prowlarr";
             }
             {
               title = "Deluge";
-              url = "https://deluge.${config.myDomain}";
+              url = "https://deluge.${config.homelab.domain}";
               icon = "hl-deluge";
             }
           ];
@@ -137,17 +137,17 @@
           items = [
             {
               title = "Netdata";
-              url = "https://netdata.${config.myDomain}";
+              url = "https://netdata.${config.homelab.domain}";
               icon = "hl-netdata";
             }
             {
               title = "Prometheus";
-              url = "https://prometheus.${config.myDomain}";
+              url = "https://prometheus.${config.homelab.domain}";
               icon = "hl-prometheus";
             }
             {
               title = "Grafana";
-              url = "https://grafana.${config.myDomain}";
+              url = "https://grafana.${config.homelab.domain}";
               icon = "hl-grafana";
             }
           ];

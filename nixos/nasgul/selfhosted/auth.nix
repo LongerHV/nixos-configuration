@@ -16,7 +16,7 @@ in
   services.traefik.dynamicConfigOptions.http = {
     routers.traefik.middlewares = [ "authelia" ];
     middlewares.authelia.forwardAuth = {
-      address = "${autheliaUrl}/api/verify?rd=https%3A%2F%2Fauth.${config.myDomain}%2F";
+      address = "${autheliaUrl}/api/verify?rd=https%3A%2F%2Fauth.${config.homelab.domain}%2F";
       trustForwardHeader = true;
       authResponseHeaders = [ "Remote-User" "Remote-Groups" "Remote-Name" "Remote-Email" ];
       tls.insecureSkipVerify = true;
@@ -85,7 +85,7 @@ in
       log.level = "info";
       totp.issuer = "authelia.com";
       session = {
-        domain = config.myDomain;
+        domain = config.homelab.domain;
         redis = {
           host = redis.unixSocket;
           port = 0;
@@ -136,12 +136,12 @@ in
         ];
         rules = [
           {
-            domain = "*.${config.myDomain}";
+            domain = "*.${config.homelab.domain}";
             policy = "bypass";
             networks = "localhost";
           }
           {
-            domain = "*.${config.myDomain}";
+            domain = "*.${config.homelab.domain}";
             policy = "one_factor";
             networks = "internal";
             subject = [
