@@ -50,11 +50,14 @@ in
           socket = "/run/mysqld/mysqld.sock";
         };
         settings = {
+          service = {
+            DISABLE_REGISTRATION = true;
+          };
           session = {
             COOKIE_SECURE = true;
-            DISABLE_REGISTRATION = true;
             PROVIDER = "db";
             PROVIDER_CONFIG = "";
+            SESSION_LIFE_TIME = 60 * 60 * 24 * 7;
           };
           cache = {
             ENABLED = true;
