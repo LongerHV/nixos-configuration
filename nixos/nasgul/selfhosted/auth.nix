@@ -34,7 +34,6 @@ in
       "bazarr"
       "blocky"
       "deluge"
-      "gitea"
       "grafana"
       "netdata"
       "prometheus"
