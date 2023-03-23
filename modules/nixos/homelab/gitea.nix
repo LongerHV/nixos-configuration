@@ -61,6 +61,7 @@ in
             ADAPTER = "redis";
             HOST = "network=unix,addr=${redis.unixSocket},db=1,pool_rize=100,idle_timeout=180";
           };
+          actions.ENABLED = true;
         };
       };
     }
