@@ -82,10 +82,13 @@ in
       };
       "org/gnome/settings-daemon/plugins/color" = {
         night-light-enabled = true;
-        # night-light-temperature = 3000; # Not working
+        night-light-temperature = "uint32 3000";
         night-light-schedule-automatic = false;
         night-light-schedule-from = 0.0;
         night-light-schedule-to = 0.0;
+      };
+      "org/gnome/desktop/interface" = {
+        gtk-theme = "Adwaita-dark";
       };
     };
   };
