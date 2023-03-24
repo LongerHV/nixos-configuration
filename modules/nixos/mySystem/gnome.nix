@@ -19,13 +19,17 @@ in
       ];
       gnome.excludePackages = with pkgs.gnome; [
         cheese # webcam tool
-        gnome-music
         gedit # text editor
         epiphany # web browser
         geary # email reader
         evince # document viewer
         totem # video player
         pkgs.gnome-console
+        pkgs.gnome-connections
+        gnome-contacts
+        gnome-maps
+        gnome-music
+        gnome-weather
       ];
     };
 
