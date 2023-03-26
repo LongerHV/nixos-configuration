@@ -11,7 +11,7 @@ in
   options.services.authelia = {
     enable = mkEnableOption "authelia";
     package = mkOption {
-      default = pkgs.authelia;
+      default = pkgs.unstable.authelia;
       type = types.package;
     };
     environment = mkOption {

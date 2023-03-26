@@ -7,7 +7,7 @@ let
 in
 {
   environment.systemPackages = [
-    pkgs.authelia
+    pkgs.unstable.authelia
   ];
 
   users.users."${config.mySystem.user}".extraGroups = [ "authelia" ];

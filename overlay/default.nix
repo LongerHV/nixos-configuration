@@ -1,5 +1,4 @@
 final: prev: {
-  authelia = prev.callPackage ./authelia.nix prev;
   dashy = prev.callPackage ./dashy.nix prev;
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
 
