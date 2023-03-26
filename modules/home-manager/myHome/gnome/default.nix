@@ -90,6 +90,11 @@ in
       "org/gnome/desktop/interface" = {
         gtk-theme = "Adwaita-dark";
       };
+      "org/gnome/mutter" = {
+        workspaces-only-on-primary = true;
+        dynamic-workspaces = true;
+        edge-tiling = true;
+      };
     };
   };
 }
