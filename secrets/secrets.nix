@@ -31,6 +31,9 @@ in
   "nasgul_sendgrid_token.age".publicKeys = [ nasgul nasgul_user mordor_user ];
   "nasgul_restic_s3_key.age".publicKeys = [ nasgul nasgul_user mordor_user ];
   "nasgul_restic_password.age".publicKeys = [ nasgul nasgul_user mordor_user ];
+  "nasgul_lldap_private_key.age".publicKeys = [ nasgul mordor_user ];
+  "nasgul_lldap_jwt_secret.age".publicKeys = [ nasgul mordor_user ];
+  "nasgul_lldap_user_pass.age".publicKeys = [ nasgul mordor_user ];
   "cloudflare_token.age".publicKeys = [ nasgul nasgul_user mordor_user ];
   "cloudflare_email.age".publicKeys = [ nasgul nasgul_user mordor_user ];
 

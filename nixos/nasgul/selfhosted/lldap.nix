@@ -1,44 +1,24 @@
 { config, ... }:
 
 let
-  homeDir = "/var/lib/lldap";
-  uid = 981;
-  gid = 977;
-  tag = "v0.4.1";
+  inherit (config.age) secrets;
+  hl = config.homelab;
 in
 {
-  imports = [ ./containers.nix ];
-  users = {
-    users.lldap = {
-      inherit uid;
-      group = "lldap";
-      isSystemUser = true;
-      home = homeDir;
-      createHome = true;
-    };
-    groups.lldap = {
-      inherit gid;
-    };
-  };
+  homelab.traefik.services.ldap.port = 17170;
 
-  virtualisation.oci-containers.containers.lldap = {
-    image = "nitnelave/lldap:${tag}";
-    environment = {
-      TZ = "${config.time.timeZone}";
-      UID = builtins.toString uid;
-      GID = builtins.toString gid;
+  services.lldap = {
+    enable = true;
+    settings = {
+      http_url = "https://ldap.${hl.domain}";
+      ldap_base_dn = "dc=longerhv,dc=xyz";
+      ldap_user_dn = "admin";
+      database_url = "sqlite:///var/lib/lldap/users.db?mode=rwc";
+      key_file = secrets.lldap_private_key.path;
     };
-    volumes = [
-      "${homeDir}:/data"
-    ];
-    extraOptions = [
-      "--network=host"
-      "--label"
-      "traefik.http.routers.ldap.rule=Host(`ldap.${config.homelab.domain}`)"
-      "--label"
-      "traefik.http.routers.ldap.entryPoints=${config.homelab.traefik.entrypoint}"
-      "--label"
-      "traefik.http.services.ldap.loadBalancer.server.port=17170"
-    ];
+    environment = {
+      LLDAP_JWT_SECRET_FILE = secrets.lldap_jwt_secret.path;
+      LLDAP_LDAP_USER_PASS_FILE = secrets.lldap_user_pass.path;
+    };
   };
 }

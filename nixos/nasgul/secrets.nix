@@ -81,6 +81,20 @@
       owner = config.services.authelia.user;
     };
 
+    # LLDAP
+    lldap_private_key = {
+      file = ../../secrets/nasgul_lldap_private_key.age;
+      owner = config.services.lldap.user;
+    };
+    lldap_jwt_secret = {
+      file = ../../secrets/nasgul_lldap_jwt_secret.age;
+      owner = config.services.lldap.user;
+    };
+    lldap_user_pass = {
+      file = ../../secrets/nasgul_lldap_user_pass.age;
+      owner = config.services.lldap.user;
+    };
+
     # Wireguard
     wireguard_priv_key.file = ../../secrets/nasgul_wireguard_priv_key.age;
     mullvad_priv_key.file = ../../secrets/nasgul_mullvad_priv_key.age;
