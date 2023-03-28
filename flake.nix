@@ -2,7 +2,7 @@
   description = "My config";
 
   nixConfig = {
-    trusted-substituters = [
+    substituters = [
       "https://cache.local.longerhv.xyz"
       "http://mordor.lan:5000"
       "https://cache.nixos.org"
