@@ -39,5 +39,8 @@
         "trayIconsReloaded@selfmade.pl"
       ];
     };
+    "org/gnome/desktop/interface" = {
+      gtk-theme = "Adwaita-dark";
+    };
   };
 }

@@ -87,9 +87,6 @@ in
         night-light-schedule-from = 0.0;
         night-light-schedule-to = 0.0;
       };
-      "org/gnome/desktop/interface" = {
-        gtk-theme = "Adwaita-dark";
-      };
       "org/gnome/mutter" = {
         workspaces-only-on-primary = true;
         dynamic-workspaces = true;
