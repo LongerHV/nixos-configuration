@@ -31,17 +31,6 @@ in
   config = lib.mkIf cfg.enable {
     fonts.fontconfig.enable = true;
     home.packages = [ cfg.font.package ];
-    gtk = {
-      enable = true;
-      iconTheme = {
-        name = "Papirus-Dark";
-        package = pkgs.papirus-icon-theme;
-      };
-      cursorTheme = {
-        name = "Numix-Cursor";
-        package = pkgs.numix-cursor-theme;
-      };
-    };
     dconf.settings = {
       "org/gnome/desktop/peripherals/trackball" = {
         scroll-wheel-emulation-button = 8;

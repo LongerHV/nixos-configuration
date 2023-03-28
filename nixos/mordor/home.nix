@@ -31,6 +31,18 @@
     startInBackground = true;
   };
 
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+    cursorTheme = {
+      name = "Numix-Cursor";
+      package = pkgs.numix-cursor-theme;
+    };
+  };
+
   dconf.settings = {
     "org/gnome/shell" = {
       disable-user-extensions = false;
