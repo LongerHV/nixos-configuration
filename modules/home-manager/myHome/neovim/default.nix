@@ -33,7 +33,7 @@ in
         '';
         plugins = with pkgs.nvimPlugins; [
           {
-            plugin = pkgs.unstable.vimPlugins.nvim-treesitter.withAllGrammars;
+            plugin = pkgs.master.vimPlugins.nvim-treesitter.withAllGrammars;
             type = "lua";
             config = ''
 
