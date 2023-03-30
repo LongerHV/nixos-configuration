@@ -12,8 +12,6 @@ in
     settings = {
       http_url = "https://ldap.${hl.domain}";
       ldap_base_dn = "dc=longerhv,dc=xyz";
-      ldap_user_dn = "admin";
-      database_url = "sqlite:///var/lib/lldap/users.db?mode=rwc";
       key_file = secrets.lldap_private_key.path;
     };
     environment = {
