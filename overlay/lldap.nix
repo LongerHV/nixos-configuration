@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   version = "0.4.2";
 
   src = fetchurl {
-    url = "https://github.com/lldap/lldap/releases/download/v0${version}/amd64-lldap.tar.gz";
+    url = "https://github.com/lldap/lldap/releases/download/v${version}/amd64-lldap.tar.gz";
     sha256 = "sha256-x/7ILQ9/rI5PMn7mVNte07Pf+85t/I+9iWIyqkxMWfU=";
   };
 
