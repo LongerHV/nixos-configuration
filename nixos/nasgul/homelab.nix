@@ -52,7 +52,7 @@ in
     };
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud25;
+      package = pkgs.nextcloud26;
       adminpassFile = secrets.nextcloud_admin_password.path;
     };
     gitea.enable = true;
