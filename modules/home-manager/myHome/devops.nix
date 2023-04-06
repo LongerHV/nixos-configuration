@@ -19,7 +19,6 @@ in
       awscli2
       azure-cli
       eksctl
-      k9s
       kind
       kube3d
       kubectl
@@ -31,6 +30,7 @@ in
       tilt
       unstable.kubernetes-polaris
       unstable.kubeshark
+      unstable.k9s
     ]) ++ [
       kctx
     ];
