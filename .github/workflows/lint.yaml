@@ -27,6 +27,9 @@ jobs:
       - name: Lint lua
         run: selene .
 
+      - name: Lint lua formatting
+        run: stylua --check .
+
       - name: Lint nix (statix)
         run: statix check
 
