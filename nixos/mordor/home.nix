@@ -18,7 +18,6 @@
     freecad
     openscad
     protonup
-    qmk
     reaper
     signal-desktop
     super-slicer-latest
