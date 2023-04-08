@@ -14,5 +14,5 @@ require("dashboard").setup({
 	config = {
 		header = header,
 		packages = { enable = false },
-	}
+	},
 })

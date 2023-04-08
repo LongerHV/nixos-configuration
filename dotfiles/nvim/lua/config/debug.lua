@@ -1,8 +1,8 @@
 local dap = require("dap")
 local dapui = require("dapui")
 local wk = require("which-key")
-local dap_go = require('dap-go')
-local dap_python = require('dap-python')
+local dap_go = require("dap-go")
+local dap_python = require("dap-python")
 
 dapui.setup({})
 
@@ -29,8 +29,8 @@ wk.register({
 		d = { dap.down, "Go down the stack" },
 		T = {
 			name = "Tests",
-			p = {dap_python.test_method, "Python"},
-			g = {dap_go.debug_test, "Golang"},
+			p = { dap_python.test_method, "Python" },
+			g = { dap_go.debug_test, "Golang" },
 		},
 	},
 }, { prefix = "<leader>" })

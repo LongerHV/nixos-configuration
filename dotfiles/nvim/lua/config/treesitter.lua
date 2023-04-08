@@ -2,7 +2,7 @@ require("nvim-treesitter.configs").setup({
 	auto_install = false, -- Parsers are managed by Nix
 	indent = {
 		enable = true,
-		disable = { "python", "yaml" } -- Yaml and Python indents are unusable
+		disable = { "python", "yaml" }, -- Yaml and Python indents are unusable
 	},
 	highlight = {
 		enable = true,
@@ -22,7 +22,7 @@ require("nvim-treesitter.configs").setup({
 			"#f99157",
 			"#EC5F67",
 			"#C594C5",
-		}
+		},
 	},
 	textobjects = {
 		select = {

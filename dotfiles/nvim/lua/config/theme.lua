@@ -29,24 +29,30 @@ require("lualine").setup({
 	winbar = {
 		lualine_a = { "filename" },
 		lualine_b = {},
-		lualine_c = { function()
-			if navic.is_available() then
-				local location = navic.get_location()
-				if location ~= "" then
-					return location
+		lualine_c = {
+			function()
+				if navic.is_available() then
+					local location = navic.get_location()
+					if location ~= "" then
+						return location
+					end
 				end
-			end
-			return "..."
-		end },
+				return "..."
+			end,
+		},
 		lualine_x = {},
-		lualine_y = { function()
-			if not yaml_companion_ok then return "" end
-			local schema = yaml_companion.get_buf_schema(0)
-			if schema and schema.result[1].name ~= "none" then
-				return schema.result[1].name
-			end
-			return ""
-		end },
+		lualine_y = {
+			function()
+				if not yaml_companion_ok then
+					return ""
+				end
+				local schema = yaml_companion.get_buf_schema(0)
+				if schema and schema.result[1].name ~= "none" then
+					return schema.result[1].name
+				end
+				return ""
+			end,
+		},
 		lualine_z = {},
 	},
 	inactive_winbar = {
