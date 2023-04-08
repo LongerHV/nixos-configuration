@@ -2,7 +2,7 @@
 
 let
   cfg = config.mySystem;
-  nvim = if cfg.home-manager.enable then (pkgs.neovim-nightly.overrideAttrs (_: { CFLAGS = "-O3"; })) else pkgs.neovim-unwrapped;
+  nvim = pkgs.unstable.neovim-unwrapped;
 in
 {
   options.mySystem = {
