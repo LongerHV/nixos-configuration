@@ -17,7 +17,7 @@ in
     programs.neovim = lib.mkMerge [
       {
         enable = true;
-        package = pkgs.neovim-nightly.overrideAttrs (_: { CFLAGS = "-O3"; });
+        package = pkgs.unstable.neovim-unwrapped;
         vimAlias = true;
         viAlias = true;
         withNodeJs = true;
@@ -33,7 +33,7 @@ in
         '';
         plugins = with pkgs.nvimPlugins; [
           {
-            plugin = pkgs.master.vimPlugins.nvim-treesitter.withAllGrammars;
+            plugin = pkgs.unstable.vimPlugins.nvim-treesitter.withAllGrammars;
             type = "lua";
             config = ''
 
