@@ -33,6 +33,7 @@ in
       jq
       neofetch
       openssh
+      p7zip
       tree
       unzip
       wget
