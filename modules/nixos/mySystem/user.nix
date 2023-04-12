@@ -2,7 +2,6 @@
 
 let
   cfg = config.mySystem;
-  nvim = pkgs.unstable.neovim-unwrapped;
 in
 {
   options.mySystem = {
@@ -39,7 +38,7 @@ in
     };
     programs.neovim = {
       enable = true;
-      package = nvim;
+      package = pkgs.master.neovim-unwrapped;
       defaultEditor = true;
     };
     programs.zsh = {

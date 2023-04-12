@@ -17,7 +17,7 @@ in
     programs.neovim = lib.mkMerge [
       {
         enable = true;
-        package = pkgs.unstable.neovim-unwrapped;
+        package = pkgs.master.neovim-unwrapped;
         vimAlias = true;
         viAlias = true;
         withNodeJs = true;
