@@ -23,13 +23,13 @@
     home-manager.url = "github:nix-community/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     deploy-rs.url = "github:serokell/deploy-rs";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     neovim-plugins.url = "github:LongerHV/neovim-plugins-overlay";
-    neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-plugins.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   outputs =
