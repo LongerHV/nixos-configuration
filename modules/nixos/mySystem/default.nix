@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./android.nix
     ./gaming.nix
     ./gnome.nix
     ./user.nix
