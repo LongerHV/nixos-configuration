@@ -28,6 +28,7 @@ in
       teleport.client
       terraform
       tilt
+      unstable.fluxcd
       unstable.kubernetes-polaris
       unstable.kubeshark
       unstable.k9s
