@@ -19,31 +19,15 @@
       # Server public keys RXBEMl98FGQ0M5L1RmIAidw5s1eeTQ534pTHYSGES3o=
       peers = [
         {
-          # Mobile
+          # Honor
           publicKey = "hL9VANFN7BItGrBVDT4nKpXhiyykyshvc0Zrk9bfWio=";
           allowedIPs = [ "10.100.0.2" ];
         }
         {
-          # Golum
-          publicKey = "K/OYE5QPSZammNgpwEXpAx2+KPkZGveuyNM13qvQU1Q=";
+          # FP4
+          publicKey = "2wa5Xc6CWC3C1NoX1zp0aQwL5y0gfs4osI2xmcVqHFI=";
           allowedIPs = [ "10.100.0.3" ];
         }
-        {
-          # iPad
-          publicKey = "KJ7qkIgdudj6bHdlcUAmSuGx74C7+sVSfBxPhwKVBRs=";
-          allowedIPs = [ "10.100.0.4" ];
-        }
-        {
-          # Dad
-          publicKey = "QyRmx4PseUd5YXD9IDnh/6HYQCXiJ1NtxJlT2EnvTXw=";
-          allowedIPs = [ "10.100.0.5" ];
-        }
-        {
-          # ASUS
-          publicKey = "PYHOfbbVxFBtJDI9PzKJaodItPBJe5KMzQV6QdgXD3c=";
-          allowedIPs = [ "10.100.0.6" ];
-        }
-
       ];
     };
 
