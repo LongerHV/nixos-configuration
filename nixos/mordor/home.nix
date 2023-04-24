@@ -16,6 +16,7 @@
   home.packages = with pkgs; [
     brave
     freecad
+    jellyfin-media-player
     openscad
     protonup
     reaper
