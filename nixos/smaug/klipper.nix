@@ -11,6 +11,7 @@
     groups.klipper = { };
   };
   services = {
+    nginx.clientMaxBodySize = "100M";
     fluidd.enable = true;
     moonraker = {
       enable = true;
