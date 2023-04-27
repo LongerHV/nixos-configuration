@@ -38,7 +38,7 @@ in
     };
     programs.neovim = {
       enable = true;
-      package = pkgs.master.neovim-unwrapped;
+      package = pkgs.unstable.neovim-unwrapped;
       defaultEditor = true;
     };
     programs.zsh = {
