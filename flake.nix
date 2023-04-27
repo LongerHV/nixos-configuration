@@ -1,19 +1,6 @@
 {
   description = "My config";
 
-  nixConfig = {
-    substituters = [
-      "https://cache.local.longerhv.xyz"
-      "http://mordor.lan:5000"
-      "https://cache.nixos.org"
-    ];
-    trusted-public-keys = [
-      "mordor.lan:fY4rXQ7QqtaxsokDAA57U0kuXvlo9pzn3XgLs79TZX4"
-      "cache.local.longerhv.xyz:ioE/YEOpla3uyof/kZQG+gNKgeBAhOMWh+riRAEzKDA="
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";

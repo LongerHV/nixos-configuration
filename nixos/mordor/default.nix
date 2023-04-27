@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   imports = [
@@ -15,6 +15,7 @@
       enable = true;
       home = ./home.nix;
     };
+    nix.substituters = [ "nasgul" ];
   };
 
   boot.loader.efi.canTouchEfiVariables = true;

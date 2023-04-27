@@ -1,5 +1,18 @@
 { inputs, config, lib, pkgs, ... }:
 
+let
+  cfg = config.mySystem;
+  substituters = {
+    nasgul = {
+      url = "https://cache.local.longerhv.xyz/";
+      key = "cache.local.longerhv.xyz:ioE/YEOpla3uyof/kZQG+gNKgeBAhOMWh+riRAEzKDA=";
+    };
+    mordor = {
+      url = "http://mordor.lan:5000";
+      key = "mordor.lan:fY4rXQ7QqtaxsokDAA57U0kuXvlo9pzn3XgLs79TZX4";
+    };
+  };
+in
 {
   imports = [
     ./android.nix
@@ -7,6 +20,14 @@
     ./gnome.nix
     ./user.nix
   ];
+
+  options.mySystem = with lib; {
+    nix.substituters = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+    };
+  };
+
   config = {
     hardware.enableRedistributableFirmware = lib.mkDefault true;
 
@@ -36,6 +57,8 @@
       };
       settings = {
         auto-optimise-store = lib.mkDefault true;
+        substituters = map (x: substituters.${x}.url) cfg.nix.substituters;
+        trusted-public-keys = map (x: substituters.${x}.key) cfg.nix.substituters;
       };
     };
 
