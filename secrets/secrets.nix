@@ -35,4 +35,5 @@ in
 
   # Mordor
   "mordor_cache_priv_key.pem.age".publicKeys = [ mordor mordor_user ];
+  "mordor_mullvad_priv_key.age".publicKeys = [ mordor mordor_user ];
 }

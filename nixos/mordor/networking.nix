@@ -1,4 +1,6 @@
 {
+  imports = [ ./vpn.nix ];
+
   networking = {
     useNetworkd = true;
     enableIPv6 = false;
