@@ -1,5 +1,3 @@
-_:
-
 {
   networking = {
     useNetworkd = true;

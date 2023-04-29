@@ -59,7 +59,7 @@ in
     ];
   };
 
-  systemd.services.authelia.after = [ "docker-lldap.service" ];
+  systemd.services.authelia.after = [ "lldap.service" ];
 
   services.authelia = {
     enable = true;
