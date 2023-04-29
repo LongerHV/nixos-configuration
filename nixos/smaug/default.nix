@@ -32,9 +32,13 @@
 
   networking = {
     hostName = "smaug";
-    networkmanager = {
-      enable = true;
-    };
+    useNetworkd = true;
+    enableIPv6 = false;
+    dhcpcd.enable = false;
+  };
+  systemd.network = {
+    enable = true;
+    wait-online.extraArgs = [ "--interface" "eth0" ];
   };
   services.openssh.enable = true;
 

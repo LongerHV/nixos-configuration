@@ -1,6 +1,7 @@
 { config, ... }:
 
 {
+  security.polkit.enable = true;
   networking.firewall.allowedTCPPorts = [ 80 config.services.moonraker.port ];
   users = {
     users.klipper = {
