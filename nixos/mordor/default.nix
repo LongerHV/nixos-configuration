@@ -18,16 +18,24 @@
     nix.substituters = [ "nasgul" ];
   };
 
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub = {
-    enable = true;
-    device = "nodev";
-    efiSupport = true;
-    zfsSupport = true;
+  boot = {
+    loader = {
+      efi.canTouchEfiVariables = true;
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        zfsSupport = true;
+      };
+    };
+    supportedFilesystems = [ "zfs" ];
+    zfs = {
+      forceImportRoot = false;
+      devNodes = "/dev/disk/by-partuuid";
+    };
+    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.forceImportRoot = false;
-  boot.zfs.devNodes = "/dev/disk/by-partuuid";
   services.zfs.autoScrub = {
     enable = true;
     interval = "weekly";
@@ -53,9 +61,6 @@
       };
     };
   };
-  # boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   hardware.bluetooth.enable = true;
 
   powerManagement = {
