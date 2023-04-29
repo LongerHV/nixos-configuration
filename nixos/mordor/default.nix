@@ -6,6 +6,7 @@
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     ./hardware-configuration.nix
     ./networking.nix
+    ./vm-variant.nix
   ];
 
   mySystem = {
