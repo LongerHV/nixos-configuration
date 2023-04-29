@@ -19,6 +19,7 @@ in
     ./gaming.nix
     ./gnome.nix
     ./user.nix
+    ./virt.nix
   ];
 
   options.mySystem = with lib; {

@@ -11,6 +11,8 @@
   mySystem = {
     gnome.enable = true;
     gaming.enable = true;
+    vmHost = true;
+    dockerHost = true;
     home-manager = {
       enable = true;
       home = ./home.nix;
@@ -74,17 +76,12 @@
     hostId = "0c55ff12";
   };
 
-  virtualisation.libvirtd.enable = true;
-  virtualisation.docker = {
-    enable = true;
-    storageDriver = "zfs";
-  };
+  virtualisation.docker.storageDriver = "zfs";
   environment.systemPackages = with pkgs; [
-    virt-manager
     deploy-rs
     unstable.yubioath-flutter
   ];
-  users.users.${config.mySystem.user}.extraGroups = [ "libvirtd" "docker" "dialout" ];
+  users.users.${config.mySystem.user}.extraGroups = [ "dialout" ];
   hardware.opengl = {
     enable = true;
     extraPackages = [
