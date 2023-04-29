@@ -31,7 +31,7 @@
         {
           # ASUS
           publicKey = "L5u6MTLLUK4dco1LmMR14VzaRVgW2PL0cCzFRnGsrjo=";
-          allowedIPs = [ "10.100.0.3" ];
+          allowedIPs = [ "10.100.0.4" ];
         }
       ];
     };
