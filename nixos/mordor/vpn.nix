@@ -10,7 +10,6 @@
     };
   };
   networking = {
-    firewall.checkReversePath = false;
     wg-quick.interfaces.wg0 = {
       address = [ "10.68.22.110/32" ];
       privateKeyFile = config.age.secrets.mullvad_priv_key.path;
