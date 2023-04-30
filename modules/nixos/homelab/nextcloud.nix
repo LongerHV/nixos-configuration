@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let
   hl = config.homelab;
@@ -8,6 +8,7 @@ let
   port = 8086;
   datadir = "${hl.storage}/nextcloud";
   hostName = "nextcloud.${hl.domain}";
+  occ = "${nextcloud.occ}/bin/nextcloud-occ";
 in
 {
   options.homelab.nextcloud = with lib; {
@@ -40,11 +41,8 @@ in
         enable = true;
         services.nextcloud = { inherit port; middlewares = [ "nextcloud-redirectregex" ]; };
       };
-      backups.services.nextcloud =
-        let
-          occ = "${nextcloud.occ}/bin/nextcloud-occ";
-        in
-        {
+      backups = lib.mkIf hl.backups.enable {
+        services.nextcloud = {
           user = "nextcloud";
           backupPrepareCommand = ''
             ${occ} maintenance:mode --on
@@ -56,6 +54,7 @@ in
           '';
           paths = [ datadir nextcloud.home "/tmp/nextcloud.sql" ];
         };
+      };
     };
 
     services = {
