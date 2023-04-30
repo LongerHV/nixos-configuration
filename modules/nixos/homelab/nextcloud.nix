@@ -91,6 +91,7 @@ in
           dbhost = "localhost:/run/mysqld/mysqld.sock";
           trustedProxies = [ "127.0.0.1" ];
           inherit (cfg) adminpassFile;
+          defaultPhoneRegion = "PL";
         };
         caching = {
           redis = true;
