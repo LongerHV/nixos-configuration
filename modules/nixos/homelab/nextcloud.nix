@@ -94,10 +94,11 @@ in
         };
         caching = {
           redis = true;
-          apcu = false;
+          apcu = true;
         };
         extraOptions = {
-          "memcache.local" = "\\OC\\Memcache\\Redis";
+          "memcache.local" = "\\OC\\Memcache\\APCu";
+          "memcache.distributed" = "\\OC\\Memcache\\Redis";
           "memcache.locking" = "\\OC\\Memcache\\Redis";
           redis = {
             host = redis.unixSocket;
