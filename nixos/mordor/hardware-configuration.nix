@@ -44,6 +44,12 @@
       fsType = "zfs";
     };
 
+  fileSystems."/games" =
+    {
+      device = "rpool/root/games";
+      fsType = "zfs";
+    };
+
   fileSystems."/boot" =
     {
       device = "/dev/disk/by-uuid/85DE-BF0E";
