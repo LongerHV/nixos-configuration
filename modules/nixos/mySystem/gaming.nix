@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.mySystem.gaming;
@@ -9,6 +9,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [ lutris protonup-ng ];
     programs = {
       steam = {
         enable = true;
