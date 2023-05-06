@@ -33,6 +33,16 @@
           publicKey = "L5u6MTLLUK4dco1LmMR14VzaRVgW2PL0cCzFRnGsrjo=";
           allowedIPs = [ "10.100.0.4" ];
         }
+        {
+          # Bro phone
+          publicKey = "2zjbNOtTjnAsez5erA0e4DNc4zd+i2CLTm0mCp4Otls=";
+          allowedIPs = [ "10.100.0.5" ];
+        }
+        {
+          # Bro PC
+          publicKey = "G+C3TYE7mRU5YRk01lBQRbqTfrskokhLjIXU62XsdRw=";
+          allowedIPs = [ "10.100.0.6" ];
+        }
       ];
     };
 
