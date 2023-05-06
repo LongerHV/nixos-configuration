@@ -161,7 +161,7 @@ in
         smtp = {
           inherit (config.homelab.mail.smtp) host port;
           username = config.homelab.mail.smtp.user;
-          sender = "authelia@${config.homelab.domain}";
+          sender = "authelia@longerhv.xyz";
         };
       };
     };
