@@ -66,5 +66,6 @@ in
   services = {
     gitea.package = pkgs.unstable.gitea;
     jellyfin.package = pkgs.unstable.jellyfin;
+    invidious.package = pkgs.master.invidious;
   };
 }
