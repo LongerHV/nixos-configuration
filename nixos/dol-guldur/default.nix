@@ -18,7 +18,7 @@
     enable = true;
     device = "/dev/sda";
   };
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_hardened;
+  boot.kernelPackages = pkgs.previous.linuxKernel.packages.linux_hardened;
   nix.settings.trusted-users = [ config.mySystem.user ];
 
   networking.hostName = "dol-guldur";
