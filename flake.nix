@@ -2,11 +2,12 @@
   description = "My config";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs-prev.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    home-manager.url = "github:nix-community/home-manager/release-22.11";
+    home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -28,6 +29,7 @@
   outputs =
     { self
     , nixpkgs
+    , nixpkgs-prev
     , nixpkgs-unstable
     , nixpkgs-master
     , nixos-hardware
@@ -47,6 +49,7 @@
       overlays = {
         default = import ./overlay/default.nix;
         unstable = final: prev: {
+          previous = nixpkgs-prev.legacyPackages.${prev.system};
           unstable = nixpkgs-unstable.legacyPackages.${prev.system};
           master = nixpkgs-master.legacyPackages.${prev.system};
         };
