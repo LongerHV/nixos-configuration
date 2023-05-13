@@ -13,6 +13,7 @@
     "netdata"
     "prometheus"
     "grafana"
+    "yt"
   ];
 
   homelab.traefik.services.dash.port = 8082;
@@ -62,6 +63,11 @@
               title = "Jellyfin";
               url = "https://jellyfin.${config.homelab.domain}/sso/OID/p/authelia";
               icon = "hl-jellyfin";
+            }
+            {
+              title = "Invidious";
+              url = "https://yt.${config.homelab.domain}";
+              icon = "hl-invidious";
             }
           ];
         }

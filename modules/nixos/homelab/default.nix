@@ -9,6 +9,7 @@ in
     ./backups.nix
     ./blocky.nix
     ./gitea.nix
+    ./invidious.nix
     ./mail.nix
     ./monitoring.nix
     ./multimedia.nix
