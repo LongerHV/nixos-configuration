@@ -225,7 +225,7 @@ in
           # Nix
           statix
           nixpkgs-fmt
-          unstable.nil
+          master.nil
 
           # C, C++
           clang-tools
