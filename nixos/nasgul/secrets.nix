@@ -2,8 +2,10 @@
 
 let
   inherit (config.age) secrets;
+  autheliaUser = config.services.authelia.instances.main.user;
 in
 {
+  users.groups.lldap-secrets = {};
   age.secrets = {
     # Nix-serve
     cache_priv_key.file = ../../secrets/nasgul_cache_priv_key.pem.age;
@@ -53,49 +55,52 @@ in
     # Authelia
     authelia_jwt_secret = {
       file = ../../secrets/nasgul_authelia_jwt_secret.age;
-      owner = config.services.authelia.user;
+      owner = autheliaUser;
     };
     authelia_storage_encryption_key = {
       file = ../../secrets/nasgul_authelia_storage_encryption_key.age;
-      owner = config.services.authelia.user;
+      owner = autheliaUser;
     };
     authelia_session_secret = {
       file = ../../secrets/nasgul_authelia_session_secret.age;
-      owner = config.services.authelia.user;
+      owner = autheliaUser;
     };
     authelia_hmac_secret = {
       file = ../../secrets/nasgul_authelia_hmac_secret.age;
-      owner = config.services.authelia.user;
+      owner = autheliaUser;
     };
     authelia_issuer_priv_key = {
       file = ../../secrets/nasgul_authelia_issuer_private_key.age;
-      owner = config.services.authelia.user;
+      owner = autheliaUser;
     };
     authelia_secret_config = {
       file = ../../secrets/nasgul_authelia_config.age;
-      owner = config.services.authelia.user;
+      owner = autheliaUser;
     };
     authelia_mysql_password = {
       file = ../../secrets/nasgul_authelia_mysql_password.age;
-      owner = config.services.authelia.user;
+      owner = autheliaUser;
     };
     ldap_password = {
       file = ../../secrets/nasgul_ldap_password.age;
-      owner = config.services.authelia.user;
+      owner = autheliaUser;
     };
 
     # LLDAP
     lldap_private_key = {
       file = ../../secrets/nasgul_lldap_private_key.age;
-      owner = config.services.lldap.user;
+      mode = "0440";
+      group = "lldap-secrets";
     };
     lldap_jwt_secret = {
       file = ../../secrets/nasgul_lldap_jwt_secret.age;
-      owner = config.services.lldap.user;
+      mode = "0440";
+      group = "lldap-secrets";
     };
     lldap_user_pass = {
       file = ../../secrets/nasgul_lldap_user_pass.age;
-      owner = config.services.lldap.user;
+      mode = "0440";
+      group = "lldap-secrets";
     };
 
     # Wireguard

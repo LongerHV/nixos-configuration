@@ -19,4 +19,6 @@ in
       LLDAP_LDAP_USER_PASS_FILE = secrets.lldap_user_pass.path;
     };
   };
+
+  systemd.services.lldap.serviceConfig.SupplementaryGroups = [ "lldap-secrets" ];
 }

@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (config.services) authelia;
+  authelia = config.services.authelia.instances.main;
   redis = config.services.redis.servers."";
   autheliaUrl = "http://${authelia.settings.server.host}:${builtins.toString authelia.settings.server.port}";
 in
@@ -51,7 +51,7 @@ in
     ];
     ensureUsers = [
       {
-        name = config.services.authelia.user;
+        name = authelia.user;
         ensurePermissions = {
           "authelia.*" = "ALL PRIVILEGES";
         };
@@ -61,19 +61,21 @@ in
 
   systemd.services.authelia.after = [ "lldap.service" ];
 
-  services.authelia = {
+  services.authelia.instances.main = {
     enable = true;
-    environment = {
-      AUTHELIA_JWT_SECRET_FILE = config.age.secrets.authelia_jwt_secret.path;
-      AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE = config.age.secrets.authelia_storage_encryption_key.path;
-      AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE = config.age.secrets.authelia_mysql_password.path;
-      AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE = config.age.secrets.authelia_hmac_secret.path;
-      AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE = config.age.secrets.authelia_issuer_priv_key.path;
-      AUTHELIA_SESSION_SECRET_FILE = config.age.secrets.authelia_session_secret.path;
+    secrets = {
+      jwtSecretFile = config.age.secrets.authelia_jwt_secret.path;
+      oidcHmacSecretFile = config.age.secrets.authelia_hmac_secret.path;
+      oidcIssuerPrivateKeyFile = config.age.secrets.authelia_issuer_priv_key.path;
+      sessionSecretFile = config.age.secrets.authelia_session_secret.path;
+      storageEncryptionKeyFile = config.age.secrets.authelia_storage_encryption_key.path;
+    };
+    environmentVariables = {
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.age.secrets.ldap_password.path;
       AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.homelab.mail.smtp.passFile;
+      AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE = config.age.secrets.authelia_mysql_password.path;
     };
-    settingsFile = config.age.secrets.authelia_secret_config.path;
+    settingsFiles = [ config.age.secrets.authelia_secret_config.path ];
     settings = {
       theme = "dark";
       default_2fa_method = "totp";
@@ -153,7 +155,7 @@ in
         mysql = {
           host = "/run/mysqld/mysqld.sock";
           database = "authelia";
-          username = config.services.authelia.user;
+          username = authelia.user;
         };
       };
       notifier = {
