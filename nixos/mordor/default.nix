@@ -104,7 +104,6 @@
     # Enable openssh only to provide key for agenix
     openssh = {
       enable = true;
-      passwordAuthentication = false;
       openFirewall = false;
     };
     nix-serve = {

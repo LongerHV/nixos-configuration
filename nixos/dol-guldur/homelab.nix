@@ -10,7 +10,7 @@
     monitoring.enable = true;
     mysql = {
       enable = true;
-      package = pkgs.mariadb_108;
+      package = pkgs.mariadb_1010;
     };
   };
 }

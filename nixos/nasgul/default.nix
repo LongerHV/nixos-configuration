@@ -53,10 +53,7 @@
       enable = true;
       secretKeyFile = config.age.secrets.cache_priv_key.path;
     };
-    openssh = {
-      enable = true;
-      passwordAuthentication = false;
-    };
+    openssh.enable = true;
     zfs = {
       autoScrub = {
         enable = true;

@@ -32,7 +32,7 @@ in
   config = {
     hardware.enableRedistributableFirmware = lib.mkDefault true;
 
-    boot.tmpOnTmpfs = lib.mkDefault true;
+    boot.tmp.useTmpfs = lib.mkDefault true;
     zramSwap.enable = lib.mkDefault true;
 
     time.timeZone = lib.mkDefault "Europe/Warsaw";
@@ -66,8 +66,8 @@ in
     };
 
     services.openssh = with lib; {
-      passwordAuthentication = mkDefault false;
-      permitRootLogin = mkDefault "no";
+      settings.PasswordAuthentication = mkDefault false;
+      settings.PermitRootLogin = mkDefault "no";
     };
 
     environment = {

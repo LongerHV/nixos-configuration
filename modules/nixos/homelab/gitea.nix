@@ -25,7 +25,7 @@ in
         redis.enable = true;
         traefik = {
           enable = true;
-          services.gitea = { port = gitea.httpPort; };
+          services.gitea = { port = gitea.settings.server.HTTP_PORT; };
         };
       };
 
@@ -43,13 +43,15 @@ in
 
       services.gitea = {
         enable = true;
-        rootUrl = "https://${domain}";
         repositoryRoot = repositoriesDir;
         database = {
           type = "mysql";
           socket = "/run/mysqld/mysqld.sock";
         };
         settings = {
+          server = {
+            ROOT_URL = "https://${domain}";
+          };
           service = {
             DISABLE_REGISTRATION = true;
           };
