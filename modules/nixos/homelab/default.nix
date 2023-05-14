@@ -11,6 +11,7 @@ in
     ./gitea.nix
     ./invidious.nix
     ./mail.nix
+    ./miniflux.nix
     ./monitoring.nix
     ./multimedia.nix
     ./mysql.nix

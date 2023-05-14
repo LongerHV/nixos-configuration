@@ -3,16 +3,17 @@
 {
   # /etc/hosts entries for dashy, to bypass authelia during status checks
   networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.${config.homelab.domain}") [
-    "traefik"
-    "blocky"
-    "sonarr"
-    "radarr"
     "bazarr"
-    "prowlarr"
+    "blocky"
     "deluge"
+    "grafana"
     "netdata"
     "prometheus"
-    "grafana"
+    "prowlarr"
+    "radarr"
+    "rss"
+    "sonarr"
+    "traefik"
     "yt"
   ];
 
@@ -68,6 +69,11 @@
               title = "Invidious";
               url = "https://yt.${config.homelab.domain}";
               icon = "hl-invidious";
+            }
+            {
+              title = "Miniflux";
+              url = "https://rss.${config.homelab.domain}";
+              icon = "hl-miniflux";
             }
           ];
         }
