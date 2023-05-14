@@ -5,6 +5,9 @@ let
   # Host key
   nasgul = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII2gRPWw7Ijjn6rNB+2I/97osC6AqarGOsw9jhxzUdAi";
   mordor = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGdT6E0OwCh/fF1ji0ExyH+4zhh1znuoT+sCeDgYn9N1";
+
+  # Backup keys
+  backup = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCY/Ca8AoMeANMhFxdGXILorO/hnrtDkVofgyLHbprPZ6CED593fIrWTPreLvuCCukPQlB+VFkxvhVHwHgSX2cWzSlPq8n6ERwSneEQ0Yknxw1m4iLYQfktEyjJgR0kR+r6A9Mi6ocVnQFKmd7MLBtVdrmbakIBAHQnSz3w14k2OkCnPo3QfwcZg57ZiZF/JPYqcsWndmVFm4qcl1hQn1Fm5BRg+saB5gYD1abnRYrlfYS2Ti7whN4j6EorXNgGsz3peSoeqyILz/ilv6c0/FvFHHSwTTSiDDoF1unxruSLTuRL9sshlGasmWbLJzJBRYKsgdBEIZAVnEe9+v5ZaO0gTMVawkEIVt4oY9SYCa4cOysm/XXJdKhUn7WgSNbFbRv4O+5kSIVB02CcuiNJ0/ahqQ3jIXynr6MOAJeDxgz/KtKmIw70BzdzRZVK9cC3a9m2+vetw1fLi5ypf6NgapYdMxyuMwBED4M0BJfN6Pbcz1Ut9QjCaKmexRbZKkG0SSrxAbfsWzGfUuSyFPVuwbBm4Jaw+zRn7DMC7gbNpj36q/GKoqMb1uqp49mwNDLdh8FP/NTRSZuJUhsjKVuj5pDQBXUNwRE8w5vI8MISIO8Jv76hVGk8NtBLLGhx3N8nXVWzwzUaXY9hMOqcIhAUoX/XKX59rboXDOWPsFX4ppxqbQ==";
 in
 {
   # Tokens
@@ -26,7 +29,7 @@ in
   "nasgul_minio_root_credentials.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_sendgrid_token.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_restic_s3_key.age".publicKeys = [ nasgul mordor_user ];
-  "nasgul_restic_password.age".publicKeys = [ nasgul mordor_user ];
+  "nasgul_restic_password.age".publicKeys = [ nasgul mordor_user backup ];
   "nasgul_lldap_private_key.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_lldap_jwt_secret.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_lldap_user_pass.age".publicKeys = [ nasgul mordor_user ];
