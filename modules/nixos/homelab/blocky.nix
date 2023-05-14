@@ -32,9 +32,13 @@ in
         settings = {
           port = lib.mkDefault 53;
           httpPort = lib.mkDefault 4000;
+          connectIPVersion = "v4";
           # Cloudflare upstream DNS servers
-          upstream.default = [ "1.1.1.1" "1.0.0.1" ];
-          bootstrapDns = "tcp+udp:1.1.1.1";
+          upstream.default = [ "https://one.one.one.one/dns-query" ];
+          bootstrapDns = {
+            upstream = "https://one.one.one.one/dns-query";
+            ips = [ "1.1.1.1" "1.0.0.1" ];
+          };
           redis = {
             address = redis.unixSocket;
             database = 2;
