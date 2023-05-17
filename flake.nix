@@ -58,18 +58,9 @@
       devShells = forAllSystems
         (system: {
           default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
-          lint = nixpkgs.legacyPackages.${system}.callPackage
-            ({ pkgs, ... }: pkgs.mkShellNoCC {
-              nativeBuildInputs = with pkgs; [
-                actionlint
-                selene
-                stylua
-                statix
-                nixpkgs-fmt
-                yamllint
-              ];
-            })
-            { };
+          python = nixpkgs.legacyPackages.${system}.callPackage ./shells/python.nix { };
+          pythonVenv = nixpkgs.legacyPackages.${system}.callPackage ./shells/pythonVenv.nix { };
+          lint = nixpkgs.legacyPackages.${system}.callPackage ./shells/lint.nix { };
         });
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-fmt);
