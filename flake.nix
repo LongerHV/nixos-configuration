@@ -58,6 +58,7 @@
       devShells = forAllSystems
         (system: {
           default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
+          node = nixpkgs.legacyPackages.${system}.callPackage ./shells/node.nix { };
           python = nixpkgs.legacyPackages.${system}.callPackage ./shells/python.nix { };
           pythonVenv = nixpkgs.legacyPackages.${system}.callPackage ./shells/pythonVenv.nix { };
           lint = nixpkgs.legacyPackages.${system}.callPackage ./shells/lint.nix { };
