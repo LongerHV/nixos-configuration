@@ -561,16 +561,17 @@
     "lspkind-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1683275543,
-        "narHash": "sha256-S+qZm51hw/cRujIfHV/1x1fYyCKI4XQ0utSL8uy4l6I=",
+        "lastModified": 1663824370,
+        "narHash": "sha256-WwUQ+O2rIfD4yl0GFx70GsZc9nnhS7b2KWfNdaXCLmM=",
         "owner": "onsails",
         "repo": "lspkind-nvim",
-        "rev": "57610d5ab560c073c465d6faf0c19f200cb67e6e",
+        "rev": "c68b3a003483cf382428a43035079f78474cd11e",
         "type": "github"
       },
       "original": {
         "owner": "onsails",
         "repo": "lspkind-nvim",
+        "rev": "c68b3a003483cf382428a43035079f78474cd11e",
         "type": "github"
       }
     },
@@ -653,7 +654,9 @@
         "gitsigns": "gitsigns",
         "indent-blankline": "indent-blankline",
         "lsp_signature": "lsp_signature",
-        "lspkind-nvim": "lspkind-nvim",
+        "lspkind-nvim": [
+          "lspkind-nvim"
+        ],
         "lualine": "lualine",
         "nixpkgs": [
           "nixpkgs-unstable"
@@ -1189,6 +1192,7 @@
         "deploy-rs": "deploy-rs",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager_2",
+        "lspkind-nvim": "lspkind-nvim",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "neovim-plugins": "neovim-plugins",
         "nixos-hardware": "nixos-hardware",
