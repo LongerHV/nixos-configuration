@@ -1,3 +1,5 @@
+{ lib, ... }:
+
 let
   primary = {
     background = "#1B2B34";
@@ -5,7 +7,7 @@ let
   };
   cursor = {
     text = "#1B2B34";
-    cursor = "#FFFFFF";
+    cursor = "#CDD3DE";
   };
   normal = {
     black = "#1B2B34";
@@ -49,8 +51,8 @@ let
   ];
 in
 {
-  alacritty_colors = {
-    inherit primary cursor normal bright;
+  options.myHome.colors = lib.mkOption {
+    default = { inherit primary cursor normal bright palette; };
+    readOnly = true;
   };
-  inherit palette primary cursor normal bright;
 }

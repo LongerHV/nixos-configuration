@@ -1,6 +1,7 @@
 {
   imports = [
     ./cli.nix
+    ./colors.nix
     ./devops.nix
     ./gnome
     ./neovim

@@ -3,9 +3,10 @@
 let
   cfg = config.myHome.gnome;
   profileUUID = "9e6bced8-89d4-4c52-aead-bbd59cbaad09";
-  colors = import ./colors.nix;
+  inherit (config.myHome) colors;
 in
 {
+  imports = [ ./terminal.nix ];
   options.myHome.gnome = with lib; {
     enable = mkEnableOption "gnome";
     wallpaper = mkOption {
