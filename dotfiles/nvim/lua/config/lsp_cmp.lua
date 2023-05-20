@@ -4,6 +4,16 @@ vim.o.completeopt = "menuone,noselect,preview"
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 local lspkind = require("lspkind")
+local copilot = require("copilot")
+local copilot_cmp = require("copilot_cmp")
+
+copilot.setup({
+	suggestion = { enabled = false },
+	panel = { enabled = false },
+})
+
+copilot_cmp.setup()
+
 cmp.setup({
 	preselect = cmp.PreselectMode.None,
 	snippet = {
@@ -39,6 +49,7 @@ cmp.setup({
 		end, { "i", "s" }),
 	}),
 	sources = {
+		{ name = "copilot" },
 		{ name = "nvim_lua" },
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
@@ -47,11 +58,13 @@ cmp.setup({
 	},
 	-- Pictograms
 	formatting = {
-		format = function(_, vim_item)
-			vim_item.kind = lspkind.presets.default[vim_item.kind] .. " " .. vim_item.kind
-			return vim_item
-		end,
-	},
+		format = lspkind.cmp_format({
+			mode = 'symbol',
+			maxwidth = 50,
+			ellipsis_char = '...',
+			symbol_map = { Copilot = "" },
+		})
+	}
 })
 
 -- Autopairs
