@@ -5,7 +5,7 @@ let
   autheliaUser = config.services.authelia.instances.main.user;
 in
 {
-  users.groups.lldap-secrets = {};
+  users.groups.lldap-secrets = { };
   age.secrets = {
     # Nix-serve
     cache_priv_key.file = ../../secrets/nasgul_cache_priv_key.pem.age;
