@@ -159,8 +159,8 @@ in
               require("lspconfig")["yamlls"].setup(cfg)
             '';
           }
-          pkgs.unstable.vimPlugins.copilot-lua
-          pkgs.unstable.vimPlugins.copilot-cmp
+          copilot-lua
+          copilot-cmp
           {
             plugin = nvim-cmp;
             type = "lua";

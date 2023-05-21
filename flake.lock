@@ -19,11 +19,11 @@
     "LuaSnip": {
       "flake": false,
       "locked": {
-        "lastModified": 1684502416,
-        "narHash": "sha256-QCHdBVsY1hllJhoBGC4gY6dDkgBZkSKql8dbX7sM3aU=",
+        "lastModified": 1684579808,
+        "narHash": "sha256-vmWCn6f4ihNwTswrxofjuC86C2FYF3wERNpvyiQGgz8=",
         "owner": "L3MON4D3",
         "repo": "LuaSnip",
-        "rev": "ec7fba1d119fb5090a901eb616145450ffb95e31",
+        "rev": "2f78933799ef1a8558057ea7d06d6ccb11140711",
         "type": "github"
       },
       "original": {
@@ -131,6 +131,38 @@
       "original": {
         "owner": "saadparwaiz1",
         "repo": "cmp_luasnip",
+        "type": "github"
+      }
+    },
+    "copilot-cmp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1683831407,
+        "narHash": "sha256-+MzEGnhlrYRvAfskOwmw69OC1CsPXt7s3z+xPe9XPqs=",
+        "owner": "zbirenbaum",
+        "repo": "copilot-cmp",
+        "rev": "c2cdb3c0f5078b0619055af192295830a7987790",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zbirenbaum",
+        "repo": "copilot-cmp",
+        "type": "github"
+      }
+    },
+    "copilot-lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1683572689,
+        "narHash": "sha256-+dqwwBHDRh1vmbgx8o1RVMEAN7Hlr5I5L71wdagDo/o=",
+        "owner": "zbirenbaum",
+        "repo": "copilot.lua",
+        "rev": "653bbdc44cd569a5fd0617e5a9d3df2b1359e230",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zbirenbaum",
+        "repo": "copilot.lua",
         "type": "github"
       }
     },
@@ -370,11 +402,11 @@
     "friendly-snippets": {
       "flake": false,
       "locked": {
-        "lastModified": 1684537978,
-        "narHash": "sha256-HxkNW8b/iG+hEaZmbpiwLbGUVRmR7FgE1PAJEHD3zes=",
+        "lastModified": 1684608097,
+        "narHash": "sha256-LN5fDxYcbTSF/HzuzSNpm1wXa5WlmjsB05i2V/lZ44Y=",
         "owner": "rafamadriz",
         "repo": "friendly-snippets",
-        "rev": "f674dae71b9daf5ba4a4daf0734f7780417237b1",
+        "rev": "28ee6669ab36cab6ff7d3d7f17ecb045e0138e7f",
         "type": "github"
       },
       "original": {
@@ -648,6 +680,8 @@
         "cmp-nvim-lua": "cmp-nvim-lua",
         "cmp-path": "cmp-path",
         "cmp_luasnip": "cmp_luasnip",
+        "copilot-cmp": "copilot-cmp",
+        "copilot-lua": "copilot-lua",
         "dashboard-nvim": "dashboard-nvim",
         "dressing": "dressing",
         "friendly-snippets": "friendly-snippets",
@@ -689,11 +723,11 @@
         "yaml-companion": "yaml-companion"
       },
       "locked": {
-        "lastModified": 1684544361,
-        "narHash": "sha256-B93VmyXEL4JsgcyS/lfzCa0rv3VTKql2uIPkiKOv1Tc=",
+        "lastModified": 1684660378,
+        "narHash": "sha256-Pnx4jZsbxWXDpk0WSfT4Cfs27UWS6BDuslOJovgAi58=",
         "owner": "LongerHV",
         "repo": "neovim-plugins-overlay",
-        "rev": "d3ad187353d7e0348a1f0905831e6a9515e1ecf9",
+        "rev": "507151818eb337c77e633cbb79be1f6a4adce1c6",
         "type": "github"
       },
       "original": {
