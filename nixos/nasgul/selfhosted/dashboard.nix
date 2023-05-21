@@ -20,6 +20,7 @@
   homelab.traefik.services.dash.port = 8082;
 
   services.dashy = {
+    package = pkgs.dashy.override { inherit (pkgs.previous) nodejs-16_x yarn2nix-moretea fetchYarnDeps; };
     enable = true;
     port = 8082;
     settings = {

@@ -1,5 +1,4 @@
-{ pkgs
-, fetchFromGitHub
+{ fetchFromGitHub
 , fetchYarnDeps
 , makeWrapper
 , nodejs-16_x
@@ -35,7 +34,6 @@ yarn2nix.mkYarnPackage {
 
   # https://stackoverflow.com/questions/74726224/opensslerrorstack-error03000086digital-envelope-routinesinitialization-e
   NODE_OPTIONS = "--openssl-legacy-provider";
-
 
   buildPhase = ''
     export HOME=$(mktemp -d)
