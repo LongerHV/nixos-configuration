@@ -223,6 +223,7 @@ in
           # Lua
           unstable.lua-language-server
           selene
+          stylua
 
           # Nix
           statix
