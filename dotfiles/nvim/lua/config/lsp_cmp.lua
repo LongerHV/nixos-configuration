@@ -59,12 +59,12 @@ cmp.setup({
 	-- Pictograms
 	formatting = {
 		format = lspkind.cmp_format({
-			mode = 'symbol',
+			mode = "symbol",
 			maxwidth = 50,
-			ellipsis_char = '...',
+			ellipsis_char = "...",
 			symbol_map = { Copilot = "" },
-		})
-	}
+		}),
+	},
 })
 
 -- Autopairs
