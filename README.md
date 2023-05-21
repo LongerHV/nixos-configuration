@@ -1,5 +1,8 @@
 # My NixOS configuration
 
+[![Made with Neovim](https://img.shields.io/badge/Made%20with-Neovim-green&?style=flat&logo=neovim)](https://neovim.io)
+[![NixOS](https://img.shields.io/badge/NixOS-22%2011-blue?style=flat&logo=nixos&logoColor=white)](https://nixos.org)
+
 ## NixOS
 
 ### Installation (assuming host config already exists)
