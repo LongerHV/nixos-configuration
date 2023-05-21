@@ -77,13 +77,6 @@ home-manager switch --flake .
 nix build .#nixosConfigurations.isoimage.config.system.build.isoImage
 ```
 
-## TODO
-
-- [ ] Explore migrating to systemd-networkd
-- [ ] Migrate Ender 3 (3d printer) to NixOS (klipper + mooonraker + fluidd)
-- [ ] Refactor homelab stuff (move to modules/nixos/homelab)
-- [ ] Use new ZFS mountpoints (instead of legacy)
-
 ## Resources
 
 - [Nix config template](https://github.com/Misterio77/nix-starter-configs)
