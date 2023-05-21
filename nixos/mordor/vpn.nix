@@ -1,5 +1,17 @@
 { config, ... }:
 
+let
+  mkMullvadInterface = { autostart, publicKey, endpoint }: {
+    inherit autostart;
+    address = [ "10.68.22.110/32" ];
+    privateKeyFile = config.age.secrets.mullvad_priv_key.path;
+    peers = [{
+      inherit publicKey endpoint;
+      allowedIPs = [ "0.0.0.0/0" ];
+      persistentKeepalive = 25;
+    }];
+  };
+in
 {
   age.secrets = {
     mullvad_priv_key = {
@@ -11,56 +23,25 @@
   };
   networking = {
     wg-quick.interfaces = {
-      wg-pl = {
-        address = [ "10.68.22.110/32" ];
-        privateKeyFile = config.age.secrets.mullvad_priv_key.path;
-        peers = [
-          {
-            publicKey = "fO4beJGkKZxosCZz1qunktieuPyzPnEVKVQNhzanjnA=";
-            allowedIPs = [ "0.0.0.0/0" ];
-            endpoint = "45.134.212.66:51820";
-            persistentKeepalive = 25;
-          }
-        ];
+      wg-pl = mkMullvadInterface {
+        autostart = true;
+        publicKey = "fO4beJGkKZxosCZz1qunktieuPyzPnEVKVQNhzanjnA=";
+        endpoint = "45.134.212.66:51820";
       };
-      wg-us = {
+      wg-us = mkMullvadInterface {
         autostart = false;
-        address = [ "10.68.22.110/32" ];
-        privateKeyFile = config.age.secrets.mullvad_priv_key.path;
-        peers = [
-          {
-            publicKey = "MRZsEblqO4wlq0WPnZgp5X9ex4Z2FHm9bljO/a/Mznk=";
-            allowedIPs = [ "0.0.0.0/0" ];
-            endpoint = "68.235.43.106:51820";
-            persistentKeepalive = 25;
-          }
-        ];
+        publicKey = "MRZsEblqO4wlq0WPnZgp5X9ex4Z2FHm9bljO/a/Mznk=";
+        endpoint = "68.235.43.106:51820";
       };
-      wg-jp = {
+      wg-jp = mkMullvadInterface {
         autostart = false;
-        address = [ "10.68.22.110/32" ];
-        privateKeyFile = config.age.secrets.mullvad_priv_key.path;
-        peers = [
-          {
-            publicKey = "4EhX6bW/gfcu75nPm9nyexX6cRZXN/RCt/TETfXF0jc=";
-            allowedIPs = [ "0.0.0.0/0" ];
-            endpoint = "217.138.252.226:51820";
-            persistentKeepalive = 25;
-          }
-        ];
+        publicKey = "4EhX6bW/gfcu75nPm9nyexX6cRZXN/RCt/TETfXF0jc=";
+        endpoint = "217.138.252.226:51820";
       };
-      wg-ch = {
+      wg-ch = mkMullvadInterface {
         autostart = false;
-        address = [ "10.68.22.110/32" ];
-        privateKeyFile = config.age.secrets.mullvad_priv_key.path;
-        peers = [
-          {
-            publicKey = "/iivwlyqWqxQ0BVWmJRhcXIFdJeo0WbHQ/hZwuXaN3g=";
-            allowedIPs = [ "0.0.0.0/0" ];
-            endpoint = "193.32.127.66:51820";
-            persistentKeepalive = 25;
-          }
-        ];
+        publicKey = "/iivwlyqWqxQ0BVWmJRhcXIFdJeo0WbHQ/hZwuXaN3g=";
+        endpoint = "193.32.127.66:51820";
       };
     };
   };
