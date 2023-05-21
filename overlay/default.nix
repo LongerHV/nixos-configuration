@@ -1,7 +1,6 @@
 final: prev: {
   dashy = prev.callPackage ./dashy.nix prev;
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
-  lldap = prev.callPackage ./lldap.nix prev;
 
   zsh-z = prev.zsh-z.overrideAttrs (attrs: rec {
     pname = "zsh-z";
