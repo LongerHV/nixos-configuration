@@ -108,13 +108,6 @@
               ./nixos/dol-guldur
             ];
           };
-          golum = nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages.x86_64-linux;
-            inherit specialArgs;
-            modules = defaultModules ++ [
-              ./nixos/golum
-            ];
-          };
           playground = nixpkgs.lib.nixosSystem {
             pkgs = legacyPackages.x86_64-linux;
             inherit specialArgs;
