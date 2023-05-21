@@ -723,11 +723,11 @@
         "yaml-companion": "yaml-companion"
       },
       "locked": {
-        "lastModified": 1684660378,
-        "narHash": "sha256-Pnx4jZsbxWXDpk0WSfT4Cfs27UWS6BDuslOJovgAi58=",
+        "lastModified": 1684661848,
+        "narHash": "sha256-y81MNmYuzgSvrM+yl7zp0Rnzy+Y9fzhgaPCqC8OCd0k=",
         "owner": "LongerHV",
         "repo": "neovim-plugins-overlay",
-        "rev": "507151818eb337c77e633cbb79be1f6a4adce1c6",
+        "rev": "3303d1ab1a3fda41d985a18a076d0857267453f2",
         "type": "github"
       },
       "original": {
@@ -1132,15 +1132,15 @@
     "oceanic-next": {
       "flake": false,
       "locked": {
-        "lastModified": 1667583917,
-        "narHash": "sha256-lXzUyRNVSLnJEPf18XuLAhrVMp15hL79pvKlcUgwloc=",
-        "owner": "LongerHV",
+        "lastModified": 1682948609,
+        "narHash": "sha256-f5isbjoGMsLlzWkxQAU2an4lwEiIPuXKAZGyezZlv/M=",
+        "owner": "mhartington",
         "repo": "oceanic-next",
-        "rev": "6aeeef1a235fdb7c8310ec7c761d60d024659076",
+        "rev": "09833f72d5ba23de2e8bcae18f479f326f5f677a",
         "type": "github"
       },
       "original": {
-        "owner": "LongerHV",
+        "owner": "mhartington",
         "repo": "oceanic-next",
         "type": "github"
       }
