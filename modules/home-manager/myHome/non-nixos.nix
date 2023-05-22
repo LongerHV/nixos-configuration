@@ -10,6 +10,7 @@ in
     home.packages = [
       pkgs.hostname
       config.nix.package # This must be here, enable option below does not ensure that nix is available in path
+      pkgs.nixgl.auto.nixGLDefault
     ];
 
     nix = {

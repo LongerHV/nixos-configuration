@@ -16,6 +16,7 @@
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     neovim-plugins.url = "github:LongerHV/neovim-plugins-overlay";
     neovim-plugins.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    nixgl.url = "github:guibou/nixGL";
 
     # Hold back lspkind until nerdfonds v3 situation is better
     lspkind-nvim.url = "github:onsails/lspkind-nvim?rev=c68b3a003483cf382428a43035079f78474cd11e";
@@ -34,6 +35,7 @@
     , agenix
     , deploy-rs
     , neovim-plugins
+    , nixgl
     , ...
     }@inputs:
     let
@@ -52,6 +54,7 @@
         };
         neovimPlugins = neovim-plugins.overlays.default;
         agenix = agenix.overlays.default;
+        nixgl = nixgl.overlays.default;
       };
 
       nixosModules = import ./modules/nixos;
