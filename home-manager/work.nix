@@ -17,4 +17,7 @@
       enableLSP = true;
     };
   };
+
+  # Workaround for freezing during activity switching on Ubuntu
+  dconf.settings."org/gnome/desktop/interface".enable-animations = false;
 }
