@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ... }:
+{ inputs, outputs, config, lib, pkgs, ... }:
 
 let
   cfg = config.myHome.nonNixos;
@@ -13,6 +13,8 @@ in
       pkgs.nixgl.auto.nixGLDefault
     ];
 
+    nixpkgs.overlays = builtins.attrValues outputs.overlays;
+    nixpkgs.config.allowUnfree = true;
     nix = {
       enable = true;
       package = pkgs.unstable.nix;

@@ -74,14 +74,6 @@
 
       templates = import ./templates;
 
-      legacyPackages = forAllSystems (system:
-        import inputs.nixpkgs {
-          inherit system;
-          overlays = builtins.attrValues overlays;
-          config.allowUnfree = true;
-        }
-      );
-
       nixosConfigurations =
         let
           defaultModules = (builtins.attrValues nixosModules) ++ [
@@ -92,42 +84,36 @@
         in
         {
           mordor = nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages.x86_64-linux;
             inherit specialArgs;
             modules = defaultModules ++ [
               ./nixos/mordor
             ];
           };
           nasgul = nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages.x86_64-linux;
             inherit specialArgs;
             modules = defaultModules ++ [
               ./nixos/nasgul
             ];
           };
           dol-guldur = nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages.x86_64-linux;
             inherit specialArgs;
             modules = defaultModules ++ [
               ./nixos/dol-guldur
             ];
           };
           playground = nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages.x86_64-linux;
             inherit specialArgs;
             modules = defaultModules ++ [
               ./nixos/playground
             ];
           };
           smaug = nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages.aarch64-linux;
             inherit specialArgs;
             modules = defaultModules ++ [
               ./nixos/smaug
             ];
           };
           sd-image = nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages.aarch64-linux;
             inherit specialArgs;
             modules = defaultModules ++ [
               "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix"
@@ -135,7 +121,6 @@
             ];
           };
           isoimage = nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages.x86_64-linux;
             system = "x86_64-linux";
             inherit specialArgs;
             modules = defaultModules ++ [
@@ -144,7 +129,6 @@
             ];
           };
           isoimage-server = nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages.x86_64-linux;
             system = "x86_64-linux";
             inherit specialArgs;
             modules = defaultModules ++ [
@@ -157,7 +141,6 @@
       homeConfigurations = {
         # Ubuntu at work
         mmieszczak = home-manager.lib.homeManagerConfiguration {
-          pkgs = legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs; };
           modules = (builtins.attrValues homeManagerModules) ++ [
             ./home-manager/work.nix
