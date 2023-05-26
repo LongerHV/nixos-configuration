@@ -15,11 +15,8 @@
 
   home.packages = with pkgs; [
     brave
-    freecad
     jellyfin-media-player
-    openscad
     protonup
-    reaper
     signal-desktop
     super-slicer-latest
 
