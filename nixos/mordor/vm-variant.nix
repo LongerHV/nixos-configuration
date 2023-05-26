@@ -14,7 +14,7 @@
         inherit (config.mySystem) user;
       };
     };
-    networking.wg-quick.interfaces.wg0.autostart = false;
+    networking.wg-quick.interfaces = lib.mkForce {};
     services.nix-serve.enable = lib.mkForce false;
     services.resolved.extraConfig = lib.mkForce "";
     virtualisation.docker.storageDriver = lib.mkForce "overlay2";
