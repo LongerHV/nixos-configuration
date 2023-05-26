@@ -58,17 +58,24 @@
         nixgl = nixgl.overlays.default;
       };
 
+      legacyPackages = forAllSystems (system:
+        import inputs.nixpkgs {
+          inherit system;
+          overlays = builtins.attrValues overlays;
+          config.allowUnfree = true;
+        }
+      );
+
       nixosModules = import ./modules/nixos;
       homeManagerModules = import ./modules/home-manager;
 
-      devShells = forAllSystems
-        (system: {
-          default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
-          node = nixpkgs.legacyPackages.${system}.callPackage ./shells/node.nix { };
-          python = nixpkgs.legacyPackages.${system}.callPackage ./shells/python.nix { };
-          pythonVenv = nixpkgs.legacyPackages.${system}.callPackage ./shells/pythonVenv.nix { };
-          lint = nixpkgs.legacyPackages.${system}.callPackage ./shells/lint.nix { };
-        });
+      devShells = forAllSystems (system: {
+        default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
+        node = nixpkgs.legacyPackages.${system}.callPackage ./shells/node.nix { };
+        python = nixpkgs.legacyPackages.${system}.callPackage ./shells/python.nix { };
+        pythonVenv = nixpkgs.legacyPackages.${system}.callPackage ./shells/pythonVenv.nix { };
+        lint = nixpkgs.legacyPackages.${system}.callPackage ./shells/lint.nix { };
+      });
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-fmt);
 
