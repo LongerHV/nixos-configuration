@@ -16,6 +16,7 @@ in
         remotePlay.openFirewall = true;
       };
       gamemode.enable = true;
+      sunshine.enable = true;
       corectrl = {
         enable = true;
         gpuOverclock.enable = true;

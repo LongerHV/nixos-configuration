@@ -5,4 +5,5 @@
   authelia = import ./authelia.nix;
   dashy = import ./dashy.nix;
   lldap = import ./lldap.nix;
+  sunshine = import ./sunshine.nix;
 }
