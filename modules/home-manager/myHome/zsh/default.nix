@@ -6,7 +6,6 @@
   };
 
   config = {
-    programs.command-not-found.enable = true;
     programs.direnv = {
       enable = true;
       enableZshIntegration = true;
@@ -35,9 +34,6 @@
         source ${./kubectl.zsh}
         source ${./git.zsh}
 
-        # History search bindings
-        bindkey '^[[A' history-substring-search-up
-        bindkey '^[[B' history-substring-search-down
         bindkey '^[[Z' reverse-menu-complete
       '';
       localVariables = {
@@ -51,6 +47,7 @@
       enableCompletion = true;
       enableSyntaxHighlighting = true;
       enableVteIntegration = true;
+      historySubstringSearch.enable = true;
       plugins = [
         {
           name = "zsh-history-substring-search";
