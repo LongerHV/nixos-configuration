@@ -32,8 +32,8 @@
         autoload -U promptinit; promptinit
       '';
       initExtra = ''
-        # Source additional files
-        for f in $HOME/.config/zsh/*.zsh; do source "$f"; done
+        source ${./kubectl.zsh}
+        source ${./git.zsh}
 
         # History search bindings
         bindkey '^[[A' history-substring-search-up
@@ -75,12 +75,6 @@
         }
       ];
     };
-
-    home.file = {
-      ".config/zsh" = {
-        recursive = true;
-        source = ../../../dotfiles/zsh;
-      };
-    };
+    home.file.".config/spaceship.zsh".source = ./spaceship.zsh;
   };
 }

@@ -1,8 +1,5 @@
-# Spaceship Prompt
-if [ $(whoami) = 'root' ]
-then
-    color='red'
-elif [ ${SSH_TTY} ]
+local color
+if [ ${SSH_TTY} ]
 then
     color='yellow'
 else
@@ -18,28 +15,25 @@ SPACESHIP_HOST_COLOR=$color
 SPACESHIP_HOST_COLOR_SSH="yellow"
 SPACESHIP_DIR_SHOW=always
 SPACESHIP_DIR_PREFIX=""
-SPACESHIP_DIR_COLOR="blue"
-if [ "$IN_NIX_SHELL" = "" ]
-then
-	SPACESHIP_CHAR_SYMBOL="$"
-else
-	SPACESHIP_CHAR_SYMBOL=""
-fi
+SPACESHIP_CHAR_SYMBOL="$"
 SPACESHIP_CHAR_SYMBOL_ROOT="#"
+SPACESHIP_CHAR_SYMBOL_SECONDARY="> "
 SPACESHIP_CHAR_SUFFIX=" "
 SPACESHIP_EXIT_CODE_SHOW=true
-SPACESHIP_VENV_SYMBOL="🐍 "
+SPACESHIP_VENV_SYMBOL="🐍"
 SPACESHIP_KUBECTL_SHOW=true
 SPACESHIP_KUBECTL_VERSION_SHOW=false
+SPACESHIP_KUBECTL_CONTEXT_SHOW_NAMESPACE=false
 
 SPACESHIP_PROMPT_ORDER=(
-  user          # Username section
-  host          # Hostname section
-  dir           # Current directory section
+  user
+  host
+  dir
   exit_code
-  git           # Git section (git_branch + git_status)
-  venv          # Python venv
-  kubectl       # Kubectl context
+  git
+  nix_shell
+  venv
+  kubectl
 )
 
 # Load custom sections from sections directory
@@ -54,6 +48,6 @@ if [[ -d ~/.config/zsh/sections ]]; then
 fi
 
 SPACESHIP_PROMPT_ORDER+=(
-  line_sep      # Line break
-  char          # Prompt character
+  line_sep
+  char
 )
