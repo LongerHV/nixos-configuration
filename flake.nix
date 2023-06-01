@@ -148,7 +148,8 @@
       homeConfigurations = {
         # Ubuntu at work
         mmieszczak = home-manager.lib.homeManagerConfiguration {
-          extraSpecialArgs = { inherit inputs; };
+          pkgs = legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
           modules = (builtins.attrValues homeManagerModules) ++ [
             ./home-manager/work.nix
           ];
