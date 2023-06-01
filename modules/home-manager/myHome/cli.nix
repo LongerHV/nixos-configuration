@@ -34,6 +34,7 @@ in
       neofetch
       openssh
       p7zip
+      ranger
       tree
       unzip
       wget
