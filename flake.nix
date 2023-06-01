@@ -19,11 +19,6 @@
     neovim-plugins.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nixgl.url = "github:guibou/nixGL";
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Hold back lspkind until nerdfonds v3 situation is better
-    lspkind-nvim.url = "github:onsails/lspkind-nvim?rev=c68b3a003483cf382428a43035079f78474cd11e";
-    lspkind-nvim.flake = false;
-    neovim-plugins.inputs.lspkind-nvim.follows = "lspkind-nvim";
   };
 
   outputs =
