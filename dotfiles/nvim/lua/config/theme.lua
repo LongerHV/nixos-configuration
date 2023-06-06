@@ -23,7 +23,7 @@ require("lualine").setup({
 		lualine_b = { "branch", "diff" },
 		lualine_c = { "diagnostics" },
 		lualine_x = { "encoding", "fileformat", "filetype" },
-		lualine_y = { "progress" },
+		lualine_y = { "progress", "searchcount" },
 		lualine_z = { "location" },
 	},
 	winbar = {
@@ -40,7 +40,7 @@ require("lualine").setup({
 				return "..."
 			end,
 		},
-		lualine_x = {},
+		lualine_x = { "buffers" },
 		lualine_y = {
 			function()
 				if not yaml_companion_ok then
