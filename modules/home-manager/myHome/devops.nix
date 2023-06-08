@@ -20,11 +20,13 @@ in
       azure-cli
       eksctl
       kind
-      kube3d
+      k3d
       kubectl
       kubelogin-oidc
       kubernetes-helm
       kubeseal
+      openstackclient
+      swiftclient
       teleport.client
       terraform
       tilt
