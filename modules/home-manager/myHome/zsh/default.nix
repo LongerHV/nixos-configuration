@@ -1,13 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./starship.nix ];
-
   options.myHome.zsh = with lib; {
     enable = mkEnableOption "zsh";
   };
 
-  config = lib.mkIf config.myHome.zsh.enable {
+  config = {
     programs.direnv = {
       enable = true;
       enableZshIntegration = true;
@@ -27,6 +25,10 @@
       initExtraBeforeCompInit = ''
         # Completion
         zstyle ':completion:*' menu yes select
+
+        # Prompt
+        source ${pkgs.spaceship-prompt}/lib/spaceship-prompt/spaceship.zsh
+        autoload -U promptinit; promptinit
       '';
       initExtra = ''
         source ${./kubectl.zsh}
@@ -70,5 +72,6 @@
         }
       ];
     };
+    home.file.".config/spaceship.zsh".source = ./spaceship.zsh;
   };
 }
