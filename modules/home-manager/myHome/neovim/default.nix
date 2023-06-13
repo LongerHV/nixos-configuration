@@ -243,6 +243,7 @@ in
           nodePackages.prettier
           nodePackages.eslint
           nodePackages.typescript-language-server
+          nodePackages.volar
 
           # Go
           go

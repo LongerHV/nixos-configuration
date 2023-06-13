@@ -15,6 +15,7 @@
   eslint = { settings.format = false; };
   jsonls = { init_options.provideFormatter = false; };
   html = { init_options.provideFormatter = false; };
+  volar.init_options.typescript.tsdk = "${pkgs.nodePackages.typescript}/lib/node_modules/typescript/lib";
   lua_ls = {
     settings.Lua = {
       runtime.version = "LuaJIT";

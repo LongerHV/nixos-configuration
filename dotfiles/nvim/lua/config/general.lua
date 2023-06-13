@@ -36,6 +36,7 @@ local indent_map = {
 	javascript = { tabstop = 2, shiftwidth = 2, expandtab = true },
 	markdown = { tabstop = 2, shiftwidth = 2, expandtab = true },
 	html = { tabstop = 2, shiftwidth = 2, expandtab = true },
+	vue = { tabstop = 2, shiftwidth = 2, expandtab = true },
 }
 local group = vim.api.nvim_create_augroup("MyCustomIndents", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
