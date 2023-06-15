@@ -13,6 +13,13 @@ vim.cmd("hi SignColumn guibg=NONE ctermbg=NONE")
 vim.cmd("hi EndOfBuffer guibg=NONE ctermbg=NONE")
 vim.cmd("hi WinSeparator guibg=NONE")
 
+
+local function alternative_file()
+	local filepath = vim.fn.expand("#")
+	return vim.fn.fnamemodify(filepath, ":t")
+end
+
+
 -- Status line
 local navic = require("nvim-navic")
 require("lualine").setup({
@@ -28,7 +35,7 @@ require("lualine").setup({
 	},
 	winbar = {
 		lualine_a = { "filename" },
-		lualine_b = {},
+		lualine_b = { alternative_file },
 		lualine_c = {
 			function()
 				if navic.is_available() then
@@ -40,7 +47,7 @@ require("lualine").setup({
 				return "..."
 			end,
 		},
-		lualine_x = { "buffers" },
+		lualine_x = {},
 		lualine_y = {
 			function()
 				if not yaml_companion_ok then
