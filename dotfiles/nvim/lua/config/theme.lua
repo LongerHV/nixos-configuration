@@ -13,12 +13,10 @@ vim.cmd("hi SignColumn guibg=NONE ctermbg=NONE")
 vim.cmd("hi EndOfBuffer guibg=NONE ctermbg=NONE")
 vim.cmd("hi WinSeparator guibg=NONE")
 
-
 local function alternative_file()
 	local filepath = vim.fn.expand("#")
 	return vim.fn.fnamemodify(filepath, ":t")
 end
-
 
 -- Status line
 local navic = require("nvim-navic")
