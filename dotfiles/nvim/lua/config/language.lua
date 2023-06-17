@@ -31,7 +31,7 @@ null_ls.setup({
 		-- Spelling
 		-- null_ls.builtins.completion.spell,
 		null_ls.builtins.diagnostics.codespell.with({
-			args = { "--builtin", "clear,rare,code", "-" },
+			args = { "--builtin", "clear,rare,code", "-L", "iam,statics", "-" },
 		}),
 
 		-- Nix
