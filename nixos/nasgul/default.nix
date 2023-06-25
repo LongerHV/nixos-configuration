@@ -16,8 +16,8 @@
       enable = true;
       home = ./home.nix;
     };
+    nix.substituters = [ "mordor" ];
   };
-
 
   boot.loader.grub = {
     enable = true;

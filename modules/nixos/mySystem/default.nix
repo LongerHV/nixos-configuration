@@ -45,7 +45,7 @@ in
     nixpkgs.overlays = builtins.attrValues outputs.overlays;
     nixpkgs.config.allowUnfree = true;
     nix = {
-      package = pkgs.unstable.nix;
+      package = pkgs.nix;
       extraOptions = ''
         experimental-features = nix-command flakes
       '' + lib.optionalString (config.age.secrets ? "extra_access_tokens") ''

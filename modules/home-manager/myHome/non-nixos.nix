@@ -17,7 +17,7 @@ in
     nixpkgs.config.allowUnfree = true;
     nix = {
       enable = true;
-      package = pkgs.unstable.nix;
+      package = pkgs.nix;
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
