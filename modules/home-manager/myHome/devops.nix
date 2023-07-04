@@ -25,6 +25,7 @@ in
       kubelogin-oidc
       kubernetes-helm
       kubeseal
+      minio-client
       openstackclient
       swiftclient
       teleport.client
