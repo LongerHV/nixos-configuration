@@ -6,7 +6,18 @@ let
     name = "kctx";
     runtimeInputs = [ kubectl fzf ];
     text = ''
-      kubectl config get-contexts -o name | fzf --height=10 | xargs kubectl config use-context
+      kubectl config get-contexts -o name \
+        | fzf --height=10 \
+        | xargs kubectl config use-context
+    '';
+  });
+  kctn = with pkgs; (writeShellApplication {
+    name = "kctn";
+    runtimeInputs = [ kubectl fzf ];
+    text = ''
+      kubectl get namespaces -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' \
+        | fzf --height=10 \
+        | xargs kubectl config set-context --current --namespace
     '';
   });
 in
@@ -37,6 +48,7 @@ in
       unstable.k9s
     ]) ++ [
       kctx
+      kctn
     ];
   };
 }
