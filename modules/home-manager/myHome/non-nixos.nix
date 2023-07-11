@@ -20,6 +20,7 @@ in
       package = pkgs.nix;
       extraOptions = ''
         experimental-features = nix-command flakes
+        !include ./extra.conf
       '';
       registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
       settings = {
