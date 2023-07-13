@@ -1,20 +1,20 @@
 { pkgs, ... }:
 
 {
-  programs.helix.languages.language = [
-    {
+  programs.helix.languages.language = with pkgs; [
+    (with nodePackages; {
       name = "python";
       file-types = [ "py" ];
       scope = "source.python";
       roots = [ "pyproject.toml" ];
       comment-token = "#";
       language-server = {
-        command = "${pkgs.nodePackages.pyright}/bin/pyright-langserver";
+        command = "${pyright}/bin/pyright-langserver";
         args = [ "--stdio" ];
       };
       config = { };
       indent = { tab-width = 4; unit = "    "; };
-    }
+    })
     {
       name = "go";
       scope = "source.go";
@@ -23,7 +23,7 @@
       roots = [ "go.work" "go.mod" ];
       auto-format = true;
       comment-token = "//";
-      language-server.command = "${pkgs.gopls}/bin/gopls";
+      language-server.command = "${gopls}/bin/gopls";
       indent = { tab-width = 4; unit = "\t"; };
     }
     {
@@ -35,12 +35,12 @@
       roots = [ ];
       comment-token = "#";
       indent = { tab-width = 2; unit = "  "; };
-      language-server.command = "${pkgs.nil}/bin/nil";
+      language-server.command = "${nil}/bin/nil";
       config.nil_ls.settings.nil.nix.flake.autoEvalInputs = true;
-      config.nil.formatting.command = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
+      config.nil.formatting.command = [ "${nixpkgs-fmt}/bin/nixpkgs-fmt" ];
       auto-format = true;
     }
-    {
+    (with nodePackages; {
       name = "bash";
       scope = "source.bash";
       injection-regex = "(shell|bash|zsh|sh)";
@@ -48,10 +48,13 @@
       shebangs = [ "sh" "bash" "dash" "zsh" ];
       roots = [ ];
       comment-token = "#";
-      language-server = { command = "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server"; args = [ "start" ]; };
+      language-server = {
+        command = "${bash-language-server}/bin/bash-language-server";
+        args = [ "start" ];
+      };
       indent = { tab-width = 2; unit = "  "; };
-    }
-    {
+    })
+    (with nodePackages; {
       name = "vue";
       scope = "source.vue";
       injection-regex = "vue";
@@ -59,10 +62,10 @@
       roots = [ "package.json" "vue.config.js" ];
       indent = { tab-width = 2; unit = "  "; };
       language-server = {
-        command = "${pkgs.nodePackages.volar}/bin/vue-language-server";
+        command = "${volar}/bin/vue-language-server";
         args = [ "--stdio" ];
       };
-      config.typescript.tsdk = "${pkgs.nodePackages.typescript}/lib/node_modules/typescript/lib";
-    }
+      config.typescript.tsdk = "${typescript}/lib/node_modules/typescript/lib";
+    })
   ];
 }
