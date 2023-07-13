@@ -14,6 +14,10 @@
       keys.normal = {
         space.F = ":format";
         Z.Z = ":wq";
+        G = "goto_last_line";
+        "^" = "goto_first_nonwhitespace";
+        "0" = "goto_line_start";
+        "$" = "goto_line_end";
       };
     };
   };

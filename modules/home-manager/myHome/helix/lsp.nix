@@ -75,8 +75,7 @@
       indent = { tab-width = 2; unit = "  "; };
 
     })
-    (with nodePackages;
-    {
+    (with nodePackages; {
       name = "vue";
       scope = "source.vue";
       injection-regex = "vue";
