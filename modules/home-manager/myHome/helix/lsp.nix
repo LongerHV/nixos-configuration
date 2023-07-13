@@ -51,5 +51,18 @@
       language-server = { command = "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server"; args = [ "start" ]; };
       indent = { tab-width = 2; unit = "  "; };
     }
+    {
+      name = "vue";
+      scope = "source.vue";
+      injection-regex = "vue";
+      file-types = [ "vue" ];
+      roots = [ "package.json" "vue.config.js" ];
+      indent = { tab-width = 2; unit = "  "; };
+      language-server = {
+        command = "${pkgs.nodePackages.volar}/bin/vue-language-server";
+        args = [ "--stdio" ];
+      };
+      config.typescript.tsdk = "${pkgs.nodePackages.typescript}/lib/node_modules/typescript/lib";
+    }
   ];
 }
