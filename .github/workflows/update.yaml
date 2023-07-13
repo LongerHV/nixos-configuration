@@ -18,10 +18,12 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
+
       - name: Create branch
         run: |
           git fetch
@@ -32,12 +34,14 @@ jobs:
             git checkout "$BRANCH_NAME"
             git reset --hard origin/master
           fi
+
       - name: Update lock
         run: |
           git config user.name 'github-actions'
           git config user.email 'actions@github.com'
           nix flake update --commit-lock-file
           git push --force --set-upstream origin "$BRANCH_NAME"
+
       - name: Open a PR
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

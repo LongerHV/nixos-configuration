@@ -14,12 +14,15 @@ jobs:
     steps:
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@main
+
       - name: Check out repository code
         uses: actions/checkout@v3
+
       - name: Workaround for broken check
         run: |
           nix eval --json .#nixosConfigurations.nasgul.config.services.dashy.package
           nix eval --json .#iproute2
+
       - name: Check flake
         run: |
           nix flake check --no-build
