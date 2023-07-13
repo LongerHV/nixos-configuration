@@ -16,6 +16,17 @@
       indent = { tab-width = 4; unit = "    "; };
     }
     {
+      name = "go";
+      scope = "source.go";
+      injection-regex = "go";
+      file-types = [ "go" ];
+      roots = [ "go.work" "go.mod" ];
+      auto-format = true;
+      comment-token = "//";
+      language-server.command = "${pkgs.gopls}/bin/gopls";
+      indent = { tab-width = 4; unit = "\t"; };
+    }
+    {
       name = "nix";
       scope = "source.nix";
       injection-regex = "nix";
