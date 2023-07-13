@@ -55,6 +55,24 @@
       indent = { tab-width = 2; unit = "  "; };
     })
     (with nodePackages; {
+      name = "javascript";
+      scope = "source.js";
+      injection-regex = "(js|javascript)";
+      file-types = [ "js" "mjs" "cjs" ];
+      shebangs = [ "node" ];
+      roots = [ ];
+      comment-token = "//";
+      language-server = {
+        command = "${typescript-language-server}/bin/typescript-language-server";
+        args = [ "--stdio" ];
+        language-id = "javascript";
+      };
+      config.tsserver.path = "${pkgs.nodePackages.typescript}/bin/tsserver";
+      indent = { tab-width = 2; unit = "  "; };
+
+    })
+    (with nodePackages;
+    {
       name = "vue";
       scope = "source.vue";
       injection-regex = "vue";
