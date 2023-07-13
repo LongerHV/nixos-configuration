@@ -85,5 +85,15 @@
       };
       config.typescript.tsdk = "${typescript}/lib/node_modules/typescript/lib";
     })
+    {
+      name = "toml";
+      scope = "source.toml";
+      injection-regex = "toml";
+      file-types = [ "toml" "poetry.lock" ];
+      roots = [ ];
+      comment-token = "#";
+      language-server = { command = "${taplo-cli}/bin/taplo"; args = [ "lsp" "stdio" ]; };
+      indent = { tab-width = 2; unit = "  "; };
+    }
   ];
 }
