@@ -23,9 +23,11 @@
       shebangs = [ ];
       roots = [ ];
       comment-token = "#";
+      indent = { tab-width = 2; unit = "  "; };
       language-server.command = "${pkgs.nil}/bin/nil";
       config.nil_ls.settings.nil.nix.flake.autoEvalInputs = true;
-      indent = { tab-width = 2; unit = "  "; };
+      config.nil.formatting.command = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
+      auto-format = true;
     }
   ];
 }
