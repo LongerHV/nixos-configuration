@@ -11,6 +11,10 @@
         rulers = [ 80 ];
         cursor-shape.insert = "bar";
       };
+      keys.normal = {
+        space.F = ":format";
+        Z.Z = ":wq";
+      };
     };
   };
 }

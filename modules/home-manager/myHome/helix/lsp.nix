@@ -2,19 +2,23 @@
 
 {
   programs.helix.languages.language = with pkgs; [
-    (with nodePackages; {
+    {
       name = "python";
       file-types = [ "py" ];
       scope = "source.python";
       roots = [ "pyproject.toml" ];
       comment-token = "#";
       language-server = {
-        command = "${pyright}/bin/pyright-langserver";
+        command = "${nodePackages.pyright}/bin/pyright-langserver";
         args = [ "--stdio" ];
       };
       config = { };
+      formatter = {
+        command = "${python3Packages.black}/bin/black";
+        args = [ "--quiet" "-" ];
+      };
       indent = { tab-width = 4; unit = "    "; };
-    })
+    }
     {
       name = "go";
       scope = "source.go";
