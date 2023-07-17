@@ -18,7 +18,7 @@
       enable = true;
       home = ./home.nix;
     };
-    nix.substituters = [ "nasgul" ];
+    nix.substituters = [ "nasgul" "helix" ];
   };
 
   boot = {
