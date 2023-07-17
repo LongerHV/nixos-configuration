@@ -7,6 +7,7 @@
 
   myHome = {
     nonNixos.enable = true;
+    nonNixos.nix.substituters = [ "nasgul" "helix" ];
     gnome.enable = true;
     devops.enable = true;
     cli.personalGitEnable = false;

@@ -2,9 +2,29 @@
 
 let
   cfg = config.myHome.nonNixos;
+  substituters = {
+    nasgul = {
+      url = "https://cache.local.longerhv.xyz/";
+      key = "cache.local.longerhv.xyz:ioE/YEOpla3uyof/kZQG+gNKgeBAhOMWh+riRAEzKDA=";
+    };
+    mordor = {
+      url = "http://mordor.lan:5000";
+      key = "mordor.lan:fY4rXQ7QqtaxsokDAA57U0kuXvlo9pzn3XgLs79TZX4";
+    };
+    helix = {
+      url = "https://helix.cachix.org";
+      key = "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs=";
+    };
+  };
 in
 {
-  options.myHome.nonNixos.enable = lib.mkEnableOption "nonNixos";
+  options.myHome.nonNixos = with lib; {
+    enable = mkEnableOption "nonNixos";
+    nix.substituters = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+    };
+  };
   config = lib.mkIf cfg.enable {
     home.sessionPath = [ "$HOME/.local/bin" ];
     home.packages = [
@@ -23,9 +43,17 @@ in
         !include ./extra.conf
       '';
       registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
-      settings = {
-        nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
-      };
+      settings = lib.mkMerge [
+        {
+          nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+          substituters = map (x: substituters.${x}.url) cfg.nix.substituters;
+          trusted-public-keys = map (x: substituters.${x}.key) cfg.nix.substituters;
+        }
+        {
+          trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+          substituters = lib.mkAfter [ "https://cache.nixos.org/" ];
+        }
+      ];
     };
     programs.home-manager.enable = true;
   };

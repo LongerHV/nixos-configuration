@@ -11,6 +11,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    helix.url = "github:helix-editor/helix";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     deploy-rs.url = "github:serokell/deploy-rs";
@@ -33,6 +34,7 @@
     , agenix
     , deploy-rs
     , neovim-plugins
+    , helix
     , nixgl
     , ...
     }@inputs:
@@ -50,6 +52,9 @@
         };
         neovimNightly = final: prev: {
           neovim-nightly = neovim-nightly-overlay.packages.${prev.system}.neovim;
+        };
+        helix = final: prev: {
+          helix = helix.packages.${prev.system}.helix;
         };
         neovimPlugins = neovim-plugins.overlays.default;
         agenix = agenix.overlays.default;

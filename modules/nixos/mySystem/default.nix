@@ -11,6 +11,10 @@ let
       url = "http://mordor.lan:5000";
       key = "mordor.lan:fY4rXQ7QqtaxsokDAA57U0kuXvlo9pzn3XgLs79TZX4";
     };
+    helix = {
+      url = "https://helix.cachix.org";
+      key = "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs=";
+    };
   };
 in
 {
