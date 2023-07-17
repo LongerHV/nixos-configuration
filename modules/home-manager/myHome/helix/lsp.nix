@@ -1,12 +1,33 @@
 { pkgs, ... }:
 
 {
-  programs.helix.languages = {
-    language-server = with pkgs; {
+  programs.helix.languages = with pkgs; {
+    language-server = {
       pyright = {
         command = "${nodePackages.pyright}/bin/pyright-langserver";
         args = [ "--stdio" ];
         config = { };
+      };
+      efm-python = {
+        command = "${efm-langserver}/bin/efm-langserver";
+        config = {
+          documentFormatting = true;
+          languages.python = with python3Packages; [
+            {
+              formatCommand = "${black}/bin/black --quiet -";
+              formatStdin = true;
+            }
+            {
+              formatCommand = "${isort}/bin/isort --quiet -";
+              formatStdin = true;
+            }
+            {
+              lintCommand = "${flake8}/bin/flake8 --stdin-display-name \${INPUT} -";
+              lintStdin = true;
+              lintFormats = [ "%f:%l:%s: %m" ];
+            }
+          ];
+        };
       };
       gopls.command = "${gopls}/bin/gopls";
       nil = {
@@ -35,18 +56,14 @@
         args = [ "lsp" "stdio" ];
       };
     };
-    language = with pkgs;[
+    language = [
       {
         name = "python";
         file-types = [ "py" ];
         scope = "source.python";
         roots = [ "pyproject.toml" ];
         comment-token = "#";
-        language-servers = [ "pyright" ];
-        formatter = {
-          command = "${python3Packages.black}/bin/black";
-          args = [ "--quiet" "-" ];
-        };
+        language-servers = [ "pyright" "efm-python" ];
         indent = { tab-width = 4; unit = "    "; };
       }
       {
