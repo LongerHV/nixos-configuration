@@ -22,9 +22,9 @@
               formatStdin = true;
             }
             {
-              lintCommand = "${flake8}/bin/flake8 --stdin-display-name \${INPUT} -";
+              lintCommand = "${pylama}/bin/pylama --from-stdin \${INPUT}";
               lintStdin = true;
-              lintFormats = [ "%f:%l:%s: %m" ];
+              lintFormats = [ "%f:%l:%c %m" ];
             }
           ];
         };
