@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   hl = config.homelab;
@@ -23,6 +23,7 @@ in
 
   config = lib.mkIf cfg.enable {
     users.users.nextcloud.extraGroups = [ "redis" "restic" ];
+    environment.systemPackages = [ pkgs.ffmpeg ];
 
     systemd = {
       tmpfiles.rules = [
