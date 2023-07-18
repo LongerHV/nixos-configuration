@@ -97,6 +97,8 @@ in
           redis = true;
           apcu = true;
         };
+        phpOptions.memory_limit = lib.mkForce "2048M";
+        phpExtraExtensions = all: [ all.pdlib all.bz2 ];
         extraOptions = {
           "memcache.local" = "\\OC\\Memcache\\APCu";
           "memcache.distributed" = "\\OC\\Memcache\\Redis";
