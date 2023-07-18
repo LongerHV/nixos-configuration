@@ -54,7 +54,7 @@
           neovim-nightly = neovim-nightly-overlay.packages.${prev.system}.neovim;
         };
         helix = final: prev: {
-          helix = helix.packages.${prev.system}.helix;
+          inherit (helix.packages.${prev.system}) helix;
         };
         neovimPlugins = neovim-plugins.overlays.default;
         agenix = agenix.overlays.default;
