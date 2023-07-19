@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  vscodeLSP = pkgs.nodePackages.vscode-langservers-extracted;
+in
 {
   programs.helix.languages = with pkgs; {
     language-server = {
@@ -29,7 +32,45 @@
           ];
         };
       };
-      gopls.command = "${gopls}/bin/gopls";
+      typescript-language-server = with nodePackages; {
+        command = "${typescript-language-server}/bin/typescript-language-server";
+        args = [ "--stdio" ];
+        config.tsserver.path = "${typescript}/bin/tsserver";
+      };
+      eslint = {
+        command = "${vscodeLSP}/bin/vscode-eslint-language-server";
+        args = [ "--stdio" ];
+        config = {
+          format = false;
+          packageManages = "npm";
+          nodePath = "";
+          workingDirectory.mode = "auto";
+          onIgnoredFiles = "off";
+          run = "onType";
+          validate = "on";
+          useESLintClass = false;
+          experimental = { };
+          codeAction = {
+            disableRuleComment = {
+              enable = true;
+              location = "separateLine";
+            };
+            showDocumentation.enable = true;
+          };
+        };
+      };
+      efm-prettier = {
+        command = "${efm-langserver}/bin/efm-langserver";
+        config = {
+          documentFormatting = true;
+          languages.javascript = with nodePackages; [
+            {
+              formatCommand = "${prettier}/bin/prettier --stdin-filepath \${INPUT}";
+              formatStdin = true;
+            }
+          ];
+        };
+      };
       nil = {
         command = "${nil}/bin/nil";
         config = {
@@ -41,15 +82,10 @@
         command = "${nodePackages.bash-language-server}/bin/bash-language-server";
         args = [ "start" ];
       };
-      typescript-language-server = {
-        command = "${nodePackages.typescript-language-server}/bin/typescript-language-server";
+      volar = with nodePackages; {
+        command = "${volar}/bin/vue-language-server";
         args = [ "--stdio" ];
-        config.tsserver.path = "${pkgs.nodePackages.typescript}/bin/tsserver";
-      };
-      volar = {
-        command = "${nodePackages.volar}/bin/vue-language-server";
-        args = [ "--stdio" ];
-        config.typescript.tsdk = "${nodePackages.typescript}/lib/node_modules/typescript/lib";
+        config.typescript.tsdk = "${typescript}/lib/node_modules/typescript/lib";
       };
       taplo = {
         command = "${taplo-cli}/bin/taplo";
@@ -109,7 +145,11 @@
         shebangs = [ "node" ];
         roots = [ ];
         comment-token = "//";
-        language-servers = [ "typescript-language-server" ];
+        language-servers = [
+          "efm-prettier"
+          { name = "typescript-language-server"; except-features = [ "format" ]; }
+          { name = "eslint"; except-features = [ "format" ]; }
+        ];
         indent = { tab-width = 2; unit = "  "; };
 
       }
