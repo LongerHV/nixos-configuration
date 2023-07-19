@@ -17,6 +17,7 @@ in
           line-number = "relative";
           cursorline = true;
           indent-guides.render = true;
+          color-modes = true;
           rulers = [ 80 ];
           cursor-shape.insert = "bar";
         };
