@@ -24,6 +24,7 @@ in
         keys.normal = {
           space.F = ":format";
           Z.Z = ":wq";
+          V = [ "ensure_selections_forward" "extend_to_line_end" ];
           G = "goto_last_line";
           "^" = "goto_first_nonwhitespace";
           "0" = "goto_line_start";
