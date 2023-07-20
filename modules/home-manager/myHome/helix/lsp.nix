@@ -2,12 +2,16 @@
 
 let
   vscodeLSP = pkgs.nodePackages.vscode-langservers-extracted;
+  # Use pyright version from unstable channel running on node from stable channel
+  pyright-unstable = pkgs.nodePackages.pyright.override {
+    inherit (pkgs.unstable.nodePackages.pyright) src version name;
+  };
 in
 {
   programs.helix.languages = with pkgs; {
     language-server = {
       pyright = {
-        command = "${nodePackages.pyright}/bin/pyright-langserver";
+        command = "${pyright-unstable}/bin/pyright-langserver";
         args = [ "--stdio" ];
         config = { };
       };
