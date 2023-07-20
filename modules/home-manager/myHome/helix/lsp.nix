@@ -71,6 +71,7 @@ in
           ];
         };
       };
+      gopls.command = "${gopls}/bin/gopls";
       nil = {
         command = "${nil}/bin/nil";
         config = {
