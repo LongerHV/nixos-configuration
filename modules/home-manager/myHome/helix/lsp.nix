@@ -36,6 +36,10 @@ in
           ];
         };
       };
+      docker-langserver = with nodePackages; {
+        command = "${dockerfile-language-server-nodejs}/bin/docker-langserver";
+        args = [ "--stdio" ];
+      };
       typescript-language-server = with nodePackages; {
         command = "${typescript-language-server}/bin/typescript-language-server";
         args = [ "--stdio" ];
@@ -133,6 +137,16 @@ in
         comment-token = "#";
         language-servers = [ "pyright" "efm-python" ];
         indent = { tab-width = 4; unit = "    "; };
+      }
+      {
+        name = "dockerfile";
+        scope = "source.dockerfile";
+        injection-regex = "docker|dockerfile";
+        roots = [ "Dockerfile" "Containerfile" ];
+        file-types = [ "Dockerfile" "dockerfile" "Containerfile" "containerfile" ];
+        comment-token = "#";
+        indent = { tab-width = 2; unit = "  "; };
+        language-servers = [ "docker-langserver" ];
       }
       {
         name = "go";
