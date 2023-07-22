@@ -67,13 +67,23 @@ in
         command = "${efm-langserver}/bin/efm-langserver";
         config = {
           documentFormatting = true;
-          languages.javascript = with nodePackages; [
+          languages."=" = with nodePackages; [
             {
               formatCommand = "${prettier}/bin/prettier --stdin-filepath \${INPUT}";
               formatStdin = true;
             }
           ];
         };
+      };
+      html-ls = {
+        command = "${vscodeLSP}/bin/vscode-html-language-server";
+        args = [ "--stdio" ];
+        config.provideFormatter = false;
+      };
+      css-ls = {
+        command = "${vscodeLSP}/bin/vscode-css-language-server";
+        args = [ "--stdio" ];
+        config.provideFormatter = false;
       };
       gopls.command = "${gopls}/bin/gopls";
       nil = {
@@ -157,6 +167,26 @@ in
         ];
         indent = { tab-width = 2; unit = "  "; };
 
+      }
+      {
+        name = "html";
+        scope = "text.html.basic";
+        injection-regex = "html";
+        file-types = [ "html" ];
+        roots = [ ];
+        language-servers = [ "html-ls" "efm-prettier" ];
+        auto-format = true;
+        indent = { tab-width = 2; unit = "  "; };
+      }
+      {
+        name = "css";
+        scope = "source.css";
+        injection-regex = "css";
+        file-types = [ "css" "scss" ];
+        roots = [ ];
+        language-servers = [ "css-ls" "efm-prettier" ];
+        auto-format = true;
+        indent = { tab-width = 2; unit = "  "; };
       }
       {
         name = "vue";
