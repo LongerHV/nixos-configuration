@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.myHome.helix;
@@ -7,10 +7,17 @@ in
   imports = [ ./lsp ];
   options.myHome.helix = with lib; {
     enable = mkEnableOption "helix";
+    extraPackages = mkOption {
+      type = types.listOf types.package;
+      default = [ ];
+    };
   };
   config = lib.mkIf cfg.enable {
     programs.helix = {
       enable = true;
+      package = pkgs.helix.override {
+        makeWrapperArgs = [ ''--suffix PATH : ${lib.makeBinPath cfg.extraPackages}'' ];
+      };
       settings = {
         theme = "nightfox";
         editor = {
