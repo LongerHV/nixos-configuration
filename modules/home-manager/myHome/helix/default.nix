@@ -4,7 +4,7 @@ let
   cfg = config.myHome.helix;
 in
 {
-  imports = [ ./lsp.nix ];
+  imports = [ ./lsp ];
   options.myHome.helix = with lib; {
     enable = mkEnableOption "helix";
   };
