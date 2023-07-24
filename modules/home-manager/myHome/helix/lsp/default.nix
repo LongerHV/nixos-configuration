@@ -18,6 +18,7 @@
     bash-language-server
     prettier
     yaml-language-server
+    dockerfile-language-server-nodejs
   ]);
 
   programs.helix.languages = with pkgs; {
