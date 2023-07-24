@@ -12,9 +12,12 @@
     gopls
     efm-langserver
     taplo
+    clang-tools
+    terraform-ls
   ] ++ (with nodePackages; [
     bash-language-server
     prettier
+    yaml-language-server
   ]);
 
   programs.helix.languages = with pkgs; {
