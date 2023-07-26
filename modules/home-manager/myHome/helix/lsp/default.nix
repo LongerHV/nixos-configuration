@@ -27,6 +27,7 @@
         nil_ls.settings.nil.nix.flake.autoEvalInputs = true;
         nil.formatting.command = [ "${nixpkgs-fmt}/bin/nixpkgs-fmt" ];
       };
+      yaml-language-server.config.yaml.keyOrdering = false;
       efm-prettier = {
         command = "efm-langserver";
         config = {
