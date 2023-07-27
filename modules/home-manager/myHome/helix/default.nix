@@ -36,6 +36,8 @@ in
           "^" = "goto_first_nonwhitespace";
           "0" = "goto_line_start";
           "$" = "goto_line_end";
+          "A-u" = "switch_to_lowercase";
+          "A-U" = "switch_to_uppercase";
         };
       };
     };
