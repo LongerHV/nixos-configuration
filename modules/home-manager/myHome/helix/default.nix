@@ -29,7 +29,6 @@ in
           cursor-shape.insert = "bar";
         };
         keys.normal = {
-          space.F = ":format";
           Z.Z = ":wq";
           V = [ "ensure_selections_forward" "extend_to_line_end" ];
           G = "goto_last_line";
@@ -38,6 +37,7 @@ in
           "$" = "goto_line_end";
           "A-u" = "switch_to_lowercase";
           "A-U" = "switch_to_uppercase";
+          "C-f" = ":format";
         };
       };
     };
