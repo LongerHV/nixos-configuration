@@ -112,8 +112,7 @@ in
       users.users."${gitea.user}".extraGroups = [ "sendgrid" ];
       services.gitea.settings.mailer = {
         ENABLED = true;
-        # Use PROTOCOL instead of MAILER_TYPE after 1.18
-        MAILER_TYPE = "sendmail";
+        PROTOCOL = "sendmail";
         SENDMAIL_PATH = hl.mail.sendmailPath;
         FROM = "gitea@${config.homelab.domain}";
       };
