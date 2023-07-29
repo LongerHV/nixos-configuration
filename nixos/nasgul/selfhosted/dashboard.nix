@@ -3,6 +3,7 @@
 {
   # /etc/hosts entries for dashy, to bypass authelia during status checks
   networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.${config.homelab.domain}") [
+    "auth"
     "bazarr"
     "blocky"
     "deluge"
@@ -19,8 +20,8 @@
 
   homelab.traefik.services.dash.port = 8082;
 
+  nixpkgs.config.permittedInsecurePackages = [ "nodejs-16.20.1" ];
   services.dashy = {
-    package = pkgs.dashy.override { inherit (pkgs.previous) nodejs-16_x yarn2nix-moretea fetchYarnDeps; };
     enable = true;
     port = 8082;
     settings = {
