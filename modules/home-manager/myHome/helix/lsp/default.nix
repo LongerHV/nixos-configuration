@@ -28,6 +28,7 @@
         nil.formatting.command = [ "${nixpkgs-fmt}/bin/nixpkgs-fmt" ];
       };
       yaml-language-server.config.yaml.keyOrdering = false;
+      vscode-json-language-server.config.provideFormatter = false;
       efm-prettier = {
         command = "efm-langserver";
         config = {
@@ -41,5 +42,12 @@
         };
       };
     };
+
+    language = [
+      {
+        name = "json";
+        language-servers = [ "efm-prettier" "vscode-json-language-server" ];
+      }
+    ];
   };
 }
