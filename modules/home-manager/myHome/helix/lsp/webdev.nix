@@ -36,16 +36,8 @@
           };
         };
       };
-      html-ls = {
-        command = "vscode-html-language-server";
-        args = [ "--stdio" ];
-        config.provideFormatter = false;
-      };
-      css-ls = {
-        command = "vscode-css-language-server";
-        args = [ "--stdio" ];
-        config.provideFormatter = false;
-      };
+      vscode-css-language-server.config.provideFormatter = false;
+      vscode-html-language-server.config.provideFormatter = false;
       volar = with nodePackages; {
         command = "vue-language-server";
         args = [ "--stdio" ];
@@ -62,15 +54,14 @@
           { name = "typescript-language-server"; except-features = [ "format" ]; }
           { name = "eslint"; except-features = [ "format" ]; }
         ];
-
       }
       {
         name = "html";
-        language-servers = [ "html-ls" "efm-prettier" ];
+        language-servers = [ "vscode-html-language-server" "efm-prettier" ];
       }
       {
         name = "css";
-        language-servers = [ "css-ls" "efm-prettier" ];
+        language-servers = [ "vscode-css-language-server" "efm-prettier" ];
       }
       {
         name = "vue";
