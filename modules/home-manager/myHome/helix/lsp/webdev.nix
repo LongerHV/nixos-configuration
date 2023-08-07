@@ -66,8 +66,13 @@
       {
         name = "vue";
         roots = [ "package.json" "vue.config.js" ];
-        language-servers = [ "volar" ];
+        language-servers = [
+          "efm-prettier"
+          { name = "volar"; except-features = [ "format" ]; }
+          { name = "eslint"; except-features = [ "format" ]; }
+        ];
       }
     ];
   };
 }
+
