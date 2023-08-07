@@ -30,6 +30,7 @@ in
         sonarr.port = 8989;
         radarr.port = 7878;
         prowlarr.port = 9696;
+        readarr.port = 8787;
         bazarr.port = config.services.bazarr.listenPort;
         deluge.port = config.services.deluge.web.port;
       };
@@ -44,6 +45,7 @@ in
       sonarr = { enable = true; group = "multimedia"; };
       radarr = { enable = true; group = "multimedia"; };
       bazarr = { enable = true; group = "multimedia"; };
+      readarr = { enable = true; group = "multimedia"; };
       prowlarr = { enable = true; };
       deluge = {
         enable = true;

@@ -135,6 +135,11 @@
               icon = "hl-bazarr";
             }
             {
+              title = "Readarr";
+              url = "https://readarr.${config.homelab.domain}";
+              icon = "hl-readarr";
+            }
+            {
               title = "Prowlarr";
               url = "https://prowlarr.${config.homelab.domain}";
               icon = "hl-prowlarr";

@@ -39,6 +39,7 @@ in
       "prometheus"
       "prowlarr"
       "radarr"
+      "readarr"
       "sonarr"
     ]
       (_: { middlewares = [ "authelia" ]; })
