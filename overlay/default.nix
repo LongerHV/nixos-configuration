@@ -2,6 +2,16 @@ final: prev: {
   dashy = prev.callPackage ./dashy.nix prev;
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
 
+  kubectl_1_25 = prev.kubectl.overrideAttrs (attrs: rec {
+    version = "1.25.12";
+    src = prev.fetchFromGitHub {
+      owner = "kubernetes";
+      repo = "kubernetes";
+      rev = "v${version}";
+      sha256 = "sha256-eGvTzBNFevHi3qgqzdURH6jGUeKjwJxYfzPu+tGa294=";
+    };
+  });
+
   zsh-z = prev.zsh-z.overrideAttrs (attrs: rec {
     pname = "zsh-z";
     version = "unstable-2023-01-27";
