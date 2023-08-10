@@ -12,6 +12,7 @@
     "prometheus"
     "prowlarr"
     "radarr"
+    "readarr"
     "rss"
     "sonarr"
     "traefik"
