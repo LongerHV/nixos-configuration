@@ -3,14 +3,6 @@
 {
   security.polkit.enable = true;
   networking.firewall.allowedTCPPorts = [ 80 config.services.moonraker.port ];
-  users = {
-    users.klipper = {
-      group = "klipper";
-      isSystemUser = true;
-    };
-    users.moonraker.extraGroups = [ "klipper" ];
-    groups.klipper = { };
-  };
   services = {
     nginx.clientMaxBodySize = "100M";
     fluidd.enable = true;
@@ -30,14 +22,15 @@
       in
       {
         enable = true;
-        user = "klipper";
-        group = "klipper";
+        user = config.services.moonraker.user;
+        group = config.services.moonraker.group;
         firmwares.mcu = {
           enable = true;
           configFile = ./config;
           inherit serial;
         };
         mutableConfig = true;
+        mutableConfigFolder= config.services.moonraker.stateDir;
         configFile = ./printer.cfg;
       };
   };
