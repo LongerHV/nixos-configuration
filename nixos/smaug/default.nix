@@ -38,7 +38,7 @@
   };
   systemd.network = {
     enable = true;
-    wait-online.extraArgs = [ "--interface" "eth0" ];
+    wait-online.extraArgs = [ "--interface" "end0" ];
   };
   services.openssh.enable = true;
 
