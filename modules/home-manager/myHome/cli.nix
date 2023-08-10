@@ -32,6 +32,7 @@ in
       htop
       jq
       neofetch
+      nix-tree
       openssh
       p7zip
       ranger
