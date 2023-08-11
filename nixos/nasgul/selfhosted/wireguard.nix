@@ -43,6 +43,11 @@
           publicKey = "G+C3TYE7mRU5YRk01lBQRbqTfrskokhLjIXU62XsdRw=";
           allowedIPs = [ "10.100.0.6" ];
         }
+        {
+          # iPad
+          publicKey = "UxFk/HxDVKQDaByAIyXQMw7Ns6iqbKxVNmd/Ed/FfFM=";
+          allowedIPs = [ "10.100.0.7" ];
+        }
       ];
     };
 
