@@ -1,5 +1,8 @@
 { config, ... }:
 
+let
+  serial = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0";
+in
 {
   security.polkit.enable = true;
   networking.firewall.allowedTCPPorts = [ 80 config.services.moonraker.port ];
@@ -16,22 +19,17 @@
         cors_domains = [ "*.lan" ];
       };
     };
-    klipper =
-      let
-        serial = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0";
-      in
-      {
+    klipper = {
+      enable = true;
+      inherit (config.services.moonraker) user group;
+      firmwares.mcu = {
         enable = true;
-        user = config.services.moonraker.user;
-        group = config.services.moonraker.group;
-        firmwares.mcu = {
-          enable = true;
-          configFile = ./config;
-          inherit serial;
-        };
-        mutableConfig = true;
-        mutableConfigFolder= config.services.moonraker.stateDir;
-        configFile = ./printer.cfg;
+        configFile = ./config;
+        inherit serial;
       };
+      mutableConfig = true;
+      mutableConfigFolder = config.services.moonraker.stateDir;
+      configFile = ./printer.cfg;
+    };
   };
 }
