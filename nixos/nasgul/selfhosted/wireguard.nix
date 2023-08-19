@@ -48,6 +48,11 @@
           publicKey = "UxFk/HxDVKQDaByAIyXQMw7Ns6iqbKxVNmd/Ed/FfFM=";
           allowedIPs = [ "10.100.0.7" ];
         }
+        {
+          # iPhone
+          publicKey = "uMk5rt9MiEodr9s+L7K/b4AB61c1qISWF4BK6UjtGRE=";
+          allowedIPs = [ "10.100.0.8" ];
+        }
       ];
     };
 
