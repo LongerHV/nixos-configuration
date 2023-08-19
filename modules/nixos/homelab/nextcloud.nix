@@ -98,6 +98,7 @@ in
           redis = true;
           apcu = true;
         };
+        maxUploadSize = "8G";
         phpOptions.memory_limit = lib.mkForce "2048M";
         phpExtraExtensions = all: [ all.pdlib all.bz2 ];
         extraOptions = {
