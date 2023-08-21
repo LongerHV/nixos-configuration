@@ -19,6 +19,7 @@ in
       kubernetes-helm
       kubeseal
       minio-client
+      mysql-client
       openstackclient
       swiftclient
       teleport.client
