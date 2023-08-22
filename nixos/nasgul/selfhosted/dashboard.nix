@@ -21,7 +21,7 @@
 
   homelab.traefik.services.dash.port = 8082;
 
-  nixpkgs.config.permittedInsecurePackages = [ "nodejs-16.20.1" ];
+  nixpkgs.config.permittedInsecurePackages = [ "nodejs-16.20.2" ];
   services.dashy = {
     enable = true;
     port = 8082;

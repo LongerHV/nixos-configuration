@@ -70,7 +70,6 @@ in
 
   services = {
     gitea.package = pkgs.unstable.gitea;
-    jellyfin.package = pkgs.unstable.jellyfin;
     nextcloud.maxUploadSize = "32G";
   };
 }
