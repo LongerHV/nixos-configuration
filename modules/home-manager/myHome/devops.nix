@@ -13,7 +13,6 @@ in
       azure-cli
       eksctl
       kind
-      k3d
       kubectl_1_25
       kubelogin-oidc
       kubernetes-helm
@@ -28,6 +27,7 @@ in
       unstable.fluxcd
       unstable.kubernetes-polaris
       unstable.kubeshark
+      unstable.k3d
       unstable.k9s
       (writeShellApplication {
         name = "kctx";
