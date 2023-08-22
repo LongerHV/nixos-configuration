@@ -32,6 +32,12 @@
       fsType = "zfs";
     };
 
+  fileSystems."/var/tmp" =
+    {
+      device = "rpool/root/var/tmp";
+      fsType = "zfs";
+    };
+
   fileSystems."/home" =
     {
       device = "rpool/root/home";

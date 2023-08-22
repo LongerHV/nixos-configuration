@@ -54,6 +54,7 @@ in
       enable = true;
       package = pkgs.nextcloud26;
       adminpassFile = secrets.nextcloud_admin_password.path;
+      tmpdir = "/var/tmp";
     };
     gitea.enable = true;
     multimedia = {
@@ -70,6 +71,6 @@ in
   services = {
     gitea.package = pkgs.unstable.gitea;
     jellyfin.package = pkgs.unstable.jellyfin;
-    invidious.package = pkgs.unstable.invidious;
+    nextcloud.maxUploadSize = "32G";
   };
 }
