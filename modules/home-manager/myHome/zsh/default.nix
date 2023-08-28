@@ -35,6 +35,12 @@
         source ${./git.zsh}
 
         bindkey '^[[Z' reverse-menu-complete
+
+        # Workaround for ZVM overwriting keybindings
+        zvm_after_init_commands+=("bindkey '^[[A' history-substring-search-up")
+        zvm_after_init_commands+=("bindkey '^[OA' history-substring-search-up")
+        zvm_after_init_commands+=("bindkey '^[[B' history-substring-search-down")
+        zvm_after_init_commands+=("bindkey '^[OB' history-substring-search-down")
       '';
       localVariables = {
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=13,underline";
@@ -47,13 +53,12 @@
       enableCompletion = true;
       enableSyntaxHighlighting = true;
       enableVteIntegration = true;
-      historySubstringSearch.enable = true;
+      historySubstringSearch = {
+        enable = true;
+        # searchUpKey = [ "^[[A" "^[OA" ];
+        # searchDownKey = [ "^[[B" "^[OB" ];
+      };
       plugins = [
-        {
-          name = "zsh-history-substring-search";
-          file = "zsh-history-substring-search.zsh";
-          src = "${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search";
-        }
         {
           name = "nix-shell";
           src = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
@@ -64,7 +69,7 @@
         }
         {
           name = "zsh-vi-mode";
-          src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode";
+          src = "${pkgs.unstable.zsh-vi-mode}/share/zsh-vi-mode";
         }
         {
           name = "zsh-z";
