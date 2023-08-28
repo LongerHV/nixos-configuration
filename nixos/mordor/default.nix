@@ -121,7 +121,7 @@
       enable = true;
       nssmdns = true;
     };
-    udev.packages = with pkgs; [ qmk-udev-rules yubikey-personalization ];
+    udev.packages = with pkgs; [ qmk-udev-rules yubikey-personalization via ];
     pcscd.enable = true;
   };
   system.stateVersion = "22.05";
