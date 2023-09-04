@@ -9,6 +9,7 @@
     "deluge"
     "grafana"
     "netdata"
+    "minio-console"
     "prometheus"
     "prowlarr"
     "radarr"
@@ -77,6 +78,11 @@
               title = "Miniflux";
               url = "https://rss.${config.homelab.domain}";
               icon = "hl-miniflux";
+            }
+            {
+              title = "MinIO";
+              url = "https://minio-console.${config.homelab.domain}";
+              icon = "hl-minio";
             }
           ];
         }
