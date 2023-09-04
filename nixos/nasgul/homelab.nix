@@ -70,6 +70,7 @@ in
 
   services = {
     gitea.package = pkgs.unstable.gitea;
+    gitea.settings.packages.CHUNKED_UPLOAD_PATH = "${config.services.gitea.stateDir}/tmp/package-upload";
     nextcloud.maxUploadSize = "32G";
   };
 }
