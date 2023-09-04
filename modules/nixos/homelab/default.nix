@@ -12,6 +12,7 @@ in
     ./invidious.nix
     ./mail.nix
     ./miniflux.nix
+    ./minio.nix
     ./monitoring.nix
     ./multimedia.nix
     ./mysql.nix

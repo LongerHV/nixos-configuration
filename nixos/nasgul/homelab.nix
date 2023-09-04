@@ -66,6 +66,10 @@ in
       enable = true;
       adminCredentialsFile = secrets.miniflux_admin_credentials.path;
     };
+    minio = {
+      enable = true;
+      rootCredentialsFile = secrets.minio_credentials.path;
+    };
   };
 
   services = {
