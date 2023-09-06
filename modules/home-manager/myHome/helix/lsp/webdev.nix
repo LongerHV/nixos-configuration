@@ -57,15 +57,18 @@
       }
       {
         name = "html";
+        auto-format = false;
         language-servers = [ "vscode-html-language-server" "efm-prettier" ];
       }
       {
         name = "css";
+        auto-format = false;
         language-servers = [ "vscode-css-language-server" "efm-prettier" ];
       }
       {
         name = "vue";
         roots = [ "package.json" "vue.config.js" ];
+        auto-format = false;
         language-servers = [
           "efm-prettier"
           { name = "volar"; except-features = [ "format" ]; }
