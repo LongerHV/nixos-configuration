@@ -1,24 +1,16 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  };
 
-  outputs = { self, nixpkgs, flake-utils }: flake-utils.lib.eachDefaultSystem (system:
+  outputs = { nixpkgs, ... }:
     let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      forAllSystems = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
     in
     {
-      devShell = pkgs.mkShell {
-        buildInputs = with pkgs.python3Packages; [ python venvShellHook ];
-        venvDir = "./.venv";
-        postVenvCreation = ''
-          unset SOURCE_DATE_EPOCH
-        '';
-        postShellHook = ''
-          unset SOURCE_DATE_EPOCH
-        '';
-      };
-    }
-  );
+      devShells = forAllSystems (system: {
+        default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
+      });
+    };
 }
+
