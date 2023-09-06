@@ -2,6 +2,7 @@
 
 let
   inherit (config.age) secrets;
+  hl = config.homelab;
 in
 {
   homelab = {
@@ -76,5 +77,22 @@ in
     gitea.package = pkgs.unstable.gitea;
     gitea.settings.packages.CHUNKED_UPLOAD_PATH = "${config.services.gitea.stateDir}/tmp/package-upload";
     nextcloud.maxUploadSize = "32G";
+    traefik.dynamicConfigOptions.http = {
+      middlewares.notes-404.errors = {
+        status = [ 404 ];
+        service = "minio";
+        query = "/notes/static/404.html";
+      };
+      middlewares.notes-add-prefix.addPrefix.prefix = "/notes/static";
+      middlewares.notes-add-index.replacepathregex = {
+        regex = "(.*)/$";
+        replacement = "$1/index.html";
+      };
+      routers.notes = {
+        rule = "Host(`notes.${hl.domain}`)";
+        middlewares = [ "authelia" "notes-add-index" "notes-add-prefix" "notes-404" ];
+        service = "minio";
+      };
+    };
   };
 }

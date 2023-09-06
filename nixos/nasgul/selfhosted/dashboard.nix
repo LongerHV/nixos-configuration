@@ -39,7 +39,10 @@
             title = "GitLab";
             path = "https://gitlab.com/LongerHV";
           }
-
+          {
+            title = "Notes";
+            path = "https://notes.${config.homelab.domain}";
+          }
         ];
       };
       appConfig = {
