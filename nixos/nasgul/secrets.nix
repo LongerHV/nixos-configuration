@@ -6,6 +6,8 @@ let
 in
 {
   users.groups.lldap-secrets = { };
+  users.groups.gitea-secrets = { };
+
   age.secrets = {
     # Nix-serve
     cache_priv_key.file = ../../secrets/nasgul_cache_priv_key.pem.age;
@@ -50,6 +52,13 @@ in
     nextcloud_admin_password = {
       file = ../../secrets/nasgul_nextcloud_admin_password.age;
       owner = "nextcloud";
+    };
+
+    # Gitea
+    gitea_actions_token = {
+      file = ../../secrets/nasgul_gitea_actions_token.age;
+      mode = "0440";
+      group = "gitea-secrets";
     };
 
     # Authelia

@@ -28,6 +28,7 @@ in
   "nasgul_ldap_password.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_minio_root_credentials.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_sendgrid_token.age".publicKeys = [ nasgul mordor_user ];
+  "nasgul_gitea_actions_token.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_restic_s3_key.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_restic_password.age".publicKeys = [ nasgul mordor_user backup ];
   "nasgul_lldap_private_key.age".publicKeys = [ nasgul mordor_user ];

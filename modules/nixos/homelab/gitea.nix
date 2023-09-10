@@ -9,8 +9,14 @@ let
   domain = "gitea.${hl.domain}";
 in
 {
-  options.homelab.gitea = {
-    enable = lib.mkEnableOption "gitea";
+  options.homelab.gitea = with lib; {
+    enable = mkEnableOption "gitea";
+    actions = {
+      enable = mkEnableOption "actions";
+      tokenFile = mkOption {
+        type = types.str;
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -115,6 +121,18 @@ in
         PROTOCOL = "sendmail";
         SENDMAIL_PATH = hl.mail.sendmailPath;
         FROM = "gitea@${config.homelab.domain}";
+      };
+    })
+
+    (lib.mkIf hl.gitea.actions.enable {
+      services.gitea-actions-runner.instances."${config.networking.hostName}" = {
+        enable = true;
+        name = config.networking.hostName;
+        url = gitea.settings.server.ROOT_URL;
+        inherit (hl.gitea.actions) tokenFile;
+        labels = [
+          "debian-latest:docker://node:18-bullseye"
+        ];
       };
     })
   ]);

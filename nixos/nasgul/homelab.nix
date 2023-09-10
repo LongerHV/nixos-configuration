@@ -57,7 +57,13 @@ in
       adminpassFile = secrets.nextcloud_admin_password.path;
       tmpdir = "/var/tmp";
     };
-    gitea.enable = true;
+    gitea = {
+      enable = true;
+      actions = {
+        enable = true;
+        tokenFile = secrets.gitea_actions_token.path;
+      };
+    };
     multimedia = {
       enable = true;
       deluge.interface = "wg1";
@@ -73,9 +79,14 @@ in
     };
   };
 
+  systemd.services.gitea-runner-nasgul.serviceConfig.SupplementaryGroups = [ "gitea-secrets" ];
+  services.gitea-actions-runner.package = pkgs.unstable.gitea-actions-runner;
+
   services = {
-    gitea.package = pkgs.unstable.gitea;
-    gitea.settings.packages.CHUNKED_UPLOAD_PATH = "${config.services.gitea.stateDir}/tmp/package-upload";
+    gitea = {
+      package = pkgs.unstable.gitea;
+      settings.packages.CHUNKED_UPLOAD_PATH = "${config.services.gitea.stateDir}/tmp/package-upload";
+    };
     nextcloud.maxUploadSize = "32G";
     traefik.dynamicConfigOptions.http = {
       middlewares.notes-404.errors = {
