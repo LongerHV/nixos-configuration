@@ -131,6 +131,7 @@ in
         url = gitea.settings.server.ROOT_URL;
         inherit (hl.gitea.actions) tokenFile;
         labels = [
+          "native:host"
           "debian-latest:docker://node:18-bullseye"
         ];
       };
