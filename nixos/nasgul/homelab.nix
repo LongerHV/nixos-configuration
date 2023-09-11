@@ -94,7 +94,7 @@ in
         service = "minio";
         query = "/notes/static/404.html";
       };
-      middlewares.notes-add-prefix.addPrefix.prefix = "/notes/static";
+      middlewares.notes-add-prefix.addPrefix.prefix = "/notes";
       middlewares.notes-add-index.replacepathregex = {
         regex = "(.*)/$";
         replacement = "$1/index.html";
