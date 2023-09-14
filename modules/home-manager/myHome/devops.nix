@@ -14,6 +14,7 @@ in
       eksctl
       kind
       kubectl_1_25
+      kubelogin
       kubelogin-oidc
       kubernetes-helm
       kubeseal
