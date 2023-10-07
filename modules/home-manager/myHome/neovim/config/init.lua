@@ -1,0 +1,6 @@
+require("config.general")
+require("config.telescope")
+require("config.treesitter")
+require("config.keymaps")
+require("config.miniclue")
+require("config.theme")

@@ -1,7 +1,13 @@
 { pkgs, ... }:
+
 {
   clangd = { };
-  nil_ls = { settings.nil.nix.flake.autoEvalInputs = true; };
+  nil_ls = {
+    settings.nil = {
+      nix.flake.autoEvalInputs = true;
+      formatting.command = [ "nixpkgs-fmt" ];
+    };
+  };
   pyright = { };
   dockerls = { };
   bashls = { };

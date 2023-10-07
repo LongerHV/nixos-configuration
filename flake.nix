@@ -9,8 +9,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
     helix.url = "github:helix-editor/helix";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +28,6 @@
     , nixpkgs-master
     , nixos-hardware
     , home-manager
-    , neovim-nightly-overlay
     , agenix
     , deploy-rs
     , neovim-plugins
@@ -49,9 +46,6 @@
           previous = nixpkgs-prev.legacyPackages.${prev.system};
           unstable = nixpkgs-unstable.legacyPackages.${prev.system};
           master = nixpkgs-master.legacyPackages.${prev.system};
-        };
-        neovimNightly = final: prev: {
-          neovim-nightly = neovim-nightly-overlay.packages.${prev.system}.neovim;
         };
         helix = final: prev: {
           inherit (helix.packages.${prev.system}) helix;

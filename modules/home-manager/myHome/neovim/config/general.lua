@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 -- Line numbering
 vim.api.nvim_win_set_option(0, "number", true)
 vim.api.nvim_win_set_option(0, "relativenumber", true)
@@ -6,15 +8,9 @@ vim.api.nvim_win_set_option(0, "wrap", false)
 -- Better Markdown
 vim.api.nvim_set_option("conceallevel", 0)
 
--- Mouse
-vim.api.nvim_set_option("mouse", "a")
-
 -- Search case
 vim.api.nvim_set_option("ignorecase", true)
 vim.api.nvim_set_option("smartcase", true)
-
--- Syntax highlighting
-vim.o.syntax = "enable"
 
 -- Hide command line
 vim.api.nvim_set_option("cmdheight", 0)
@@ -22,6 +18,25 @@ vim.api.nvim_set_option("cmdheight", 0)
 -- Minimal number of lines to scroll when the cursor gets off the screen
 vim.api.nvim_set_option("scrolloff", 8)
 vim.api.nvim_set_option("sidescrolloff", 8)
+
+-- Mini.nvim
+require("mini.pairs").setup()
+require("mini.trailspace").setup()
+require("mini.surround").setup()
+require("mini.statusline")
+require("mini.comment").setup({
+	mappings = {
+		comment = "<C-c>",
+		comment_line = "<C-c>",
+	},
+})
+
+-- Indentline
+require("ibl").setup({
+	scope = {
+		enabled = false
+	}
+})
 
 -- Indents
 vim.api.nvim_set_option("tabstop", 4)

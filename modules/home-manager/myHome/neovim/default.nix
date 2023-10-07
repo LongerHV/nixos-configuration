@@ -19,111 +19,22 @@ in
         withNodeJs = true;
         withPython3 = true;
         withRuby = false;
-        extraConfig = ''
-          let mapleader=" "
-
-          lua <<EOF
-          require("config.general")
-          require("config.remaps")
-          EOF
+        extraLuaConfig = ''
+          require("config")
         '';
         plugins = with pkgs.nvimPlugins; [
-          {
-            plugin = pkgs.unstable.vimPlugins.nvim-treesitter.withAllGrammars;
-            type = "lua";
-            config = ''
-
-              require("config.treesitter")
-          '';
-          }
-          nvim-treesitter-textobjects
+          indent-blankline
+          mini
           nvim-ts-rainbow
-          {
-            plugin = telescope;
-            type = "lua";
-            config = ''
-              require("config.telescope")
-            '';
-          }
-          telescope-file-browser
+          oceanic-next
+          pkgs.unstable.vimPlugins.nvim-treesitter.withAllGrammars
           plenary
-          {
-            plugin = nvim-tree;
-            type = "lua";
-            config = ''
-              require("config.tree")
-            '';
-          }
-          nvim-web-devicons
-          {
-            plugin = which-key;
-            type = "lua";
-            config = ''
-              vim.api.nvim_set_option("timeoutlen", 300)
-              require("which-key").setup({})
-            '';
-          }
-          {
-            plugin = Comment;
-            type = "lua";
-            config = ''
-              require("config.comment")
-            '';
-          }
-          vim-surround
-          vim-repeat
-          {
-            plugin = gitsigns;
-            type = "lua";
-            config = ''
-              require("gitsigns").setup()
-            '';
-          }
-          {
-            plugin = dashboard-nvim;
-            type = "lua";
-            config = ''
-              require("config.dashboard")
-            '';
-          }
-          {
-            plugin = oceanic-next;
-            type = "lua";
-            config = ''
-              require("config.theme")
-            '';
-          }
-          {
-            plugin = indent-blankline;
-            type = "lua";
-            config = ''
-              require("config.blankline")
-            '';
-          }
-          lualine
-          nvim-navic
-          {
-            plugin = nvim-colorizer;
-            type = "lua";
-            config = ''
-              require("colorizer").setup()
-            '';
-          }
-          {
-            plugin = dressing;
-            type = "lua";
-            config = ''
-              require("dressing").setup()
-            '';
-          }
-          popup
+          telescope
+          telescope-file-browser
         ];
         extraPackages = with pkgs; [
-          # Essentials
           nodePackages.npm
           nodePackages.neovim
-
-          # Telescope dependencies
           ripgrep
           fd
         ];
@@ -131,140 +42,33 @@ in
 
       (lib.mkIf cfg.enableLSP {
         plugins = with pkgs.nvimPlugins; [
-          (
-            let
-              lspServers = pkgs.writeText "lsp_servers.json" (builtins.toJSON (import ./lsp_servers.nix { inherit pkgs; }));
-            in
-            {
-              plugin = nvim-lspconfig;
-              type = "lua";
-              config = ''
-                require("config.lsp").setup_servers("${lspServers}")
-                require("config.lsp_cmp")
+          {
+            plugin = nvim-lspconfig;
+            type = "lua";
+            config =
+              let
+                lspServers = pkgs.writeText "lsp_servers.json" (builtins.toJSON (import ./lsp_servers.nix { inherit pkgs; }));
+              in
+              ''
+                require("config.languages").setup_servers("${lspServers}")
               '';
-            }
-          )
-          lsp_signature
-          nvim-code-action-menu
-          {
-            plugin = yaml-companion;
-            type = "lua";
-            config = ''
-              require("telescope").load_extension("yaml_schema")
-              local cfg = require("yaml-companion").setup({})
-              require("lspconfig")["yamlls"].setup(cfg)
-            '';
-          }
-          copilot-lua
-          copilot-cmp
-          {
-            plugin = nvim-cmp;
-            type = "lua";
-            config = ''
-              require("config.lsp_cmp")
-            '';
-          }
-          cmp-path
-          cmp-buffer
-          cmp-nvim-lsp
-          cmp-nvim-lua
-          cmp_luasnip
-          nvim-autopairs
-          {
-            plugin = LuaSnip;
-            type = "lua";
-            config = ''
-              require("config.snippets")
-            '';
-          }
-          friendly-snippets
-          lspkind-nvim
-          {
-            plugin = null-ls;
-            type = "lua";
-            config = ''
-              require("config.language")
-            '';
-          }
-          {
-            plugin = nvim-dap;
-            type = "lua";
-            config = ''
-              require("config.debug")
-            '';
-          }
-          nvim-dap-ui
-          nvim-dap-go
-          nvim-dap-python
-          {
-            plugin = refactoring;
-            type = "lua";
-            config = ''
-              require("config.refactoring")
-            '';
           }
         ];
         extraPackages = with pkgs; [
-          # Python
-          (python3.withPackages (ps: with ps; [
-            setuptools # Required by pylama for some reason
-            pylama
-            black
-            isort
-            yamllint
-            debugpy
-          ]))
-          nodePackages.pyright
-
-          # Lua
+          (nodePackages.pyright.override {
+            inherit (unstable.nodePackages.pyright) src version name;
+          })
           unstable.lua-language-server
-          selene
-          stylua
-
-          # Nix
-          statix
-          nixpkgs-fmt
           unstable.nil
-
-          # C, C++
-          clang-tools
-          cppcheck
-
-          # Shell scripting
-          shfmt
-          shellcheck
-          shellharden
-
-          # JavaScript
-          nodePackages.prettier
-          nodePackages.eslint
-          nodePackages.typescript-language-server
-          nodePackages.volar
-
-          # Go
-          go
-          gopls
-          golangci-lint
-          delve
-
-          # Additional
-          nodePackages.bash-language-server
-          nodePackages.yaml-language-server
-          nodePackages.dockerfile-language-server-nodejs
-          nodePackages.vscode-langservers-extracted
-          nodePackages.markdownlint-cli
-          taplo-cli
-          codespell
-          gitlint
-          terraform-ls
-          actionlint
+          unstable.gopls
+          nixpkgs-fmt
         ];
       })
     ];
 
-    xdg.configFile.nvim = {
+    xdg.configFile."nvim/lua/config" = {
       recursive = true;
-      source = ../../../../dotfiles/nvim;
+      source = ./config;
     };
   };
 }
