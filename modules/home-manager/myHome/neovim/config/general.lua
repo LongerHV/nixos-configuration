@@ -34,8 +34,8 @@ require("mini.comment").setup({
 -- Indentline
 require("ibl").setup({
 	scope = {
-		enabled = false
-	}
+		enabled = false,
+	},
 })
 
 -- Indents

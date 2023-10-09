@@ -2,7 +2,7 @@ local M = {}
 local lspconfig = require("lspconfig")
 local telescope = require("telescope.builtin")
 
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = "Open diagnostics" })
+vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Open diagnostics" })
 vim.keymap.set("n", "<C-f>", "<nop>") -- Disable default binding
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -11,18 +11,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local function opts(desc)
 			return { buffer = ev.buf, desc = desc }
 		end
-		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts("Goto declaration"))
-		vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts("Goto definition"))
-		vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts("Goto implementation"))
-		vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, opts("Hover"))
-		vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts("Show signature"))
-		vim.keymap.set('n', '<space>r', vim.lsp.buf.rename, opts("Rename symbol"))
-		vim.keymap.set({ 'n', 'v' }, '<space>a', vim.lsp.buf.code_action, opts("Code actions"))
-		vim.keymap.set('n', '<leader>r', telescope.lsp_references, opts("Open references picker"))
-		vim.keymap.set('n', '<C-f>', function()
-			vim.lsp.buf.format { async = true }
+		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts("Goto declaration"))
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("Goto definition"))
+		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts("Goto implementation"))
+		vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, opts("Hover"))
+		vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts("Show signature"))
+		vim.keymap.set("n", "<space>r", vim.lsp.buf.rename, opts("Rename symbol"))
+		vim.keymap.set({ "n", "v" }, "<space>a", vim.lsp.buf.code_action, opts("Code actions"))
+		vim.keymap.set("n", "<leader>r", telescope.lsp_references, opts("Open references picker"))
+		vim.keymap.set("n", "<C-f>", function()
+			vim.lsp.buf.format({ async = true })
 		end, opts("Format buffer"))
-	end
+	end,
 })
 
 require("mini.completion").setup()
