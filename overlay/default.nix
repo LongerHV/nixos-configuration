@@ -1,5 +1,6 @@
 final: prev: {
   dashy = prev.callPackage ./dashy.nix prev;
+  templ = prev.callPackage ./templ.nix prev;
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
 
   kubectl_1_25 = prev.kubectl.overrideAttrs (attrs: rec {

@@ -61,6 +61,7 @@ in
           unstable.nil
           unstable.gopls
           nixpkgs-fmt
+          templ
         ];
       })
     ];

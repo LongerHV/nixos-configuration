@@ -13,6 +13,7 @@
   bashls = { };
   terraformls = { };
   gopls = { };
+  templ = { };
   tsserver = {
     init_options.tsserver.path = "${pkgs.nodePackages.typescript}/bin/tsserver";
   };
