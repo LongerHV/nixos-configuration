@@ -62,6 +62,12 @@ in
           unstable.gopls
           nixpkgs-fmt
           templ
+          nodePackages.bash-language-server
+          nodePackages.yaml-language-server
+          nodePackages.dockerfile-language-server-nodejs
+          nodePackages.vscode-langservers-extracted
+          nodePackages.typescript-language-server
+          terraform-ls
         ];
       })
     ];
