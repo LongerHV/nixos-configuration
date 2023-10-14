@@ -53,6 +53,11 @@
           publicKey = "uMk5rt9MiEodr9s+L7K/b4AB61c1qISWF4BK6UjtGRE=";
           allowedIPs = [ "10.100.0.8" ];
         }
+        {
+          # Dell
+          publicKey = "1AHpaG+jDBUYqHto1whhHQHx51vf7kTIrxl6tAUewnk=";
+          allowedIPs = [ "10.100.0.9" ];
+        }
       ];
     };
 
