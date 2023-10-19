@@ -24,7 +24,6 @@ in
         plugins = with pkgs.nvimPlugins; [
           indent-blankline
           mini
-          nvim-ts-rainbow
           oceanic-next
           pkgs.unstable.vimPlugins.nvim-treesitter.withAllGrammars
           plenary
