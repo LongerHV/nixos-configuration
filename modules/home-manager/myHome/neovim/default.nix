@@ -29,6 +29,7 @@ in
           plenary
           telescope
           telescope-file-browser
+          devicons
         ];
         extraPackages = with pkgs; [
           nodePackages.npm

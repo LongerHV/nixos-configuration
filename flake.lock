@@ -98,6 +98,22 @@
         "type": "github"
       }
     },
+    "devicons": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1697266929,
+        "narHash": "sha256-UM8C1Uo98Seb/X43R+r8UWJzkdmalATF2JdUvu+7eoA=",
+        "owner": "nvim-tree",
+        "repo": "nvim-web-devicons",
+        "rev": "3af745113ea537f58c4b1573b64a429fefad9e07",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-tree",
+        "repo": "nvim-web-devicons",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -239,24 +255,24 @@
     },
     "neovim-plugins": {
       "inputs": {
+        "devicons": "devicons",
         "indent-blankline": "indent-blankline",
         "mini": "mini",
         "nixpkgs": [
           "nixpkgs-unstable"
         ],
         "nvim-lspconfig": "nvim-lspconfig",
-        "nvim-ts-rainbow": "nvim-ts-rainbow",
         "oceanic-next": "oceanic-next",
         "plenary": "plenary",
         "telescope": "telescope",
         "telescope-file-browser": "telescope-file-browser"
       },
       "locked": {
-        "lastModified": 1697590402,
-        "narHash": "sha256-aFiOLC1EdeCm5fnskzu8Tv2xEgY/e092uopoLP71L3Q=",
+        "lastModified": 1697714143,
+        "narHash": "sha256-2If5Bpb3UFqh5xflSgFMaBplolmJExbICHSTxKLx7zA=",
         "owner": "LongerHV",
         "repo": "neovim-plugins-overlay",
-        "rev": "4f9775e015b8da30daf0f7fe2f407e5730cd4c79",
+        "rev": "cd13edd00e960667f5cf243f2e93ae21f3899ab5",
         "type": "github"
       },
       "original": {
@@ -363,22 +379,6 @@
       "original": {
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "type": "github"
-      }
-    },
-    "nvim-ts-rainbow": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1672675794,
-        "narHash": "sha256-4RQptdc3ktaj+Vw1Ykr6jD4q1JEsKNyBNUgUEdNDu1E=",
-        "owner": "p00f",
-        "repo": "nvim-ts-rainbow",
-        "rev": "ef95c15a935f97c65a80e48e12fe72d49aacf9b9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "p00f",
-        "repo": "nvim-ts-rainbow",
         "type": "github"
       }
     },
