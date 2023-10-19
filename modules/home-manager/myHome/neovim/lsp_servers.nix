@@ -31,4 +31,46 @@
       telemetry.enable = false;
     };
   };
+  efm =
+    let
+      prettier = {
+        formatCommand = "prettier --stdin-filepath \${INPUT}";
+        formatStdin = true;
+      };
+      languages = {
+        python = [
+          {
+            formatCommand = "black --quiet -";
+            formatStdin = true;
+          }
+          {
+            formatCommand = "isort --quiet -";
+            formatStdin = true;
+          }
+          {
+            lintCommand = "pylama --from-stdin \${INPUT}";
+            lintStdin = true;
+            lintFormats = [ "%f:%l:%c %m" ];
+          }
+        ];
+        json = [ prettier ];
+        javascript = [ prettier ];
+        html = [ prettier ];
+        css = [ prettier ];
+        vue = [ prettier ];
+        markdown = [
+          {
+            lintCommand = "markdownlint --stdin";
+            lintStdin = true;
+            lintFormats = [ "%f:%l %m" "%f:%l:%c %m" "%f: %l: %m" ];
+          }
+          prettier
+        ];
+      };
+    in
+    {
+      init_options.documentFormatting = true;
+      settings = { inherit languages; };
+      filetypes = builtins.attrNames languages;
+    };
 }

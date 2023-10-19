@@ -54,6 +54,13 @@ in
           }
         ];
         extraPackages = with pkgs; [
+          (python3.withPackages (ps: with ps; [
+            setuptools # Required by pylama for some reason
+            pylama
+            black
+            isort
+            yamllint
+          ]))
           (nodePackages.pyright.override {
             inherit (unstable.nodePackages.pyright) src version name;
           })
@@ -67,7 +74,9 @@ in
           nodePackages.dockerfile-language-server-nodejs
           nodePackages.vscode-langservers-extracted
           nodePackages.typescript-language-server
+          nodePackages.prettier
           terraform-ls
+          efm-langserver
         ];
       })
     ];
