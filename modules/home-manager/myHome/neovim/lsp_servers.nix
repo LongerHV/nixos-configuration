@@ -56,7 +56,7 @@
           {
             lintCommand = "golangci-lint run --fix=false --out-format=line-number \${INPUT}";
             lintStdin = false;
-            lintFormats = ["%f:%l: %m"];
+            lintFormats = [ "%f:%l: %m" ];
           }
         ];
         json = [ prettier ];
