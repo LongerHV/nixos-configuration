@@ -77,6 +77,7 @@ in
           nodePackages.prettier
           terraform-ls
           efm-langserver
+          taplo
         ];
       })
     ];

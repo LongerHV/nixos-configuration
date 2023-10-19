@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-  clangd = { };
   nil_ls = {
     settings.nil = {
       nix.flake.autoEvalInputs = true;
@@ -51,6 +50,13 @@
             lintCommand = "pylama --from-stdin \${INPUT}";
             lintStdin = true;
             lintFormats = [ "%f:%l:%c %m" ];
+          }
+        ];
+        go = [
+          {
+            lintCommand = "golangci-lint run --fix=false --out-format=line-number \${INPUT}";
+            lintStdin = false;
+            lintFormats = ["%f:%l: %m"];
           }
         ];
         json = [ prettier ];
