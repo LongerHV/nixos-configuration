@@ -10,6 +10,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.sessionVariables = {
+      EDITOR = "${config.home.profileDirectory}/bin/nvim";
+    };
     programs.neovim = lib.mkMerge [
       {
         enable = true;

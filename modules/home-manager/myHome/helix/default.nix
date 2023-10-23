@@ -13,9 +13,6 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    home.sessionVariables = {
-      EDITOR = "${config.home.profileDirectory}/bin/hx";
-    };
     programs.helix = {
       enable = true;
       package = pkgs.helix.override {
