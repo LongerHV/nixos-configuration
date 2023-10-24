@@ -40,6 +40,11 @@ function M.setup_servers(json_config)
 	for server, config in pairs(lsp_servers) do
 		if server == "lua_ls" then
 			config.settings.Lua.workspace.library = vim.api.nvim_get_runtime_file("", true)
+		elseif server == "tsserver" then
+			config.on_attach = function(client, bufnr)
+				client.server_capabilities.documentFormattingProvider = false
+				client.server_capabilities.documentRangeFormattingProvider = false
+			end
 		end
 		lspconfig[server].setup(config)
 	end
