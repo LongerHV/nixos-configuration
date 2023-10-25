@@ -41,7 +41,7 @@ function M.setup_servers(json_config)
 		if server == "lua_ls" then
 			config.settings.Lua.workspace.library = vim.api.nvim_get_runtime_file("", true)
 		elseif server == "tsserver" then
-			config.on_attach = function(client, bufnr)
+			config.on_attach = function(client, _bufnr)
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
 			end
