@@ -4,12 +4,12 @@ final: prev: {
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
 
   kubectl_1_25 = prev.kubectl.overrideAttrs (attrs: rec {
-    version = "1.25.12";
+    version = "1.25.15";
     src = prev.fetchFromGitHub {
       owner = "kubernetes";
       repo = "kubernetes";
       rev = "v${version}";
-      sha256 = "sha256-eGvTzBNFevHi3qgqzdURH6jGUeKjwJxYfzPu+tGa294=";
+      sha256 = "sha256-TIuHXX7YCcsVU/oD6yxcT4wUfTw7KSvwhNf5Xtj738g=";
     };
   });
 
