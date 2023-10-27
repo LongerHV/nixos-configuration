@@ -3,16 +3,6 @@ final: prev: {
   templ = prev.callPackage ./templ.nix prev;
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
 
-  kubectl_1_25 = prev.kubectl.overrideAttrs (attrs: rec {
-    version = "1.25.15";
-    src = prev.fetchFromGitHub {
-      owner = "kubernetes";
-      repo = "kubernetes";
-      rev = "v${version}";
-      sha256 = "sha256-TIuHXX7YCcsVU/oD6yxcT4wUfTw7KSvwhNf5Xtj738g=";
-    };
-  });
-
   zsh-z = prev.zsh-z.overrideAttrs (attrs: rec {
     pname = "zsh-z";
     version = "unstable-2023-01-27";

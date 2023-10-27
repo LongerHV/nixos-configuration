@@ -237,6 +237,26 @@
         "type": "github"
       }
     },
+    "kubectl": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1698445751,
+        "narHash": "sha256-OZM17kIW1JwhZDQLlDywh9Kju7ohUQR/r4aDC5/Z21Y=",
+        "owner": "LongerHV",
+        "repo": "kubectl-overlay",
+        "rev": "c94ee8d039e9d58845222a2a4a43cda1bea4571b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LongerHV",
+        "repo": "kubectl-overlay",
+        "type": "github"
+      }
+    },
     "mini": {
       "flake": false,
       "locked": {
@@ -420,6 +440,7 @@
         "deploy-rs": "deploy-rs",
         "helix": "helix",
         "home-manager": "home-manager",
+        "kubectl": "kubectl",
         "neovim-plugins": "neovim-plugins",
         "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",

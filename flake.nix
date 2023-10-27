@@ -15,6 +15,8 @@
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     neovim-plugins.url = "github:LongerHV/neovim-plugins-overlay";
     neovim-plugins.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    kubectl.url = "github:LongerHV/kubectl-overlay";
+    kubectl.inputs.nixpkgs.follows = "nixpkgs";
     nixgl.url = "github:guibou/nixGL";
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -28,6 +30,7 @@
     , agenix
     , deploy-rs
     , neovim-plugins
+    , kubectl
     , helix
     , nixgl
     , ...
@@ -45,6 +48,7 @@
           inherit (helix.packages.${prev.system}) helix;
         };
         neovimPlugins = neovim-plugins.overlays.default;
+        kubectl = kubectl.overlays.default;
         agenix = agenix.overlays.default;
         nixgl = nixgl.overlays.default;
       };
