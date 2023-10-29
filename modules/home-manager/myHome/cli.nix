@@ -26,7 +26,7 @@ in
       cht-sh
       colordiff
       curl
-      exa
+      unstable.eza
       file
       fzf
       htop
