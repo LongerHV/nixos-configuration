@@ -244,11 +244,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1698445751,
-        "narHash": "sha256-OZM17kIW1JwhZDQLlDywh9Kju7ohUQR/r4aDC5/Z21Y=",
+        "lastModified": 1698607978,
+        "narHash": "sha256-72CPdBdpcZGJL16/x/cNf8lsC3z0WdLH2M3hjDtSZto=",
         "owner": "LongerHV",
         "repo": "kubectl-overlay",
-        "rev": "c94ee8d039e9d58845222a2a4a43cda1bea4571b",
+        "rev": "582d68cf242c5dcce9719b024922352e71dd93ca",
         "type": "github"
       },
       "original": {
