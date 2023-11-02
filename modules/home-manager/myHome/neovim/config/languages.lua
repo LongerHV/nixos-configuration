@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts("Goto implementation"))
 		vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, opts("Hover"))
 		vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts("Show signature"))
-		vim.keymap.set("n", "<space>r", vim.lsp.buf.rename, opts("Rename symbol"))
+		vim.keymap.set("n", "<space>R", vim.lsp.buf.rename, opts("Rename symbol"))
 		vim.keymap.set({ "n", "v" }, "<space>a", vim.lsp.buf.code_action, opts("Code actions"))
 		vim.keymap.set("n", "<leader>r", telescope.lsp_references, opts("Open references picker"))
 		vim.keymap.set("n", "<C-f>", function()
