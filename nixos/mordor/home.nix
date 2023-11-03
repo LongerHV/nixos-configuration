@@ -20,6 +20,7 @@
     protonup
     signal-desktop
     super-slicer-latest
+    orca-slicer
 
     gnomeExtensions.tray-icons-reloaded
     gnomeExtensions.forge

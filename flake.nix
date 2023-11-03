@@ -19,6 +19,8 @@
     kubectl.inputs.nixpkgs.follows = "nixpkgs";
     nixgl.url = "github:guibou/nixGL";
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
+    orca.url = "github:ovlach/nix-orca-slicer";
+    orca.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -33,6 +35,7 @@
     , kubectl
     , helix
     , nixgl
+    , orca
     , ...
     }@inputs:
     let
@@ -51,6 +54,9 @@
         kubectl = kubectl.overlays.default;
         agenix = agenix.overlays.default;
         nixgl = nixgl.overlays.default;
+        orca = final: prev: {
+          inherit (orca.packages.${prev.system}) orca-slicer;
+        };
       };
 
       legacyPackages = forAllSystems (system:
