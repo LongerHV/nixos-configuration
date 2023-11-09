@@ -11,6 +11,7 @@
   dockerls = { };
   bashls = { };
   terraformls = { };
+  tflint = { };
   gopls = { };
   templ = { };
   tsserver = {

@@ -79,6 +79,7 @@ in
           nodePackages.typescript-language-server
           nodePackages.prettier
           terraform-ls
+          tflint
           efm-langserver
           taplo
         ];
