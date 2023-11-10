@@ -20,7 +20,7 @@ vim.api.nvim_set_option("scrolloff", 8)
 vim.api.nvim_set_option("sidescrolloff", 8)
 
 -- Git
-require('gitsigns').setup()
+require("gitsigns").setup()
 
 -- Mini.nvim
 require("mini.pairs").setup()
