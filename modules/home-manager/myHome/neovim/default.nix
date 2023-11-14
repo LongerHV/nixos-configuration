@@ -34,6 +34,7 @@ in
           telescope-file-browser
           devicons
           gitsigns
+          dressing
         ];
         extraPackages = with pkgs; [
           nodePackages.npm

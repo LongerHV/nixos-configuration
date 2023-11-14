@@ -10,3 +10,6 @@ vim.cmd("hi LineNr guibg=NONE ctermbg=NONE")
 vim.cmd("hi SignColumn guibg=NONE ctermbg=NONE")
 vim.cmd("hi EndOfBuffer guibg=NONE ctermbg=NONE")
 vim.cmd("hi WinSeparator guibg=NONE")
+
+-- Dressing
+require("dressing").setup({})
