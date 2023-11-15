@@ -22,7 +22,6 @@ in
       mysql-client
       openstackclient
       swiftclient
-      teleport.client
       terraform
       tilt
       unstable.fluxcd
@@ -30,6 +29,7 @@ in
       unstable.kubeshark
       unstable.k3d
       unstable.k9s
+      unstable.teleport.client
       (writeShellApplication {
         name = "kctx";
         runtimeInputs = [ kubectl fzf ];
