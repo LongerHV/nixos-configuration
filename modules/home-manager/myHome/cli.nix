@@ -23,7 +23,6 @@ in
     };
     home.packages = with pkgs; [
       bat
-      cht-sh
       colordiff
       curl
       unstable.eza
@@ -33,6 +32,7 @@ in
       jq
       neofetch
       nix-tree
+      ollama-bin
       openssh
       p7zip
       ranger

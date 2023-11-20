@@ -80,6 +80,7 @@
   virtualisation.docker.storageDriver = "zfs";
   environment.systemPackages = with pkgs; [
     deploy-rs
+    ollama-bin
     unstable.yubioath-flutter
   ];
   users.users.${config.mySystem.user}.extraGroups = [ "dialout" ];
@@ -99,6 +100,8 @@
       group = config.users.groups.keys.name;
     };
   };
+
+  programs.ollama.enable = true;
 
   services = {
     # Enable openssh only to provide key for agenix

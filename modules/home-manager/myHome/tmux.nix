@@ -46,7 +46,7 @@ in
         bind-key -T copy-mode-vi v send-keys -X begin-selection
 
         # Custom
-        bind-key -r i run-shell "tmux neww cht.sh --shell"
+        bind-key -r i run-shell "ollama run codellama"
       '';
     };
   };
