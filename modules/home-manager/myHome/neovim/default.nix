@@ -35,6 +35,7 @@ in
           devicons
           gitsigns
           dressing
+          gen
         ];
         extraPackages = with pkgs; [
           nodePackages.npm
