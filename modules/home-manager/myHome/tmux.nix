@@ -46,7 +46,7 @@ in
         bind-key -T copy-mode-vi v send-keys -X begin-selection
 
         # Custom
-        bind-key -r i run-shell "tmux neww ollama run codellama"
+        bind-key -r i run-shell "tmux neww ollama run mistral:instruct"
       '';
     };
   };
