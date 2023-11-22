@@ -73,5 +73,5 @@ vim.cmd("filetype indent plugin on")
 vim.keymap.set("n", "<leader>G", ":Gen<CR>", { desc = "Run Ollama" })
 vim.keymap.set("v", "<leader>G", ":Gen<CR>", { desc = "Run Ollama" })
 require("gen").prompts["Explain code"] = {
-	prompt = "Explain the following code:\n```$filetype\n$text\n```"
+	prompt = "Explain the following code:\n```$filetype\n$text\n```",
 }
