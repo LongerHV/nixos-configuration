@@ -1,23 +1,32 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.programs.ollama;
+  cfg = config.services.ollama;
+  home = "/var/lib/ollama";
 in
 {
-  options.programs.ollama = with lib; {
+  options.services.ollama = with lib; {
     enable = mkEnableOption "ollama";
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.user.services.ollama = {
-      description = "";
-      startLimitBurst = 5;
-      startLimitIntervalSec = 500;
-      wantedBy = [ "graphical-session.target" ];
+    users.users.ollama = {
+      group = "ollama";
+      isSystemUser = true;
+      createHome = true;
+      inherit home;
+    };
+    users.groups.ollama = { };
+    systemd.services.ollama = {
+      description = "Get up and running with large language models locally.";
+      after = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = "${pkgs.steam-run}/bin/steam-run ${pkgs.ollama-bin}/bin/ollama serve";
-        Restart = "on-failure";
-        RestartSec = "5s";
+        WorkingDirectory = home;
+        User = "ollama";
+        Group = "ollama";
+        Restart = "always";
       };
     };
   };
