@@ -1,7 +1,7 @@
 { stdenv, autoPatchelfHook, fetchurl, ... }:
 
 let
-  version = "0.1.10";
+  version = "0.1.11";
 in
 stdenv.mkDerivation {
   pname = "ollama-bin";
@@ -9,7 +9,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://github.com/jmorganca/ollama/releases/download/v${version}/ollama-linux-amd64";
-    hash = "sha256-FcC+R2RBU2wtFqDwbN8X1N4/8PaGwpFUtcxrx096t7M=";
+    hash = "sha256-cLXl0Gg870TCkKbq0JA/ptB1BK9naYtBHVkjSrE6P94=";
   };
 
   dontUnpack = true;
