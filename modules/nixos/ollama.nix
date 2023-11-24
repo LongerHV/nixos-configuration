@@ -3,6 +3,12 @@
 let
   cfg = config.services.ollama;
   home = "/var/lib/ollama";
+  fhsEnv = pkgs.buildFHSUserEnv {
+    name = "ollama-fhs";
+    targetPkgs = pkgs: [ ];
+    multiPkgs = pkgs: [ pkgs.ollama-bin ];
+    runScript = "ollama";
+  };
 in
 {
   options.services.ollama = with lib; {
@@ -22,7 +28,7 @@ in
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.steam-run}/bin/steam-run ${pkgs.ollama-bin}/bin/ollama serve";
+        ExecStart = "${fhsEnv}/bin/ollama-fhs serve";
         WorkingDirectory = home;
         User = "ollama";
         Group = "ollama";
