@@ -13,7 +13,7 @@ in
       azure-cli
       eksctl
       kind
-      kubectl_1_25
+      kubectl
       kubelogin
       kubelogin-oidc
       kubernetes-helm
