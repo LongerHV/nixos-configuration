@@ -38,9 +38,9 @@
     kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
     binfmt.emulatedSystems = [ "aarch64-linux" ];
     initrd.luks = {
-      fido2Support = true;
       devices.cryptroot = {
         device = "/dev/disk/by-uuid/9155264d-cd48-4d15-bb74-00a9351053d9";
+        allowDiscards = true;
       };
     };
   };
