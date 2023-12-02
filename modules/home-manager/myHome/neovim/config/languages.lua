@@ -1,5 +1,8 @@
 local M = {}
 local lspconfig = require("lspconfig")
+local configs = require("lspconfig.configs")
+local util = require("lspconfig.util")
+local efmconfig = require("lspconfig.server_configurations.efm")
 local telescope = require("telescope.builtin")
 
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Open diagnostics" })
@@ -50,6 +53,11 @@ function M.setup_servers(json_config)
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
 			end
+		elseif vim.startswith(server, "efm_") then
+			if config.root_dir then
+				config.root_dir = util.root_pattern(config.root_dir)
+			end
+			configs[server] = efmconfig
 		end
 		lspconfig[server].setup(config)
 	end

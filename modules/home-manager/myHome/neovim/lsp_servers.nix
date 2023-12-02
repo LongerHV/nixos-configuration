@@ -39,21 +39,6 @@
         formatStdin = true;
       };
       languages = {
-        python = [
-          {
-            formatCommand = "black --quiet -";
-            formatStdin = true;
-          }
-          {
-            formatCommand = "isort --quiet -";
-            formatStdin = true;
-          }
-          {
-            lintCommand = "pylama --from-stdin \${INPUT}";
-            lintStdin = true;
-            lintFormats = [ "%f:%l:%c %m" ];
-          }
-        ];
         go = [
           {
             lintCommand = "golangci-lint run --fix=false --out-format=line-number \${INPUT}";
@@ -81,4 +66,26 @@
       settings = { inherit languages; };
       filetypes = builtins.attrNames languages;
     };
+  efm_python = {
+    init_options.documentFormatting = true;
+    settings = {
+      languages.python = [
+        {
+          formatCommand = "black --quiet -";
+          formatStdin = true;
+        }
+        {
+          formatCommand = "isort --quiet -";
+          formatStdin = true;
+        }
+        {
+          lintCommand = "pylama --from-stdin \${INPUT}";
+          lintStdin = true;
+          lintFormats = [ "%f:%l:%c %m" ];
+        }
+      ];
+    };
+    filetypes = [ "python" ];
+    root_dir = [ "pyproject.toml" "setup.cfg" "seput.py" ".git" ];
+  };
 }
