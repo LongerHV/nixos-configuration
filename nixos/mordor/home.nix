@@ -20,10 +20,9 @@
     protonup
     signal-desktop
     super-slicer-latest
-    orca-slicer
+    # orca-slicer
 
     gnomeExtensions.tray-icons-reloaded
-    gnomeExtensions.forge
   ];
 
   services.nextcloud-client = {
@@ -49,14 +48,7 @@
       enabled-extensions = [
         "gsconnect@andyholmes.github.io"
         "trayIconsReloaded@selfmade.pl"
-        "forge@jmmaranan.com"
       ];
-    };
-    "org/gnome/shell/extensions/forge" = {
-      tiling-mode-enabled = true;
-      window-gap-size = 4;
-      window-gap-size-increment = 1;
-      window-gap-hidden-on-single = true;
     };
     "org/gnome/desktop/interface" = {
       gtk-theme = "Adwaita-dark";
