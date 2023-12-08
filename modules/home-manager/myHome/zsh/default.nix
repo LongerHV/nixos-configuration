@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   options.myHome.zsh = with lib; {
@@ -17,8 +17,8 @@
         size = 10000;
       };
       shellAliases = {
-        ll = "eza -l --icons";
-        la = "eza -la --icons";
+        ll = "eza -l --icons=auto";
+        la = "eza -la --icons=auto";
         ns = "sudo nixos-rebuild switch --flake .";
         hs = "home-manager switch --impure --flake .";
       };
@@ -51,7 +51,7 @@
       };
       enableAutosuggestions = true;
       enableCompletion = true;
-      enableSyntaxHighlighting = true;
+      syntaxHighlighting.enable = true;
       enableVteIntegration = true;
       historySubstringSearch = {
         enable = true;
