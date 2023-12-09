@@ -14,7 +14,7 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     neovim-plugins.url = "github:LongerHV/neovim-plugins-overlay";
-    neovim-plugins.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
     kubectl.url = "github:LongerHV/kubectl-overlay";
     kubectl.inputs.nixpkgs.follows = "nixpkgs";
     nixgl.url = "github:guibou/nixGL";

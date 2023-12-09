@@ -348,7 +348,7 @@
         "indent-blankline": "indent-blankline",
         "mini": "mini",
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ],
         "nvim-lspconfig": "nvim-lspconfig",
         "oceanic-next": "oceanic-next",
