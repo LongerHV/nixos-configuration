@@ -75,7 +75,6 @@ in
         nextcloud = {
           enable = true;
           inherit (cfg) package;
-          enableBrokenCiphersForSSE = false;
           inherit datadir hostName;
           https = true;
           config = {
