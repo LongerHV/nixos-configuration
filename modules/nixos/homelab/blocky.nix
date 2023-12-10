@@ -77,15 +77,17 @@ in
     }
 
     (lib.mkIf hl.monitoring.enable {
-      services.prometheus.scrapeConfigs = [{
-        job_name = "blocky";
-        static_configs = [{ targets = [ domain ]; }];
-      }];
-      services.blocky.settings.prometheus.enable = true;
-      services.grafana.provision.dashboards.settings.providers = [{
-        name = "blocky";
-        options.path = ./dashboards/blocky.json;
-      }];
+      services = {
+        prometheus.scrapeConfigs = [{
+          job_name = "blocky";
+          static_configs = [{ targets = [ domain ]; }];
+        }];
+        blocky.settings.prometheus.enable = true;
+        grafana.provision.dashboards.settings.providers = [{
+          name = "blocky";
+          options.path = ./dashboards/blocky.json;
+        }];
+      };
       homelab.traefik.metrics.blocky.service = "blocky";
       networking.hosts."127.0.0.1" = [ domain ];
     })

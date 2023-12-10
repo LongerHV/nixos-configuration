@@ -9,52 +9,43 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "sr_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "sr_mod" ];
+    initrd.kernelModules = [ ];
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+  };
 
-  fileSystems."/" =
-    {
+  fileSystems = {
+    "/" = {
       device = "rpool/root";
       fsType = "zfs";
     };
-
-  fileSystems."/nix" =
-    {
+    "/nix" = {
       device = "rpool/root/nix";
       fsType = "zfs";
     };
-
-  fileSystems."/var" =
-    {
+    "/var" = {
       device = "rpool/root/var";
       fsType = "zfs";
     };
-
-  fileSystems."/home" =
-    {
+    "/home" = {
       device = "rpool/root/home";
       fsType = "zfs";
     };
-
-  fileSystems."/steam" =
-    {
+    "/steam" = {
       device = "rpool/root/steam";
       fsType = "zfs";
     };
-
-  fileSystems."/games" =
-    {
+    "/games" = {
       device = "rpool/root/games";
       fsType = "zfs";
     };
-
-  fileSystems."/boot" =
-    {
+    "/boot" = {
       device = "/dev/disk/by-uuid/85DE-BF0E";
       fsType = "vfat";
     };
+  };
 
   swapDevices = [ ];
 

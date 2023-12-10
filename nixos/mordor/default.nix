@@ -64,30 +64,59 @@
       };
     };
   };
-  services.zfs.autoScrub = {
-    enable = true;
-    interval = "weekly";
-  };
-  services.sanoid = {
-    enable = true;
-    interval = "daily";
-    templates.default = {
-      hourly = 0;
-      daily = 14;
-      monthly = 3;
-      yearly = 0;
+  services = {
+    zfs.autoScrub = {
+      enable = true;
+      interval = "weekly";
     };
-    datasets = {
-      "rpool/root" = {
-        useTemplate = [ "default" ];
+    sanoid = {
+      enable = true;
+      interval = "daily";
+      templates.default = {
+        hourly = 0;
+        daily = 14;
+        monthly = 3;
+        yearly = 0;
       };
-      "rpool/root/home" = {
-        useTemplate = [ "default" ];
-      };
-      "rpool/root/var" = {
-        useTemplate = [ "default" ];
+      datasets = {
+        "rpool/root" = {
+          useTemplate = [ "default" ];
+        };
+        "rpool/root/home" = {
+          useTemplate = [ "default" ];
+        };
+        "rpool/root/var" = {
+          useTemplate = [ "default" ];
+        };
       };
     };
+
+
+
+    ollama.enable = true;
+    # Enable openssh only to provide key for agenix
+    openssh = {
+      enable = true;
+      openFirewall = false;
+    };
+    nix-serve = {
+      enable = true;
+      openFirewall = true;
+      secretKeyFile = config.age.secrets.cache_priv_key.path;
+    };
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        xerox-generic-driver
+      ];
+    };
+    avahi = {
+      enable = true;
+      nssmdns = true;
+    };
+    udev.packages = with pkgs; [ qmk-udev-rules yubikey-personalization via ];
+    pcscd.enable = true;
+
   };
   hardware.bluetooth.enable = true;
 
@@ -123,33 +152,6 @@
       mode = "0440";
       group = config.users.groups.keys.name;
     };
-  };
-
-
-  services = {
-    ollama.enable = true;
-    # Enable openssh only to provide key for agenix
-    openssh = {
-      enable = true;
-      openFirewall = false;
-    };
-    nix-serve = {
-      enable = true;
-      openFirewall = true;
-      secretKeyFile = config.age.secrets.cache_priv_key.path;
-    };
-    printing = {
-      enable = true;
-      drivers = with pkgs; [
-        xerox-generic-driver
-      ];
-    };
-    avahi = {
-      enable = true;
-      nssmdns = true;
-    };
-    udev.packages = with pkgs; [ qmk-udev-rules yubikey-personalization via ];
-    pcscd.enable = true;
   };
   system.stateVersion = "22.05";
 }

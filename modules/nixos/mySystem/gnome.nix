@@ -33,31 +33,38 @@ in
       ];
     };
 
-    services.xserver.enable = true;
-    services.xserver.layout = "pl";
-    services.xserver.displayManager.gdm = {
-      enable = true;
-      settings = {
-        greeter.IncludeAll = true;
+    services = {
+      xserver = {
+        enable = true;
+        layout = "pl";
+        displayManager.gdm = {
+          enable = true;
+          settings = {
+            greeter.IncludeAll = true;
+          };
+        };
+        desktopManager.gnome.enable = true;
+      };
+      udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
+      pipewire = {
+        enable = true;
+        alsa.enable = true;
+        pulse.enable = true;
+        jack.enable = true;
       };
     };
-    services.xserver.desktopManager.gnome.enable = true;
-    services.udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
-    programs.gnome-terminal.enable = true;
-    programs.zsh.vteIntegration = true;
-    programs.kdeconnect = {
-      enable = true;
-      package = pkgs.gnomeExtensions.gsconnect;
+
+    programs = {
+      gnome-terminal.enable = true;
+      zsh.vteIntegration = true;
+      kdeconnect = {
+        enable = true;
+        package = pkgs.gnomeExtensions.gsconnect;
+      };
     };
 
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
     sound.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      pulse.enable = true;
-      jack.enable = true;
-    };
   };
 }

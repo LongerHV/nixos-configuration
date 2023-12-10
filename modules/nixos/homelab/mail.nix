@@ -14,17 +14,19 @@ in
         Path to a sendmail executable. Do not override.
       '';
     };
-    smtp.host = lib.mkOption {
-      type = lib.types.str;
-    };
-    smtp.port = lib.mkOption {
-      type = lib.types.int;
-    };
-    smtp.user = lib.mkOption {
-      type = lib.types.str;
-    };
-    smtp.passFile = lib.mkOption {
-      type = lib.types.str;
+    smtp = {
+      host = lib.mkOption {
+        type = lib.types.str;
+      };
+      port = lib.mkOption {
+        type = lib.types.int;
+      };
+      user = lib.mkOption {
+        type = lib.types.str;
+      };
+      passFile = lib.mkOption {
+        type = lib.types.str;
+      };
     };
   };
   config = lib.mkIf cfg.enable {

@@ -35,44 +35,45 @@ in
         };
       };
 
-      services.mysql = {
-        ensureDatabases = [ "gitea" ];
-        ensureUsers = [
-          {
-            name = gitea.database.user;
-            ensurePermissions = {
-              "gitea.*" = "ALL PRIVILEGES";
-            };
-          }
-        ];
-      };
-
-      services.gitea = {
-        enable = true;
-        repositoryRoot = repositoriesDir;
-        database = {
-          type = "mysql";
-          socket = "/run/mysqld/mysqld.sock";
+      services = {
+        mysql = {
+          ensureDatabases = [ "gitea" ];
+          ensureUsers = [
+            {
+              name = gitea.database.user;
+              ensurePermissions = {
+                "gitea.*" = "ALL PRIVILEGES";
+              };
+            }
+          ];
         };
-        settings = {
-          server = {
-            ROOT_URL = "https://${domain}";
+        gitea = {
+          enable = true;
+          repositoryRoot = repositoriesDir;
+          database = {
+            type = "mysql";
+            socket = "/run/mysqld/mysqld.sock";
           };
-          service = {
-            DISABLE_REGISTRATION = true;
+          settings = {
+            server = {
+              ROOT_URL = "https://${domain}";
+            };
+            service = {
+              DISABLE_REGISTRATION = true;
+            };
+            session = {
+              COOKIE_SECURE = true;
+              PROVIDER = "db";
+              PROVIDER_CONFIG = "";
+              SESSION_LIFE_TIME = 60 * 60 * 24 * 7;
+            };
+            cache = {
+              ENABLED = true;
+              ADAPTER = "redis";
+              HOST = "network=unix,addr=${redis.unixSocket},db=1,pool_rize=100,idle_timeout=180";
+            };
+            actions.ENABLED = true;
           };
-          session = {
-            COOKIE_SECURE = true;
-            PROVIDER = "db";
-            PROVIDER_CONFIG = "";
-            SESSION_LIFE_TIME = 60 * 60 * 24 * 7;
-          };
-          cache = {
-            ENABLED = true;
-            ADAPTER = "redis";
-            HOST = "network=unix,addr=${redis.unixSocket},db=1,pool_rize=100,idle_timeout=180";
-          };
-          actions.ENABLED = true;
         };
       };
     }
@@ -101,15 +102,17 @@ in
     })
 
     (lib.mkIf hl.monitoring.enable {
-      services.prometheus.scrapeConfigs = [{
-        job_name = "gitea";
-        static_configs = [{ targets = [ domain ]; }];
-      }];
-      services.grafana.provision.dashboards.settings.providers = [{
-        name = "gitea";
-        options.path = ./dashboards/gitea.json;
-      }];
-      services.gitea.settings.metrics.ENABLED = true;
+      services = {
+        prometheus.scrapeConfigs = [{
+          job_name = "gitea";
+          static_configs = [{ targets = [ domain ]; }];
+        }];
+        grafana.provision.dashboards.settings.providers = [{
+          name = "gitea";
+          options.path = ./dashboards/gitea.json;
+        }];
+        gitea.settings.metrics.ENABLED = true;
+      };
       homelab.traefik.metrics.gitea.service = "gitea";
       networking.hosts."127.0.0.1" = [ domain ];
     })

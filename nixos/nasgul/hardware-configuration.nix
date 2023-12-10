@@ -9,88 +9,67 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "mpt3sas" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "mpt3sas" "sd_mod" ];
+    initrd.kernelModules = [ ];
+    kernelModules = [ "kvm-amd" ];
+    extraModulePackages = [ ];
+  };
 
-  fileSystems."/" =
-    {
+  fileSystems = {
+    "/" = {
       device = "rpool/root";
       fsType = "zfs";
     };
-
-  fileSystems."/nix" =
-    {
+    "/nix" = {
       device = "rpool/root/nix";
       fsType = "zfs";
     };
-
-  fileSystems."/var" =
-    {
+    "/var" = {
       device = "rpool/root/var";
       fsType = "zfs";
     };
-
-  fileSystems."/var/tmp" =
-    {
+    "/var/tmp" = {
       device = "rpool/root/var/tmp";
       fsType = "zfs";
     };
-
-  fileSystems."/home" =
-    {
+    "/home" = {
       device = "rpool/root/home";
       fsType = "zfs";
     };
-
-  fileSystems."/boot" =
-    {
+    "/boot" = {
       device = "/dev/disk/by-uuid/EC83-EFDC";
       fsType = "vfat";
     };
-
-  fileSystems."/boot-fallback" =
-    {
+    "/boot-fallback" = {
       device = "/dev/disk/by-uuid/EC84-4BF0";
       fsType = "vfat";
     };
-
-  fileSystems."/chonk" =
-    {
+    "/chonk" = {
       device = "chonk";
       fsType = "zfs";
     };
-
-  fileSystems."/chonk/media" =
-    {
+    "/chonk/media" = {
       device = "chonk/media";
       fsType = "zfs";
     };
-
-  fileSystems."/chonk/database" =
-    {
+    "/chonk/database" = {
       device = "chonk/database";
       fsType = "zfs";
     };
-
-  fileSystems."/chonk/nextcloud" =
-    {
+    "/chonk/nextcloud" = {
       device = "chonk/nextcloud";
       fsType = "zfs";
     };
-
-  fileSystems."/chonk/repositories" =
-    {
+    "/chonk/repositories" = {
       device = "chonk/repositories";
       fsType = "zfs";
     };
-
-  fileSystems."/chonk/share" =
-    {
+    "/chonk/share" = {
       device = "chonk/share";
       fsType = "zfs";
     };
+  };
 
   swapDevices = [ ];
 

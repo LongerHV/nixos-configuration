@@ -5,22 +5,38 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-23.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     helix.url = "github:helix-editor/helix";
-    agenix.url = "github:ryantm/agenix";
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
-    agenix.inputs.home-manager.follows = "home-manager";
-    deploy-rs.url = "github:serokell/deploy-rs";
-    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
-    neovim-plugins.url = "github:LongerHV/neovim-plugins-overlay";
-    neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
-    kubectl.url = "github:LongerHV/kubectl-overlay";
-    kubectl.inputs.nixpkgs.follows = "nixpkgs";
-    nixgl.url = "github:guibou/nixGL";
-    nixgl.inputs.nixpkgs.follows = "nixpkgs";
-    orca.url = "github:ovlach/nix-orca-slicer";
-    orca.inputs.nixpkgs.follows = "nixpkgs";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    neovim-plugins = {
+      url = "github:LongerHV/neovim-plugins-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    kubectl = {
+      url = "github:LongerHV/kubectl-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixgl = {
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    orca = {
+      url = "github:ovlach/nix-orca-slicer";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

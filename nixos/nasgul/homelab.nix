@@ -90,15 +90,17 @@ in
     };
     nextcloud.maxUploadSize = "32G";
     traefik.dynamicConfigOptions.http = {
-      middlewares.notes-404.errors = {
-        status = [ 404 ];
-        service = "minio";
-        query = "/notes/static/404.html";
-      };
-      middlewares.notes-add-prefix.addPrefix.prefix = "/notes";
-      middlewares.notes-add-index.replacepathregex = {
-        regex = "(.*)/$";
-        replacement = "$1/index.html";
+      middlewares = {
+        notes-404.errors = {
+          status = [ 404 ];
+          service = "minio";
+          query = "/notes/static/404.html";
+        };
+        notes-add-prefix.addPrefix.prefix = "/notes";
+        notes-add-index.replacepathregex = {
+          regex = "(.*)/$";
+          replacement = "$1/index.html";
+        };
       };
       routers.notes = {
         rule = "Host(`notes.${hl.domain}`)";

@@ -18,26 +18,27 @@
     };
     nix.substituters = [ "mordor" ];
   };
-
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    zfsSupport = true;
-    mirroredBoots = [
-      {
-        devices = [ "nodev" ];
-        path = "/boot";
-      }
-      {
-        devices = [ "nodev" ];
-        path = "/boot-fallback";
-      }
-    ];
+  boot = {
+    loader.grub = {
+      enable = true;
+      efiSupport = true;
+      zfsSupport = true;
+      mirroredBoots = [
+        {
+          devices = [ "nodev" ];
+          path = "/boot";
+        }
+        {
+          devices = [ "nodev" ];
+          path = "/boot-fallback";
+        }
+      ];
+    };
+    loader.efi.canTouchEfiVariables = false;
+    supportedFilesystems = [ "zfs" ];
+    zfs.forceImportRoot = false;
+    kernelPackages = pkgs.linuxKernel.packages.linux_hardened;
   };
-  boot.loader.efi.canTouchEfiVariables = false;
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.forceImportRoot = false;
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_hardened;
   nix.settings.trusted-users = [ config.mySystem.user ];
 
   hardware.opengl = {
