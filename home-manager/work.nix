@@ -1,13 +1,8 @@
-{ pkgs, ... }:
-
 {
   home = rec {
     username = "mmieszczak";
     homeDirectory = "/home/${username}";
     stateVersion = "22.05";
-    packages = with pkgs; [
-      _1password
-    ];
   };
 
   myHome = {
