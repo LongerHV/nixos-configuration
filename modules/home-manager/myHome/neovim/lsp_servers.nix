@@ -23,7 +23,7 @@
   jsonls = { init_options.provideFormatter = false; };
   html = { init_options.provideFormatter = false; };
   volar.init_options.typescript.tsdk = "${pkgs.nodePackages.typescript}/lib/node_modules/typescript/lib";
-  ocamllsp = { };
+  elixirls.cmd = [ "${pkgs.elixir-ls}/bin/elixir-ls" ];
   lua_ls = {
     settings.Lua = {
       runtime.version = "LuaJIT";

@@ -85,7 +85,6 @@ in
           tflint
           efm-langserver
           taplo
-          ocamlPackages.ocaml-lsp
         ];
       })
     ];
