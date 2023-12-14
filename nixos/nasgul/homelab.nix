@@ -83,7 +83,7 @@ in
   services.gitea-actions-runner.package = pkgs.unstable.gitea-actions-runner;
 
   services = {
-    postgresql.package = pkgs.postgresql_13;
+    postgresql.package = pkgs.postgresql_14;
     gitea = {
       package = pkgs.unstable.gitea;
       settings.packages.CHUNKED_UPLOAD_PATH = "${config.services.gitea.stateDir}/tmp/package-upload";
