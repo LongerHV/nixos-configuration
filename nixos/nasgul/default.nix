@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   imports = [
@@ -10,6 +10,7 @@
     ./selfhosted
     ./snapshots.nix
     ./homelab.nix
+    ./pg_upgrade.nix
   ];
   mySystem = {
     home-manager = {
