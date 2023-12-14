@@ -18,7 +18,6 @@ pkgs.mkShell {
   postShellHook = ''
     unset SOURCE_DATE_EPOCH
     export LD_LIBRARY_PATH=${lib.makeLibraryPath [stdenv.cc.cc]}
-    export PATH="$(pwd)/app/node_modules/.bin:$PATH"
     poetry env info
   '';
 }
