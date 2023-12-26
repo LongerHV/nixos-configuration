@@ -28,7 +28,7 @@ in
         inherit serial;
       };
       mutableConfig = true;
-      mutableConfigFolder = config.services.moonraker.stateDir;
+      mutableConfigFolder = config.services.moonraker.stateDir + "/config";
       configFile = ./printer.cfg;
     };
   };
