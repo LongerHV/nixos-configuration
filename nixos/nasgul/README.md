@@ -16,8 +16,6 @@ Personal NAS server
 
 - Authelia SSO (using LLDAP as backend)
 
-- Dashy dashboard
-
 - Monitoring using Prometheus and Grafana
 
 - Backups to S3 object storage with Restic
