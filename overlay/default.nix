@@ -1,5 +1,4 @@
 final: prev: {
-  homepage = prev.callPackage ./homepage.nix prev;
   dashy = prev.callPackage ./dashy.nix prev;
   ollama-bin = prev.callPackage ./ollama.nix prev;
   templ = prev.callPackage ./templ.nix prev;
