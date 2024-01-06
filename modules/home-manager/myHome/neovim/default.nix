@@ -36,6 +36,8 @@ in
           gitsigns
           dressing
           gen
+          fidget
+          pkgs.vimPlugins.vim-sleuth
         ];
         extraPackages = with pkgs; [
           nodePackages.npm

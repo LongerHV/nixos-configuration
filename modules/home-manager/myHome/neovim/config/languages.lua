@@ -34,6 +34,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 require("mini.completion").setup()
+require("fidget").setup()
 
 function M.setup_servers(json_config)
 	local f = io.open(json_config, "r")

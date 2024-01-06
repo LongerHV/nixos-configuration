@@ -3,7 +3,10 @@
 {
   nil_ls = {
     settings.nil = {
-      nix.flake.autoEvalInputs = true;
+      nix = {
+        maxMemoryMB = 4096;
+        flake.autoEvalInputs = true;
+      };
       formatting.command = [ "nixpkgs-fmt" ];
     };
   };

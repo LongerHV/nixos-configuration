@@ -19,6 +19,16 @@ vim.api.nvim_set_option("cmdheight", 0)
 vim.api.nvim_set_option("scrolloff", 8)
 vim.api.nvim_set_option("sidescrolloff", 8)
 
+-- Highlight on yank
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	group = highlight_group,
+	pattern = "*",
+})
+
 -- Git
 require("gitsigns").setup()
 
@@ -26,13 +36,21 @@ require("gitsigns").setup()
 require("mini.pairs").setup()
 require("mini.trailspace").setup()
 require("mini.surround").setup()
-require("mini.statusline")
 require("mini.comment").setup({
 	mappings = {
 		comment = "<C-c>",
 		comment_line = "<C-c>",
 		comment_visual = "<C-c>",
 	},
+})
+
+-- Add missing commentstring for nix files
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "nix" },
+	group = vim.api.nvim_create_augroup("SetNixCommentstring", { clear = true }),
+	callback = function()
+		vim.o.commentstring = "# %s"
+	end,
 })
 
 -- Indentline
@@ -46,28 +64,6 @@ require("ibl").setup({
 vim.api.nvim_set_option("tabstop", 4)
 vim.api.nvim_set_option("shiftwidth", 4)
 vim.api.nvim_set_option("smartindent", true)
-local indent_map = {
-	c = { tabstop = 2, shiftwidth = 2, expandtab = true },
-	cpp = { tabstop = 2, shiftwidth = 2, expandtab = true },
-	nix = { tabstop = 2, shiftwidth = 2, expandtab = true },
-	json = { tabstop = 2, shiftwidth = 2, expandtab = true },
-	terraform = { tabstop = 2, shiftwidth = 2, expandtab = true },
-	javascript = { tabstop = 2, shiftwidth = 2, expandtab = true },
-	markdown = { tabstop = 2, shiftwidth = 2, expandtab = true },
-	html = { tabstop = 2, shiftwidth = 2, expandtab = true },
-	vue = { tabstop = 2, shiftwidth = 2, expandtab = true },
-}
-local group = vim.api.nvim_create_augroup("MyCustomIndents", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = vim.tbl_keys(indent_map),
-	group = group,
-	callback = function()
-		local match = vim.fn.expand("<amatch>")
-		for opt, val in pairs(indent_map[match]) do
-			vim.api.nvim_set_option_value(opt, val, { scope = "local" })
-		end
-	end,
-})
 vim.cmd("filetype indent plugin on")
 
 -- Ollama
