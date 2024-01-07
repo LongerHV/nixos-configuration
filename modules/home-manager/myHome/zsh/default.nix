@@ -22,7 +22,7 @@
         ns = "sudo nixos-rebuild switch --flake .";
         hs = "home-manager switch --impure --flake .";
       };
-      initExtraBeforeCompInit = ''
+      initExtraBeforeCompInit = /* bash */ ''
         # Completion
         zstyle ':completion:*' menu yes select
 
@@ -30,7 +30,7 @@
         source ${pkgs.spaceship-prompt}/lib/spaceship-prompt/spaceship.zsh
         autoload -U promptinit; promptinit
       '';
-      initExtra = ''
+      initExtra = /* bash */ ''
         source ${./kubectl.zsh}
         source ${./git.zsh}
 

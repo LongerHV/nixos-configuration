@@ -107,11 +107,11 @@ in
     (lib.mkIf hl.backups.enable {
       homelab.backups.services.nextcloud = {
         user = "nextcloud";
-        backupPrepareCommand = ''
+        backupPrepareCommand = /* bash */''
           ${occ} maintenance:mode --on
           ${hl.mysql.package}/bin/mysqldump --databases nextcloud > /tmp/nextcloud.sql
         '';
-        backupCleanupCommand = ''
+        backupCleanupCommand = /* bash */ ''
           ${occ} maintenance:mode --off
           rm /tmp/nextcloud.sql
         '';

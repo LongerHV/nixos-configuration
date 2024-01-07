@@ -21,7 +21,7 @@ in
         withNodeJs = true;
         withPython3 = true;
         withRuby = false;
-        extraLuaConfig = ''
+        extraLuaConfig = /* lua */ ''
           require("config")
         '';
         plugins = with pkgs.nvimPlugins; [
@@ -56,7 +56,7 @@ in
               let
                 lspServers = pkgs.writeText "lsp_servers.json" (builtins.toJSON (import ./lsp_servers.nix { inherit pkgs; }));
               in
-              ''
+                /* lua */ ''
                 require("config.languages").setup_servers("${lspServers}")
               '';
           }

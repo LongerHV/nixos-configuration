@@ -9,7 +9,7 @@
           # pp.plv8
         ]);
       in
-      pkgs.writeScriptBin "upgrade-pg-cluster" ''
+      pkgs.writeScriptBin "upgrade-pg-cluster" /* bash */ ''
         set -eux
         # XXX it's perhaps advisable to stop all services that depend on postgresql
         systemctl stop postgresql

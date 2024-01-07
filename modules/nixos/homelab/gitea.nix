@@ -89,11 +89,11 @@ in
       }];
       homelab.backups.services.gitea = {
         inherit (gitea) user;
-        backupPrepareCommand = ''
+        backupPrepareCommand = /* bash */ ''
           /run/wrappers/bin/sudo systemctl stop gitea.service
           ${hl.mysql.package}/bin/mysqldump --databases gitea > ${gitea.stateDir}/dump/gitea.sql
         '';
-        backupCleanupCommand = ''
+        backupCleanupCommand = /* bash */ ''
           /run/wrappers/bin/sudo systemctl start gitea.service
           rm ${gitea.stateDir}/dump/gitea.sql
         '';
