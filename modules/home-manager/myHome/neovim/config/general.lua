@@ -31,6 +31,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Git
 require("gitsigns").setup()
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Mini.nvim
 require("mini.pairs").setup()
@@ -41,6 +42,13 @@ require("mini.comment").setup({
 		comment = "<C-c>",
 		comment_line = "<C-c>",
 		comment_visual = "<C-c>",
+	},
+})
+
+-- File explorer
+require("oil").setup({
+	view_options = {
+		show_hidden = true,
 	},
 })
 

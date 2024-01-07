@@ -31,12 +31,12 @@ in
           pkgs.unstable.vimPlugins.nvim-treesitter.withAllGrammars
           plenary
           telescope
-          telescope-file-browser
           devicons
           gitsigns
           dressing
           gen
           fidget
+          oil
           pkgs.vimPlugins.vim-sleuth
         ];
         extraPackages = with pkgs; [

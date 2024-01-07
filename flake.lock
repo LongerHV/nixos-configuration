@@ -101,11 +101,11 @@
     "devicons": {
       "flake": false,
       "locked": {
-        "lastModified": 1704299001,
-        "narHash": "sha256-OzKhrjErKpbG9vl9F1u+cooJpakenQO6T0mE4ooOlZU=",
+        "lastModified": 1704505048,
+        "narHash": "sha256-xVLj36te9JFoK461RQ/Lwt/UublQVsD4SG0BEIcmkeI=",
         "owner": "nvim-tree",
         "repo": "nvim-web-devicons",
-        "rev": "3e24abe1ae66532135cec911562f553fe247cb56",
+        "rev": "db0c864375c198cacc171ff373e76bfce2a85045",
         "type": "github"
       },
       "original": {
@@ -342,11 +342,11 @@
     "mini": {
       "flake": false,
       "locked": {
-        "lastModified": 1704371833,
-        "narHash": "sha256-m6QF9eMC3+WNGBxqpp5hrWgAm4rXJ1+o4LQMmhz78Ns=",
+        "lastModified": 1704568139,
+        "narHash": "sha256-pWMFMfQm70PV0gQGh46imNOr7lJmvXL/eB34BoFVuQQ=",
         "owner": "echasnovski",
         "repo": "mini.nvim",
-        "rev": "a118a964c94543c06d8b1f2f7542535dd2e19d36",
+        "rev": "e578f353d0b1d9f21a9640458d8e506c0c9acf5e",
         "type": "github"
       },
       "original": {
@@ -369,16 +369,17 @@
         ],
         "nvim-lspconfig": "nvim-lspconfig",
         "oceanic-next": "oceanic-next",
+        "oil": "oil",
         "plenary": "plenary",
         "telescope": "telescope",
         "telescope-file-browser": "telescope-file-browser"
       },
       "locked": {
-        "lastModified": 1704583537,
-        "narHash": "sha256-JqV9Ixqp0N2chDyG2U4JMiPAbDZH/w/6DS6t/lvjxy0=",
+        "lastModified": 1704643738,
+        "narHash": "sha256-BoDq802wfIQn+QVF+gYXgMuvkbkXM0jSeuccjqxMx6I=",
         "owner": "LongerHV",
         "repo": "neovim-plugins-overlay",
-        "rev": "f2ee978997983722383e6e61eaa958ce5ca24cd7",
+        "rev": "15c762066a6dd6369eb527af9279609d2135737d",
         "type": "github"
       },
       "original": {
@@ -475,11 +476,11 @@
     "nvim-lspconfig": {
       "flake": false,
       "locked": {
-        "lastModified": 1704161570,
-        "narHash": "sha256-l210yCCmIfNMNy89oxhqj/lE7jXW2nUE9U6Edw6hl+0=",
+        "lastModified": 1704517718,
+        "narHash": "sha256-CsMf78TIzvB9OETUOSxj2lFPdZFnIna1keCotq8SvZw=",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "ce0e625df61be77abe1340fbc9afe9ad39b31dd8",
+        "rev": "796394fd19fb878e8dbc4fd1e9c9c186ed07a5f4",
         "type": "github"
       },
       "original": {
@@ -501,6 +502,22 @@
       "original": {
         "owner": "mhartington",
         "repo": "oceanic-next",
+        "type": "github"
+      }
+    },
+    "oil": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1704262044,
+        "narHash": "sha256-Wmw66iME4tX9eXrqbz9lnWDQq2L3T1Dcvjz1SYg5NWk=",
+        "owner": "stevearc",
+        "repo": "oil.nvim",
+        "rev": "a128e6f75c6a71b7b9ac7ea663949a5209771cd5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stevearc",
+        "repo": "oil.nvim",
         "type": "github"
       }
     },
