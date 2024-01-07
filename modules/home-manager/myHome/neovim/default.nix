@@ -60,6 +60,7 @@ in
                 require("config.languages").setup_servers("${lspServers}")
               '';
           }
+          schemastore
         ];
         extraPackages = with pkgs; [
           (python3.withPackages (ps: with ps; [
@@ -83,6 +84,7 @@ in
           nodePackages.vscode-langservers-extracted
           nodePackages.typescript-language-server
           nodePackages.prettier
+          yaml-language-server
           terraform-ls
           tflint
           efm-langserver

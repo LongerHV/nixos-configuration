@@ -24,6 +24,7 @@
   cssls = { };
   eslint = { settings.format = false; };
   jsonls = { init_options.provideFormatter = false; };
+  yamlls = { };
   html = { init_options.provideFormatter = false; };
   volar.init_options.typescript.tsdk = "${pkgs.nodePackages.typescript}/lib/node_modules/typescript/lib";
   elixirls.cmd = [ "${pkgs.elixir-ls}/bin/elixir-ls" ];
@@ -31,7 +32,6 @@
     settings.Lua = {
       runtime.version = "LuaJIT";
       diagnostics.globals = [ "vim" ];
-      workspace.library = { };
       telemetry.enable = false;
     };
   };

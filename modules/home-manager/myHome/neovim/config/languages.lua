@@ -4,6 +4,7 @@ local configs = require("lspconfig.configs")
 local util = require("lspconfig.util")
 local efmconfig = require("lspconfig.server_configurations.efm")
 local telescope = require("telescope.builtin")
+local schemastore = require("schemastore")
 
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Open diagnostics" })
 vim.keymap.set("n", "<C-f>", "<nop>") -- Disable default binding
@@ -36,6 +37,43 @@ vim.api.nvim_create_autocmd("LspAttach", {
 require("mini.completion").setup()
 require("fidget").setup()
 
+local extra_server_options = {
+	lua_ls = {
+		settings = {
+			Lua = {
+				workspace = {
+					library = vim.api.nvim_get_runtime_file("", true),
+				},
+			},
+		},
+	},
+	jsonls = {
+		settings = {
+			json = {
+				schemas = schemastore.json.schemas(),
+				validate = { enalbe = true },
+			},
+		},
+	},
+	yamlls = {
+		settings = {
+			yaml = {
+				schemas = schemastore.yaml.schemas(),
+				schemaStore = {
+					enable = false,
+					url = "",
+				},
+			},
+		},
+	},
+	tsserver = {
+		on_attash = function(client, _bufnr)
+			client.server_capabilities.documentFormattingProvider = false
+			client.server_capabilities.documentRangeFormattingProvider = false
+		end,
+	},
+}
+
 function M.setup_servers(json_config)
 	local f = io.open(json_config, "r")
 	if not f then
@@ -46,17 +84,12 @@ function M.setup_servers(json_config)
 	if lsp_servers == nil then
 		return
 	end
-	for server, config in pairs(lsp_servers) do
-		if server == "lua_ls" then
-			config.settings.Lua.workspace.library = vim.api.nvim_get_runtime_file("", true)
-		elseif server == "tsserver" then
-			config.on_attach = function(client, _bufnr)
-				client.server_capabilities.documentFormattingProvider = false
-				client.server_capabilities.documentRangeFormattingProvider = false
-			end
-		elseif vim.startswith(server, "efm_") then
+	for server, config in pairs(vim.tbl_deep_extend("error", lsp_servers, extra_server_options)) do
+		if vim.startswith(server, "efm_") then
 			if config.root_dir then
 				config.root_dir = util.root_pattern(config.root_dir)
+			elseif server == "jsonls" then
+				vim.print(config)
 			end
 			configs[server] = efmconfig
 		end

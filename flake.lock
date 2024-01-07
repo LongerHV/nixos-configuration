@@ -371,15 +371,16 @@
         "oceanic-next": "oceanic-next",
         "oil": "oil",
         "plenary": "plenary",
+        "schemastore": "schemastore",
         "telescope": "telescope",
         "telescope-file-browser": "telescope-file-browser"
       },
       "locked": {
-        "lastModified": 1704643738,
-        "narHash": "sha256-BoDq802wfIQn+QVF+gYXgMuvkbkXM0jSeuccjqxMx6I=",
+        "lastModified": 1704645828,
+        "narHash": "sha256-4019GiZS+5dhSnYNbvV6jZ6vqgTBeJwnVWmU0vDyCZw=",
         "owner": "LongerHV",
         "repo": "neovim-plugins-overlay",
-        "rev": "15c762066a6dd6369eb527af9279609d2135737d",
+        "rev": "bda3fb485d26ef9aeea9e07393487bc39f06cb74",
         "type": "github"
       },
       "original": {
@@ -595,6 +596,22 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "schemastore": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1704477646,
+        "narHash": "sha256-O9+mhoRieGPFAeRu/j0R2u9u15UpWGxJxx1KtW/VKGY=",
+        "owner": "b0o",
+        "repo": "SchemaStore.nvim",
+        "rev": "7ccffe69a8c24fcd8637788955e13d7fd8aa2f46",
+        "type": "github"
+      },
+      "original": {
+        "owner": "b0o",
+        "repo": "SchemaStore.nvim",
         "type": "github"
       }
     },
