@@ -54,7 +54,7 @@ require("oil").setup({
 
 -- Add missing commentstring for nix files
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "nix" },
+	pattern = { "nix", "terraform" },
 	group = vim.api.nvim_create_augroup("SetNixCommentstring", { clear = true }),
 	callback = function()
 		vim.o.commentstring = "# %s"
