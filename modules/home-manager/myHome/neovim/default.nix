@@ -65,6 +65,8 @@ in
           cmp-nvim-lsp
           cmp-path
           cmp-buffer
+          copilot-cmp
+          copilot-lua
           lspkind-nvim
           {
             plugin = nvim-cmp;

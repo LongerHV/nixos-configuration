@@ -1,4 +1,14 @@
 local cmp = require("cmp")
+local lspkind = require("lspkind")
+local copilot = require("copilot")
+local copilot_cmp = require("copilot_cmp")
+
+copilot.setup({
+	suggestion = { enabled = false },
+	panel = { enabled = false },
+})
+
+copilot_cmp.setup()
 
 cmp.setup {
 	mapping = cmp.mapping.preset.insert({
@@ -16,4 +26,12 @@ cmp.setup {
 		{ name = "buffer" },
 		{ name = "path" },
 	}),
+	formatting = {
+		format = lspkind.cmp_format({
+			mode = "symbol",
+			maxwidth = 50,
+			ellipsis_char = "...",
+			symbol_map = { Copilot = "" },
+		}),
+	},
 }
