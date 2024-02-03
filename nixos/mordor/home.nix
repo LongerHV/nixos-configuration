@@ -21,6 +21,8 @@
     signal-desktop
     super-slicer-latest
     # orca-slicer
+    tonelib-jam
+    tonelib-metal
 
     gnomeExtensions.tray-icons-reloaded
   ];

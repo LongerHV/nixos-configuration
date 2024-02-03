@@ -34,7 +34,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-require("mini.completion").setup()
 require("fidget").setup()
 
 local extra_server_options = {

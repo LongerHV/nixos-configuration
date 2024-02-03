@@ -61,6 +61,18 @@ in
               '';
           }
           schemastore
+
+          cmp-nvim-lsp
+          cmp-path
+          cmp-buffer
+          lspkind-nvim
+          {
+            plugin = nvim-cmp;
+            type = "lua";
+            config = /* lua */ ''
+              dofile("${./config/completion.lua}")
+            '';
+          }
         ];
         extraPackages = with pkgs; [
           (python3.withPackages (ps: with ps; [
