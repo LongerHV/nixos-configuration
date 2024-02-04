@@ -10,7 +10,7 @@ copilot.setup({
 
 copilot_cmp.setup()
 
-cmp.setup {
+cmp.setup({
 	mapping = cmp.mapping.preset.insert({
 		["<C-u>"] = cmp.mapping.scroll_docs(-4),
 		["<C-d>"] = cmp.mapping.scroll_docs(4),
@@ -34,4 +34,4 @@ cmp.setup {
 			symbol_map = { Copilot = "" },
 		}),
 	},
-}
+})

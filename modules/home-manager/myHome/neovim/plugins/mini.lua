@@ -1,3 +1,13 @@
+require("mini.pairs").setup()
+require("mini.trailspace").setup()
+require("mini.surround").setup()
+require("mini.comment").setup({
+	mappings = {
+		comment = "<C-c>",
+		comment_line = "<C-c>",
+		comment_visual = "<C-c>",
+	},
+})
 local miniclue = require("mini.clue")
 miniclue.setup({
 	triggers = {

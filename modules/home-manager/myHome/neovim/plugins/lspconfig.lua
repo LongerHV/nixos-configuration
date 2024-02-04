@@ -34,8 +34,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-require("fidget").setup()
-
 local extra_server_options = {
 	lua_ls = {
 		settings = {
@@ -73,22 +71,11 @@ local extra_server_options = {
 	},
 }
 
-function M.setup_servers(json_config)
-	local f = io.open(json_config, "r")
-	if not f then
-		return
-	end
-	local lsp_servers = vim.json.decode(f:read("all*"))
-	f:close()
-	if lsp_servers == nil then
-		return
-	end
+function M.setup_servers(lsp_servers)
 	for server, config in pairs(vim.tbl_deep_extend("error", lsp_servers, extra_server_options)) do
 		if vim.startswith(server, "efm_") then
 			if config.root_dir then
 				config.root_dir = util.root_pattern(config.root_dir)
-			elseif server == "jsonls" then
-				vim.print(config)
 			end
 			configs[server] = efmconfig
 		end

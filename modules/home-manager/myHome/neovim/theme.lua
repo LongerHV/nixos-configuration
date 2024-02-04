@@ -18,6 +18,3 @@ vim.cmd("hi MiniStatuslineModeInsert guibg=#99c794")
 vim.cmd("hi MiniStatuslineModeVisual guibg=#f99157")
 vim.cmd("hi MiniStatuslineModeReplace guibg=#ec5f67")
 vim.cmd("hi MiniStatuslineModeCommand guibg=#65737e")
-
--- Fancier UI
-require("dressing").setup()

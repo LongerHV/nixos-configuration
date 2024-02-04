@@ -29,43 +29,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
--- Git
-require("gitsigns").setup()
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-
--- Mini.nvim
-require("mini.pairs").setup()
-require("mini.trailspace").setup()
-require("mini.surround").setup()
-require("mini.comment").setup({
-	mappings = {
-		comment = "<C-c>",
-		comment_line = "<C-c>",
-		comment_visual = "<C-c>",
-	},
-})
-
--- File explorer
-require("oil").setup({
-	view_options = {
-		show_hidden = true,
-	},
-})
-
 -- Add missing commentstring for nix files
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "nix", "terraform" },
-	group = vim.api.nvim_create_augroup("SetNixCommentstring", { clear = true }),
+	group = vim.api.nvim_create_augroup("SetHashCommentstring", { clear = true }),
 	callback = function()
 		vim.o.commentstring = "# %s"
 	end,
-})
-
--- Indentline
-require("ibl").setup({
-	scope = {
-		enabled = false,
-	},
 })
 
 -- Indents
