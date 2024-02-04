@@ -20,12 +20,12 @@ let
         default = null;
       };
       preConfig = mkOption {
-        type = types.lines;
-        default = "";
+        type = types.nullOr types.lines;
+        default = null;
       };
       postConfig = mkOption {
-        type = types.lines;
-        default = "";
+        type = types.nullOr types.lines;
+        default = null;
       };
       dependencies = mkOption {
         type = types.listOf types.package;
@@ -39,24 +39,30 @@ let
   };
   mkPlugin = p:
     let
-      opt = lib.strings.optionalString;
+      inherit (lib.strings) concatStrings escape;
+      optional = cond: element: if cond then element else null;
       name = if p.name != null then p.name else p.plugin.pname;
-      setupCommand = opt (p.opts != null) ''
-        require("${name}").setup(vim.fn.json_decode("${lib.strings.escape ["\""] (builtins.toJSON p.opts)}"))
+      setupCommand = optional (p.opts != null) /* lua */ ''
+        require("${name}").setup(vim.fn.json_decode("${escape ["\""] (builtins.toJSON p.opts)}"))
       '';
-      configFileCommand = opt (p.configFile != null) ''
+      doConfigFileCommand = optional (p.configFile != null) /* lua */ ''
         dofile("${p.configFile}")
       '';
+      config = concatStrings (builtins.filter (x: x != null) [
+        p.preConfig
+        setupCommand
+        doConfigFileCommand
+        p.postConfig
+      ]);
     in
     {
       inherit (p) plugin;
       type = "lua";
-      config = /* lua */ ''
-        ${p.preConfig}
-        ${setupCommand}
-        ${configFileCommand}
-        ${p.postConfig}
-      '';
+      config = optional (config != "") (concatStrings [
+        "-- Plugin ${p.plugin.pname}\n"
+        config
+        "-- end\n"
+      ]);
     };
 in
 {
@@ -85,7 +91,7 @@ in
         dofile("${./init.lua}")
         dofile("${./theme.lua}")
         dofile("${./keymaps.lua}")
-      '';
+      '' + "\n";
       plugins = (builtins.map mkPlugin cfg.plugins)
         ++ (builtins.foldl' (acc: p: acc ++ p.dependencies) [ ] cfg.plugins);
       extraPackages = with pkgs; [
