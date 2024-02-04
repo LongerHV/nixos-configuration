@@ -7,7 +7,6 @@
     gnome.enable = true;
     tmux.enable = true;
     zsh.enable = true;
-    helix.enable = true;
     neovim = {
       enable = true;
       enableLSP = true;

@@ -9,7 +9,6 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    helix.url = "github:helix-editor/helix";
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -49,7 +48,6 @@
     , deploy-rs
     , neovim-plugins
     , kubectl
-    , helix
     , nixgl
     , orca
     , ...
@@ -64,7 +62,6 @@
         unstable = final: prev: {
           unstable = nixpkgs-unstable.legacyPackages.${prev.system};
           inherit (nixpkgs-unstable.legacyPackages.${prev.system}) neovim-unwrapped;
-          inherit (helix.packages.${prev.system}) helix;
         };
         neovimPlugins = neovim-plugins.overlays.default;
         kubectl = kubectl.overlays.default;

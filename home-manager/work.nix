@@ -7,13 +7,11 @@
 
   myHome = {
     nonNixos.enable = true;
-    nonNixos.nix.substituters = [ "helix" ];
     gnome.enable = true;
     devops.enable = true;
     cli.personalGitEnable = false;
     tmux.enable = true;
     zsh.enable = true;
-    helix.enable = true;
     neovim = {
       enable = true;
       enableLSP = true;
