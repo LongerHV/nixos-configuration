@@ -22,6 +22,13 @@ let
       init_options.tsserver.path = "${pkgs.nodePackages.typescript}/bin/tsserver";
     };
     taplo = { };
+    tailwindcss = {
+      init_options = {
+        userLanguages = {
+          heex = "html";
+        };
+      };
+    };
     cssls = { };
     eslint = { settings.format = false; };
     jsonls = { init_options.provideFormatter = false; };
@@ -129,5 +136,6 @@ in
     tflint
     efm-langserver
     taplo
+    tailwindcss-language-server
   ];
 }
