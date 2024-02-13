@@ -53,7 +53,7 @@ in
     };
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud27;
+      package = pkgs.nextcloud28;
       adminpassFile = secrets.nextcloud_admin_password.path;
       tmpdir = "/var/tmp";
     };
