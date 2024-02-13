@@ -12,6 +12,7 @@ in
       awscli2
       azure-cli
       eksctl
+      fluxcd
       kind
       kubectl
       kubelogin
@@ -21,10 +22,10 @@ in
       minio-client
       mysql-client
       openstackclient
+      packer
       swiftclient
       terraform
       tilt
-      unstable.fluxcd
       unstable.kubernetes-polaris
       unstable.kubeshark
       unstable.k3d
