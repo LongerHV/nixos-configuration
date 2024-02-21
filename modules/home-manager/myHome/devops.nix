@@ -6,6 +6,9 @@ in
 {
   options.myHome.devops.enable = lib.mkEnableOption "devops";
   config = lib.mkIf cfg.enable {
+    programs.zsh.shellAliases = {
+      tf = "terraform";
+    };
     home.packages = with pkgs; [
       act
       ansible
