@@ -64,7 +64,7 @@ local extra_server_options = {
 		},
 	},
 	tsserver = {
-		on_attash = function(client, _bufnr)
+		on_attach = function(client, _bufnr)
 			client.server_capabilities.documentFormattingProvider = false
 			client.server_capabilities.documentRangeFormattingProvider = false
 		end,
