@@ -32,10 +32,6 @@
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    orca = {
-      url = "github:ovlach/nix-orca-slicer";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -49,7 +45,6 @@
     , neovim-plugins
     , kubectl
     , nixgl
-    , orca
     , ...
     }@inputs:
     let
@@ -67,9 +62,6 @@
         kubectl = kubectl.overlays.default;
         agenix = agenix.overlays.default;
         nixgl = nixgl.overlays.default;
-        orca = final: prev: {
-          inherit (orca.packages.${prev.system}) orca-slicer;
-        };
       };
 
       legacyPackages = forAllSystems (system:
