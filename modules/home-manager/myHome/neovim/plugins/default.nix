@@ -20,7 +20,6 @@ let
     { plugin = pkgs.nvimPlugins.devicons; }
     { plugin = pkgs.nvimPlugins.gitsigns; opts = { }; }
     { plugin = pkgs.nvimPlugins.dressing; opts = { }; }
-    { plugin = pkgs.nvimPlugins.gen; }
     {
       plugin = pkgs.nvimPlugins.oil;
       opts.view_options.show_hidden = true;

@@ -1,5 +1,4 @@
 final: prev: {
-  ollama-bin = prev.callPackage ./ollama.nix prev;
   templ = prev.callPackage ./templ.nix prev;
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
 

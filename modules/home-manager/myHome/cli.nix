@@ -32,7 +32,6 @@ in
       jq
       neofetch
       nix-tree
-      ollama-bin
       openssh
       p7zip
       ranger

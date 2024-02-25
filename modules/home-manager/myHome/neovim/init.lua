@@ -43,10 +43,3 @@ vim.api.nvim_set_option("tabstop", 4)
 vim.api.nvim_set_option("shiftwidth", 4)
 vim.api.nvim_set_option("smartindent", true)
 vim.cmd("filetype indent plugin on")
-
--- Ollama
-vim.keymap.set("n", "<leader>G", ":Gen<CR>", { desc = "Run Ollama" })
-vim.keymap.set("v", "<leader>G", ":Gen<CR>", { desc = "Run Ollama" })
-require("gen").prompts["Explain code"] = {
-	prompt = "Explain the following code:\n```$filetype\n$text\n```",
-}

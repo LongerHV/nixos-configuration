@@ -93,7 +93,6 @@
 
 
 
-    ollama.enable = true;
     # Enable openssh only to provide key for agenix
     openssh = {
       enable = true;
