@@ -108,12 +108,6 @@
               ./nixos/nasgul
             ];
           };
-          dol-guldur = nixpkgs.lib.nixosSystem {
-            inherit specialArgs;
-            modules = defaultModules ++ [
-              ./nixos/dol-guldur
-            ];
-          };
           playground = nixpkgs.lib.nixosSystem {
             inherit specialArgs;
             modules = defaultModules ++ [
@@ -186,7 +180,6 @@
         {
           nasgul = mkDeployConfig "nasgul.lan" self.nixosConfigurations.nasgul;
           smaug = mkDeployConfig "smaug.lan" self.nixosConfigurations.smaug;
-          dol-guldur = mkDeployConfig "dol-guldur.longerhv.xyz" self.nixosConfigurations.dol-guldur;
         };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
