@@ -1,0 +1,18 @@
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  check:
+    name: Run flake evaluation checks
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v3
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Workaround for broken check
+        run: nix eval --json .#iproute2
+      - name: Run checks
+        run: nix flake check --no-build --all-systems
