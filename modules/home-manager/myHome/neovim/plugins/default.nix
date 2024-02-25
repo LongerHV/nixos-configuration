@@ -39,6 +39,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    myHome.neovim.plugins = plugins ++ (lib.lists.optional cfg.enableLSP lspPlugins);
+    myHome.neovim.plugins = plugins ++ (lib.lists.optionals cfg.enableLSP lspPlugins);
   };
 }
