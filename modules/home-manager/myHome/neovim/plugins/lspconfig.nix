@@ -18,6 +18,7 @@ let
     tflint = { };
     gopls = { };
     templ = { };
+    marksman = { };
     tsserver = {
       init_options.tsserver.path = "${pkgs.nodePackages.typescript}/bin/tsserver";
     };
@@ -137,5 +138,6 @@ in
     efm-langserver
     taplo
     tailwindcss-language-server
+    marksman
   ];
 }
