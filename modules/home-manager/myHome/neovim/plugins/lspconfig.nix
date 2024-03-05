@@ -36,7 +36,7 @@ let
     yamlls = { };
     html = { init_options.provideFormatter = false; };
     volar.init_options.typescript.tsdk = "${pkgs.nodePackages.typescript}/lib/node_modules/typescript/lib";
-    elixirls.cmd = [ "${pkgs.elixir-ls}/bin/elixir-ls" ];
+    elixirls.cmd = [ "elixir-ls" ];
     lua_ls = {
       settings.Lua = {
         runtime.version = "LuaJIT";
@@ -121,6 +121,7 @@ in
     (nodePackages.pyright.override {
       inherit (unstable.nodePackages.pyright) src version name;
     })
+    unstable.elixir-ls
     unstable.lua-language-server
     unstable.nil
     unstable.gopls
