@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "nix", "terraform" },
 	group = vim.api.nvim_create_augroup("SetHashCommentstring", { clear = true }),
 	callback = function()
-		vim.o.commentstring = "# %s"
+		vim.bo.commentstring = "# %s"
 	end,
 })
 
