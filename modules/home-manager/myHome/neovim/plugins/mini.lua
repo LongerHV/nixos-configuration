@@ -1,6 +1,19 @@
 require("mini.pairs").setup()
 require("mini.trailspace").setup()
 require("mini.surround").setup()
+
+require("mini.notify").setup()
+vim.api.nvim_set_hl(0, "MiniNotifyBorder", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "MiniNotifyNormal", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "MiniNotifyTitle", { link = "NormalFloat" })
+
+require("mini.statusline").setup()
+vim.api.nvim_set_hl(0, "MiniStatuslineModeNormal", { bg = "#6699cc" })
+vim.api.nvim_set_hl(0, "MiniStatuslineModeInsert", { bg = "#99c794" })
+vim.api.nvim_set_hl(0, "MiniStatuslineModeVisual", { bg = "#f99157" })
+vim.api.nvim_set_hl(0, "MiniStatuslineModeReplace", { bg = "#ec5f67" })
+vim.api.nvim_set_hl(0, "MiniStatuslineModeCommand", { bg = "#65737e" })
+
 require("mini.comment").setup({
 	mappings = {
 		comment = "<C-c>",

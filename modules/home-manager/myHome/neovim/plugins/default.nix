@@ -29,11 +29,9 @@ let
     }
     { plugin = pkgs.vimPlugins.vim-sleuth; }
   ];
-  lspPlugins = (importPlugins [
+  lspPlugins = importPlugins [
     ./lspconfig.nix
     ./cmp.nix
-  ]) ++ [
-    { plugin = pkgs.nvimPlugins.fidget; opts = { }; }
   ];
 in
 {
