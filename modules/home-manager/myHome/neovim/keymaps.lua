@@ -12,3 +12,7 @@ vim.keymap.set("v", "<leader>P", '"+P', { desc = "Paste from system register" })
 vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste from system register" })
 vim.keymap.set("n", "<leader>P", '"+P', { desc = "Paste from system register" })
 vim.keymap.set("n", "Y", "y$")
+
+-- Visual mode
+vim.keymap.set("n", "vv", "V")
+vim.keymap.set("n", "V", "v$")
