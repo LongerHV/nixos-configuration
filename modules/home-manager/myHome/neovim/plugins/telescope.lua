@@ -1,15 +1,4 @@
-local telescope = require("telescope")
 local builtin = require("telescope.builtin")
-
-telescope.setup({
-	defaults = {
-		layout_config = {
-			horizontal = {
-				width = 0.9,
-			},
-		},
-	},
-})
 
 vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "Open file picker" })
 vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Open buffer picker" })
