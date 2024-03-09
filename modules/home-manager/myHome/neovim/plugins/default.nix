@@ -13,7 +13,7 @@ let
     }
     {
       plugin = pkgs.nvimPlugins.indent-blankline;
-      name = "ibl";
+      main = "ibl";
       opts.scope.enabled = false;
     }
     { plugin = pkgs.nvimPlugins.oceanic-next; }

@@ -7,7 +7,7 @@ let
       plugin = mkOption {
         type = types.package;
       };
-      name = mkOption {
+      main = mkOption {
         type = types.nullOr types.str;
         default = null;
       };
@@ -41,9 +41,9 @@ let
     let
       inherit (lib.strings) concatStrings escape;
       optional = cond: element: if cond then element else null;
-      name = if p.name != null then p.name else p.plugin.pname;
+      main = if p.main != null then p.main else p.plugin.pname;
       setupCommand = optional (p.opts != null) /* lua */ ''
-        require("${name}").setup(vim.fn.json_decode("${escape ["\""] (builtins.toJSON p.opts)}"))
+        require("${main}").setup(vim.fn.json_decode("${escape ["\""] (builtins.toJSON p.opts)}"))
       '';
       doConfigFileCommand = optional (p.configFile != null) /* lua */ ''
         dofile("${p.configFile}")
