@@ -39,11 +39,11 @@ let
   };
   mkPlugin = p:
     let
-      inherit (lib.strings) concatStrings escape;
+      inherit (lib.strings) concatStrings;
       optional = cond: element: if cond then element else null;
       main = if p.main != null then p.main else p.plugin.pname;
       setupCommand = optional (p.opts != null) /* lua */ ''
-        require("${main}").setup(vim.fn.json_decode("${escape ["\""] (builtins.toJSON p.opts)}"))
+        require("${main}").setup(vim.fn.json_decode([[${builtins.toJSON p.opts}]]))
       '';
       doConfigFileCommand = optional (p.configFile != null) /* lua */ ''
         dofile("${p.configFile}")

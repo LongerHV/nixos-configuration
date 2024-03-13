@@ -105,7 +105,7 @@ in
 {
   plugin = pkgs.nvimPlugins.nvim-lspconfig;
   preConfig = /* lua */ ''
-    dofile("${./lspconfig.lua}").setup_servers(vim.fn.json_decode("${lib.strings.escape ["\""] (builtins.toJSON lsp_servers)}"))
+    dofile("${./lspconfig.lua}").setup_servers(vim.fn.json_decode([[${builtins.toJSON lsp_servers}]]))
   '';
   dependencies = [
     pkgs.nvimPlugins.schemastore
