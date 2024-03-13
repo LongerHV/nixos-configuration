@@ -48,7 +48,7 @@ local extra_server_options = {
 		settings = {
 			json = {
 				schemas = schemastore.json.schemas(),
-				validate = { enalbe = true },
+				validate = { enable = true },
 			},
 		},
 	},
