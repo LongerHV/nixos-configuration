@@ -24,7 +24,7 @@ in
   networking = {
     wg-quick.interfaces = {
       wg-pl = mkMullvadInterface {
-        autostart = true;
+        autostart = false;
         publicKey = "fO4beJGkKZxosCZz1qunktieuPyzPnEVKVQNhzanjnA=";
         endpoint = "45.134.212.66:51820";
       };
