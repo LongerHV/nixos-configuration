@@ -24,6 +24,10 @@
       url = "github:LongerHV/neovim-plugins-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    xenon = {
+      url = "github:LongerHV/xenon";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     kubectl = {
       url = "github:LongerHV/kubectl-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,6 +47,7 @@
     , agenix
     , deploy-rs
     , neovim-plugins
+    , xenon
     , kubectl
     , nixgl
     , ...
@@ -73,7 +78,7 @@
       );
 
       nixosModules = import ./modules/nixos;
-      homeManagerModules = import ./modules/home-manager;
+      homeManagerModules = (import ./modules/home-manager) // xenon.homeManagerModules;
 
       devShells = forAllSystems (system: {
         default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };

@@ -36,6 +36,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    myHome.neovim.plugins = plugins ++ (lib.lists.optionals cfg.enableLSP lspPlugins);
+    programs.xenon.plugins = plugins ++ (lib.lists.optionals cfg.enableLSP lspPlugins);
   };
 }

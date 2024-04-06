@@ -515,7 +515,8 @@
         "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "xenon": "xenon"
       }
     },
     "schemastore": {
@@ -611,6 +612,26 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "xenon": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1712497987,
+        "narHash": "sha256-79WMrzfEAvFN3libM8bG1G2mrqUmQbolPy0IkB1o7qs=",
+        "owner": "LongerHV",
+        "repo": "xenon",
+        "rev": "736aea5761aaaad4475dfb315035aa6756f5ff89",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LongerHV",
+        "repo": "xenon",
         "type": "github"
       }
     }
