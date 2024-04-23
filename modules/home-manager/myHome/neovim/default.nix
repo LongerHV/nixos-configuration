@@ -9,6 +9,7 @@
   };
 
   config = lib.mkIf config.myHome.neovim.enable {
+    home.sessionVariables.EDITOR = "nvim";
     programs.xenon = {
       enable = true;
       aliases = [ "nvim" "vim" "vi" ];
