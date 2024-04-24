@@ -51,13 +51,6 @@ let
           formatStdin = true;
         };
         languages = {
-          go = [
-            {
-              lintCommand = "golangci-lint run --fix=false --out-format=line-number \${INPUT}";
-              lintStdin = false;
-              lintFormats = [ "%f:%l: %m" ];
-            }
-          ];
           json = [ prettier ];
           javascript = [ prettier ];
           html = [ prettier ];
@@ -78,6 +71,19 @@ let
         settings = { inherit languages; };
         filetypes = builtins.attrNames languages;
       };
+    efm_go = {
+      settings = {
+        languages.go = [{
+          lintCommand = "golangci-lint run --fix=false --out-format=line-number --print-issued-lines=false 2> /dev/null";
+          lintStdin = false;
+          lintWorkspace = true;
+          lintIgnoreExitCode = true;
+          lintFormats = [ "%f:%l:%c: %m" "%f:%l: %m" ];
+        }];
+      };
+      filetypes = [ "go" ];
+      root_dir = [ "go.mod" ".git" ];
+    };
     efm_python = {
       init_options.documentFormatting = true;
       settings = {
@@ -94,6 +100,7 @@ let
             lintCommand = "pylama --from-stdin \${INPUT}";
             lintStdin = true;
             lintFormats = [ "%f:%l:%c %m" ];
+            lintIgnoreExitCode = true;
           }
         ];
       };
@@ -121,24 +128,24 @@ in
     (nodePackages.pyright.override {
       inherit (unstable.nodePackages.pyright) src version name;
     })
+    unstable.efm-langserver
     unstable.elixir-ls
+    unstable.gopls
     unstable.lua-language-server
     unstable.nil
-    unstable.gopls
+    marksman
     nixpkgs-fmt
-    templ
     nodePackages.bash-language-server
-    nodePackages.yaml-language-server
     nodePackages.dockerfile-language-server-nodejs
-    nodePackages.vscode-langservers-extracted
-    nodePackages.typescript-language-server
     nodePackages.prettier
-    yaml-language-server
+    nodePackages.typescript-language-server
+    nodePackages.vscode-langservers-extracted
+    nodePackages.yaml-language-server
+    tailwindcss-language-server
+    taplo
+    templ
     terraform-ls
     tflint
-    efm-langserver
-    taplo
-    tailwindcss-language-server
-    marksman
+    yaml-language-server
   ];
 }
