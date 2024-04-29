@@ -25,12 +25,6 @@ in
             };
           }
           {
-            Jellyfin = {
-              href = "https://jellyfin.${domain}/sso/OID/p/authelia";
-              icon = "jellyfin";
-            };
-          }
-          {
             Invidious = {
               href = "https://yt.${domain}";
               icon = "invidious";
@@ -101,6 +95,12 @@ in
             Bazarr = {
               icon = "bazarr";
               href = "https://bazarr.${domain}";
+            };
+          }
+          {
+            Prowlarr = {
+              icon = "prowlarr";
+              href = "https://prowlarr.${domain}";
             };
           }
           {

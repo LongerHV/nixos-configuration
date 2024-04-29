@@ -180,6 +180,7 @@
                 user = "root";
                 sshOpts = [ "-t" ];
                 magicRollback = false; # Disable because it breaks remote sudo :<
+                interactiveSudo = true;
               };
           };
         in

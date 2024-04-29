@@ -84,6 +84,7 @@ in
 
   services = {
     postgresql.package = pkgs.postgresql_14;
+    prowlarr.package = pkgs.unstable.prowlarr;
     gitea = {
       package = pkgs.unstable.gitea;
       settings.packages.CHUNKED_UPLOAD_PATH = "${config.services.gitea.stateDir}/tmp/package-upload";
