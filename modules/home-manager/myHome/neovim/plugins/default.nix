@@ -18,7 +18,10 @@ let
     }
     { plugin = pkgs.nvimPlugins.oceanic-next; }
     { plugin = pkgs.nvimPlugins.devicons; }
-    { plugin = pkgs.nvimPlugins.gitsigns; opts = { }; }
+    {
+      plugin = pkgs.nvimPlugins.gitsigns;
+      configFile = ./gitsigns.lua;
+    }
     { plugin = pkgs.nvimPlugins.dressing; opts = { }; }
     {
       plugin = pkgs.nvimPlugins.oil;
