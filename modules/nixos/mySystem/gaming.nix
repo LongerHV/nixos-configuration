@@ -9,7 +9,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ lutris protonup-ng ];
+    environment.systemPackages = with pkgs; [ lutris protonup-ng wine ];
     programs = {
       steam = {
         enable = true;
