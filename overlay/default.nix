@@ -2,6 +2,17 @@ final: prev: {
   templ = prev.callPackage ./templ.nix prev;
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
 
+  nvimPlugins = prev.nvimPlugins // {
+    oceanic-next = prev.nvimPlugins.oceanic-next.overrideAttrs (old: {
+      patches = [
+        (prev.fetchpatch {
+          url = "https://github.com/mhartington/oceanic-next/commit/5fe2d5cc25f66b9d633a71e06c05c6c38e9f1671.diff";
+          hash = "sha256-xERdAsUf1AcdFJueXljF6OhyT5LHdXQvQvZi5mwCNVw=";
+        })
+      ];
+    });
+  };
+
   zsh-z = prev.zsh-z.overrideAttrs (attrs: rec {
     pname = "zsh-z";
     version = "unstable-2023-01-27";
