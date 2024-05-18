@@ -1,4 +1,4 @@
-{ inputs, outputs, config, lib, pkgs, ... }:
+{ inputs, overlays, config, lib, pkgs, ... }:
 
 let
   cfg = config.mySystem;
@@ -42,8 +42,10 @@ in
       keyMap = lib.mkDefault "pl";
     };
 
-    nixpkgs.overlays = builtins.attrValues outputs.overlays;
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs = {
+      inherit overlays;
+      config.allowUnfree = true;
+    };
     nix = {
       package = pkgs.nix;
       extraOptions = ''

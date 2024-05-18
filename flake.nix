@@ -55,30 +55,30 @@
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
-    in
-    rec {
-      overlays = {
-        default = import ./overlay/default.nix;
-        unstable = final: prev: {
+      defaultOverlay = import ./overlay/default.nix;
+      overlays = [
+        neovim-plugins.overlays.default
+        kubectl.overlays.default
+        agenix.overlays.default
+        nixgl.overlays.default
+        (final: prev: {
           unstable = nixpkgs-unstable.legacyPackages.${prev.system};
           inherit (nixpkgs-unstable.legacyPackages.${prev.system}) neovim-unwrapped;
-        };
-        neovimPlugins = neovim-plugins.overlays.default;
-        kubectl = kubectl.overlays.default;
-        agenix = agenix.overlays.default;
-        nixgl = nixgl.overlays.default;
-      };
-
+        })
+        defaultOverlay
+      ];
+      nixosModules = import ./modules/nixos;
+      homeManagerModules = (import ./modules/home-manager) // xenon.homeManagerModules;
       legacyPackages = forAllSystems (system:
         import inputs.nixpkgs {
-          inherit system;
-          overlays = builtins.attrValues overlays;
+          inherit system overlays;
           config.allowUnfree = true;
         }
       );
-
-      nixosModules = import ./modules/nixos;
-      homeManagerModules = (import ./modules/home-manager) // xenon.homeManagerModules;
+    in
+    {
+      inherit legacyPackages nixosModules homeManagerModules;
+      overlays.default = defaultOverlay;
 
       devShells = forAllSystems (system: {
         default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
@@ -99,7 +99,7 @@
             agenix.nixosModules.default
             home-manager.nixosModules.default
           ];
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = { inherit inputs outputs overlays; };
         in
         {
           mordor = nixpkgs.lib.nixosSystem {
@@ -159,7 +159,7 @@
         # Ubuntu at work
         mmieszczak = home-manager.lib.homeManagerConfiguration {
           pkgs = legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs outputs; };
+          extraSpecialArgs = { inherit inputs outputs overlays; };
           modules = (builtins.attrValues homeManagerModules) ++ [
             ./home-manager/work.nix
           ];
