@@ -125,9 +125,7 @@ in
       isort
       yamllint
     ]))
-    (nodePackages.pyright.override {
-      inherit (unstable.nodePackages.pyright) src version name;
-    })
+    (unstable.pyright.override { inherit (pkgs) buildNpmPackage; })
     unstable.efm-langserver
     unstable.elixir-ls
     unstable.gopls
