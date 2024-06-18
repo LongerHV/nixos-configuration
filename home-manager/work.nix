@@ -19,7 +19,7 @@
   };
 
   nixpkgs.overlays = [
-    (final: prev: { kubectl = prev.kubectl_1_26; })
+    (final: prev: { kubectl = prev.kubectl_1_27; })
   ];
 
   # Workaround for freezing during activity switching on Ubuntu
