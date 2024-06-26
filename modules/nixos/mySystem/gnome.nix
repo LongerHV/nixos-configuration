@@ -19,7 +19,6 @@ in
       ];
       gnome.excludePackages = with pkgs.gnome; [
         cheese # webcam tool
-        gedit # text editor
         epiphany # web browser
         geary # email reader
         evince # document viewer
@@ -36,7 +35,7 @@ in
     services = {
       xserver = {
         enable = true;
-        layout = "pl";
+        xkb.layout = "pl";
         displayManager.gdm = {
           enable = true;
           settings = {

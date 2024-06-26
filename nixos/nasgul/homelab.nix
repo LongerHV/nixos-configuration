@@ -68,7 +68,6 @@ in
       enable = true;
       deluge.interface = "wg1";
     };
-    invidious.enable = true;
     miniflux = {
       enable = true;
       adminCredentialsFile = secrets.miniflux_admin_credentials.path;

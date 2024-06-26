@@ -111,7 +111,7 @@
     };
     avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
     };
     udev.packages = with pkgs; [ qmk-udev-rules yubikey-personalization via ];
     pcscd.enable = true;

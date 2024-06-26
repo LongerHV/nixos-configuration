@@ -80,9 +80,7 @@ in
           config = {
             dbtype = "mysql";
             dbhost = "localhost:/run/mysqld/mysqld.sock";
-            trustedProxies = [ "127.0.0.1" ];
             inherit (cfg) adminpassFile;
-            defaultPhoneRegion = "PL";
           };
           caching = {
             redis = true;
@@ -90,7 +88,9 @@ in
           };
           phpOptions.memory_limit = lib.mkForce "2048M";
           phpExtraExtensions = all: [ all.pdlib all.bz2 ];
-          extraOptions = {
+          settings = {
+            default_phone_region = "PL";
+            trusted_proxies = [ "127.0.0.1" ];
             "memcache.local" = "\\OC\\Memcache\\APCu";
             "memcache.distributed" = "\\OC\\Memcache\\Redis";
             "memcache.locking" = "\\OC\\Memcache\\Redis";
