@@ -32,10 +32,7 @@ in
     };
     services.homepage-dashboard = {
       enable = true;
-      services = cfg.services;
-      bookmarks = cfg.bookmarks;
-      widgets = cfg.widgets;
-      settings = cfg.settings;
+      inherit (cfg) services bookmarks widgets settings;
     };
   };
 }
