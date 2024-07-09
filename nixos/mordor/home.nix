@@ -28,7 +28,7 @@
     startInBackground = true;
   };
 
-  xdg.configFile."wireplumber/main.lua.d" = {
+  xdg.configFile."wireplumber/wireplumber.conf.d" = {
     recursive = true;
     source = ./wireplumber;
   };
