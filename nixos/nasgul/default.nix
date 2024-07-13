@@ -38,7 +38,7 @@
     loader.efi.canTouchEfiVariables = false;
     supportedFilesystems = [ "zfs" ];
     zfs.forceImportRoot = false;
-    kernelPackages = pkgs.linuxKernel.packages.linux_hardened;
+    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   };
   nix.settings.trusted-users = [ config.mySystem.user ];
 
