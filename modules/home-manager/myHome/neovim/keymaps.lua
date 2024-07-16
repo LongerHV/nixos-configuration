@@ -15,4 +15,4 @@ vim.keymap.set("n", "Y", "y$")
 
 -- Visual mode
 vim.keymap.set("n", "vv", "V")
-vim.keymap.set("n", "V", "v$")
+vim.keymap.set("n", "V", "vg_")
