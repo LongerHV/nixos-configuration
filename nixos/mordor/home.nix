@@ -18,7 +18,7 @@
     jellyfin-media-player
     protonup
     signal-desktop
-    super-slicer-latest
+    prusa-slicer
 
     gnomeExtensions.tray-icons-reloaded
   ];
