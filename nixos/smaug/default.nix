@@ -19,14 +19,13 @@
       "console=ttyAMA0,115200"
       "console=tty1"
     ];
-  };
 
-  boot.loader = {
-    grub.enable = false;
-    generic-extlinux-compatible.enable = true;
-    raspberryPi = {
-      uboot.enable = true;
-      version = 4;
+    loader = {
+      grub.enable = false;
+      generic-extlinux-compatible.enable = true;
+      raspberryPi = {
+        version = 4;
+      };
     };
   };
 
