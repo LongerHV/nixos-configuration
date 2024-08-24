@@ -13,6 +13,9 @@ final: prev: {
     });
   };
 
+  # Workaround for "undefined reference to `__exidx_start'" error
+  klipper-firmware = prev.unstable.klipper-firmware;
+
   zsh-z = prev.zsh-z.overrideAttrs (attrs: rec {
     pname = "zsh-z";
     version = "unstable-2023-01-27";
