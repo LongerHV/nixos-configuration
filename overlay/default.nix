@@ -2,6 +2,7 @@ final: prev: {
   templ = prev.callPackage ./templ.nix prev;
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
 
+  # Waiting for https://github.com/mhartington/oceanic-next/pull/123
   nvimPlugins = prev.nvimPlugins // {
     oceanic-next = prev.nvimPlugins.oceanic-next.overrideAttrs (old: {
       patches = [
