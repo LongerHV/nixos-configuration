@@ -35,7 +35,6 @@
     zfs = {
       forceImportRoot = false;
     };
-    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
     binfmt.emulatedSystems = [ "aarch64-linux" ];
     initrd.luks = {
       fido2Support = true;
