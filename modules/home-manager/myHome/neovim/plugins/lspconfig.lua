@@ -2,7 +2,7 @@ local M = {}
 local lspconfig = require("lspconfig")
 local configs = require("lspconfig.configs")
 local util = require("lspconfig.util")
-local efmconfig = require("lspconfig.server_configurations.efm")
+local efmconfig = require("lspconfig.configs.efm")
 local telescope = require("telescope.builtin")
 local schemastore = require("schemastore")
 
