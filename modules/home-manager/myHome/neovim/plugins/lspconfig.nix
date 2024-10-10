@@ -19,7 +19,7 @@ let
     gopls = { };
     templ = { };
     marksman = { };
-    tsserver = {
+    ts_ls = {
       init_options.tsserver.path = "${pkgs.nodePackages.typescript}/bin/tsserver";
     };
     taplo = { };
