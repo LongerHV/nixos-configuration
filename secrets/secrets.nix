@@ -38,6 +38,7 @@ in
   "nasgul_miniflux_client_id.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_miniflux_client_secret.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_minio_credentials.age".publicKeys = [ nasgul mordor_user ];
+  "nasgul_anki_password.age".publicKeys = [ nasgul mordor_user ];
   "cloudflare_token.age".publicKeys = [ nasgul mordor_user ];
   "cloudflare_email.age".publicKeys = [ nasgul mordor_user ];
 

@@ -1,5 +1,6 @@
 {
   imports = [
+    ./anki.nix
     ./auth.nix
     ./containers.nix
     ./homepage.nix

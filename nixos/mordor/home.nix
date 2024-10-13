@@ -14,6 +14,7 @@
   };
 
   home.packages = with pkgs; [
+    anki
     brave
     jellyfin-media-player
     protonup
