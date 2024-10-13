@@ -142,6 +142,9 @@
       pkgs.libvdpau-va-gl
     ];
   };
+  fonts.packages = with pkgs; [
+    noto-fonts-cjk
+  ];
 
   age.secrets = {
     cache_priv_key.file = ../../secrets/mordor_cache_priv_key.pem.age;
