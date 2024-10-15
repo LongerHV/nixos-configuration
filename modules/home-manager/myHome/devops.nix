@@ -24,15 +24,15 @@ in
       kubeseal
       minio-client
       mysql-client
-      openstackclient
       packer
       swiftclient
       terraform
       tilt
-      unstable.kubernetes-polaris
-      unstable.kubeshark
       unstable.k3d
       unstable.k9s
+      unstable.kubernetes-polaris
+      unstable.kubeshark
+      unstable.openstackclient
       unstable.teleport.client
       (writeShellApplication {
         name = "kctx";
