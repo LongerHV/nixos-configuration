@@ -29,12 +29,19 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
--- Add missing commentstring for nix files
+-- Add missing commentstring types
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "nix", "terraform" },
 	group = vim.api.nvim_create_augroup("SetHashCommentstring", { clear = true }),
 	callback = function()
 		vim.bo.commentstring = "# %s"
+	end,
+})
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "gleam" },
+	group = vim.api.nvim_create_augroup("SetDoubleSlashCommentstring", { clear = true }),
+	callback = function()
+		vim.bo.commentstring = "// %s"
 	end,
 })
 

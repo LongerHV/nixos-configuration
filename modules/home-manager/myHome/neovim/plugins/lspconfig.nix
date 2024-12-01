@@ -11,6 +11,7 @@ let
         formatting.command = [ "nixpkgs-fmt" ];
       };
     };
+    gleam = { };
     pyright = { };
     dockerls = { };
     bashls = { };
