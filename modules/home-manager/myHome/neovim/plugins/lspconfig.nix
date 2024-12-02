@@ -54,6 +54,7 @@ let
         languages = {
           json = [ prettier ];
           javascript = [ prettier ];
+          typescript = [ prettier ];
           html = [ prettier ];
           css = [ prettier ];
           vue = [ prettier ];
