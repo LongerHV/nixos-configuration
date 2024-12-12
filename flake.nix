@@ -81,12 +81,12 @@
       overlays.default = defaultOverlay;
 
       devShells = forAllSystems (system: {
-        default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
-        node = nixpkgs.legacyPackages.${system}.callPackage ./shells/node.nix { };
-        go = nixpkgs.legacyPackages.${system}.callPackage ./shells/go.nix { };
-        python = nixpkgs.legacyPackages.${system}.callPackage ./shells/python.nix { };
-        pythonVenv = nixpkgs.legacyPackages.${system}.callPackage ./shells/pythonVenv.nix { };
-        lint = nixpkgs.legacyPackages.${system}.callPackage ./shells/lint.nix { };
+        default = legacyPackages.${system}.callPackage ./shell.nix { };
+        node = legacyPackages.${system}.callPackage ./shells/node.nix { };
+        go = legacyPackages.${system}.callPackage ./shells/go.nix { };
+        python = legacyPackages.${system}.callPackage ./shells/python.nix { };
+        pythonVenv = legacyPackages.${system}.callPackage ./shells/pythonVenv.nix { };
+        lint = legacyPackages.${system}.callPackage ./shells/lint.nix { };
       });
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-fmt);
