@@ -17,9 +17,14 @@ jobs:
 
       - name: Check out repository code
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       - name: Lint GitHub Actions
         run: actionlint
+
+      - name: Find security issues in GitHub actions
+        run: zizmor .
 
       - name: Lint yaml
         run: yamllint .

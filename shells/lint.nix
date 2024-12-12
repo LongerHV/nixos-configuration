@@ -8,5 +8,6 @@ pkgs.mkShellNoCC {
     statix
     nixpkgs-fmt
     yamllint
+    unstable.zizmor
   ];
 }
