@@ -40,6 +40,7 @@ in
     services = {
       jellyfin = {
         enable = true;
+        package = pkgs.unstable.jellyfin;
         group = "multimedia";
       };
       sonarr = { enable = true; group = "multimedia"; };
