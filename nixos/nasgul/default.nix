@@ -41,7 +41,7 @@
   };
   nix.settings.trusted-users = [ config.mySystem.user ];
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = [
       pkgs.vaapiVdpau

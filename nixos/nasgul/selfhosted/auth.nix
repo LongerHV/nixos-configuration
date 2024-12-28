@@ -3,7 +3,8 @@
 let
   authelia = config.services.authelia.instances.main;
   redis = config.services.redis.servers."";
-  autheliaUrl = "http://${authelia.settings.server.host}:${builtins.toString authelia.settings.server.port}";
+  port = 9092;
+  autheliaUrl = "http://${authelia.settings.server.address}";
 in
 {
   environment.systemPackages = [
@@ -14,7 +15,7 @@ in
   users.users."${authelia.user}".extraGroups = [ "redis" "sendgrid" ];
 
   homelab.traefik.services = lib.mkMerge [
-    { auth.port = 9092; }
+    { auth = { inherit port; }; }
     (lib.genAttrs [
       "bazarr"
       "blocky"
@@ -80,8 +81,7 @@ in
         theme = "dark";
         default_2fa_method = "totp";
         server = {
-          host = "localhost";
-          port = 9092;
+          address = "localhost:${toString port}";
         };
         log.level = "info";
         totp.issuer = "authelia.com";

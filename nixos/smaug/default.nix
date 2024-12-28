@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 
 {
   imports = [
@@ -19,13 +19,9 @@
       "console=ttyAMA0,115200"
       "console=tty1"
     ];
-
     loader = {
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
-      raspberryPi = {
-        version = 4;
-      };
     };
   };
 

@@ -17,14 +17,14 @@ in
         gnomeExtensions.appindicator
         gnomeExtensions.gsconnect
       ];
-      gnome.excludePackages = with pkgs.gnome; [
+      gnome.excludePackages = with pkgs; [
         cheese # webcam tool
         epiphany # web browser
         geary # email reader
         evince # document viewer
         totem # video player
-        pkgs.gnome-console
-        pkgs.gnome-connections
+        gnome-console
+        gnome-connections
         gnome-contacts
         gnome-maps
         gnome-music
@@ -44,7 +44,7 @@ in
         };
         desktopManager.gnome.enable = true;
       };
-      udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
+      udev.packages = [ pkgs.gnome-settings-daemon ];
       pipewire = {
         enable = true;
         alsa.enable = true;
@@ -64,6 +64,5 @@ in
 
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
-    sound.enable = true;
   };
 }

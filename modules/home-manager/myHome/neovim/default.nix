@@ -21,7 +21,6 @@
       ];
       extraPackages = with pkgs; [
         nodePackages.npm
-        nodePackages.neovim
       ];
     };
   };

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, options, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   hl = config.homelab;
@@ -16,6 +16,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Sonarr requires EOL .NET 6.0 - https://github.com/NixOS/nixpkgs/issues/360592
+    nixpkgs.config.permittedInsecurePackages = [
+      "dotnet-sdk-6.0.428"
+      "aspnetcore-runtime-6.0.36"
+    ];
+
     users.groups.multimedia = { };
     users.users."${config.mySystem.user}".extraGroups = [ "multimedia" ];
 
@@ -40,7 +46,7 @@ in
     services = {
       jellyfin = {
         enable = true;
-        package = pkgs.unstable.jellyfin;
+        package = pkgs.jellyfin;
         group = "multimedia";
       };
       sonarr = { enable = true; group = "multimedia"; };

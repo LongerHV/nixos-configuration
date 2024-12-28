@@ -1,5 +1,3 @@
-{ config, pkgs, lib, ... }:
-
 {
   mySystem.user = "nixos";
 
@@ -11,15 +9,12 @@
       "console=ttyAMA0,115200"
       "console=tty1"
     ];
-  };
-
-  boot.loader = {
-    grub.enable = false;
-    raspberryPi = {
-      uboot.enable = true;
-      version = 4;
+    loader = {
+      grub.enable = false;
+      generic-extlinux-compatible.enable = true;
     };
   };
+
 
   networking = {
     hostName = "nixos";

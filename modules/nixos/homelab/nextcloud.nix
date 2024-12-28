@@ -119,7 +119,7 @@ in
       };
     })
     (lib.mkIf (cfg.tmpdir != null) (with cfg; {
-      services.nextcloud.extraOptions.tempdirectory = tmpdir;
+      services.nextcloud.settings.tempdirectory = tmpdir;
       services.phpfpm.pools.nextcloud.phpEnv = {
         TMP = tmpdir;
         TEMP = tmpdir;

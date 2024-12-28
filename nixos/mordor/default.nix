@@ -135,7 +135,7 @@
     unstable.yubioath-flutter
   ];
   users.users.${config.mySystem.user}.extraGroups = [ "dialout" ];
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = [
       pkgs.vaapiVdpau
@@ -143,7 +143,7 @@
     ];
   };
   fonts.packages = with pkgs; [
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
   ];
 
   age.secrets = {
