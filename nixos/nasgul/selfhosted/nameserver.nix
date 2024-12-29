@@ -21,7 +21,7 @@
     };
     blocking = {
       blockType = "zeroIP";
-      blackLists = {
+      denylists = {
         ads = [
           "https://adaway.org/hosts.txt"
           "https://v.firebog.net/hosts/AdguardDNS.txt"
@@ -40,9 +40,9 @@
           "https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt"
         ];
       };
-      whiteLists = {
+      allowlists = {
         ads = [
-          (pkgs.writeText "whitelist.txt" ''
+          (pkgs.writeText "allowlist.txt" ''
             piwik.pro
           '')
         ];

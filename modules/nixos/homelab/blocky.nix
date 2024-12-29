@@ -30,10 +30,12 @@ in
       services.blocky = {
         enable = true;
         settings = {
-          port = lib.mkDefault 53;
-          httpPort = lib.mkDefault 4000;
+          ports = {
+            dns = lib.mkDefault 53;
+            http = lib.mkDefault 4000;
+          };
           connectIPVersion = "v4";
-          upstream.default = [
+          upstreams.groups.default = [
             "https://one.one.one.one/dns-query"
             "https://dns.quad9.net/dns-query"
           ];
