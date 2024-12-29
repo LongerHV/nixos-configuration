@@ -67,10 +67,6 @@ in
       enable = true;
       deluge.interface = "wg1";
     };
-    miniflux = {
-      enable = true;
-      adminCredentialsFile = secrets.miniflux_admin_credentials.path;
-    };
   };
 
   systemd.services.gitea-runner-nasgul.serviceConfig.SupplementaryGroups = [ "gitea-secrets" ];

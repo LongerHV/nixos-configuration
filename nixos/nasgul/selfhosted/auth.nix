@@ -186,12 +186,6 @@ in
             client_secret = "$pbkdf2-sha512$310000$g7mufVXry1vsC5uk7KSohw$EIt7XiOdxayh8on7OCZgiLWCmRTzLW9a8Cupnoyh/aeX2M6n7Hi/KCVW7f4xk3l8pk7RFfjTGLzbqbp6FtyDYQ";
             redirect_uris = [ "https://gitea.${domain}/user/oauth2/Authelia/callback" ];
           }
-          {
-            authorization_policy = "one_factor";
-            client_id = "miniflux";
-            client_secret = "$pbkdf2-sha512$310000$04zWVx1B/vunExsKbVoelQ$PlGGkOG691I5YFEfY5J0uknApI63w.5xeBIsnDA0BuxXGa4ofKCw2Ze0qv1P4ES.It9XQTgB4x0UXzN/hNN6LA";
-            redirect_uris = [ "https://rss.${domain}/oauth2/oidc/callback" ];
-          }
         ];
       };
     };

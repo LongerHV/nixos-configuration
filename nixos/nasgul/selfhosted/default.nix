@@ -7,6 +7,7 @@
     ./lldap.nix
     ./monitoring.nix
     ./nameserver.nix
+    ./rss.nix
     ./wireguard.nix
   ];
 }

@@ -10,7 +10,6 @@ in
     ./gitea.nix
     ./homepage.nix
     ./mail.nix
-    ./miniflux.nix
     ./monitoring.nix
     ./multimedia.nix
     ./mysql.nix

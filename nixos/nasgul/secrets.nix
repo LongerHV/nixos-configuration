@@ -1,7 +1,6 @@
 { config, ... }:
 
 let
-  inherit (config.age) secrets;
   autheliaUser = config.services.authelia.instances.main.user;
 in
 {
@@ -9,19 +8,7 @@ in
     groups = {
       lldap-secrets = { };
       gitea-secrets = { };
-      miniflux-secrets = { };
     };
-  };
-
-  # Miniflux
-  systemd.services.miniflux.serviceConfig.SupplementaryGroups = [ "miniflux-secrets" ];
-  services.miniflux.config = {
-    OAUTH2_PROVIDER = "oidc";
-    OAUTH2_USER_CREATION = "1";
-    OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://auth.${config.homelab.domain}";
-    OAUTH2_REDIRECT_URL = "https://rss.${config.homelab.domain}/oauth2/oidc/callback";
-    OAUTH2_CLIENT_ID_FILE = secrets.miniflux_client_id.path;
-    OAUTH2_CLIENT_SECRET_FILE = secrets.miniflux_client_secret.path;
   };
 
   age = {
@@ -129,22 +116,6 @@ in
       wireguard_priv_key.file = ../../secrets/nasgul_wireguard_priv_key.age;
       mullvad_priv_key.file = ../../secrets/nasgul_mullvad_priv_key.age;
 
-      # Miniflux
-      miniflux_admin_credentials = {
-        file = ../../secrets/nasgul_miniflux_admin_credentials.age;
-        mode = "0440";
-        group = "miniflux-secrets";
-      };
-      miniflux_client_id = {
-        file = ../../secrets/nasgul_miniflux_client_id.age;
-        mode = "0440";
-        group = "miniflux-secrets";
-      };
-      miniflux_client_secret = {
-        file = ../../secrets/nasgul_miniflux_client_secret.age;
-        mode = "0440";
-        group = "miniflux-secrets";
-      };
     };
   };
 }
