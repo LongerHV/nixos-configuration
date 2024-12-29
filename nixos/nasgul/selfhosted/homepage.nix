@@ -4,7 +4,8 @@ let
   inherit (config.homelab) domain;
 in
 {
-  homelab.homepage = {
+  homelab.traefik.services.homepage.port = config.services.homepage-dashboard.listenPort;
+  services.homepage-dashboard = {
     enable = true;
     settings = {
       title = "Longer's Homelab";

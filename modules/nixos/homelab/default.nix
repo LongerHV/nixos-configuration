@@ -8,7 +8,6 @@ in
     ./backups.nix
     ./blocky.nix
     ./gitea.nix
-    ./homepage.nix
     ./mail.nix
     ./monitoring.nix
     ./multimedia.nix
