@@ -1,15 +1,14 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 
 let
   authelia = config.services.authelia.instances.main;
   redis = config.services.redis.servers."";
   port = 9092;
   autheliaUrl = "http://${authelia.settings.server.address}";
+  inherit (config.homelab) domain;
 in
 {
-  environment.systemPackages = [
-    pkgs.unstable.authelia
-  ];
+  environment.systemPackages = [ config.services.authelia.instances.main.package ];
 
   users.users."${config.mySystem.user}".extraGroups = [ "authelia" ];
   users.users."${authelia.user}".extraGroups = [ "redis" "sendgrid" ];
@@ -36,7 +35,7 @@ in
     traefik.dynamicConfigOptions.http = {
       routers.traefik.middlewares = [ "authelia" ];
       middlewares.authelia.forwardAuth = {
-        address = "${autheliaUrl}/api/verify?rd=https%3A%2F%2Fauth.${config.homelab.domain}%2F";
+        address = "${autheliaUrl}/api/verify?rd=https%3A%2F%2Fauth.${domain}%2F";
         trustForwardHeader = true;
         authResponseHeaders = [ "Remote-User" "Remote-Groups" "Remote-Name" "Remote-Email" ];
         tls.insecureSkipVerify = true;
@@ -76,20 +75,17 @@ in
         AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.homelab.mail.smtp.passFile;
         AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE = config.age.secrets.authelia_mysql_password.path;
       };
-      settingsFiles = [ config.age.secrets.authelia_secret_config.path ];
       settings = {
         theme = "dark";
         default_2fa_method = "totp";
-        server = {
-          address = "localhost:${toString port}";
-        };
+        server.address = "localhost:${toString port}";
         log.level = "info";
         totp.issuer = "authelia.com";
         session = {
           cookies = [{
             inherit (config.homelab) domain;
-            authelia_url = "https://auth.${config.homelab.domain}";
-            default_redirection_url = "https://homepage.${config.homelab.domain}";
+            authelia_url = "https://auth.${domain}";
+            default_redirection_url = "https://homepage.${domain}";
           }];
           redis = {
             host = redis.unixSocket;
@@ -143,12 +139,12 @@ in
           ];
           rules = [
             {
-              domain = "*.${config.homelab.domain}";
+              domain = "*.${domain}";
               policy = "bypass";
               networks = "localhost";
             }
             {
-              domain = "*.${config.homelab.domain}";
+              domain = "*.${domain}";
               policy = "one_factor";
               networks = "internal";
               subject = [
@@ -176,6 +172,27 @@ in
               sender = "authelia@longerhv.xyz";
             };
         };
+        identity_providers.oidc.clients = [
+          {
+            authorization_policy = "one_factor";
+            client_id = "jellyfin";
+            client_secret = "$pbkdf2-sha512$310000$rMliY0u1kEQ0FRHrG8xvqg$8.wKSra2uT5VFhCAv1YQHHnCSSORmWDrdAv6Uns1Ae7yu24w87SW0PmH9BKrYB1YIWoo7RJhF1NtYupQ.YRyRg";
+            redirect_uris = [ "https://jellyfin.${domain}/sso/OID/r/authelia" ];
+            token_endpoint_auth_method = "client_secret_post";
+          }
+          {
+            authorization_policy = "one_factor";
+            client_id = "gitea";
+            client_secret = "$pbkdf2-sha512$310000$g7mufVXry1vsC5uk7KSohw$EIt7XiOdxayh8on7OCZgiLWCmRTzLW9a8Cupnoyh/aeX2M6n7Hi/KCVW7f4xk3l8pk7RFfjTGLzbqbp6FtyDYQ";
+            redirect_uris = [ "https://gitea.${domain}/user/oauth2/Authelia/callback" ];
+          }
+          {
+            authorization_policy = "one_factor";
+            client_id = "miniflux";
+            client_secret = "$pbkdf2-sha512$310000$04zWVx1B/vunExsKbVoelQ$PlGGkOG691I5YFEfY5J0uknApI63w.5xeBIsnDA0BuxXGa4ofKCw2Ze0qv1P4ES.It9XQTgB4x0UXzN/hNN6LA";
+            redirect_uris = [ "https://rss.${domain}/oauth2/oidc/callback" ];
+          }
+        ];
       };
     };
   };

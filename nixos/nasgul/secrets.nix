@@ -99,10 +99,6 @@ in
         file = ../../secrets/nasgul_authelia_issuer_private_key.age;
         owner = autheliaUser;
       };
-      authelia_secret_config = {
-        file = ../../secrets/nasgul_authelia_config.age;
-        owner = autheliaUser;
-      };
       authelia_mysql_password = {
         file = ../../secrets/nasgul_authelia_mysql_password.age;
         owner = autheliaUser;

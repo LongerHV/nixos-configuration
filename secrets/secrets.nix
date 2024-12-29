@@ -22,7 +22,6 @@ in
   "nasgul_authelia_hmac_secret.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_authelia_issuer_private_key.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_authelia_mysql_password.age".publicKeys = [ nasgul mordor_user ];
-  "nasgul_authelia_config.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_nextcloud_admin_password.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_authelia_session_secret.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_ldap_password.age".publicKeys = [ nasgul mordor_user ];
