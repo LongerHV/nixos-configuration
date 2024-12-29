@@ -86,7 +86,11 @@ in
         log.level = "info";
         totp.issuer = "authelia.com";
         session = {
-          inherit (config.homelab) domain;
+          cookies = [{
+            inherit (config.homelab) domain;
+            authelia_url = "https://auth.${config.homelab.domain}";
+            default_redirection_url = "https://homepage.${config.homelab.domain}";
+          }];
           redis = {
             host = redis.unixSocket;
             port = 0;
@@ -103,19 +107,21 @@ in
           refresh_interval = "1m";
           ldap = {
             implementation = "custom";
-            url = "ldap://localhost:3890";
+            address = "ldap://localhost:3890";
             timeout = "5m";
             start_tls = false;
             base_dn = "dc=longerhv,dc=xyz";
-            username_attribute = "uid";
             additional_users_dn = "ou=people";
             users_filter = "(&({username_attribute}={input})(objectClass=person))";
             additional_groups_dn = "ou=groups";
             groups_filter = "(member={dn})";
-            group_name_attribute = "cn";
-            mail_attribute = "mail";
-            display_name_attribute = "displayName";
             user = "uid=admin,ou=people,dc=longerhv,dc=xyz";
+            attributes = {
+              display_name = "displayName";
+              group_name = "cn";
+              mail = "mail";
+              username = "uid";
+            };
           };
         };
         access_control = {
@@ -153,18 +159,22 @@ in
         };
         storage = {
           mysql = {
-            host = "/run/mysqld/mysqld.sock";
+            address = "/run/mysqld/mysqld.sock";
             database = "authelia";
             username = authelia.user;
           };
         };
         notifier = {
           disable_startup_check = false;
-          smtp = {
-            inherit (config.homelab.mail.smtp) host port;
-            username = config.homelab.mail.smtp.user;
-            sender = "authelia@longerhv.xyz";
-          };
+          smtp =
+            let
+              inherit (config.homelab.mail) smtp;
+            in
+            {
+              address = "submissions://${smtp.host}:${toString smtp.port}";
+              username = smtp.user;
+              sender = "authelia@longerhv.xyz";
+            };
         };
       };
     };

@@ -9,7 +9,6 @@ in
     groups = {
       lldap-secrets = { };
       gitea-secrets = { };
-
       miniflux-secrets = { };
     };
   };
@@ -20,7 +19,7 @@ in
     OAUTH2_PROVIDER = "oidc";
     OAUTH2_USER_CREATION = "1";
     OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://auth.${config.homelab.domain}";
-    OAUTH2_CLIENT_REDIRECT_URL = "https://rss.${config.homelab.domain}/oauth2/oidc/callback";
+    OAUTH2_REDIRECT_URL = "https://rss.${config.homelab.domain}/oauth2/oidc/callback";
     OAUTH2_CLIENT_ID_FILE = secrets.miniflux_client_id.path;
     OAUTH2_CLIENT_SECRET_FILE = secrets.miniflux_client_secret.path;
   };
