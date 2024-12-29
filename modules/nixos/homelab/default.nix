@@ -9,7 +9,6 @@ in
     ./blocky.nix
     ./gitea.nix
     ./homepage.nix
-    ./invidious.nix
     ./mail.nix
     ./miniflux.nix
     ./monitoring.nix
