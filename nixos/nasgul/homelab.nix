@@ -17,7 +17,6 @@ in
     monitoring = {
       enable = true;
     };
-    authelia = { enable = true; };
     blocky.enable = true;
     traefik = {
       enable = true;
@@ -72,10 +71,6 @@ in
       enable = true;
       adminCredentialsFile = secrets.miniflux_admin_credentials.path;
     };
-    minio = {
-      enable = true;
-      rootCredentialsFile = secrets.minio_credentials.path;
-    };
   };
 
   systemd.services.gitea-runner-nasgul.serviceConfig.SupplementaryGroups = [ "gitea-secrets" ];
@@ -91,21 +86,11 @@ in
     nextcloud.maxUploadSize = "32G";
     traefik.dynamicConfigOptions.http = {
       middlewares = {
-        notes-404.errors = {
-          status = [ 404 ];
-          service = "minio";
-          query = "/notes/static/404.html";
-        };
         notes-add-prefix.addPrefix.prefix = "/notes";
         notes-add-index.replacepathregex = {
           regex = "(.*)/$";
           replacement = "$1/index.html";
         };
-      };
-      routers.notes = {
-        rule = "Host(`notes.${hl.domain}`)";
-        middlewares = [ "authelia" "notes-add-index" "notes-add-prefix" "notes-404" ];
-        service = "minio";
       };
     };
   };

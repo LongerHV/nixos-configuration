@@ -26,7 +26,6 @@ in
   "nasgul_nextcloud_admin_password.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_authelia_session_secret.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_ldap_password.age".publicKeys = [ nasgul mordor_user ];
-  "nasgul_minio_root_credentials.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_sendgrid_token.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_gitea_actions_token.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_restic_s3_key.age".publicKeys = [ nasgul mordor_user ];
@@ -37,7 +36,6 @@ in
   "nasgul_miniflux_admin_credentials.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_miniflux_client_id.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_miniflux_client_secret.age".publicKeys = [ nasgul mordor_user ];
-  "nasgul_minio_credentials.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_anki_password.age".publicKeys = [ nasgul mordor_user ];
   "cloudflare_token.age".publicKeys = [ nasgul mordor_user ];
   "cloudflare_email.age".publicKeys = [ nasgul mordor_user ];

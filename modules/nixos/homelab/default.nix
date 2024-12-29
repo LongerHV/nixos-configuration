@@ -5,7 +5,6 @@ let
 in
 {
   imports = [
-    ./authelia.nix
     ./backups.nix
     ./blocky.nix
     ./gitea.nix
@@ -13,7 +12,6 @@ in
     ./invidious.nix
     ./mail.nix
     ./miniflux.nix
-    ./minio.nix
     ./monitoring.nix
     ./multimedia.nix
     ./mysql.nix

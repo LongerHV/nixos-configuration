@@ -25,21 +25,9 @@ in
             };
           }
           {
-            Invidious = {
-              href = "https://yt.${domain}";
-              icon = "invidious";
-            };
-          }
-          {
             Miniflux = {
               href = "https://rss.${domain}";
               icon = "miniflux";
-            };
-          }
-          {
-            MinIO = {
-              href = "https://minio-console.${domain}";
-              icon = "minio";
             };
           }
         ];

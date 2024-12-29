@@ -129,12 +129,6 @@ in
         group = "lldap-secrets";
       };
 
-      # MinIO
-      minio_credentials = {
-        file = ../../secrets/nasgul_minio_credentials.age;
-        owner = "minio";
-      };
-
       # Wireguard
       wireguard_priv_key.file = ../../secrets/nasgul_wireguard_priv_key.age;
       mullvad_priv_key.file = ../../secrets/nasgul_mullvad_priv_key.age;
