@@ -31,7 +31,7 @@ cmp.setup({
 			mode = "symbol",
 			maxwidth = 50,
 			ellipsis_char = "...",
-			symbol_map = { Copilot = "" },
+			-- symbol_map = { Copilot = "" },
 		}),
 	},
 })
