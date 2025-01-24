@@ -4,6 +4,8 @@ pkgs.mkShell {
   buildInputs = with pkgs.python3Packages; [
     python
     venvShellHook
+    pkgs.pkg-config
+    pkgs.libmysqlclient
   ];
   venvDir = "./.venv";
   postVenvCreation = ''
