@@ -1,12 +1,38 @@
-{ config, ... }:
+{ config, lib, ... }:
 
+let
+  hl = config.homelab;
+  cfg = config.services.immich;
+  dataDir = "${config.homelab.storage}/immich";
+in
 {
-  homelab.traefik.services.immich.port = config.services.immich.port;
-  services.immich = {
-    enable = true;
-    mediaLocation = "${config.homelab.storage}/immich";
-  };
-  systemd.tmpfiles.rules = [
-    "d ${config.homelab.storage}/immich 750 ${config.services.immich.user} ${config.services.immich.group} - -"
+  config = lib.mkMerge [
+    {
+      homelab.traefik.services.immich.port = cfg.port;
+      services.immich = {
+        enable = true;
+        mediaLocation = "${config.homelab.storage}/immich";
+      };
+      systemd.tmpfiles.rules = [
+        "d ${dataDir} 750 ${cfg.user} ${cfg.group} - -"
+        "d ${dataDir}/database-backup 750 ${cfg.user} ${cfg.group} - -"
+      ];
+    }
+
+    (lib.mkIf hl.backups.enable {
+      users.users."${cfg.user}".extraGroups = [ "restic" ];
+      homelab.backups.services.immich = {
+        inherit (cfg) user;
+        backupPrepareCommand = /* bash */ ''
+          ${config.services.postgresql.package}/bin/pg_dump --clean --if-exists --dbname=${cfg.database.name} > "${dataDir}"/database-backup/immich-database.sql
+        '';
+        paths = [
+          "${dataDir}/library"
+          "${dataDir}/profile"
+          "${dataDir}/upload"
+          "${dataDir}/database-backup"
+        ];
+      };
+    })
   ];
 }
