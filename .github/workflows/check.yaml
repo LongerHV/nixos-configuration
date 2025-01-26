@@ -3,6 +3,8 @@ on:
   push:
     branches: [master]
 
+permissions: {}
+
 jobs:
   check:
     name: Run flake evaluation checks

@@ -4,6 +4,8 @@ name: Run linters
 "on":
   - push
 
+permissions: {}
+
 jobs:
   lint:
     runs-on: ubuntu-latest

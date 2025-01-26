@@ -6,6 +6,8 @@ name: Update flake lock
     - cron: 0 1 * * *
   workflow_dispatch:
 
+permissions: {}
+
 env:
   BRANCH_NAME: auto-flake-update
 
