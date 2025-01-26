@@ -31,6 +31,12 @@ in
               icon = "miniflux";
             };
           }
+          {
+            Immich = {
+              href = "https://immich.${domain}";
+              icon = "immich";
+            };
+          }
         ];
       }
       {
