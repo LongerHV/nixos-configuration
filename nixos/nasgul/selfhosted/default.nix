@@ -4,6 +4,7 @@
     ./auth.nix
     ./containers.nix
     ./homepage.nix
+    ./immich.nix
     ./lldap.nix
     ./monitoring.nix
     ./nameserver.nix

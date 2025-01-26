@@ -186,6 +186,14 @@ in
             client_secret = "$pbkdf2-sha512$310000$g7mufVXry1vsC5uk7KSohw$EIt7XiOdxayh8on7OCZgiLWCmRTzLW9a8Cupnoyh/aeX2M6n7Hi/KCVW7f4xk3l8pk7RFfjTGLzbqbp6FtyDYQ";
             redirect_uris = [ "https://gitea.${domain}/user/oauth2/Authelia/callback" ];
           }
+          {
+            authorization_policy = "one_factor";
+            client_id = "immich";
+            client_secret = "$pbkdf2-sha512$310000$wPpdmhrPqd.dU.tcLTh9nQ$du11GENjjxaXf5njeqnhpVgr8O9fCISulobjRStCsYJzY6i3aaOyiloRJHKDh.CC.4n1QVqsP.ty9Lo8UH3XvA";
+            redirect_uris = [ "https://immich.${domain}/auth/login" "https://immich.${domain}/user-settings" "app.immich:///oauth-callback" ];
+            scopes = [ "openid" "profile" "email" ];
+            userinfo_signed_response_alg = "none";
+          }
         ];
       };
     };
