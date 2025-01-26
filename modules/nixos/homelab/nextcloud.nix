@@ -86,7 +86,10 @@ in
             redis = true;
             apcu = true;
           };
-          phpOptions.memory_limit = lib.mkForce "2048M";
+          phpOptions = {
+            memory_limit = lib.mkForce "2048M";
+            "opcache.interned_strings_buffer" = "64";
+          };
           phpExtraExtensions = all: [ all.pdlib all.bz2 ];
           settings = {
             default_phone_region = "PL";
