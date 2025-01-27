@@ -69,6 +69,10 @@
       device = "chonk/share";
       fsType = "zfs";
     };
+    "/chonk/immich" = {
+      device = "chonk/immich";
+      fsType = "zfs";
+    };
   };
 
   swapDevices = [ ];
