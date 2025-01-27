@@ -11,7 +11,7 @@ in
       homelab.traefik.services.immich.port = cfg.port;
       services.immich = {
         enable = true;
-        mediaLocation = "${config.homelab.storage}/immich";
+        mediaLocation = dataDir;
       };
       systemd.tmpfiles.rules = [
         "d ${dataDir} 750 ${cfg.user} ${cfg.group} - -"
@@ -32,6 +32,25 @@ in
           "${dataDir}/upload"
           "${dataDir}/database-backup"
         ];
+      };
+    })
+
+    (lib.mkIf hl.monitoring.enable {
+      services = {
+        immich.environment = {
+          IMMICH_TELEMETRY_INCLUDE = "all";
+          IMMICH_API_METRICS_PORT = "2284";
+          IMMICH_MICROSERVICES_METRICS_PORT = "2285";
+        };
+        prometheus.scrapeConfigs = [{
+          job_name = "immich";
+          static_configs = [{
+            targets = [
+              "localhost:${cfg.environment.IMMICH_API_METRICS_PORT}"
+              "localhost:${cfg.environment.IMMICH_MICROSERVICES_METRICS_PORT}"
+            ];
+          }];
+        }];
       };
     })
   ];
