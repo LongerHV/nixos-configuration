@@ -19,6 +19,7 @@ in
         enable = true;
         userName = lib.mkIf cfg.personalGitEnable "Michał Mieszczak";
         userEmail = lib.mkIf cfg.personalGitEnable "michal@mieszczak.com.pl";
+        extraConfig.checkout.defaultRemote = "origin";
       };
     };
     home.packages = with pkgs; [
