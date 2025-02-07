@@ -33,6 +33,7 @@ in
       unstable.kubernetes-polaris
       unstable.kubeshark
       unstable.openstackclient
+      unstable.talosctl
       unstable.teleport.client
       (writeShellApplication {
         name = "kctx";
