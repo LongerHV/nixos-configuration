@@ -9,7 +9,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ lutris protonup-ng wine ];
+    environment.systemPackages = [
+      (pkgs.lutris.override { extraLibraries = p: with p; [ libadwaita gtk4 ]; })
+      pkgs.protonup-ng
+      pkgs.wine
+    ];
     programs = {
       steam = {
         enable = true;
