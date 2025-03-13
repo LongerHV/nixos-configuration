@@ -17,6 +17,4 @@
       DNS = 10.69.1.243
     '';
   };
-
-  services.tailscale.enable = true;
 }
