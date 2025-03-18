@@ -18,6 +18,8 @@ in
       fluxcd
       kind
       kubectl
+      kubectl-neat
+      kubectl-tree
       kubelogin
       kubelogin-oidc
       kubernetes-helm
@@ -28,6 +30,7 @@ in
       swiftclient
       terraform
       tilt
+      unstable.clusterctl
       unstable.k3d
       unstable.k9s
       unstable.kubernetes-polaris
