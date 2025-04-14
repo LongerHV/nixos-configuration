@@ -3,6 +3,7 @@
 pkgs.mkShell {
   buildInputs = with pkgs.python3Packages; [
     python
+    setuptools
     venvShellHook
     pkgs.pkg-config
     pkgs.libmysqlclient
