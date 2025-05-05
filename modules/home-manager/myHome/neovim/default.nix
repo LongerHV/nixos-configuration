@@ -12,7 +12,6 @@
     home.sessionVariables.EDITOR = "nvim";
     programs.xenon = {
       enable = true;
-      package = pkgs.unstable.neovim-unwrapped;
       aliases = [ "nvim" "vim" "vi" ];
       initFiles = [
         ./init.lua

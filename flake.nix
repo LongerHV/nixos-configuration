@@ -63,7 +63,6 @@
         nixgl.overlays.default
         (final: prev: {
           unstable = nixpkgs-unstable.legacyPackages.${prev.system};
-          inherit (nixpkgs-unstable.legacyPackages.${prev.system}) neovim-unwrapped;
         })
         defaultOverlay
       ];
