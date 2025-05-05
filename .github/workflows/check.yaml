@@ -1,3 +1,5 @@
+name: Run flake checks
+
 on:
   pull_request:
   push:
@@ -16,7 +18,6 @@ jobs:
         with:
           persist-credentials: false
       - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Workaround for broken check
         run: nix eval --json .#iproute2
       - name: Run checks

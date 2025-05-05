@@ -26,7 +26,7 @@ jobs:
         run: actionlint
 
       - name: Find security issues in GitHub actions
-        run: zizmor .
+        run: zizmor --config .zizmor.yaml .
 
       - name: Lint yaml
         run: yamllint .
