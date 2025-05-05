@@ -31,7 +31,7 @@
         zfsSupport = true;
       };
     };
-    supportedFilesystems = [ "zfs" ];
+    supportedFilesystems = [ "zfs" "ntfs" ];
     zfs = {
       forceImportRoot = false;
     };
