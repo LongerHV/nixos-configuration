@@ -71,13 +71,13 @@ in
         use-transparent-background = true;
         background-transparency-percent = 10;
       };
-      "org/gnome/settings-daemon/plugins/color" = {
-        night-light-enabled = true;
-        night-light-temperature = "uint32 3000";
-        night-light-schedule-automatic = false;
-        night-light-schedule-from = 0.0;
-        night-light-schedule-to = 0.0;
-      };
+      # "org/gnome/settings-daemon/plugins/color" = {
+      #   night-light-enabled = true;
+      #   night-light-temperature = "uint32 3000";
+      #   night-light-schedule-automatic = false;
+      #   night-light-schedule-from = 0.0;
+      #   night-light-schedule-to = 0.0;
+      # };
       "org/gnome/mutter" = {
         workspaces-only-on-primary = true;
         dynamic-workspaces = true;
