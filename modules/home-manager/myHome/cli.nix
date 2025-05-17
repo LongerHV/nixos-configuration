@@ -26,7 +26,7 @@ in
       bat
       colordiff
       curl
-      unstable.eza
+      eza
       file
       fzf
       htop

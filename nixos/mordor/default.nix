@@ -132,7 +132,7 @@
   virtualisation.docker.storageDriver = "zfs";
   environment.systemPackages = with pkgs; [
     deploy-rs
-    unstable.yubioath-flutter
+    yubioath-flutter
   ];
   users.users.${config.mySystem.user}.extraGroups = [ "dialout" ];
   hardware.graphics = {

@@ -70,13 +70,13 @@ in
   };
 
   systemd.services.gitea-runner-nasgul.serviceConfig.SupplementaryGroups = [ "gitea-secrets" ];
-  services.gitea-actions-runner.package = pkgs.unstable.gitea-actions-runner;
+  services.gitea-actions-runner.package = pkgs.gitea-actions-runner;
 
   services = {
     postgresql.package = pkgs.postgresql_14;
-    prowlarr.package = pkgs.unstable.prowlarr;
+    prowlarr.package = pkgs.prowlarr;
     gitea = {
-      package = pkgs.unstable.gitea;
+      package = pkgs.gitea;
       settings.packages.CHUNKED_UPLOAD_PATH = "${config.services.gitea.stateDir}/tmp/package-upload";
     };
     nextcloud.maxUploadSize = "32G";

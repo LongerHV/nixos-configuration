@@ -69,7 +69,7 @@
         }
         {
           name = "zsh-vi-mode";
-          src = "${pkgs.unstable.zsh-vi-mode}/share/zsh-vi-mode";
+          src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode";
         }
         {
           name = "zsh-z";
