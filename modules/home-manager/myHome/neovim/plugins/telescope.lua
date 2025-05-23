@@ -6,6 +6,6 @@ vim.keymap.set("n", "<leader>H", builtin.help_tags, { desc = "Open help tags pic
 vim.keymap.set("n", "<leader>c", builtin.commands, { desc = "Open help tags picker" })
 vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Open live grep" })
 
-vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "Git commits" })
-vim.keymap.set("n", "<leader>gb", builtin.git_branches, { desc = "Git branches" })
-vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "Git status" })
+vim.keymap.set("n", "<leader>Gc", builtin.git_commits, { desc = "Git commits" })
+vim.keymap.set("n", "<leader>Gb", builtin.git_branches, { desc = "Git branches" })
+vim.keymap.set("n", "<leader>Gs", builtin.git_status, { desc = "Git status" })
