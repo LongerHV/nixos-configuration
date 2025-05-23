@@ -639,11 +639,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1735385314,
-        "narHash": "sha256-50Uzrdf3esjJYdbqCfKAqjjuNa5raiO8cB8EbUSyeD4=",
+        "lastModified": 1748022480,
+        "narHash": "sha256-47ESw7cIc0XySiPkoD2SdHHrsNNqBvQqwePWR9d3zHQ=",
         "owner": "LongerHV",
         "repo": "xenon",
-        "rev": "5dec1fec21082d24506efeb5d5970874431d42a7",
+        "rev": "160c247ace57e7d1bf93f3b74156252728627799",
         "type": "github"
       },
       "original": {
