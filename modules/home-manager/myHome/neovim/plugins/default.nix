@@ -31,6 +31,7 @@ let
       '';
     }
     { plugin = pkgs.vimPlugins.vim-sleuth; }
+    { plugin = pkgs.nvimPlugins.goose; opts = { }; }
   ];
   lspPlugins = importPlugins [
     ./lspconfig.nix

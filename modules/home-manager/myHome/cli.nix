@@ -36,12 +36,14 @@ in
       openssh
       p7zip
       ranger
+      ripgrep
       tree
       unzip
       wget
       xh
       yj
       yq
+      unstable.goose-cli
     ];
   };
 }
