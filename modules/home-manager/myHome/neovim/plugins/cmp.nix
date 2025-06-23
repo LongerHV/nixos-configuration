@@ -7,8 +7,8 @@
     cmp-nvim-lsp
     cmp-path
     cmp-buffer
-    # copilot-cmp
-    # copilot-lua
+    copilot-cmp
+    copilot-lua
     lspkind-nvim
   ];
 }

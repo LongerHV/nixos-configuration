@@ -1,14 +1,20 @@
 local cmp = require("cmp")
 local lspkind = require("lspkind")
--- local copilot = require("copilot")
--- local copilot_cmp = require("copilot_cmp")
+local copilot = require("copilot")
+local copilot_cmp = require("copilot_cmp")
 
--- copilot.setup({
--- 	suggestion = { enabled = false },
--- 	panel = { enabled = false },
--- })
---
--- copilot_cmp.setup()
+copilot.setup({
+	suggestion = { enabled = false },
+	panel = { enabled = false },
+	server_opts_overrides = {
+		settings = {
+			telemetry = {
+				telemetryLevel = "off",
+			},
+		},
+	},
+})
+copilot_cmp.setup()
 
 cmp.setup({
 	mapping = cmp.mapping.preset.insert({
@@ -21,7 +27,7 @@ cmp.setup({
 		}),
 	}),
 	sources = cmp.config.sources({
-		-- { name = "copilot" },
+		{ name = "copilot" },
 		{ name = "nvim_lsp" },
 		{ name = "buffer" },
 		{ name = "path" },
@@ -31,7 +37,7 @@ cmp.setup({
 			mode = "symbol",
 			maxwidth = 50,
 			ellipsis_char = "...",
-			-- symbol_map = { Copilot = "" },
+			symbol_map = { Copilot = "" },
 		}),
 	},
 })
