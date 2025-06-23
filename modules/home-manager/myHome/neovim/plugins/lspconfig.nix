@@ -73,19 +73,19 @@ let
         settings = { inherit languages; };
         filetypes = builtins.attrNames languages;
       };
-    efm_go = {
-      settings = {
-        languages.go = [{
-          lintCommand = "golangci-lint run --fix=false --out-format=line-number --print-issued-lines=false 2> /dev/null";
-          lintStdin = false;
-          lintWorkspace = true;
-          lintIgnoreExitCode = true;
-          lintFormats = [ "%f:%l:%c: %m" "%f:%l: %m" ];
-        }];
-      };
-      filetypes = [ "go" ];
-      root_dir = [ "go.mod" ".git" ];
-    };
+    # efm_go = {
+    #   settings = {
+    #     languages.go = [{
+    #       lintCommand = "golangci-lint run --fix=false --out-format=line-number --print-issued-lines=false 2> /dev/null";
+    #       lintStdin = false;
+    #       lintWorkspace = true;
+    #       lintIgnoreExitCode = true;
+    #       lintFormats = [ "%f:%l:%c: %m" "%f:%l: %m" ];
+    #     }];
+    #   };
+    #   filetypes = [ "go" ];
+    #   root_dir = [ "go.mod" ".git" ];
+    # };
     efm_python = {
       init_options.documentFormatting = true;
       settings = {
