@@ -13,6 +13,7 @@
   mySystem = {
     gnome.enable = true;
     gaming.enable = true;
+    embedded.enable = true;
     vmHost = true;
     dockerHost = true;
     home-manager = {

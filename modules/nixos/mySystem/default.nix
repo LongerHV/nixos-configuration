@@ -16,6 +16,7 @@ in
 {
   imports = [
     ./android.nix
+    ./embedded.nix
     ./gaming.nix
     ./gnome.nix
     ./user.nix
