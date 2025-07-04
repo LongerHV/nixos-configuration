@@ -11,6 +11,7 @@ let
         formatting.command = [ "nixpkgs-fmt" ];
       };
     };
+    clangd = { };
     gleam = { };
     pyright = { };
     dockerls = { };
@@ -128,6 +129,7 @@ in
       yamllint
     ]))
     (unstable.pyright.override { inherit (pkgs) buildNpmPackage; })
+    clang-tools
     unstable.efm-langserver
     unstable.elixir-ls
     unstable.gopls
