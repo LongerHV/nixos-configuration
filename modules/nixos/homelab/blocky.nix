@@ -49,13 +49,13 @@ in
               ips = [ "9.9.9.9" "149.112.112.112" ];
             }
           ];
-          redis = {
-            address = redis.unixSocket;
-            database = 2;
-            required = true;
-            connectionAttempts = 20;
-            connectionCooldown = "6s";
-          };
+          # redis = {
+          #   address = redis.unixSocket;
+          #   database = 2;
+          #   required = true;
+          #   connectionAttempts = 20;
+          #   connectionCooldown = "6s";
+          # };
         };
       };
 
