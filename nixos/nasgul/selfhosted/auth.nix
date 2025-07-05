@@ -161,7 +161,7 @@ in
           };
         };
         notifier = {
-          disable_startup_check = false;
+          disable_startup_check = true;
           smtp =
             let
               inherit (config.homelab.mail) smtp;
