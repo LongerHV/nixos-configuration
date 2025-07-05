@@ -31,8 +31,8 @@
           source ${pkgs.spaceship-prompt}/lib/spaceship-prompt/spaceship.zsh
           autoload -U promptinit; promptinit
         '')
-        (
-          /* bash */ ''
+        /* bash */
+        ''
           source ${./kubectl.zsh}
           source ${./git.zsh}
 
@@ -44,7 +44,6 @@
           zvm_after_init_commands+=("bindkey '^[[B' history-substring-search-down")
           zvm_after_init_commands+=("bindkey '^[OB' history-substring-search-down")
         ''
-        )
       ];
       localVariables = {
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=13,underline";
