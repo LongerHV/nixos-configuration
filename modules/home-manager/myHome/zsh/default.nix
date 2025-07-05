@@ -22,26 +22,30 @@
         ns = "sudo nixos-rebuild switch --flake .";
         hs = "home-manager switch --impure --flake .";
       };
-      initExtraBeforeCompInit = /* bash */ ''
-        # Completion
-        zstyle ':completion:*' menu yes select
+      initContent = lib.mkMerge [
+        (lib.mkOrder 550 /* bash */ ''
+          # Completion
+          zstyle ':completion:*' menu yes select
 
-        # Prompt
-        source ${pkgs.spaceship-prompt}/lib/spaceship-prompt/spaceship.zsh
-        autoload -U promptinit; promptinit
-      '';
-      initExtra = /* bash */ ''
-        source ${./kubectl.zsh}
-        source ${./git.zsh}
+          # Prompt
+          source ${pkgs.spaceship-prompt}/lib/spaceship-prompt/spaceship.zsh
+          autoload -U promptinit; promptinit
+        '')
+        (
+          /* bash */ ''
+          source ${./kubectl.zsh}
+          source ${./git.zsh}
 
-        bindkey '^[[Z' reverse-menu-complete
+          bindkey '^[[Z' reverse-menu-complete
 
-        # Workaround for ZVM overwriting keybindings
-        zvm_after_init_commands+=("bindkey '^[[A' history-substring-search-up")
-        zvm_after_init_commands+=("bindkey '^[OA' history-substring-search-up")
-        zvm_after_init_commands+=("bindkey '^[[B' history-substring-search-down")
-        zvm_after_init_commands+=("bindkey '^[OB' history-substring-search-down")
-      '';
+          # Workaround for ZVM overwriting keybindings
+          zvm_after_init_commands+=("bindkey '^[[A' history-substring-search-up")
+          zvm_after_init_commands+=("bindkey '^[OA' history-substring-search-up")
+          zvm_after_init_commands+=("bindkey '^[[B' history-substring-search-down")
+          zvm_after_init_commands+=("bindkey '^[OB' history-substring-search-down")
+        ''
+        )
+      ];
       localVariables = {
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=13,underline";
         ZSH_AUTOSUGGEST_STRATEGY = [ "history" "completion" ];

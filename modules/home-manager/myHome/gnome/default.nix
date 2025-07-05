@@ -16,8 +16,7 @@ in
     font = {
       package = mkOption {
         type = types.package;
-        # default = pkgs.nerd-fonts.hack; # After 25.05
-        default = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
+        default = pkgs.nerd-fonts.hack;
       };
       name = mkOption {
         type = types.str;
