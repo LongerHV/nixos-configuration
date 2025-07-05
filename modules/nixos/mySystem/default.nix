@@ -70,7 +70,7 @@ in
 
     services.openssh = with lib; {
       settings.PasswordAuthentication = mkDefault false;
-      settings.PermitRootLogin = mkDefault "no";
+      settings.PermitRootLogin = mkForce "no";
     };
 
     environment = {
