@@ -7,6 +7,7 @@ in
   homelab.traefik.services.homepage.port = config.services.homepage-dashboard.listenPort;
   services.homepage-dashboard = {
     enable = true;
+    allowedHosts = "homepage.${domain}";
     settings = {
       title = "Longer's Homelab";
     };
