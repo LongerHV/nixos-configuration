@@ -1,5 +1,3 @@
-{ pkgs, ... }:
-
 {
   mySystem = {
     user = "nixos";
@@ -8,7 +6,5 @@
       home = ./home.nix;
     };
   };
-  environment.systemPackages = with pkgs; [
-    gnome.gnome-terminal
-  ];
+  programs.gnome-terminal.enable = true;
 }
