@@ -46,6 +46,7 @@ in
         traefik = {
           enable = true;
           services.nextcloud = { inherit port; middlewares = [ "nextcloud-redirectregex" ]; };
+          services.collabora = { inherit (config.services.collabora-online) port; };
         };
       };
 
@@ -77,6 +78,11 @@ in
           inherit (cfg) package;
           inherit datadir hostName;
           https = true;
+          appstoreEnable = true;
+          extraAppsEnable = true;
+          extraApps = with cfg.package.packages.apps; {
+            inherit richdocuments;
+          };
           config = {
             dbtype = "mysql";
             dbhost = "localhost:/run/mysqld/mysqld.sock";
@@ -105,7 +111,24 @@ in
             };
           };
         };
+
+        collabora-online = {
+          enable = true;
+          port = 9980;
+          settings = {
+            ssl = {
+              enable = false;
+              termination = true;
+            };
+            storage.wopi = {
+              "@allow" = true;
+              host = [ hostName ];
+            };
+            server_name = "collabora.${hl.domain}";
+          };
+        };
       };
+      networking.hosts."127.0.0.1" = [ "collabora.${hl.domain}" "nextcloud.${hl.domain}" ];
     }
     (lib.mkIf hl.backups.enable {
       homelab.backups.services.nextcloud = {
