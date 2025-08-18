@@ -147,6 +147,7 @@
   fonts.packages = with pkgs; [
     noto-fonts-cjk-sans
   ];
+  security.rtkit.enable = true;
 
   age.secrets = {
     cache_priv_key.file = ../../secrets/mordor_cache_priv_key.pem.age;
