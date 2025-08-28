@@ -4,19 +4,19 @@
   services.blocky.settings = {
     # Reverse lookup (does this even work?)
     clientLookup = {
-      upstream = "10.69.1.1";
+      upstream = "10.123.1.1";
     };
     # My custom entries for local network
     customDNS = {
       customTTL = "1h";
       mapping = {
-        "${config.homelab.domain}" = "10.69.1.243";
+        "${config.homelab.domain}" = "10.123.1.243";
       };
     };
     # Redirect all .lan queries to the router
     conditional = {
       mapping = {
-        lan = "10.69.1.1";
+        lan = "10.123.1.1";
       };
     };
     blocking = {
@@ -49,10 +49,6 @@
       };
       clientGroupsBlock = {
         default = [ "ads" "telemetry" ];
-        "10.69.1.169/32" = [ ];
-        "10.69.1.193/32" = [ ];
-        "10.69.1.184/32" = [ ];
-        "10.69.1.245/32" = [ ];
       };
     };
   };

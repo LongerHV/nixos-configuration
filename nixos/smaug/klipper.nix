@@ -15,7 +15,7 @@ in
       allowSystemControl = true;
       settings.authorization = {
         force_logins = true;
-        trusted_clients = [ "10.69.1.0/24" "127.0.0.1/32" ];
+        trusted_clients = [ "10.123.1.0/24" "127.0.0.1/32" ];
         cors_domains = [ "*.lan" ];
       };
     };

@@ -55,7 +55,7 @@ nix shell nixpkgs#wireguard-tools --command wg pubkey < privatekey > publickey
 [Interface]
 PrivateKey = <content of privatekey file>
 Address = <client IP>
-DNS = 10.69.1.243
+DNS = 10.123.1.243
 
 [Peer]
 PublicKey = <server publickey>

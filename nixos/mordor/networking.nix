@@ -14,7 +14,7 @@
   services.resolved = {
     enable = true;
     extraConfig = ''
-      DNS = 10.69.1.243
+      DNS = 10.123.1.243
     '';
   };
 }
