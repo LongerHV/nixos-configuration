@@ -85,6 +85,7 @@
         go = legacyPackages.${system}.callPackage ./shells/go.nix { };
         python = legacyPackages.${system}.callPackage ./shells/python.nix { };
         pythonPoetry = legacyPackages.${system}.callPackage ./shells/pythonPoetry.nix { };
+        pythonUV = legacyPackages.${system}.callPackage ./shells/pythonUV.nix { };
         pythonVenv = legacyPackages.${system}.callPackage ./shells/pythonVenv.nix { };
         lint = legacyPackages.${system}.callPackage ./shells/lint.nix { };
       });
