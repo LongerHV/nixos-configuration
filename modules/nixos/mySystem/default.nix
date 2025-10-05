@@ -79,6 +79,7 @@ in
         git
         dnsutils
         pciutils
+        usbutils
       ];
       shells = [ pkgs.zsh ];
       pathsToLink = [ "/share/zsh" ];
