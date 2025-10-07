@@ -24,11 +24,6 @@
     gnomeExtensions.tray-icons-reloaded
   ];
 
-  services.nextcloud-client = {
-    enable = true;
-    startInBackground = true;
-  };
-
   xdg.configFile."wireplumber/wireplumber.conf.d" = {
     recursive = true;
     source = ./wireplumber;
