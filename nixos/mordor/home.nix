@@ -11,6 +11,7 @@
       enable = true;
       enableLSP = true;
     };
+    music-production.enable = true;
   };
 
   home.packages = with pkgs; [
