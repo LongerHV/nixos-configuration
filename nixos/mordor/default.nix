@@ -21,6 +21,7 @@
       home = ./home.nix;
     };
     nix.substituters = [ "nasgul" ];
+    rtaudio.enable = true;
   };
 
   boot = {
@@ -121,7 +122,6 @@
   hardware.bluetooth.enable = true;
 
   powerManagement = {
-    cpuFreqGovernor = "ondemand";
     cpufreq.min = 800000;
     cpufreq.max = 4700000;
   };
@@ -147,7 +147,6 @@
   fonts.packages = with pkgs; [
     noto-fonts-cjk-sans
   ];
-  security.rtkit.enable = true;
 
   age.secrets = {
     cache_priv_key.file = ../../secrets/mordor_cache_priv_key.pem.age;

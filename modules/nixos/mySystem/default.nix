@@ -19,6 +19,7 @@ in
     ./embedded.nix
     ./gaming.nix
     ./gnome.nix
+    ./rtaudio.nix
     ./user.nix
     ./virt.nix
   ];

@@ -61,7 +61,5 @@ in
         package = pkgs.gnomeExtensions.gsconnect;
       };
     };
-
-    security.rtkit.enable = true;
   };
 }
