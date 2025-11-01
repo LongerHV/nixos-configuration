@@ -15,6 +15,10 @@ in
         reaper
       ];
       file = {
+        ".lv2/Cardinal.lv2".source = "${pkgs.cardinal}/lib/lv2/Cardinal.lv2";
+        ".lv2/CardinalFX.lv2".source = "${pkgs.cardinal}/lib/lv2/CardinalFX.lv2";
+        ".lv2/CardinalMini.lv2".source = "${pkgs.cardinal}/lib/lv2/CardinalMini.lv2";
+        ".lv2/CardinalSynth.lv2".source = "${pkgs.cardinal}/lib/lv2/CardinalSynth.lv2";
         ".lv2/Odin2.lv2".source = "${pkgs.odin2}/lib/lv2/Odin2.lv2";
         ".lv2/calf.lv2".source = "${pkgs.calf}/lib/lv2/calf.lv2";
         ".lv2/helm.lv2".source = "${pkgs.helm}/lib/lv2/helm.lv2";
