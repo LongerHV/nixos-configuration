@@ -36,6 +36,11 @@
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    aagl = {
+      # url = "github:ezKEa/aagl-gtk-on-nix";
+      url = "github:ezKEa/aagl-gtk-on-nix/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -50,6 +55,7 @@
     , xenon
     , kubectl
     , nixgl
+    , aagl
     , ...
     }@inputs:
     let
@@ -99,6 +105,7 @@
           defaultModules = (builtins.attrValues nixosModules) ++ [
             agenix.nixosModules.default
             home-manager.nixosModules.default
+            aagl.nixosModules.default
           ];
           specialArgs = { inherit inputs outputs overlays; };
         in
