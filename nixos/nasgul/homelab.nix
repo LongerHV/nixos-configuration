@@ -2,7 +2,6 @@
 
 let
   inherit (config.age) secrets;
-  hl = config.homelab;
 in
 {
   homelab = {
@@ -52,7 +51,7 @@ in
     };
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud30;
+      package = pkgs.nextcloud31;
       adminpassFile = secrets.nextcloud_admin_password.path;
       tmpdir = "/var/tmp";
     };
