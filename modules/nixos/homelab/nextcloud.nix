@@ -28,6 +28,7 @@ in
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       users.users.nextcloud.extraGroups = [ "redis" "restic" ];
+      users.users.${config.mySystem.user}.extraGroups = [ "nextcloud" ];
       environment.systemPackages = [ pkgs.ffmpeg ];
 
       systemd = {
