@@ -2,6 +2,9 @@ local color
 if [ ${SSH_TTY} ]
 then
     color='yellow'
+elif [[ "${PROD}" = "1" ]]
+then
+    color='red'
 else
     color='green'
 fi

@@ -27,6 +27,14 @@
           # Completion
           zstyle ':completion:*' menu yes select
 
+          if [[ "$TMUX" ]] && [[ "$(tmux display-message -p '#S')" == "prod" ]]; then
+            export PROD=1
+            export KUBECONFIG=$HOME/.kube/config-prod
+            export TALOSCONFIG="$HOME/.talos/config-prod"
+            export KUBECACHEDIR="$HOME/.kube/cache-prod"
+            export K9S_SKIN="prod"
+          fi
+
           # Prompt
           source ${pkgs.spaceship-prompt}/lib/spaceship-prompt/spaceship.zsh
           autoload -U promptinit; promptinit
@@ -43,13 +51,6 @@
           zvm_after_init_commands+=("bindkey '^[OA' history-substring-search-up")
           zvm_after_init_commands+=("bindkey '^[[B' history-substring-search-down")
           zvm_after_init_commands+=("bindkey '^[OB' history-substring-search-down")
-
-          if [[ "$TMUX" ]] && [[ "$(tmux display-message -p '#S')" == "prod" ]]; then
-            export KUBECONFIG=$HOME/.kube/config-prod
-            export TALOSCONFIG="$HOME/.talos/config-prod"
-            export KUBECACHEDIR="$HOME/.kube/cache-prod"
-            export K9S_SKIN="prod"
-          fi
         ''
       ];
       localVariables = {
