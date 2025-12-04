@@ -32,7 +32,6 @@ in
       tilt
       unstable.clusterctl
       unstable.k3d
-      unstable.k9s
       unstable.kubernetes-polaris
       unstable.kubeshark
       unstable.openstackclient
@@ -57,5 +56,30 @@ in
         '';
       })
     ];
+    programs.k9s = {
+      enable = true;
+      package = pkgs.unstable.k9s;
+      skins = {
+        prod = {
+          k9s = {
+            body = {
+              logoColor = "red";
+            };
+            dialog = {
+              buttonFocusBgColor = "red";
+            };
+            frame = {
+              border = {
+                fgColor = "darkred";
+                focusColor = "red";
+              };
+              menu = {
+                keyColor = "red";
+              };
+            };
+          };
+        };
+      };
+    };
   };
 }

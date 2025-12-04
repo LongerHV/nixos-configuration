@@ -48,6 +48,7 @@
             export KUBECONFIG=$HOME/.kube/config-prod
             export TALOSCONFIG="$HOME/.talos/config-prod"
             export KUBECACHEDIR="$HOME/.kube/cache-prod"
+            export K9S_SKIN="prod"
           fi
         ''
       ];
