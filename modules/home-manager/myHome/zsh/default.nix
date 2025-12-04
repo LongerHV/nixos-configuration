@@ -43,6 +43,12 @@
           zvm_after_init_commands+=("bindkey '^[OA' history-substring-search-up")
           zvm_after_init_commands+=("bindkey '^[[B' history-substring-search-down")
           zvm_after_init_commands+=("bindkey '^[OB' history-substring-search-down")
+
+          if [[ "$TMUX" ]] && [[ "$(tmux display-message -p '#S')" == "prod" ]]; then
+            export KUBECONFIG=$HOME/.kube/config-prod
+            export TALOSCONFIG="$HOME/.talos/config-prod"
+            export KUBECACHEDIR="$HOME/.kube/cache-prod"
+          fi
         ''
       ];
       localVariables = {

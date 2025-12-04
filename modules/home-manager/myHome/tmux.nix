@@ -21,7 +21,7 @@ in
         {
           plugin = tmuxPlugins.power-theme;
           extraConfig = ''
-            set -g @tmux_power_theme '#99C794'
+            set-hook -g client-session-changed 'run-shell "if [ \"#{session_name}\" = \"prod\" ]; then tmux set -g @tmux_power_theme \"redwine\"; else tmux set -g @tmux_power_theme \"#99C794\"; fi; tmux run-shell ${tmuxPlugins.power-theme}/share/tmux-plugins/power/tmux-power.tmux"'
           '';
         }
       ];
