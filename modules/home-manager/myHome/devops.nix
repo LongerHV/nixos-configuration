@@ -55,6 +55,14 @@ in
             | xargs kubectl config set-context --current --namespace
         '';
       })
+      (writeShellApplication {
+        name = "prod";
+        runtimeInputs = [ ];
+        text = ''
+          tmux new -ds prod 2>/dev/null  # create if doesn't exist
+          exec tmux attach -t prod
+        '';
+      })
     ];
     programs.k9s = {
       enable = true;
