@@ -46,6 +46,7 @@ let
         telemetry.enable = false;
       };
     };
+    rust_analyzer.cmd = [ "${pkgs.rust-analyzer}/bin/rust-analyzer" ];
     efm =
       let
         prettier = {
