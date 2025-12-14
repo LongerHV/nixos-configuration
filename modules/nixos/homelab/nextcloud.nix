@@ -4,7 +4,6 @@ let
   hl = config.homelab;
   cfg = hl.nextcloud;
   inherit (config.services) nextcloud;
-  redis = config.services.redis.servers."";
   port = 8086;
   datadir = "${hl.storage}/nextcloud";
   hostName = "nextcloud.${hl.domain}";
@@ -27,7 +26,7 @@ in
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      users.users.nextcloud.extraGroups = [ "redis" "restic" ];
+      users.users.nextcloud.extraGroups = [ "restic" ];
       users.users.${config.mySystem.user}.extraGroups = [ "nextcloud" ];
       environment.systemPackages = [ pkgs.ffmpeg ];
 
@@ -36,8 +35,8 @@ in
           "d ${datadir} 750 nextcloud nextcloud - -"
         ];
         services = lib.genAttrs [ "nextcloud-setup" "nextcloud-cron" ] (_: {
-          after = [ "mysql.service" "redis.service" ];
-          requires = [ "mysql.service" "redis.service" ];
+          after = [ "mysql.service" "redis-nextcloud.service" ];
+          requires = [ "mysql.service" "redis-nextcloud.service" ];
         });
       };
 
@@ -104,12 +103,7 @@ in
             "memcache.local" = "\\OC\\Memcache\\APCu";
             "memcache.distributed" = "\\OC\\Memcache\\Redis";
             "memcache.locking" = "\\OC\\Memcache\\Redis";
-            redis = {
-              host = redis.unixSocket;
-              port = 0;
-              dbindex = 3;
-              timeout = 1.5;
-            };
+            # Redis is now auto-configured by the Nextcloud module (dedicated instance)
           };
         };
 

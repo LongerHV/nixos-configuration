@@ -15,10 +15,10 @@
   };
 
   home.packages = with pkgs; [
-    anki
+    anki-bin
     brave
-    jellyfin-media-player
-    protonup
+    # jellyfin-media-player # Temporarily disabled due to build issues (EOL qtwebengine)
+    protonup-ng
     signal-desktop
     prusa-slicer
 

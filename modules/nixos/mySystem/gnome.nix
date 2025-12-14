@@ -21,8 +21,8 @@ in
         cheese # webcam tool
         epiphany # web browser
         geary # email reader
-        evince # document viewer
-        totem # video player
+        papers # document viewer (replaced evince in GNOME 49)
+        showtime # video player (replaced totem in GNOME 49)
         gnome-console
         gnome-connections
         gnome-contacts
@@ -36,14 +36,14 @@ in
       xserver = {
         enable = true;
         xkb.layout = "pl";
-        displayManager.gdm = {
-          enable = true;
-          settings = {
-            greeter.IncludeAll = true;
-          };
-        };
-        desktopManager.gnome.enable = true;
       };
+      displayManager.gdm = {
+        enable = true;
+        settings = {
+          greeter.IncludeAll = true;
+        };
+      };
+      desktopManager.gnome.enable = true;
       udev.packages = [ pkgs.gnome-settings-daemon ];
       pipewire = {
         enable = true;
