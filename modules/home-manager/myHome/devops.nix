@@ -24,8 +24,8 @@ in
       kubelogin-oidc
       kubernetes-helm
       kubeseal
+      mariadb.client
       minio-client
-      mysql-client
       packer
       swiftclient
       terraform
