@@ -88,29 +88,7 @@ let
     #   filetypes = [ "go" ];
     #   root_dir = [ "go.mod" ".git" ];
     # };
-    efm_python = {
-      init_options.documentFormatting = true;
-      settings = {
-        languages.python = [
-          {
-            formatCommand = "black --quiet -";
-            formatStdin = true;
-          }
-          {
-            formatCommand = "isort --quiet -";
-            formatStdin = true;
-          }
-          {
-            lintCommand = "pylama --from-stdin \${INPUT}";
-            lintStdin = true;
-            lintFormats = [ "%f:%l:%c %m" ];
-            lintIgnoreExitCode = true;
-          }
-        ];
-      };
-      filetypes = [ "python" ];
-      root_dir = [ "pyproject.toml" "setup.cfg" "seput.py" ".git" ];
-    };
+    ruff = { };
   };
 in
 {
@@ -122,13 +100,6 @@ in
     pkgs.nvimPlugins.schemastore
   ];
   extraPackages = with pkgs; [
-    (python3.withPackages (ps: with ps; [
-      setuptools # Required by pylama for some reason
-      pylama
-      black
-      isort
-      yamllint
-    ]))
     (unstable.pyright.override { inherit (pkgs) buildNpmPackage; })
     clang-tools
     unstable.efm-langserver
@@ -144,6 +115,7 @@ in
     nodePackages.typescript-language-server
     nodePackages.vscode-langservers-extracted
     nodePackages.yaml-language-server
+    ruff
     tailwindcss-language-server
     taplo
     templ
