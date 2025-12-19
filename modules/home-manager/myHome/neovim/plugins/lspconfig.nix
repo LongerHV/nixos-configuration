@@ -77,7 +77,7 @@ let
     #   filetypes = [ "go" ];
     #   root_dir = [ "go.mod" ".git" ];
     # };
-    ruff = { };
+    ruff.capabilities.general.positionEncodings = [ "utf-16" ];
   };
 in
 {
