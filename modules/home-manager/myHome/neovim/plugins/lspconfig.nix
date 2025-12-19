@@ -13,7 +13,7 @@ let
     };
     clangd = { };
     gleam = { };
-    pyright = { };
+    basedpyright = { };
     dockerls = { };
     bashls = { };
     terraformls = { };
@@ -100,7 +100,7 @@ in
     pkgs.nvimPlugins.schemastore
   ];
   extraPackages = with pkgs; [
-    (unstable.pyright.override { inherit (pkgs) buildNpmPackage; })
+    basedpyright
     clang-tools
     unstable.efm-langserver
     unstable.elixir-ls
