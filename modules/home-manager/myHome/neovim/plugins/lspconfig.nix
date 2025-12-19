@@ -64,19 +64,7 @@ let
         settings = { inherit languages; };
         filetypes = builtins.attrNames languages;
       };
-    # efm_go = {
-    #   settings = {
-    #     languages.go = [{
-    #       lintCommand = "golangci-lint run --fix=false --out-format=line-number --print-issued-lines=false 2> /dev/null";
-    #       lintStdin = false;
-    #       lintWorkspace = true;
-    #       lintIgnoreExitCode = true;
-    #       lintFormats = [ "%f:%l:%c: %m" "%f:%l: %m" ];
-    #     }];
-    #   };
-    #   filetypes = [ "go" ];
-    #   root_dir = [ "go.mod" ".git" ];
-    # };
+    golangci_lint_ls = { };
     ruff.capabilities.general.positionEncodings = [ "utf-16" ];
   };
 in
@@ -95,6 +83,8 @@ in
     unstable.gopls
     unstable.lua-language-server
     unstable.nil
+    golangci-lint
+    golangci-lint-langserver
     inotify-tools
     marksman
     nixpkgs-fmt
