@@ -1,8 +1,4 @@
 local M = {}
-local lspconfig = require("lspconfig")
-local configs = require("lspconfig.configs")
-local util = require("lspconfig.util")
-local efmconfig = require("lspconfig.configs.efm")
 local telescope = require("telescope.builtin")
 local schemastore = require("schemastore")
 
@@ -73,13 +69,8 @@ local extra_server_options = {
 
 function M.setup_servers(lsp_servers)
 	for server, config in pairs(vim.tbl_deep_extend("error", lsp_servers, extra_server_options)) do
-		if vim.startswith(server, "efm_") then
-			if config.root_dir then
-				config.root_dir = util.root_pattern(config.root_dir)
-			end
-			configs[server] = efmconfig
-		end
-		lspconfig[server].setup(config)
+		vim.lsp.config(server, config)
+		vim.lsp.enable(server)
 	end
 end
 
