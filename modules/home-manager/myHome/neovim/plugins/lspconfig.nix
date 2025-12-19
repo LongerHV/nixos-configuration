@@ -12,33 +12,22 @@ let
       };
     };
     clangd = { };
-    gleam = { };
     basedpyright = { };
     dockerls = { };
     bashls = { };
     terraformls = { };
     tflint = { };
     gopls = { };
-    templ = { };
     marksman = { };
     ts_ls = {
       init_options.tsserver.path = "${pkgs.nodePackages.typescript}/bin/tsserver";
     };
     taplo = { };
-    tailwindcss = {
-      init_options = {
-        userLanguages = {
-          heex = "html";
-        };
-      };
-    };
     cssls = { };
     eslint = { settings.format = false; };
     jsonls = { init_options.provideFormatter = false; };
     yamlls = { };
     html = { init_options.provideFormatter = false; };
-    volar.init_options.typescript.tsdk = "${pkgs.nodePackages.typescript}/lib/node_modules/typescript/lib";
-    elixirls.cmd = [ "elixir-ls" ];
     lua_ls = {
       settings.Lua = {
         runtime.version = "LuaJIT";
@@ -103,7 +92,6 @@ in
     basedpyright
     clang-tools
     unstable.efm-langserver
-    unstable.elixir-ls
     unstable.gopls
     unstable.lua-language-server
     unstable.nil
@@ -117,9 +105,7 @@ in
     nodePackages.vscode-langservers-extracted
     nodePackages.yaml-language-server
     ruff
-    tailwindcss-language-server
     taplo
-    templ
     terraform-ls
     tflint
     yaml-language-server
