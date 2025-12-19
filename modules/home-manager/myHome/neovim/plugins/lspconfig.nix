@@ -107,6 +107,7 @@ in
     unstable.gopls
     unstable.lua-language-server
     unstable.nil
+    inotify-tools
     marksman
     nixpkgs-fmt
     nodePackages.bash-language-server
