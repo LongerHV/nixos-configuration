@@ -9,6 +9,7 @@
     ./monitoring.nix
     ./nameserver.nix
     ./rss.nix
+    ./smarthome.nix
     ./wireguard.nix
   ];
 }
