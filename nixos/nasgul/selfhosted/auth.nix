@@ -195,6 +195,18 @@ in
             userinfo_signed_response_alg = "none";
             token_endpoint_auth_method = "client_secret_post";
           }
+          {
+            authorization_policy = "one_factor";
+            client_id = "hass";
+            client_secret = "$pbkdf2-sha512$310000$TmV7cKFBk1KoulcsQ1kqlw$vqSdVZIqzZZCrxXLkVXo4ShfzbkMJUq7wpyIV4v/3ucV6vykYnl7vlEtflSXOl1RqYI5rWJ5kkXQkYbuXwLBlw";
+            public = false;
+            require_pkce = true;
+            pkce_challenge_method = "S256";
+            redirect_uris = [ "https://hass.${domain}/auth/oidc/callback" ];
+            scopes = [ "openid" "profile" "groups" ];
+            id_token_signed_response_alg = "RS256";
+            token_endpoint_auth_method = "client_secret_post";
+          }
         ];
       };
     };

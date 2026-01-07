@@ -38,6 +38,18 @@ in
               icon = "immich";
             };
           }
+          {
+            Home-Assistant = {
+              href = "https://hass.${domain}";
+              icon = "home-assistant";
+            };
+          }
+          {
+            "Home-Assistant (OIDC)" = {
+              href = "https://hass.${domain}/auth/oidc/welcome";
+              icon = "home-assistant";
+            };
+          }
         ];
       }
       {

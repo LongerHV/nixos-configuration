@@ -26,8 +26,16 @@
       };
       recorder.db_url = "postgresql://@/hass";
       "automation ui" = "!include automations.yaml";
+      auth_oidc = {
+        client_id = "hass";
+        client_secret = "!env_var HASS_OIDC_SECRET";
+        discovery_url = "https://auth.${config.homelab.domain}/.well-known/openid-configuration";
+        # features.automatic_user_linking = true; # Use only for initial setup to link first (admin) user created by HASS
+      };
     };
   };
+  age.secrets.hass_environment.file = ../../../secrets/nasgul_hass_environment.age;
+  systemd.services.home-assistant.serviceConfig.EnvironmentFile = config.age.secrets.hass_environment.path;
   services.postgresql = {
     ensureDatabases = [ "hass" ];
     ensureUsers = [{
