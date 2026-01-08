@@ -47,6 +47,13 @@
       homeassistant = {
         internal_url = "https://hass.${config.homelab.domain}";
       };
+      discovery = {
+        ignore = [
+          { platform = "cast"; }
+          { platform = "ipp"; }
+          { platform = "androidtv_remote"; }
+        ];
+      };
       http = {
         server_host = [ "127.0.0.1" ];
         trusted_proxies = [ "127.0.0.1" ];
