@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 
 {
+  services.matter-server.enable = true;
   services.home-assistant = {
     enable = true;
     extraPackages = ps: with ps; [ psycopg2 ];
@@ -13,6 +14,8 @@
       "shopping_list"
       # Recommended for fast zlib compression
       "isal"
+
+      "matter"
     ];
     customComponents = with pkgs.home-assistant-custom-components; [
       auth_oidc
