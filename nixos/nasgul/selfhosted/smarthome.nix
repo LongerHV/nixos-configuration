@@ -1,7 +1,29 @@
 { pkgs, config, ... }:
 
 {
-  services.matter-server.enable = true;
+  # Matter-server seems to advertise a different port on each startup,
+  # not sure how crutial it is for operation
+  # networking.firewall.trustedInterfaces = [ "vlan20" ];
+
+  networking.firewall.allowedUDPPorts = [ 5353 ]; # mDNS
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      domain = true;
+      hinfo = true;
+      userServices = true;
+      workstation = true;
+    };
+    allowInterfaces = [ "eth0" "vlan20" ];
+  };
+
+  services.matter-server = {
+    enable = true;
+    # extraArgs = [ "--primary-interface" "vlan20" ];
+  };
   services.home-assistant = {
     enable = true;
     extraPackages = ps: with ps; [ psycopg2 ];
@@ -22,6 +44,9 @@
     ];
     config = {
       default_config = { };
+      homeassistant = {
+        internal_url = "https://hass.${config.homelab.domain}";
+      };
       http = {
         server_host = [ "127.0.0.1" ];
         trusted_proxies = [ "127.0.0.1" ];
