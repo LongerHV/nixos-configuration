@@ -2,7 +2,7 @@
   networking = {
     hostName = "nasgul";
     hostId = "48392063";
-    enableIPv6 = false;
+    # enableIPv6 = false;
     usePredictableInterfaceNames = false;
     useNetworkd = true;
     dhcpcd.enable = false;

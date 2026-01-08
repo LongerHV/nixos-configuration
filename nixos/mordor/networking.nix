@@ -3,7 +3,7 @@
 
   networking = {
     useNetworkd = false;
-    enableIPv6 = false;
+    # enableIPv6 = false;
     # "Predictable" interface names are not that predictable lol
     usePredictableInterfaceNames = false;
     # NetworkManager is implicitly enabled by gnome
