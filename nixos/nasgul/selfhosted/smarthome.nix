@@ -24,7 +24,7 @@
 
     matter-server = {
       enable = true;
-      # extraArgs = [ "--primary-interface" "vlan20" ];
+      # extraArgs = [ "--primary-interface" "vlan20" ]; # Required for commissioning (requires internet access on vlan20 as well)
     };
     home-assistant = {
       enable = true;
