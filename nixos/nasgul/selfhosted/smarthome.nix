@@ -1,13 +1,31 @@
 { pkgs, config, ... }:
 
+let
+  mqttPort = 1883;
+in
 {
   # Matter-server seems to advertise a different port on each startup,
   # not sure how crutial it is for operation
   # networking.firewall.trustedInterfaces = [ "vlan20" ];
 
-  networking.firewall.allowedUDPPorts = [ 5353 ];
+  networking.firewall.allowedTCPPorts = [ mqttPort ]; # MQTT
   services = {
-    # mDNS
+    # MQTT Broker for Valetudo
+    mosquitto = {
+      enable = true;
+      listeners = [
+        {
+          port = mqttPort;
+          users = {
+            valetudo = {
+              passwordFile = config.age.secrets.mqtt_valetudo_password.path;
+              acl = [ "readwrite #" ];
+            };
+          };
+        }
+      ];
+    };
+
     avahi = {
       enable = true;
       nssmdns4 = true;
@@ -20,6 +38,7 @@
         workstation = true;
       };
       allowInterfaces = [ "eth0" "vlan20" ];
+      openFirewall = true;
     };
 
     matter-server = {
@@ -40,6 +59,7 @@
         "isal"
 
         "matter"
+        "mqtt"
       ];
       customComponents = with pkgs.home-assistant-custom-components; [
         auth_oidc
@@ -79,7 +99,10 @@
       }];
     };
   };
-  age.secrets.hass_environment.file = ../../../secrets/nasgul_hass_environment.age;
+  age = {
+    secrets.hass_environment.file = ../../../secrets/nasgul_hass_environment.age;
+    secrets.mqtt_valetudo_password.file = ../../../secrets/nasgul_mqtt_valetudo_password.age;
+  };
   systemd.services.home-assistant.serviceConfig.EnvironmentFile = config.age.secrets.hass_environment.path;
   systemd.tmpfiles.rules = [
     "f ${config.services.home-assistant.configDir}/automations.yaml 0644 hass hass"
