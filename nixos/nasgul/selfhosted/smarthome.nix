@@ -6,7 +6,7 @@ in
 {
   # Matter-server seems to advertise a different port on each startup,
   # not sure how crutial it is for operation
-  # networking.firewall.trustedInterfaces = [ "vlan20" ];
+  networking.firewall.trustedInterfaces = [ "vlan20" ];
 
   networking.firewall.allowedTCPPorts = [ mqttPort ]; # MQTT
   services = {
@@ -43,7 +43,7 @@ in
 
     matter-server = {
       enable = true;
-      # extraArgs = [ "--primary-interface" "vlan20" ]; # Required for commissioning (requires internet access on vlan20 as well)
+      extraArgs = [ "--primary-interface" "vlan20" ]; # Required for commissioning (requires internet access on vlan20 as well)
     };
     home-assistant = {
       enable = true;
