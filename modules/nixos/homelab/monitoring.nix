@@ -28,6 +28,7 @@ in
         settings = {
           server = {
             domain = "grafana.${hl.domain}";
+            root_url = "https://grafana.${hl.domain}";
             http_port = 3001;
           };
           analytics = {
@@ -35,8 +36,29 @@ in
             check_for_updates = false;
             check_for_plugin_updates = false;
           };
-          security.disable_gravatar = true;
+          security = {
+            admin_user = "admin";
+            admin_password = "$__env{GRAFANA_ADMIN_PASSWORD}";
+            disable_gravatar = true;
+          };
           panels.disable_sanitize_html = true;
+          "auth.generic_oauth" = {
+            enabled = true;
+            name = "Authelia";
+            client_id = "grafana";
+            client_secret = "$__env{GRAFANA_OIDC_SECRET}";
+            scopes = "openid profile email groups";
+            auth_url = "https://auth.${hl.domain}/api/oidc/authorization";
+            token_url = "https://auth.${hl.domain}/api/oidc/token";
+            api_url = "https://auth.${hl.domain}/api/oidc/userinfo";
+            use_pkce = true;
+            groups_attribute_path = "groups";
+            role_attribute_path = "contains(groups[*], 'admin') && 'Admin' || 'Viewer'";
+            allow_sign_up = true;
+            email_attribute_path = "email";
+            name_attribute_path = "name";
+            login_attribute_path = "preferred_username";
+          };
         };
         provision = {
           datasources.settings.datasources = [{
@@ -86,5 +108,9 @@ in
       "smartctl-exporter"
       "traefik-metrics"
     ];
+
+    # Grafana OIDC environment
+    age.secrets.grafana_environment.file = ../../../secrets/nasgul_grafana_environment.age;
+    systemd.services.grafana.serviceConfig.EnvironmentFile = config.age.secrets.grafana_environment.path;
   };
 }
