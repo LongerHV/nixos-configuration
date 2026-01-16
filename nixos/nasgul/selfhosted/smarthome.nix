@@ -60,6 +60,8 @@ in
 
         "matter"
         "mqtt"
+        "thread"
+        "otbr"
       ];
       customComponents = with pkgs.home-assistant-custom-components; [
         auth_oidc
