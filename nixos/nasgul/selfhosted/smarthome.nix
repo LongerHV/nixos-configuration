@@ -66,6 +66,10 @@ in
       customComponents = with pkgs.home-assistant-custom-components; [
         auth_oidc
       ];
+      customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
+        auto-entities
+        valetudo-map-card
+      ];
       config = {
         default_config = { };
         homeassistant = {
@@ -84,6 +88,7 @@ in
           use_x_forwarded_for = true;
         };
         recorder.db_url = "postgresql://@/hass";
+        lovelace.mode = "yaml";
         "automation ui" = "!include automations.yaml";
         auth_oidc = {
           client_id = "hass";
