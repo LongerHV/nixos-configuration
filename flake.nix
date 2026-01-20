@@ -134,6 +134,12 @@
               ./nixos/smaug
             ];
           };
+          isildur = nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              ./nixos/isildur
+            ];
+          };
           sd-image = nixpkgs.lib.nixosSystem {
             inherit specialArgs;
             modules = defaultModules ++ [
@@ -195,6 +201,7 @@
         {
           nasgul = mkDeployConfig "nasgul.lan" self.nixosConfigurations.nasgul;
           smaug = mkDeployConfig "smaug.lan" self.nixosConfigurations.smaug;
+          isildur = mkDeployConfig "isildur.lan" self.nixosConfigurations.isildur;
         };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
