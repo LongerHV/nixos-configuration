@@ -12,9 +12,6 @@ in
   config = lib.mkIf cfg.enable {
     programs = {
       gh.enable = true;
-      zsh.shellAliases = {
-        lg = "lazygit";
-      };
       git = {
         enable = true;
         settings = {
@@ -27,7 +24,6 @@ in
       };
     };
     home.packages = with pkgs; [
-      bat
       colordiff
       curl
       eza
@@ -39,7 +35,6 @@ in
       nix-tree
       openssh
       p7zip
-      ranger
       ripgrep
       tree
       unzip
@@ -47,7 +42,6 @@ in
       xh
       yj
       yq
-      unstable.goose-cli
     ];
   };
 }
