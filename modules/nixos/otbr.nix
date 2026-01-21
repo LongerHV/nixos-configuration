@@ -2,6 +2,18 @@
 
 let
   cfg = config.services.otbr;
+
+  # nix run nixpkgs#nix-prefetch-docker -- --image-name openthread/border-router --image-tag latest
+  imageInfo = {
+    x86_64-linux = {
+      imageDigest = "sha256:263b7874a42caeab4e86d50797ce7c703233de61292e69f8afc5543b2ffbde19";
+      hash = "sha256-u4N8U3emZuUXuqKgH4N5fi0O8PSwlZ6KBUFhn3AEdIA=";
+    };
+    aarch64-linux = {
+      imageDigest = "sha256:8cc2b71dc27aeb9c52878ff0c158cf1c5b7097fbe15f2045541fc6a9d1a59545";
+      hash = "sha256-8kMR1lhAXU01dmNIret5Azb8WQhMGMo6vaZ7fToRXpw=";
+    };
+  }.${pkgs.stdenv.hostPlatform.system} or (throw "Unsupported platform for OTBR");
 in
 {
   options.services.otbr = with lib; {
@@ -27,18 +39,23 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    systemd.tmpfiles.rules = [
+      "d ${cfg.storage} 0755 root root - -"
+    ];
+
     virtualisation.oci-containers.containers.otbr = {
       image = "openthread/border-router:latest";
-      # nix run nixpkgs#nix-prefetch-docker -- --image-name openthread/border-router --image-tag latest
       imageFile = pkgs.dockerTools.pullImage {
         imageName = "openthread/border-router";
-        imageDigest = "sha256:263b7874a42caeab4e86d50797ce7c703233de61292e69f8afc5543b2ffbde19";
-        hash = "sha256-u4N8U3emZuUXuqKgH4N5fi0O8PSwlZ6KBUFhn3AEdIA=";
+        inherit (imageInfo) imageDigest hash;
         finalImageName = "openthread/border-router";
         finalImageTag = "latest";
       };
       extraOptions = [ "--network=host" ];
-      capabilities.NET_ADMIN = true;
+      capabilities = {
+        NET_ADMIN = true;
+        NET_RAW = true;
+      };
       devices = [
         "${cfg.rcpDevice}:/dev/ttyACM0"
         "/dev/net/tun:/dev/net/tun"

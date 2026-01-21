@@ -32,7 +32,14 @@
     wireless.enable = false;
     networkmanager.enable = true;
   };
+
   services.openssh.enable = true;
+
+  services.otbr = {
+    enable = true;
+    rcpDevice = "/dev/serial/by-id/usb-Nordic_Semiconductor_nRF528xx_OpenThread_Device_DA241A36F28D-if00";
+    infraInterface = "wlan0";
+  };
 
   # Free up to 1GiB whenever there is less than 100MiB left.
   nix.extraOptions = ''
