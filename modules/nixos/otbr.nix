@@ -43,6 +43,18 @@ in
       "d ${cfg.storage} 0755 root root - -"
     ];
 
+    services.avahi = {
+      enable = true;
+      nssmdns4 = true;
+      publish = {
+        enable = true;
+        addresses = true;
+        userServices = true;
+      };
+      allowInterfaces = [ cfg.infraInterface ];
+      openFirewall = true;
+    };
+
     virtualisation.oci-containers.containers.otbr = {
       image = "openthread/border-router:latest";
       imageFile = pkgs.dockerTools.pullImage {
