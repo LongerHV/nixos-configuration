@@ -30,7 +30,10 @@
   networking = {
     hostName = "isildur";
     wireless.enable = false;
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.powersave = false;
+    };
   };
 
   services.openssh.enable = true;
