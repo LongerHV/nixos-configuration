@@ -16,5 +16,5 @@
     home = "/var/lib/esphome";
     group = "esphome";
   };
-  users.groups.esphome = {};
+  users.groups.esphome = { };
 }
