@@ -3,6 +3,7 @@
     ./anki.nix
     ./auth.nix
     ./containers.nix
+    ./esphome.nix
     ./homepage.nix
     ./immich.nix
     ./lldap.nix

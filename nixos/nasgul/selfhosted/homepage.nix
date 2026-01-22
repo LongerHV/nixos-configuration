@@ -50,6 +50,12 @@ in
               icon = "home-assistant";
             };
           }
+          {
+            ESPHome = {
+              href = "https://esphome.${domain}";
+              icon = "esphome";
+            };
+          }
         ];
       }
       {

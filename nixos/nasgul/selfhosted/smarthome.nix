@@ -62,6 +62,7 @@ in
         "mqtt"
         "thread"
         "otbr"
+        "esphome"
       ];
       customComponents = with pkgs.home-assistant-custom-components; [
         auth_oidc
