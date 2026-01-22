@@ -9,9 +9,10 @@
     # My custom entries for local network
     customDNS = {
       customTTL = "1h";
-      mapping = {
-        "${config.homelab.domain}" = "10.123.1.243";
-      };
+      zone = ''
+        $ORIGIN ${config.homelab.domain}.
+        @ 3600 CNAME nasgul.lan.
+      '';
     };
     # Redirect all .lan queries to the router
     conditional = {
