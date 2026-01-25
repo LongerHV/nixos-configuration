@@ -12,6 +12,7 @@ in
       services.immich = {
         enable = true;
         mediaLocation = dataDir;
+        host = "127.0.0.1";
       };
       systemd.tmpfiles.rules = [
         "d ${dataDir} 750 ${cfg.user} ${cfg.group} - -"
