@@ -19,7 +19,6 @@ in
       "bazarr"
       "blocky"
       "deluge"
-      "netdata"
       "prometheus"
       "prowlarr"
       "radarr"

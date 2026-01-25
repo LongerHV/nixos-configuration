@@ -134,12 +134,6 @@ in
       {
         Monitoring = [
           {
-            Netdata = {
-              href = "https://netdata.${domain}";
-              icon = "netdata";
-            };
-          }
-          {
             Prometheus = {
               href = "https://prometheus.${domain}";
               icon = "prometheus";

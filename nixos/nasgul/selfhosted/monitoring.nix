@@ -2,12 +2,6 @@
   homelab.traefik.services.netdata.port = 19999;
 
   services = {
-    netdata = {
-      enable = true;
-      config.global = {
-        "update every" = "15";
-      };
-    };
     prometheus.scrapeConfigs = [{
       job_name = "openwrt";
       static_configs = [{
