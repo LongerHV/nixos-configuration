@@ -19,6 +19,7 @@ in
         enable = true;
         remotePlay.openFirewall = true;
         protontricks.enable = true;
+        gamescopeSession.enable = true;
       };
       gamemode.enable = true;
       sunshine.enable = true;
