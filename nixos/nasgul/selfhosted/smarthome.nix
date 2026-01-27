@@ -8,6 +8,8 @@ in
   # not sure how crutial it is for operation
   networking.firewall.trustedInterfaces = [ "vlan20" ];
 
+  homelab.traefik.services.matter.port = config.services.matter-server.port;
+
   networking.firewall.allowedTCPPorts = [ mqttPort ]; # MQTT
   services = {
     # MQTT Broker for Valetudo
@@ -111,13 +113,15 @@ in
     secrets.hass_environment.file = ../../../secrets/nasgul_hass_environment.age;
     secrets.mqtt_valetudo_password.file = ../../../secrets/nasgul_mqtt_valetudo_password.age;
   };
-  systemd.services.home-assistant.serviceConfig.EnvironmentFile = config.age.secrets.hass_environment.path;
-  systemd.services.matter-server.serviceConfig = {
-    BindReadOnlyPaths = [ "/etc/ssl/certs/ca-certificates.crt" ];
-    Environment = [ "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt" ];
+  systemd = {
+    services.home-assistant.serviceConfig.EnvironmentFile = config.age.secrets.hass_environment.path;
+    services.matter-server.serviceConfig = {
+      BindReadOnlyPaths = [ "/etc/ssl/certs/ca-certificates.crt" ];
+      Environment = [ "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt" ];
+    };
+    tmpfiles.rules = [
+      "f ${config.services.home-assistant.configDir}/automations.yaml 0644 hass hass"
+    ];
   };
-  systemd.tmpfiles.rules = [
-    "f ${config.services.home-assistant.configDir}/automations.yaml 0644 hass hass"
-  ];
   homelab.traefik.services.hass.port = config.services.home-assistant.config.http.server_port;
 }

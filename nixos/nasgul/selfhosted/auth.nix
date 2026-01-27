@@ -19,6 +19,7 @@ in
       "bazarr"
       "blocky"
       "deluge"
+      "matter"
       "prometheus"
       "prowlarr"
       "radarr"

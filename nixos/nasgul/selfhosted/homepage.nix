@@ -56,6 +56,12 @@ in
               icon = "esphome";
             };
           }
+          {
+            Matter = {
+              href = "https://matter.${domain}";
+              icon = "matter";
+            };
+          }
         ];
       }
       {
