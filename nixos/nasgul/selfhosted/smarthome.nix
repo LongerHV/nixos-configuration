@@ -112,6 +112,10 @@ in
     secrets.mqtt_valetudo_password.file = ../../../secrets/nasgul_mqtt_valetudo_password.age;
   };
   systemd.services.home-assistant.serviceConfig.EnvironmentFile = config.age.secrets.hass_environment.path;
+  systemd.services.matter-server.serviceConfig = {
+    BindReadOnlyPaths = [ "/etc/ssl/certs/ca-certificates.crt" ];
+    Environment = [ "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt" ];
+  };
   systemd.tmpfiles.rules = [
     "f ${config.services.home-assistant.configDir}/automations.yaml 0644 hass hass"
   ];
