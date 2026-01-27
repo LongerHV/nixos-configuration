@@ -39,6 +39,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Enable IPv6 forwarding for routing between infrastructure and Thread mesh
+    boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;
+
     systemd.tmpfiles.rules = [
       "d ${cfg.storage} 0755 root root - -"
     ];

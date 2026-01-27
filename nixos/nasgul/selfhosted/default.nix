@@ -9,7 +9,6 @@
     ./lldap.nix
     ./monitoring.nix
     ./nameserver.nix
-    ./otbr.nix
     ./rss.nix
     ./smarthome.nix
     ./wireguard.nix

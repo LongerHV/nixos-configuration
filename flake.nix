@@ -140,10 +140,17 @@
               ./nixos/isildur
             ];
           };
+          anarion = nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              ./nixos/anarion
+            ];
+          };
           sd-image = nixpkgs.lib.nixosSystem {
             inherit specialArgs;
             modules = defaultModules ++ [
               "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix"
+              { sdImage.compressImage = false; }
               ./nixos/sd-image
             ];
           };
@@ -202,6 +209,7 @@
           nasgul = mkDeployConfig "nasgul.lan" self.nixosConfigurations.nasgul;
           smaug = mkDeployConfig "smaug.lan" self.nixosConfigurations.smaug;
           isildur = mkDeployConfig "isildur.lan" self.nixosConfigurations.isildur;
+          anarion = mkDeployConfig "anarion.lan" self.nixosConfigurations.anarion;
         };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
