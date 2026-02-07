@@ -3,15 +3,16 @@
 let
   cfg = config.services.otbr;
 
-  # nix run nixpkgs#nix-prefetch-docker -- --image-name openthread/border-router --image-tag latest
   imageInfo = {
+    # nix run nixpkgs#nix-prefetch-docker -- --image-name openthread/border-router --image-tag latest --arch amd64
     x86_64-linux = {
-      imageDigest = "sha256:263b7874a42caeab4e86d50797ce7c703233de61292e69f8afc5543b2ffbde19";
-      hash = "sha256-u4N8U3emZuUXuqKgH4N5fi0O8PSwlZ6KBUFhn3AEdIA=";
+      imageDigest = "sha256:4d84b9b46a5f49e01da6f8ad25bfb9e73c898b9b046d5fb89619b9ad4436bf0c";
+      hash = "sha256-5tg+5tVxACtXb6z1I64q7d4pjPB2W0xanK9yB2vKfCM=";
     };
+    # nix run nixpkgs#nix-prefetch-docker -- --image-name openthread/border-router --image-tag latest --arch arm64
     aarch64-linux = {
-      imageDigest = "sha256:8cc2b71dc27aeb9c52878ff0c158cf1c5b7097fbe15f2045541fc6a9d1a59545";
-      hash = "sha256-8kMR1lhAXU01dmNIret5Azb8WQhMGMo6vaZ7fToRXpw=";
+      imageDigest = "sha256:4d84b9b46a5f49e01da6f8ad25bfb9e73c898b9b046d5fb89619b9ad4436bf0c";
+      hash = "sha256-I+HR0v1oiLQRm+teUKpfn5+Tb8Q7LEbHfRJd5i8MYgs=";
     };
   }.${pkgs.stdenv.hostPlatform.system} or (throw "Unsupported platform for OTBR");
 in
