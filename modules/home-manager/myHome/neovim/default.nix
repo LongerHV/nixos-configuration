@@ -9,7 +9,7 @@
   };
 
   config = lib.mkIf config.myHome.neovim.enable {
-    home.sessionVariables.EDITOR = "nvim";
+    home.sessionVariables.SUDO_EDITOR = "${config.home.profileDirectory}/bin/nvim";
     programs.xenon = {
       enable = true;
       aliases = [ "nvim" "vim" "vi" ];
