@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  plugin = pkgs.unstable.vimPlugins.nvim-treesitter.withAllGrammars;
+  plugin = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
   main = "nvim-treesitter.configs";
   opts = {
     auto_install = false; # Parsers are managed by Nix
