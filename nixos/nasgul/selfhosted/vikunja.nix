@@ -2,7 +2,6 @@
 
 let
   hl = config.homelab;
-  cfg = config.services.vikunja;
   port = 3456;
 in
 {
@@ -57,15 +56,14 @@ in
 
     (lib.mkIf hl.backups.enable {
       homelab.backups.services.vikunja = {
-        user = "vikunja";
         backupPrepareCommand = ''
-          ${config.services.postgresql.package}/bin/pg_dump --clean --if-exists --dbname=vikunja > /tmp/vikunja-database.sql
+          ${pkgs.util-linux}/bin/runuser -u ${config.services.postgresql.superUser} -- ${config.services.postgresql.package}/bin/pg_dump --clean --if-exists --dbname=vikunja > /tmp/vikunja-database.sql
         '';
         backupCleanupCommand = ''
           rm -f /tmp/vikunja-database.sql
         '';
         paths = [
-          "${cfg.settings.files.basepath or "/var/lib/vikunja/files"}"
+          "/var/lib/vikunja/files"
           "/tmp/vikunja-database.sql"
         ];
       };
