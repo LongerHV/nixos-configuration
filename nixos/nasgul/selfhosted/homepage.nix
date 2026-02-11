@@ -39,6 +39,12 @@ in
             };
           }
           {
+            Vikunja = {
+              href = "https://vikunja.${domain}";
+              icon = "vikunja";
+            };
+          }
+          {
             Home-Assistant = {
               href = "https://hass.${domain}";
               icon = "home-assistant";

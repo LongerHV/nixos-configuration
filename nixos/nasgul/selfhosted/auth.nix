@@ -225,6 +225,14 @@ in
               id_token_signed_response_alg = "RS256";
               token_endpoint_auth_method = "client_secret_basic";
             }
+            {
+              authorization_policy = "one_factor";
+              client_id = "vikunja";
+              client_secret = "$pbkdf2-sha512$310000$6IgqlpawwrXgBMczZfFmyA$8My4BtEG.LO86BQYCbT35ttEwGmSXbuwO2fDUM54Z4M0Rz46n3n.L4zkHwxY5GpVNZNsAMsMm1rpODO0jH9dxA";
+              redirect_uris = [ "https://vikunja.${domain}/auth/openid/authelia" ];
+              scopes = [ "openid" "profile" "email" ];
+              token_endpoint_auth_method = "client_secret_basic";
+            }
           ];
         };
       };

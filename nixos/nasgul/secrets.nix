@@ -112,6 +112,9 @@ in
         group = "lldap-secrets";
       };
 
+      # Vikunja
+      vikunja_environment.file = ../../secrets/nasgul_vikunja_environment.age;
+
       # Wireguard
       wireguard_priv_key.file = ../../secrets/nasgul_wireguard_priv_key.age;
       mullvad_priv_key.file = ../../secrets/nasgul_mullvad_priv_key.age;
