@@ -44,6 +44,10 @@ in
               icon = "vikunja";
             };
           }
+        ];
+      }
+      {
+        SmartHome = [
           {
             Home-Assistant = {
               href = "https://hass.${domain}";
