@@ -87,5 +87,10 @@ in
         FIREWALL = "0";
       };
     };
+
+    # Open firewall for TREL
+    networking.firewall.allowedUDPPortRanges = [
+      { from = 32768; to = 60999; }
+    ];
   };
 }
