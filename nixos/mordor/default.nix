@@ -114,6 +114,7 @@
     avahi = {
       enable = true;
       nssmdns4 = true;
+      nssmdns6 = true;
     };
     udev.packages = with pkgs; [ qmk-udev-rules yubikey-personalization via ];
     pcscd.enable = true;
