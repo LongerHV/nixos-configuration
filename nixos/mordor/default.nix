@@ -7,7 +7,6 @@
     ./hardware-configuration.nix
     ./networking.nix
     ./vm-variant.nix
-    ./ai.nix
   ];
 
   mySystem = {
