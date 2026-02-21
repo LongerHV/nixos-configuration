@@ -53,8 +53,12 @@ in
     matter-server = {
       enable = true;
       extraArgs = [
-        "--primary-interface" "vlan20" # Required for commissioning (requires internet access on vlan20 as well)
-        "--ota-provider-dir" "/data/updates" # /data is symlinked to the state dir; /updates (cwd-relative default) is read-only in the sandbox
+        # Required for commissioning (requires internet access on vlan20 as well)
+        "--primary-interface"
+        "vlan20"
+        # /data is symlinked to the state dir; /updates (cwd-relative default) is read-only in the sandbox
+        "--ota-provider-dir"
+        "/data/updates"
       ];
     };
     home-assistant = {
@@ -124,11 +128,13 @@ in
     secrets.mqtt_valetudo_password.file = ../../../secrets/nasgul_mqtt_valetudo_password.age;
   };
   systemd = {
-    services.home-assistant.serviceConfig.EnvironmentFile = config.age.secrets.hass_environment.path;
-    services.matter-server.path = [ chip-ota-provider-vlan20 ];
-    services.matter-server.serviceConfig = {
-      BindReadOnlyPaths = [ "/etc/ssl/certs/ca-certificates.crt" ];
-      Environment = [ "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt" ];
+    services = {
+      home-assistant.serviceConfig.EnvironmentFile = config.age.secrets.hass_environment.path;
+      matter-server.path = [ chip-ota-provider-vlan20 ];
+      matter-server.serviceConfig = {
+        BindReadOnlyPaths = [ "/etc/ssl/certs/ca-certificates.crt" ];
+        Environment = [ "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt" ];
+      };
     };
     tmpfiles.rules = [
       "f ${config.services.home-assistant.configDir}/automations.yaml 0644 hass hass"
