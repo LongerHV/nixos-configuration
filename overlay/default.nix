@@ -1,6 +1,7 @@
 final: prev: {
   templ = prev.callPackage ./templ.nix prev;
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
+  chip-ota-provider = prev.callPackage ./chip-ota-provider.nix { };
 
   # Waiting for https://github.com/mhartington/oceanic-next/pull/123
   nvimPlugins = prev.nvimPlugins // {

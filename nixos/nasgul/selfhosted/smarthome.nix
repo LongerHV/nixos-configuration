@@ -2,6 +2,12 @@
 
 let
   mqttPort = 1883;
+  # matter-server spawns chip-ota-provider-app without arguments, so we wrap it
+  # to inject --interface-id so the OTA provider advertises on vlan20 (where
+  # Matter devices live) rather than eth0 (the auto-detected primary interface).
+  chip-ota-provider-vlan20 = pkgs.writeShellScriptBin "chip-ota-provider-app" ''
+    exec ${pkgs.chip-ota-provider}/bin/chip-ota-provider-app --interface-id vlan20 "$@"
+  '';
 in
 {
   # Matter-server seems to advertise a different port on each startup,
@@ -46,7 +52,10 @@ in
 
     matter-server = {
       enable = true;
-      extraArgs = [ "--primary-interface" "vlan20" ]; # Required for commissioning (requires internet access on vlan20 as well)
+      extraArgs = [
+        "--primary-interface" "vlan20" # Required for commissioning (requires internet access on vlan20 as well)
+        "--ota-provider-dir" "/data/updates" # /data is symlinked to the state dir; /updates (cwd-relative default) is read-only in the sandbox
+      ];
     };
     home-assistant = {
       enable = true;
@@ -116,6 +125,7 @@ in
   };
   systemd = {
     services.home-assistant.serviceConfig.EnvironmentFile = config.age.secrets.hass_environment.path;
+    services.matter-server.path = [ chip-ota-provider-vlan20 ];
     services.matter-server.serviceConfig = {
       BindReadOnlyPaths = [ "/etc/ssl/certs/ca-certificates.crt" ];
       Environment = [ "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt" ];
