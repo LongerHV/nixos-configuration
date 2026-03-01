@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -33,6 +33,22 @@
     networkmanager = {
       enable = true;
       wifi.powersave = false;
+      dispatcherScripts = [
+        {
+          # Permanent neighbor entry for isildur (OTBR TREL peer on AP upstairs).
+          # Bypasses the Linux 6.6.x bridge MLD querier bug: the bridge querier never
+          # sends MLD queries (IPv6 address not valid at startup, never retried), so MDB
+          # entries expire and multicast-to-unicast stops working. With a permanent neigh
+          # entry, NDP is not needed at all for this peer — the kernel resolves the MAC
+          # directly without sending any Neighbor Solicitation.
+          source = pkgs.writeShellScript "otbr-neighbors" ''
+            [ "$1" = "wlan0" ] && [ "$2" = "up" ] || exit 0
+            ip -6 neigh replace fe80::71a2:9a77:d1f2:f5db \
+              lladdr 88:a2:9e:8a:a2:7a dev wlan0 nud permanent
+          '';
+          type = "basic";
+        }
+      ];
     };
   };
 
