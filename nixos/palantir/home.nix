@@ -13,6 +13,8 @@
 
   home.packages = with pkgs; [
     brave
+    spotify
+    jellyfin-media-player
     gnomeExtensions.tray-icons-reloaded
   ];
 }
