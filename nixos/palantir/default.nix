@@ -17,6 +17,8 @@
     nix.substituters = [ "nasgul" ];
   };
 
+  nix.settings.trusted-users = [ config.mySystem.user ];
+
   boot = {
     loader = {
       systemd-boot.enable = true;
