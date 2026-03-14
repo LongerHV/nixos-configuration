@@ -188,6 +188,26 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1773506317,
+        "narHash": "sha256-qWKbLUJpavIpvOdX1fhHYm0WGerytFHRoh9lVck6Bh0=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "878ec37d6a8f52c6c801d0e2a2ad554c75b9353c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "dressing": {
       "flake": false,
       "locked": {
@@ -585,6 +605,7 @@
         "aagl": "aagl",
         "agenix": "agenix",
         "deploy-rs": "deploy-rs",
+        "disko": "disko",
         "home-manager": "home-manager",
         "kubectl": "kubectl",
         "neovim-plugins": "neovim-plugins",

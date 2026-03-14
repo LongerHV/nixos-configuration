@@ -41,6 +41,10 @@
       url = "github:ezKEa/aagl-gtk-on-nix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -144,6 +148,13 @@
             inherit specialArgs;
             modules = defaultModules ++ [
               ./nixos/anarion
+            ];
+          };
+          palantir = nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              inputs.disko.nixosModules.disko
+              ./nixos/palantir
             ];
           };
           sd-image = nixpkgs.lib.nixosSystem {
