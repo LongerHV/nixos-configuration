@@ -221,6 +221,7 @@
           smaug = mkDeployConfig "smaug.lan" self.nixosConfigurations.smaug;
           isildur = mkDeployConfig "isildur.lan" self.nixosConfigurations.isildur;
           anarion = mkDeployConfig "anarion.lan" self.nixosConfigurations.anarion;
+          palantir = mkDeployConfig "palantir.lan" self.nixosConfigurations.palantir;
         };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
