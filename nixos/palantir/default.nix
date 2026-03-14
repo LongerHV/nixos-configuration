@@ -40,6 +40,8 @@
     user = config.mySystem.user;
   };
 
+  services.openssh.enable = true;
+
   hardware.intelgpu.vaapiDriver = "intel-media-driver";
   system.stateVersion = "25.11";
 }
