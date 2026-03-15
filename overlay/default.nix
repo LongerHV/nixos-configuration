@@ -1,4 +1,5 @@
 final: prev: {
+  plasma-bigscreen = prev.kdePackages.callPackage ./plasma-bigscreen.nix { };
   templ = prev.callPackage ./templ.nix prev;
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
   chip-ota-provider = prev.callPackage ./chip-ota-provider.nix { };

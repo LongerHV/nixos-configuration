@@ -1,4 +1,4 @@
-{ inputs, config, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   imports = [
@@ -9,12 +9,12 @@
   ];
 
   mySystem = {
-    gnome.enable = true;
     home-manager = {
       enable = true;
       home = ./home.nix;
     };
     nix.substituters = [ "nasgul" ];
+    plasma-bigscreen.enable = true;
   };
 
   nix.settings.trusted-users = [ config.mySystem.user ];
@@ -37,10 +37,15 @@
     networkmanager.enable = true;
   };
 
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = config.mySystem.user;
-  };
+  environment.systemPackages = with pkgs; [
+    noto-fonts
+    noto-fonts-color-emoji
+
+    brave
+    jellyfin-media-player
+    spotify
+    vacuum-tube
+  ];
 
   services.openssh.enable = true;
 

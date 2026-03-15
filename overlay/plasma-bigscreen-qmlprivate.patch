@@ -1,0 +1,8 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -66,6 +66,7 @@
+     Multimedia
+     WebEngineCore
+     WebEngineQuick
++    QmlPrivate
+ )
