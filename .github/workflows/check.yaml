@@ -18,6 +18,8 @@ jobs:
         with:
           persist-credentials: false
       - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          source-tag: v3.16.3
       - name: Workaround for broken check
         run: nix eval --json .#iproute2
       - name: Run checks
