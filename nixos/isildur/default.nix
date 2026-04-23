@@ -11,6 +11,7 @@
       home = ./home.nix;
     };
   };
+  homelab.nebula.enable = true;
 
   boot = {
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];

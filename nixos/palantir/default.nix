@@ -16,6 +16,7 @@
     nix.substituters = [ "nasgul" ];
     plasma-bigscreen.enable = true;
   };
+  homelab.nebula.enable = true;
 
   nix.settings.trusted-users = [ config.mySystem.user ];
 
