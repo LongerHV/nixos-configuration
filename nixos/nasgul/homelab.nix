@@ -66,6 +66,10 @@ in
       enable = true;
       deluge.interface = "wg1";
     };
+    nebula = {
+      enable = true;
+      isLighthouse = true;
+    };
   };
 
   systemd.services.gitea-runner-nasgul.serviceConfig.SupplementaryGroups = [ "gitea-secrets" ];

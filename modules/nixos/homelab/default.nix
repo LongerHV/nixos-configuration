@@ -12,6 +12,7 @@ in
     ./monitoring.nix
     ./multimedia.nix
     ./mysql.nix
+    ./nebula.nix
     ./nextcloud.nix
     ./redis.nix
     ./traefik.nix
