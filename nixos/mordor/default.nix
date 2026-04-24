@@ -5,6 +5,7 @@
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     ./hardware-configuration.nix
+    ./monitoring.nix
     ./networking.nix
     ./vm-variant.nix
   ];
@@ -117,7 +118,6 @@
     };
     udev.packages = with pkgs; [ qmk-udev-rules yubikey-personalization via ];
     pcscd.enable = true;
-
   };
   hardware.bluetooth.enable = true;
 

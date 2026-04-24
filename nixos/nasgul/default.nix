@@ -5,6 +5,7 @@
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     ./hardware-configuration.nix
+    ./monitoring.nix
     ./networking.nix
     ./secrets.nix
     ./selfhosted

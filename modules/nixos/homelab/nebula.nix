@@ -33,7 +33,7 @@ in
         staticHostMap."10.42.0.1" = [ "nasgul.lan:4242" ];
         firewall = {
           inbound = [{ host = "any"; proto = "icmp"; port = "any"; }];
-          outbound = [{ host = "any"; proto = "icmp"; port = "any"; }];
+          outbound = [{ proto = "any"; port = "any"; host = "any"; }];
         };
       };
     };
