@@ -17,5 +17,4 @@
       DNS = 10.123.1.243
     '';
   };
-  homelab.nebula.enable = true;
 }

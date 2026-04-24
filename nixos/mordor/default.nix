@@ -5,7 +5,6 @@
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     ./hardware-configuration.nix
-    ./monitoring.nix
     ./networking.nix
     ./vm-variant.nix
   ];
@@ -22,6 +21,13 @@
     };
     nix.substituters = [ "nasgul" ];
     rtaudio.enable = true;
+  };
+  homelab = {
+    nebula.enable = true;
+    monitoringTarget = {
+      enable = true;
+      address = "10.42.0.2";
+    };
   };
 
   boot = {

@@ -10,6 +10,7 @@ in
     ./gitea.nix
     ./mail.nix
     ./monitoring.nix
+    ./monitoring-target.nix
     ./multimedia.nix
     ./mysql.nix
     ./nebula.nix
