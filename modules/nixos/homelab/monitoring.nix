@@ -4,7 +4,6 @@ let
   hl = config.homelab;
   cfg = hl.monitoring;
   inherit (config.services) prometheus grafana;
-  inherit (prometheus) exporters;
 in
 {
   options.homelab.monitoring = with lib; {
@@ -17,8 +16,6 @@ in
         enable = true;
         services.grafana = { port = grafana.settings.server.http_port; };
         services.prometheus = { inherit (prometheus) port; };
-        metrics.node-exporter = { inherit (exporters.node) port; };
-        metrics.smartctl-exporter = { inherit (exporters.smartctl) port; };
       };
     };
     services = {
@@ -80,14 +77,6 @@ in
       prometheus = {
         enable = true;
         retentionTime = "30d";
-        exporters = {
-          node = {
-            enable = true;
-            enabledCollectors = [ "systemd" ];
-            disabledCollectors = [ "btrfs" "mdadm" "selinux" "xfs" ];
-          };
-          smartctl.enable = true;
-        };
         scrapeConfigs = [
           {
             job_name = config.networking.hostName;

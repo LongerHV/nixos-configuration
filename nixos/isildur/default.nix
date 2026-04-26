@@ -11,7 +11,13 @@
       home = ./home.nix;
     };
   };
-  homelab.nebula.enable = true;
+  homelab = {
+    nebula.enable = true;
+    monitoringTarget = {
+      enable = true;
+      address = "10.42.0.5";
+    };
+  };
 
   boot = {
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];

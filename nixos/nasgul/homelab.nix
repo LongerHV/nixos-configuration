@@ -70,6 +70,10 @@ in
       enable = true;
       isLighthouse = true;
     };
+    monitoringTarget = {
+      enable = true;
+      address = "10.42.0.1";
+    };
   };
 
   systemd.services.gitea-runner-nasgul.serviceConfig.SupplementaryGroups = [ "gitea-secrets" ];

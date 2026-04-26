@@ -1,8 +1,11 @@
 let
   domain = "nebula.arpa";
   hosts = port: map (host: "${host}.${domain}:${port}") [
+    "nasgul"
     "mordor"
     "palantir"
+    "anarion"
+    "isildur"
   ];
 in
 {
