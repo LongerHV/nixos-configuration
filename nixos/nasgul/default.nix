@@ -39,6 +39,9 @@
     loader.efi.canTouchEfiVariables = false;
     supportedFilesystems = [ "zfs" ];
     zfs.forceImportRoot = false;
+    kernel.sysctl = {
+      "vm.swappiness" = 10;
+    };
   };
   nix.settings.trusted-users = [ config.mySystem.user ];
 
