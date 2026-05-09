@@ -29,7 +29,7 @@ in
       };
       nebula.networks.homelab.firewall = {
         inbound = map
-          (exporter: { proto = "tcp"; port = exporter.port; group = "prometheus"; }) [
+          (exporter: { proto = "tcp"; inherit (exporter) port; group = "prometheus"; }) [
           node
           smartctl
         ];

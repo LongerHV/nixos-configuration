@@ -28,7 +28,7 @@ in
         ca = ../../../nebula/ca.crt;
         cert = ../../../nebula/${hostname}.crt;
         key = config.age.secrets.nebula_key.path;
-        isLighthouse = cfg.isLighthouse;
+        inherit (cfg) isLighthouse;
         lighthouses = [ "10.42.0.1" ];
         staticHostMap."10.42.0.1" = [ "nasgul.lan:4242" ];
         firewall = {
