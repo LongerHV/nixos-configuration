@@ -10,13 +10,14 @@ let
   '';
 in
 {
-  # Matter-server seems to advertise a different port on each startup,
-  # not sure how crutial it is for operation
-  networking.firewall.trustedInterfaces = [ "vlan20" ];
-
   homelab.traefik.services.matter.port = config.services.matter-server.port;
 
-  networking.firewall.allowedTCPPorts = [ mqttPort ]; # MQTT
+  networking.firewall = {
+    allowedTCPPorts = [ mqttPort ]; # MQTT - also needed from LAN
+    interfaces.vlan20 = {
+      allowedUDPPortRanges = [{ from = 32768; to = 60999; }]; # Matter ephemeral UDP
+    };
+  };
   services = {
     # MQTT Broker for Valetudo
     mosquitto = {

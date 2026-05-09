@@ -76,6 +76,7 @@ in
       };
       prometheus = {
         enable = true;
+        listenAddress = "127.0.0.1";
         retentionTime = "30d";
         scrapeConfigs = [
           {

@@ -32,7 +32,7 @@ in
         settings = {
           ports = {
             dns = lib.mkDefault 53;
-            http = lib.mkDefault 4000;
+            http = lib.mkDefault "127.0.0.1:4000";
           };
           connectIPVersion = "v4";
           upstreams.groups.default = [

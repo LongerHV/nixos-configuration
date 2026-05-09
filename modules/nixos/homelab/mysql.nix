@@ -18,6 +18,7 @@ in
     services.mysql = {
       inherit (cfg) enable package;
       dataDir = "${config.homelab.storage}/database";
+      settings.mysqld.bind-address = "127.0.0.1";
     };
   };
 }

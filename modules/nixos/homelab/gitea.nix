@@ -57,6 +57,7 @@ in
           settings = {
             server = {
               ROOT_URL = "https://${domain}";
+              HTTP_ADDR = "127.0.0.1";
             };
             service = {
               DISABLE_REGISTRATION = true;

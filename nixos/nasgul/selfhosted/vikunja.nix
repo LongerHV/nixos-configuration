@@ -2,7 +2,7 @@
 
 let
   hl = config.homelab;
-  port = 3456;
+  port = config.services.vikunja.port;
 in
 {
   config = lib.mkMerge [
@@ -12,7 +12,7 @@ in
       services.vikunja = {
         enable = true;
         package = pkgs.unstable.vikunja;
-        inherit port;
+        # address = "127.0.0.1" # Uncomment NixOS 26.05
         frontendScheme = "https";
         frontendHostname = "vikunja.${hl.domain}";
         environmentFiles = [ config.age.secrets.vikunja_environment.path ];
@@ -28,6 +28,7 @@ in
             # v1.0.0 renamed frontendurl to publicurl; the stable module still
             # generates frontendurl, which is silently ignored by v1.0.0.
             publicurl = "https://vikunja.${hl.domain}/";
+            interface = lib.mkForce "127.0.0.1:${toString port}"; # Delete in NixOS 26.05
           };
           auth = {
             local.enabled = false;

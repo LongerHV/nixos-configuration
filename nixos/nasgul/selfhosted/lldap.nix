@@ -13,6 +13,8 @@ in
       http_url = "https://ldap.${hl.domain}";
       ldap_base_dn = "dc=longerhv,dc=xyz";
       key_file = secrets.lldap_private_key.path;
+      ldap_host = "127.0.0.1";
+      http_host = "127.0.0.1";
     };
     environment = {
       LLDAP_JWT_SECRET_FILE = secrets.lldap_jwt_secret.path;

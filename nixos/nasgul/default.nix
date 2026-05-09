@@ -57,6 +57,7 @@
     nix-serve = {
       enable = true;
       secretKeyFile = config.age.secrets.cache_priv_key.path;
+      bindAddress = "127.0.0.1";
     };
     openssh.enable = true;
     zfs = {
