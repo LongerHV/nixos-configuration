@@ -63,7 +63,10 @@
           root = {
             type = "zfs_fs";
             mountpoint = "/";
-            options.mountpoint = "legacy";
+            options = {
+              mountpoint = "legacy";
+              reservation = "1G";
+            };
           };
           nix = {
             type = "zfs_fs";
@@ -71,17 +74,31 @@
             options = {
               mountpoint = "legacy";
               atime = "off";
+              reservation = "10G";
             };
           };
           var = {
             type = "zfs_fs";
             mountpoint = "/var";
-            options.mountpoint = "legacy";
+            options = {
+              mountpoint = "legacy";
+              quota = "10G";
+            };
           };
           home = {
             type = "zfs_fs";
             mountpoint = "/home";
-            options.mountpoint = "legacy";
+            options = {
+              mountpoint = "legacy";
+            };
+          };
+          games = {
+            type = "zfs_fs";
+            mountpoint = "/games";
+            options = {
+              mountpoint = "legacy";
+              compression = "off";
+            };
           };
         };
       };

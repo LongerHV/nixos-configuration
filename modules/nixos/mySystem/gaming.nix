@@ -23,10 +23,8 @@ in
       };
       gamemode.enable = true;
       sunshine.enable = true;
-      corectrl.enable = true;
       sleepy-launcher.enable = true;
     };
-    hardware.amdgpu.overdrive.enable = true;
     services.avahi.publish = {
       enable = true;
       userServices = true;

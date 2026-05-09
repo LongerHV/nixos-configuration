@@ -15,6 +15,7 @@
     };
     nix.substituters = [ "nasgul" ];
     plasma-bigscreen.enable = true;
+    gaming.enable = true;
   };
   homelab = {
     nebula.enable = true;
@@ -52,10 +53,18 @@
     jellyfin-media-player
     spotify
     vacuum-tube
+    moonlight-qt
+  ];
+
+  systemd.tmpfiles.rules = [
+    "d /games 0755 ${config.mySystem.user} users -"
   ];
 
   services.openssh.enable = true;
 
-  hardware.intelgpu.vaapiDriver = "intel-media-driver";
+  hardware = {
+    bluetooth.enable = true;
+    intelgpu.vaapiDriver = "intel-media-driver";
+  };
   system.stateVersion = "25.11";
 }

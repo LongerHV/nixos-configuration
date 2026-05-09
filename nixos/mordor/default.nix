@@ -125,7 +125,18 @@
     udev.packages = with pkgs; [ qmk-udev-rules yubikey-personalization via ];
     pcscd.enable = true;
   };
-  hardware.bluetooth.enable = true;
+
+  hardware = {
+    bluetooth.enable = true;
+    amdgpu.overdrive.enable = true;
+    graphics = {
+      enable = true;
+      extraPackages = [
+        pkgs.libva-vdpau-driver
+        pkgs.libvdpau-va-gl
+      ];
+    };
+  };
 
   powerManagement = {
     cpufreq.min = 800000;
@@ -143,13 +154,6 @@
     yubioath-flutter
   ];
   users.users.${config.mySystem.user}.extraGroups = [ "dialout" ];
-  hardware.graphics = {
-    enable = true;
-    extraPackages = [
-      pkgs.libva-vdpau-driver
-      pkgs.libvdpau-va-gl
-    ];
-  };
   fonts.packages = with pkgs; [
     noto-fonts-cjk-sans
   ];
