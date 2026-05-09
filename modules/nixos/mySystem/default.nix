@@ -33,9 +33,14 @@ in
 
   config = {
     hardware.enableRedistributableFirmware = lib.mkDefault true;
-
-    boot.tmp.useTmpfs = lib.mkDefault true;
-    zramSwap.enable = lib.mkDefault true;
+    boot = {
+      tmp.useTmpfs = lib.mkDefault true;
+      kernel.sysctl."vm.swappiness" = 10;
+    };
+    zramSwap = {
+      enable = lib.mkDefault true;
+      memoryPercent = lib.mkDefault 25;
+    };
 
     time.timeZone = lib.mkDefault "Europe/Warsaw";
     i18n.defaultLocale = lib.mkDefault "pl_PL.UTF-8";

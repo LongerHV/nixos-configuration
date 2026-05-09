@@ -11,9 +11,6 @@ in
   config = lib.mkIf cfg.enable {
     boot = {
       kernelParams = [ "threadirqs" ];
-      kernel.sysctl = {
-        "vm.swappiness" = 10;
-      };
     };
     security.rtkit.enable = true;
     users.users.${config.mySystem.user}.extraGroups = [ "audio" ];
