@@ -60,7 +60,15 @@
     "d /games 0755 ${config.mySystem.user} users -"
   ];
 
-  services.openssh.enable = true;
+  services = {
+    openssh.enable = true;
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      nssmdns6 = true;
+    };
+  };
+  networking.firewall.allowedTCPPorts = [ 9999 ]; # libespot
 
   hardware = {
     bluetooth.enable = true;

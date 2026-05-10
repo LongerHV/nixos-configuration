@@ -9,6 +9,22 @@
     };
   };
 
+  services.librespot = {
+    enable = true;
+    package = pkgs.librespot.override {
+      withMDNS = false;
+      withAvahi = true;
+      withRodio = false;
+      withPulseAudio = true;
+    };
+    settings = {
+      name = "Palantir";
+      backend = "pulseaudio";
+      zeroconf-port = 9999;
+      zeroconf-backend = "avahi";
+    };
+  };
+
   home = {
     stateVersion = "25.11";
     activation = {
