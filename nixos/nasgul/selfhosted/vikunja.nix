@@ -2,7 +2,7 @@
 
 let
   hl = config.homelab;
-  port = config.services.vikunja.port;
+  inherit (config.services.vikunja) port;
 in
 {
   config = lib.mkMerge [
