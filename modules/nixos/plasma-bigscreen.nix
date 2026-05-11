@@ -51,6 +51,7 @@ in
       kactivitymanagerd
       kglobalacceld
       kded
+      kde-cli-tools
     ];
 
     xdg.portal = {

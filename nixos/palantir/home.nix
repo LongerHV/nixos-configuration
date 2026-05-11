@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   myHome = {
@@ -22,11 +22,21 @@
       backend = "pulseaudio";
       zeroconf-port = 9999;
       zeroconf-backend = "avahi";
+      cache = "${config.home.homeDirectory}/.cache/librespot";
+      enable-oauth = true;
+      oauth-port = 0;
     };
   };
 
   home = {
     stateVersion = "25.11";
+    packages = with pkgs; [
+      brave
+      jellyfin-media-player
+      moonlight-qt
+      unstable.spotify-qt
+      vacuum-tube
+    ];
     activation = {
       # Apply Breeze Dark color scheme to kdeglobals.
       # plasma-apply-colorscheme copies ALL [Colors:*] sections from BreezeDark.colors

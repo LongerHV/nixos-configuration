@@ -48,12 +48,7 @@
   environment.systemPackages = with pkgs; [
     noto-fonts
     noto-fonts-color-emoji
-
-    brave
-    jellyfin-media-player
-    spotify
-    vacuum-tube
-    moonlight-qt
+    wl-clipboard
   ];
 
   systemd.tmpfiles.rules = [
