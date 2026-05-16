@@ -17,6 +17,7 @@
   home.packages = with pkgs; [
     anki-bin
     brave
+    jazz2
     # jellyfin-media-player # Temporarily disabled due to build issues (EOL qtwebengine)
     protonup-ng
     signal-desktop

@@ -32,6 +32,7 @@
     stateVersion = "25.11";
     packages = with pkgs; [
       brave
+      jazz2
       jellyfin-media-player
       moonlight-qt
       unstable.spotify-qt
