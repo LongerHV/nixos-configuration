@@ -13,8 +13,6 @@
   };
   services.resolved = {
     enable = true;
-    extraConfig = ''
-      DNS = 10.123.1.243
-    '';
+    settings.Resolve.DNS = "10.123.1.243";
   };
 }

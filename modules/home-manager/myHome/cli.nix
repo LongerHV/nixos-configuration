@@ -31,7 +31,7 @@ in
       fzf
       htop
       jq
-      neofetch
+      fastfetch
       nix-tree
       openssh
       p7zip

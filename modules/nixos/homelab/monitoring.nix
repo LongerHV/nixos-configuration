@@ -36,6 +36,8 @@ in
           security = {
             admin_user = "admin";
             admin_password = "$__env{GRAFANA_ADMIN_PASSWORD}";
+            # Old nixpkgs default; rotate with grafana-secretkey-rotation-tool if needed
+            secret_key = "SW2YcwTIb9zpOOhoPsMm";
             disable_gravatar = true;
           };
           panels.disable_sanitize_html = true;

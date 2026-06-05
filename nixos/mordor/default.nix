@@ -45,6 +45,9 @@
       forceImportRoot = false;
     };
     binfmt.emulatedSystems = [ "aarch64-linux" ];
+    # nixos-hardware/common-gpu-amd now enables systemd stage 1; opt out until
+    # the fido2luks setup is migrated to systemd-cryptenroll (required before 26.11)
+    initrd.systemd.enable = false;
     initrd.luks = {
       fido2Support = true;
       devices.cryptroot = {

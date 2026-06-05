@@ -19,7 +19,7 @@
         ./keymaps.lua
       ];
       extraPackages = with pkgs; [
-        nodePackages.npm
+        nodejs
       ];
     };
   };

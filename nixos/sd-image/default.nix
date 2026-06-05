@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   mySystem.user = "nixos";
 
@@ -18,7 +19,7 @@
 
   networking = {
     hostName = "nixos";
-    wireless.enable = false;
+    wireless.enable = lib.mkForce false;
     networkmanager.enable = true;
   };
   services.openssh.enable = true;

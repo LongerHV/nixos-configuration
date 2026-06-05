@@ -20,7 +20,7 @@ let
     gopls = { };
     marksman = { };
     ts_ls = {
-      init_options.tsserver.path = "${pkgs.nodePackages.typescript}/bin/tsserver";
+      init_options.tsserver.path = "${pkgs.typescript}/bin/tsserver";
     };
     taplo = { };
     cssls = { };
@@ -88,12 +88,11 @@ in
     inotify-tools
     marksman
     nixpkgs-fmt
-    nodePackages.bash-language-server
-    nodePackages.dockerfile-language-server-nodejs
-    nodePackages.prettier
-    nodePackages.typescript-language-server
-    nodePackages.vscode-langservers-extracted
-    nodePackages.yaml-language-server
+    bash-language-server
+    dockerfile-language-server
+    prettier
+    typescript-language-server
+    vscode-langservers-extracted
     ruff
     taplo
     terraform-ls

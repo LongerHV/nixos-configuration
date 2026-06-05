@@ -53,14 +53,12 @@ in
 
     matter-server = {
       enable = true;
-      extraArgs = [
+      extraArgs = {
         # Required for commissioning (requires internet access on vlan20 as well)
-        "--primary-interface"
-        "vlan20"
+        primary-interface = "vlan20";
         # /data is symlinked to the state dir; /updates (cwd-relative default) is read-only in the sandbox
-        "--ota-provider-dir"
-        "/data/updates"
-      ];
+        ota-provider-dir = "/data/updates";
+      };
     };
     home-assistant = {
       enable = true;

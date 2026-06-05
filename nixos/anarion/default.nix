@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -36,7 +36,7 @@
 
   networking = {
     hostName = "anarion";
-    wireless.enable = false;
+    wireless.enable = lib.mkForce false; # NetworkManager manages WiFi; wpa_supplicant not wanted
     networkmanager = {
       enable = true;
       wifi.powersave = false;
