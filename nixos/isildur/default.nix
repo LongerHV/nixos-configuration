@@ -21,10 +21,12 @@
 
   boot = {
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
-    # ttyAMA0 is the serial console broken out to the GPIO
     kernelParams = [
       "8250.nr_uarts=1"
-      "console=ttyAMA0,115200"
+      # ttyS0 (mini-UART) is always on GPIO 14/15 without firmware overlay;
+      # ttyAMA0 (PL011) also works if enable_uart=1 is set in firmware config.txt
+      "console=ttyS0,115200n8"
+      "console=ttyAMA0,115200n8"
       "console=tty1"
     ];
     loader = {
@@ -33,6 +35,7 @@
     };
   };
 
+  systemd.services."serial-getty@ttyS0".wantedBy = [ "getty.target" ];
 
   networking = {
     hostName = "isildur";
