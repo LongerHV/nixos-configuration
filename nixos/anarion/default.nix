@@ -39,10 +39,13 @@
 
   networking = {
     hostName = "anarion";
-    wireless.enable = lib.mkForce false; # NetworkManager manages WiFi; wpa_supplicant not wanted
+    wireless.iwd.enable = true;
     networkmanager = {
       enable = true;
-      wifi.powersave = false;
+      wifi = {
+        powersave = false;
+        backend = "iwd";
+      };
       dispatcherScripts = [
         {
           # Permanent neighbor entry for isildur (OTBR TREL peer on AP upstairs).
