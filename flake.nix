@@ -137,15 +137,17 @@
               ./nixos/smaug
             ];
           };
-          isildur = nixpkgs.lib.nixosSystem {
-            inherit specialArgs;
-            modules = defaultModules ++ [
-              ./nixos/isildur
-            ];
-          };
           anarion = nixpkgs.lib.nixosSystem {
             inherit specialArgs;
             modules = defaultModules ++ [
+              { networking.hostName = "anarion"; }
+              ./nixos/anarion
+            ];
+          };
+          isildur = nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              { networking.hostName = "isildur"; }
               ./nixos/anarion
             ];
           };

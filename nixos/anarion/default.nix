@@ -1,5 +1,19 @@
 { config, lib, pkgs, ... }:
 
+let
+  this = lib.getAttr config.networking.hostName {
+    anarion = {
+      rcpDevice = "/dev/serial/by-id/usb-Nordic_Semiconductor_nRF528xx_OpenThread_Device_E212FEDD5954-if00";
+      neighbourMAC = "88:a2:9e:8a:a2:7a";
+      neighbourIP = "fe80::71a2:9a77:d1f2:f5db";
+    };
+    isildur = {
+      rcpDevice = "/dev/serial/by-id/usb-Nordic_Semiconductor_nRF528xx_OpenThread_Device_DA241A36F28D-if00";
+      neighbourMAC = "88:a2:9e:8c:c8:0c";
+      neighbourIP = "fe80::fc3a:e35f:472f:63bd";
+    };
+  };
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -37,7 +51,6 @@
   systemd.services."serial-getty@ttyS0".wantedBy = [ "getty.target" ];
 
   networking = {
-    hostName = "anarion";
     wireless.iwd.enable = true;
     networkmanager = {
       enable = true;
@@ -47,7 +60,7 @@
       };
       dispatcherScripts = [
         {
-          # Permanent neighbor entry for isildur (OTBR TREL peer on AP upstairs).
+          # Permanent neighbor entry for anarin/isildur (OTBR TREL peer).
           # Bypasses the Linux 6.6.x bridge MLD querier bug: the bridge querier never
           # sends MLD queries (IPv6 address not valid at startup, never retried), so MDB
           # entries expire and multicast-to-unicast stops working. With a permanent neigh
@@ -55,8 +68,8 @@
           # directly without sending any Neighbor Solicitation.
           source = pkgs.writeShellScript "otbr-neighbors" ''
             [ "$1" = "wlan0" ] && [ "$2" = "up" ] || exit 0
-            ip -6 neigh replace fe80::71a2:9a77:d1f2:f5db \
-              lladdr 88:a2:9e:8a:a2:7a dev wlan0 nud permanent
+            ip -6 neigh replace ${this.neighbourIP} \
+              lladdr ${this.neighbourMAC} dev wlan0 nud permanent
           '';
           type = "basic";
         }
@@ -68,7 +81,7 @@
 
   services.otbr = {
     enable = true;
-    rcpDevice = "/dev/serial/by-id/usb-Nordic_Semiconductor_nRF528xx_OpenThread_Device_E212FEDD5954-if00";
+    inherit (this) rcpDevice;
     infraInterface = "wlan0";
   };
 
