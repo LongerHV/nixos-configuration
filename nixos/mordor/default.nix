@@ -101,13 +101,7 @@
       };
     };
 
-
-
-    # Enable openssh only to provide key for agenix
-    openssh = {
-      enable = true;
-      openFirewall = false;
-    };
+    openssh.generateHostKeys = true;
     nix-serve = {
       enable = true;
       openFirewall = true;
@@ -160,12 +154,15 @@
     noto-fonts-cjk-sans
   ];
 
-  age.secrets = {
-    cache_priv_key.file = ../../secrets/mordor_cache_priv_key.pem.age;
-    extra_access_tokens = {
-      file = ../../secrets/extra_access_tokens.age;
-      mode = "0440";
-      group = config.users.groups.keys.name;
+  age = {
+    identityPaths = [ "/etc/ssh/ssh_host_rsa_key" "/etc/ssh/ssh_host_ed25519_key" ];
+    secrets = {
+      cache_priv_key.file = ../../secrets/mordor_cache_priv_key.pem.age;
+      extra_access_tokens = {
+        file = ../../secrets/extra_access_tokens.age;
+        mode = "0440";
+        group = config.users.groups.keys.name;
+      };
     };
   };
   system.stateVersion = "22.05";
