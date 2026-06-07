@@ -16,19 +16,21 @@ in
 
   config = lib.mkIf cfg.enable {
     services = {
-      prometheus.exporters.node = {
-        enable = true;
-        inherit listenAddress;
-        enabledCollectors = [ "systemd" ];
-        disabledCollectors = [ "btrfs" "mdadm" "selinux" "xfs" ];
-      };
-      prometheus.exporters.smartctl = {
-        enable = true;
-        inherit listenAddress;
-      };
-      prometheus.exporters.systemd = {
-        enable = true;
-        inherit listenAddress;
+      prometheus.exporters = {
+        node = {
+          enable = true;
+          inherit listenAddress;
+          enabledCollectors = [ "systemd" ];
+          disabledCollectors = [ "btrfs" "mdadm" "selinux" "xfs" ];
+        };
+        smartctl = {
+          enable = true;
+          inherit listenAddress;
+        };
+        systemd = {
+          enable = true;
+          inherit listenAddress;
+        };
       };
       nebula.networks.homelab.firewall = {
         inbound = map
