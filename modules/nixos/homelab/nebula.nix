@@ -11,9 +11,24 @@ in
       type = types.bool;
       default = false;
     };
+    hosts = mkOption {
+      readOnly = true;
+      default = {
+        nasgul = "10.42.0.1";
+        mordor = "10.42.0.2";
+        palantir = "10.42.0.3";
+        anarion = "10.42.0.4";
+        isildur = "10.42.0.5";
+      };
+    };
+    address = mkOption {
+      type = types.str;
+      default = "";
+    };
   };
 
   config = lib.mkIf cfg.enable {
+    homelab.nebula.address = lib.getAttr hostname cfg.hosts;
     age.secrets.nebula_key = {
       file = ../../../nebula/${hostname}.key.age;
       owner = "nebula-homelab";
@@ -29,8 +44,8 @@ in
         cert = ../../../nebula/${hostname}.crt;
         key = config.age.secrets.nebula_key.path;
         inherit (cfg) isLighthouse;
-        lighthouses = [ "10.42.0.1" ];
-        staticHostMap."10.42.0.1" = [ "nasgul.lan:4242" ];
+        lighthouses = [ (lib.getAttr "nasgul" cfg.hosts) ];
+        staticHostMap."${lib.getAttr "nasgul" cfg.hosts}" = [ "nasgul.lan:4242" ];
         firewall = {
           inbound = [{ host = "any"; proto = "icmp"; port = "any"; }];
           outbound = [{ proto = "any"; port = "any"; host = "any"; }];

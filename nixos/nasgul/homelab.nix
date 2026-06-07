@@ -72,7 +72,6 @@ in
     };
     monitoringTarget = {
       enable = true;
-      address = "10.42.0.1";
     };
   };
 

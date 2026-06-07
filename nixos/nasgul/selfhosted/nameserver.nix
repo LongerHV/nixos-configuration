@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   services.blocky.settings = {
@@ -13,13 +13,9 @@
         $ORIGIN ${config.homelab.domain}.
         @ 3600 CNAME nasgul.lan.
       '';
-      mapping = {
-        "nasgul.nebula.arpa" = "10.42.0.1";
-        "mordor.nebula.arpa" = "10.42.0.2";
-        "palantir.nebula.arpa" = "10.42.0.3";
-        "anarion.nebula.arpa" = "10.42.0.4";
-        "isildur.nebula.arpa" = "10.42.0.5";
-      };
+      mapping = lib.mapAttrs'
+        (name: ip: lib.nameValuePair "${name}.nebula.arpa" ip)
+        config.homelab.nebula.hosts;
     };
     # Redirect all .lan queries to the router
     conditional = {

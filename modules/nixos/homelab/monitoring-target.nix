@@ -6,26 +6,24 @@ let
     node
     smartctl
     ;
+  listenAddress = config.homelab.nebula.address;
 in
 {
   options.homelab.monitoringTarget = with lib; {
     enable = mkEnableOption "monitoringTarget";
-    address = mkOption {
-      type = types.str;
-    };
   };
 
   config = lib.mkIf cfg.enable {
     services = {
       prometheus.exporters.node = {
         enable = true;
-        listenAddress = cfg.address;
+        inherit listenAddress;
         enabledCollectors = [ "systemd" ];
         disabledCollectors = [ "btrfs" "mdadm" "selinux" "xfs" ];
       };
       prometheus.exporters.smartctl = {
         enable = true;
-        listenAddress = cfg.address;
+        inherit listenAddress;
       };
       nebula.networks.homelab.firewall = {
         inbound = map

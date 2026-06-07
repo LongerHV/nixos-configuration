@@ -15,7 +15,6 @@
     nebula.enable = true;
     monitoringTarget = {
       enable = true;
-      address = "10.42.0.5";
     };
   };
 
