@@ -80,24 +80,9 @@ in
         enable = true;
         listenAddress = "127.0.0.1";
         retentionTime = "30d";
-        scrapeConfigs = [
-          {
-            job_name = config.networking.hostName;
-            static_configs = [
-              {
-                targets = [
-                  "node-exporter.${hl.domain}"
-                  "smartctl-exporter.${hl.domain}"
-                ];
-              }
-            ];
-          }
-        ];
       };
     };
     networking.hosts."127.0.0.1" = map (subdomain: "${subdomain}.${hl.domain}") [
-      "node-exporter"
-      "smartctl-exporter"
       "traefik-metrics"
     ];
 
