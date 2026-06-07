@@ -5,6 +5,7 @@ let
   inherit (config.services.prometheus.exporters)
     node
     smartctl
+    systemd
     ;
   listenAddress = config.homelab.nebula.address;
 in
@@ -25,17 +26,23 @@ in
         enable = true;
         inherit listenAddress;
       };
+      prometheus.exporters.systemd = {
+        enable = true;
+        inherit listenAddress;
+      };
       nebula.networks.homelab.firewall = {
         inbound = map
           (exporter: { proto = "tcp"; inherit (exporter) port; group = "prometheus"; }) [
           node
           smartctl
+          systemd
         ];
       };
     };
     networking.firewall.interfaces."nebula.homelab".allowedTCPPorts = [
       node.port
       smartctl.port
+      systemd.port
     ];
   };
 }
