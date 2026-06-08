@@ -2,7 +2,7 @@
 
 {
   plugin = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
-  main = "nvim-treesitter.configs";
+  main = "nvim-treesitter";
   opts = {
     auto_install = false; # Parsers are managed by Nix
     indent = {
