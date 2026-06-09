@@ -47,8 +47,8 @@ sh <(curl -L https://nixos.org/nix/install) --no-daemon
 
 # Activate nix profile (and add it to the .profile)
 . ~/.nix-profile/etc/profile.d/nix.sh
-echo ". $HOME/.nix-profile/etc/profile.d/nix.sh" >> ~/.profile
-echo ". $HOME/.nix-profile/etc/profile.d/nix.sh" >> ~/.zprofile
+mkdir -p ~/.config/zsh
+echo ". $HOME/.nix-profile/etc/profile.d/nix.sh" >> ~/.config/zsh/.zprofile
 
 # Open tempoary shell with nix and home-manager
 nix-shell
