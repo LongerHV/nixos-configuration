@@ -10,6 +10,13 @@ in
       tf = "terraform";
       kk = "k9s";
     };
+    programs.zsh.siteFunctions = {
+      osctx = ''
+        OS_CLOUD="$(yq '.clouds | keys | join("\n")' -r "''${XDG_CONFIG_HOME:-$HOME/.config}/openstack/clouds.yaml" | fzf)"
+        export OS_CLOUD
+        echo "OS_CLOUD=$OS_CLOUD"
+      '';
+    };
     home.packages = with pkgs; [
       act
       ansible
