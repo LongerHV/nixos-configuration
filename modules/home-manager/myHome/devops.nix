@@ -8,7 +8,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.zsh.shellAliases = {
       tf = "terraform";
-      tmp = "cd \"$(mktemp -d)\"";
+      kk = "k9s";
     };
     home.packages = with pkgs; [
       act
