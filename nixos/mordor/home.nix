@@ -21,6 +21,7 @@
     # jellyfin-media-player # Temporarily disabled due to build issues (EOL qtwebengine)
     protonup-ng
     signal-desktop
+    freecad
     prusa-slicer
 
     gnomeExtensions.tray-icons-reloaded

@@ -145,6 +145,13 @@
   };
 
   virtualisation.docker.storageDriver = "zfs";
+  # Workaround for https://github.com/NixOS/nixpkgs/issues/467783
+  # FreeCAD 1.0's Qt wrapper doesn't propagate GApps env vars, so the GTK3
+  # file chooser schema isn't found. Remove once fixed upstream.
+  environment.sessionVariables = {
+    GSETTINGS_SCHEMA_DIR = "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}/glib-2.0/schemas";
+  };
+
   environment.systemPackages = with pkgs; [
     deploy-rs
     yubioath-flutter
