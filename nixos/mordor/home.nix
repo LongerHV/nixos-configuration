@@ -18,7 +18,7 @@
     anki-bin
     brave
     jazz2
-    # jellyfin-media-player # Temporarily disabled due to build issues (EOL qtwebengine)
+    jellyfin-media-player
     protonup-ng
     signal-desktop
     freecad
