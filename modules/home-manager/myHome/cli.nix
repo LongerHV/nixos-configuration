@@ -10,6 +10,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.sessionPath = [ config.xdg.binHome ];
     programs = {
       gh.enable = true;
       git = {

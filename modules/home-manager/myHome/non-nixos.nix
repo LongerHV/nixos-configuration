@@ -22,7 +22,6 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    home.sessionPath = [ "$HOME/.local/bin" ];
     home.packages = [
       pkgs.hostname
       config.nix.package # This must be here, enable option below does not ensure that nix is available in path
