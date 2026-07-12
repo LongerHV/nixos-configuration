@@ -7,13 +7,17 @@ in
   options.myHome.cli = {
     enable = (lib.mkEnableOption "cli") // { default = true; };
     personalGitEnable = (lib.mkEnableOption "personalGitEnable") // { default = true; };
+    minimal = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+    };
   };
 
   config = lib.mkIf cfg.enable {
     programs = {
-      gh.enable = true;
+      gh.enable = lib.mkDefault (!cfg.minimal);
       git = {
-        enable = true;
+        enable = lib.mkDefault (!cfg.minimal);
         settings = {
           user = {
             name = lib.mkIf cfg.personalGitEnable "Michał Mieszczak";
@@ -24,22 +28,22 @@ in
       };
     };
     home.packages = with pkgs; [
-      curl
       eza
       file
+      openssh
+      tree
+    ] ++ (if cfg.minimal then [ ] else [
+      curl
       fzf
       htop
       jq
-      fastfetch
       nix-tree
-      openssh
       p7zip
       ripgrep
-      tree
       unzip
       wget
       yj
       yq
-    ];
+    ]);
   };
 }
