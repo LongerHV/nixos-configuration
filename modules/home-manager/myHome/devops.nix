@@ -6,17 +6,6 @@ in
 {
   options.myHome.devops.enable = lib.mkEnableOption "devops";
   config = lib.mkIf cfg.enable {
-    programs.zsh.shellAliases = {
-      tf = "terraform";
-      kk = "k9s";
-    };
-    programs.zsh.siteFunctions = {
-      osctx = ''
-        OS_CLOUD="$(yq '.clouds | keys | join("\n")' -r "''${XDG_CONFIG_HOME:-$HOME/.config}/openstack/clouds.yaml" | fzf)"
-        export OS_CLOUD
-        echo "OS_CLOUD=$OS_CLOUD"
-      '';
-    };
     home.packages = with pkgs; [
       act
       ansible
@@ -72,25 +61,40 @@ in
         '';
       })
     ];
-    programs.k9s = {
-      enable = true;
-      package = pkgs.unstable.k9s;
-      skins = {
-        prod = {
-          k9s = {
-            body = {
-              logoColor = "red";
-            };
-            dialog = {
-              buttonFocusBgColor = "red";
-            };
-            frame = {
-              border = {
-                fgColor = "darkred";
-                focusColor = "red";
+    programs = {
+      zsh = {
+        shellAliases = {
+          tf = "terraform";
+          kk = "k9s";
+        };
+        siteFunctions = {
+          osctx = ''
+            OS_CLOUD="$(yq '.clouds | keys | join("\n")' -r "''${XDG_CONFIG_HOME:-$HOME/.config}/openstack/clouds.yaml" | fzf)"
+            export OS_CLOUD
+            echo "OS_CLOUD=$OS_CLOUD"
+          '';
+        };
+      };
+      k9s = {
+        enable = true;
+        package = pkgs.unstable.k9s;
+        skins = {
+          prod = {
+            k9s = {
+              body = {
+                logoColor = "red";
               };
-              menu = {
-                keyColor = "red";
+              dialog = {
+                buttonFocusBgColor = "red";
+              };
+              frame = {
+                border = {
+                  fgColor = "darkred";
+                  focusColor = "red";
+                };
+                menu = {
+                  keyColor = "red";
+                };
               };
             };
           };
