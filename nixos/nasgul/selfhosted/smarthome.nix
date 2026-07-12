@@ -78,6 +78,7 @@ in
         "thread"
         "otbr"
         "esphome"
+        "backblaze_b2"
       ];
       customComponents = with pkgs.home-assistant-custom-components; [
         auth_oidc
