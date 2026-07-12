@@ -24,7 +24,6 @@ in
       };
     };
     home.packages = with pkgs; [
-      colordiff
       curl
       eza
       file
@@ -39,7 +38,6 @@ in
       tree
       unzip
       wget
-      xh
       yj
       yq
     ];
