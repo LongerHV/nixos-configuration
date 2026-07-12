@@ -37,7 +37,12 @@ in
     # can find BreezeDark.colors via XDG data dirs. Not in NixOS's default pathsToLink.
     environment.pathsToLink = [ "/share/color-schemes" ];
 
-    environment.systemPackages = with pkgs.kdePackages; [
+    # Sourced from pkgs.unstable to stay version-matched with plasma-bigscreen,
+    # which nixpkgs-unstable ships ahead of the pinned nixos-26.05 nixpkgs
+    # (Plasma 6.7.2 / Frameworks 6.28 vs 6.6.6 / 6.26 as of 2026-07-12). Mixing
+    # Plasma minor versions here risks the same QML/ABI breakage the deleted
+    # plasma-bigscreen-qmlprivate.patch used to work around.
+    environment.systemPackages = with pkgs.unstable.kdePackages; [
       plasma-workspace
       plasma-nano
       plasma-nm
@@ -56,7 +61,9 @@ in
 
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+      # pkgs.unstable to stay version-matched with the rest of the Plasma
+      # stack above (see environment.systemPackages comment).
+      extraPortals = [ pkgs.unstable.kdePackages.xdg-desktop-portal-kde ];
       config.common.default = "*";
     };
 
@@ -120,12 +127,15 @@ in
           ];
         };
         # Restore QT_QPA_PLATFORMTHEME=kde for the portal process.
-        # plasma-bigscreen-wayland sets QT_QPA_PLATFORMTHEME=generic AFTER calling
-        # dbus-update-activation-environment, but the startplasma-wayland C wrapper
-        # calls it again internally — propagating 'generic' to all user services.
+        # STALE as of the 2026-07-12 migration to nixpkgs-unstable's plasma-bigscreen
+        # package: this compensated for QT_QPA_PLATFORMTHEME=generic being set by the
+        # old custom overlay derivation's postInstall script (deleted). Upstream's
+        # plasma-bigscreen-wayland.in does not set QT_QPA_PLATFORMTHEME at all, so this
+        # override — and the kwin-crash workaround it was protecting against, tuned
+        # against Qt 6.10.1 + KWin 6.5.5 — may no longer be necessary. Verify at
+        # runtime before removing.
         # The portal uses QApplication::palette() (not KColorScheme) to report
         # dark-mode preference, so it needs the KDE platform theme to read kdeglobals.
-        # The kwin crash (null QKdeTheme during cold init) is specific to kwin.
         plasma-xdg-desktop-portal-kde = {
           overrideStrategy = "asDropin";
           serviceConfig.Environment = [ "QT_QPA_PLATFORMTHEME=kde" ];
