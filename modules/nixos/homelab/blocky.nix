@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   hl = config.homelab;
@@ -74,7 +74,32 @@ in
           DynamicUser = lib.mkForce false;
           User = "blocky";
           Group = "blocky";
+          # Type=simple means systemd considers blocky "active" as soon as
+          # the process forks, well before it has loaded its denylists and
+          # is actually answering queries. Without this, services ordered
+          # after network-online.target (which now also waits on blocky,
+          # see below) can start and hit DNS resolution failures against
+          # a blocky that hasn't bound/warmed up yet.
+          ExecStartPost = "${pkgs.writeShellScript "blocky-wait-ready" ''
+            for _ in $(seq 30); do
+              ${lib.getExe pkgs.blocky} healthcheck && exit 0
+              sleep 1
+            done
+            echo "blocky did not become healthy within 30s" >&2
+            exit 1
+          ''}";
         };
+      };
+
+      # blocky is this host's only configured DNS resolver (networking.nameservers
+      # = [ "127.0.0.1" ] above), so the network isn't meaningfully "online" for
+      # any other service until blocky itself is ready to answer queries.
+      # asDropin layers this on top of upstream's network-online.target instead
+      # of replacing it outright (NixOS doesn't merge full unit definitions).
+      systemd.targets.network-online = {
+        wants = [ "blocky.service" ];
+        after = [ "blocky.service" ];
+        overrideStrategy = "asDropin";
       };
     }
 
