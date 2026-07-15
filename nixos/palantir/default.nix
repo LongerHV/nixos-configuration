@@ -68,5 +68,6 @@
     bluetooth.enable = true;
     intelgpu.vaapiDriver = "intel-media-driver";
   };
+  documentation.enable = false;
   system.stateVersion = "25.11";
 }

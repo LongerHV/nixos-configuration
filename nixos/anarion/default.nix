@@ -91,6 +91,7 @@ in
     max-free = ${toString (1024 * 1024 * 1024)}
   '';
   nix.settings.trusted-users = [ config.mySystem.user ];
+  documentation.enable = false;
   nixpkgs.hostPlatform = "aarch64-linux";
   system.stateVersion = "25.11";
 }
