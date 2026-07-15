@@ -69,11 +69,17 @@ in
 
     security.polkit.enable = true;
 
-    programs.kdeconnect.enable = true;
-    # Match the pkgs.unstable.kdePackages.kdeconnect-kde already installed via
-    # environment.systemPackages above, so the running daemon and the package
-    # in the closure are the same store path instead of two KF-version builds.
-    programs.kdeconnect.package = pkgs.unstable.kdePackages.kdeconnect-kde;
+    programs = {
+      kdeconnect.enable = true;
+      # Match the pkgs.unstable.kdePackages.kdeconnect-kde already installed via
+      # environment.systemPackages above, so the running daemon and the package
+      # in the closure are the same store path instead of two KF-version builds.
+      kdeconnect.package = pkgs.unstable.kdePackages.kdeconnect-kde;
+      # kwin_wayland_wrapper always uses --xwayland; install Xwayland so it starts
+      # properly. Without it kwin enters a degraded state that breaks Wayland input
+      # dispatch (cursor moves but pointer/keyboard events are not forwarded to surfaces).
+      xwayland.enable = true;
+    };
 
     systemd.user = {
       # Ensure kactivitymanagerd starts before plasmashell as part of the plasma session.
@@ -146,10 +152,5 @@ in
         };
       };
     };
-
-    # kwin_wayland_wrapper always uses --xwayland; install Xwayland so it starts
-    # properly. Without it kwin enters a degraded state that breaks Wayland input
-    # dispatch (cursor moves but pointer/keyboard events are not forwarded to surfaces).
-    programs.xwayland.enable = true;
   };
 }
