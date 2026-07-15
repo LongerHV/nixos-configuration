@@ -33,24 +33,51 @@ in
       };
     };
 
-    # Include color-schemes in the system-path so all apps (Brave, Spotify, etc.)
-    # can find BreezeDark.colors via XDG data dirs. Not in NixOS's default pathsToLink.
-    environment.pathsToLink = [ "/share/color-schemes" ];
+    environment = {
+      # Include color-schemes in the system-path so all apps (Brave, Spotify, etc.)
+      # can find BreezeDark.colors via XDG data dirs. Not in NixOS's default pathsToLink.
+      pathsToLink = [ "/share/color-schemes" ];
 
-    # services.desktopManager.plasma6 (below) already installs plasma-workspace,
-    # kscreen, kactivitymanagerd, kglobalacceld, kded, kde-cli-tools, kwin, breeze,
-    # qqc2-breeze-style, and (since networking.networkmanager.enable and
-    # services.pipewire.pulse.enable are both true on this host) plasma-nm and
-    # plasma-pa too. Only list what that module doesn't already provide.
-    environment.systemPackages = with pkgs.kdePackages; [
-      # plasma-bigscreen-wayland (this package's own launcher script) does
-      # `. plasma-bigscreen-common-env` with a bare filename, so its own bin/
-      # must be on $PATH for that source to resolve when SDDM execs it.
-      plasma-bigscreen
-      # plasma-bigscreen-specific window management shell; not part of a
-      # regular Plasma desktop, so services.desktopManager.plasma6 never installs it.
-      plasma-nano
-    ];
+      # services.desktopManager.plasma6 (below) already installs plasma-workspace,
+      # kscreen, kactivitymanagerd, kglobalacceld, kded, kde-cli-tools, kwin, breeze,
+      # qqc2-breeze-style, and (since networking.networkmanager.enable and
+      # services.pipewire.pulse.enable are both true on this host) plasma-nm and
+      # plasma-pa too. Only list what that module doesn't already provide.
+      systemPackages = with pkgs.kdePackages; [
+        # plasma-bigscreen-wayland (this package's own launcher script) does
+        # `. plasma-bigscreen-common-env` with a bare filename, so its own bin/
+        # must be on $PATH for that source to resolve when SDDM execs it.
+        plasma-bigscreen
+        # plasma-bigscreen-specific window management shell; not part of a
+        # regular Plasma desktop, so services.desktopManager.plasma6 never installs it.
+        plasma-nano
+      ];
+
+      # Trim the regular-desktop apps plasma6 installs by default that this
+      # HTPC-only bigscreen session never uses. Kept: konsole (on-screen
+      # terminal, handy without SSH), qtvirtualkeyboard/plasma-keyboard (no
+      # physical keyboard on a TV), plasma-browser-integration (Brave is
+      # actually installed on this host, see home.nix).
+      plasma6.excludePackages = with pkgs.kdePackages; [
+        dolphin
+        dolphin-plugins
+        baloo-widgets
+        gwenview
+        okular
+        kate
+        ktexteditor
+        khelpcenter
+        ark
+        elisa
+        spectacle
+        kwin-x11
+        aurorae
+        plasma-workspace-wallpapers
+        krdp
+        ffmpegthumbs
+        union
+      ];
+    };
 
     # services.desktopManager.plasma6 (below) already sets xdg.portal.enable and
     # xdg.portal.extraPortals (xdg-desktop-portal-kde, kwallet, xdg-desktop-portal-gtk).
@@ -78,31 +105,6 @@ in
     # the rest of the session plumbing this module used to hand-assemble
     # incompletely from raw environment.systemPackages.
     services.desktopManager.plasma6.enable = true;
-
-    # Trim the regular-desktop apps plasma6 installs by default that this
-    # HTPC-only bigscreen session never uses. Kept: konsole (on-screen
-    # terminal, handy without SSH), qtvirtualkeyboard/plasma-keyboard (no
-    # physical keyboard on a TV), plasma-browser-integration (Brave is
-    # actually installed on this host, see home.nix).
-    environment.plasma6.excludePackages = with pkgs.kdePackages; [
-      dolphin
-      dolphin-plugins
-      baloo-widgets
-      gwenview
-      okular
-      kate
-      ktexteditor
-      khelpcenter
-      ark
-      elisa
-      spectacle
-      kwin-x11
-      aurorae
-      plasma-workspace-wallpapers
-      krdp
-      ffmpegthumbs
-      union
-    ];
 
     programs = {
       kdeconnect.enable = true;
