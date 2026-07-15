@@ -70,6 +70,31 @@ in
     # incompletely from raw environment.systemPackages.
     services.desktopManager.plasma6.enable = true;
 
+    # Trim the regular-desktop apps plasma6 installs by default that this
+    # HTPC-only bigscreen session never uses. Kept: konsole (on-screen
+    # terminal, handy without SSH), qtvirtualkeyboard/plasma-keyboard (no
+    # physical keyboard on a TV), plasma-browser-integration (Brave is
+    # actually installed on this host, see home.nix).
+    environment.plasma6.excludePackages = with pkgs.kdePackages; [
+      dolphin
+      dolphin-plugins
+      baloo-widgets
+      gwenview
+      okular
+      kate
+      ktexteditor
+      khelpcenter
+      ark
+      elisa
+      spectacle
+      kwin-x11
+      aurorae
+      plasma-workspace-wallpapers
+      krdp
+      ffmpegthumbs
+      union
+    ];
+
     programs = {
       kdeconnect.enable = true;
       # kwin_wayland_wrapper always uses --xwayland; install Xwayland so it starts
