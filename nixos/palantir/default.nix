@@ -8,6 +8,13 @@
     ./disko-config.nix
   ];
 
+  # plasma-bigscreen (modules/nixos/plasma-bigscreen.nix) comes from
+  # nixpkgs-unstable for version reasons. Overlay pkgs.kdePackages to the
+  # same unstable set on this host so everything the plasma6 desktopManager
+  # module installs (kwin, plasma-workspace, plasma-integration, SDDM, ...)
+  # stays version-matched with it, avoiding cross-version QML/ABI breakage.
+  nixpkgs.overlays = [ (final: prev: { kdePackages = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.kdePackages; }) ];
+
   mySystem = {
     home-manager = {
       enable = true;
