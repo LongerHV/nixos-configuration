@@ -61,6 +61,15 @@ in
 
     security.polkit.enable = true;
 
+    # services.desktopManager.plasma6 defaults this to true (for firmware-update
+    # notifications) and, as a side effect, installs the Discover GUI app
+    # whenever it or services.flatpak.enable is on — neither is something this
+    # HTPC uses, and discover isn't reachable through environment.plasma6.excludePackages
+    # (it's added via a separate ++ lib.optionals term, not the excludePackages-filtered
+    # optionalPackages list). Disabling it here removes both the background service
+    # and the app.
+    services.fwupd.enable = false;
+
     # Standard, upstream-tested Plasma 6 session infrastructure. Brings in
     # plasma-integration (the actual "kde" Qt platform-theme plugin — its
     # absence was the root cause of kwin_wayland crashing on cold init with
