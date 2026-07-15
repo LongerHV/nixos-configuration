@@ -37,44 +37,41 @@ in
     # can find BreezeDark.colors via XDG data dirs. Not in NixOS's default pathsToLink.
     environment.pathsToLink = [ "/share/color-schemes" ];
 
-    # Sourced from pkgs.unstable to stay version-matched with plasma-bigscreen,
-    # which nixpkgs-unstable ships ahead of the pinned nixos-26.05 nixpkgs
-    # (Plasma 6.7.2 / Frameworks 6.28 vs 6.6.6 / 6.26 as of 2026-07-12). Mixing
-    # Plasma minor versions here risks the same QML/ABI breakage the deleted
-    # plasma-bigscreen-qmlprivate.patch used to work around.
-    environment.systemPackages = with pkgs.unstable.kdePackages; [
-      plasma-workspace
+    # services.desktopManager.plasma6 (below) already installs plasma-workspace,
+    # kscreen, kactivitymanagerd, kglobalacceld, kded, kde-cli-tools, kwin, breeze,
+    # qqc2-breeze-style, and (since networking.networkmanager.enable and
+    # services.pipewire.pulse.enable are both true on this host) plasma-nm and
+    # plasma-pa too. Only list what that module doesn't already provide.
+    environment.systemPackages = with pkgs.kdePackages; [
+      # plasma-bigscreen-wayland (this package's own launcher script) does
+      # `. plasma-bigscreen-common-env` with a bare filename, so its own bin/
+      # must be on $PATH for that source to resolve when SDDM execs it.
+      plasma-bigscreen
+      # plasma-bigscreen-specific window management shell; not part of a
+      # regular Plasma desktop, so services.desktopManager.plasma6 never installs it.
       plasma-nano
-      plasma-nm
-      plasma-pa
-      milou
-      kscreen
-      kdeconnect-kde
-      kwin
-      breeze
-      qqc2-breeze-style
-      kactivitymanagerd
-      kglobalacceld
-      kded
-      kde-cli-tools
     ];
 
-    xdg.portal = {
-      enable = true;
-      # pkgs.unstable to stay version-matched with the rest of the Plasma
-      # stack above (see environment.systemPackages comment).
-      extraPortals = [ pkgs.unstable.kdePackages.xdg-desktop-portal-kde ];
-      config.common.default = "*";
-    };
+    # services.desktopManager.plasma6 (below) already sets xdg.portal.enable and
+    # xdg.portal.extraPortals (xdg-desktop-portal-kde, kwallet, xdg-desktop-portal-gtk).
+    # configPackages must be re-declared here (not just added to) because plasma6.nix
+    # sets it via mkDefault, and this plain assignment would otherwise fully replace
+    # rather than merge with it — so plasma-workspace is re-listed explicitly.
+    xdg.portal.configPackages = [ pkgs.kdePackages.plasma-workspace pkgs.plasma-bigscreen ];
 
     security.polkit.enable = true;
 
+    # Standard, upstream-tested Plasma 6 session infrastructure. Brings in
+    # plasma-integration (the actual "kde" Qt platform-theme plugin — its
+    # absence was the root cause of kwin_wayland crashing on cold init with
+    # a SIGSEGV in Qt's built-in QKdeTheme fallback), the cap_sys_nice
+    # security wrapper for kwin_wayland, drkonqi crash handling, dconf, and
+    # the rest of the session plumbing this module used to hand-assemble
+    # incompletely from raw environment.systemPackages.
+    services.desktopManager.plasma6.enable = true;
+
     programs = {
       kdeconnect.enable = true;
-      # Match the pkgs.unstable.kdePackages.kdeconnect-kde already installed via
-      # environment.systemPackages above, so the running daemon and the package
-      # in the closure are the same store path instead of two KF-version builds.
-      kdeconnect.package = pkgs.unstable.kdePackages.kdeconnect-kde;
       # kwin_wayland_wrapper always uses --xwayland; install Xwayland so it starts
       # properly. Without it kwin enters a degraded state that breaks Wayland input
       # dispatch (cursor moves but pointer/keyboard events are not forwarded to surfaces).
@@ -142,8 +139,11 @@ in
         # old custom overlay derivation's postInstall script (deleted). Upstream's
         # plasma-bigscreen-wayland.in does not set QT_QPA_PLATFORMTHEME at all, so this
         # override — and the kwin-crash workaround it was protecting against, tuned
-        # against Qt 6.10.1 + KWin 6.5.5 — may no longer be necessary. Verify at
-        # runtime before removing.
+        # against Qt 6.10.1 + KWin 6.5.5 — may no longer be necessary. As of the
+        # 2026-07-15 switch to services.desktopManager.plasma6, the kwin crash itself
+        # is root-caused to a missing plasma-integration package (now fixed), not a
+        # theme-value problem, so this may be doubly unnecessary. Verify at runtime
+        # before removing.
         # The portal uses QApplication::palette() (not KColorScheme) to report
         # dark-mode preference, so it needs the KDE platform theme to read kdeglobals.
         plasma-xdg-desktop-portal-kde = {

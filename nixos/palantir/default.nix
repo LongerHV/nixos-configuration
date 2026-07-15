@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -8,12 +8,14 @@
     ./disko-config.nix
   ];
 
-  # plasma-bigscreen (modules/nixos/plasma-bigscreen.nix) comes from
-  # nixpkgs-unstable for version reasons. Overlay pkgs.kdePackages to the
-  # same unstable set on this host so everything the plasma6 desktopManager
-  # module installs (kwin, plasma-workspace, plasma-integration, SDDM, ...)
-  # stays version-matched with it, avoiding cross-version QML/ABI breakage.
-  nixpkgs.overlays = [ (final: prev: { kdePackages = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.kdePackages; }) ];
+  # This host is built against nixpkgs-unstable (see flake.nix), but
+  # modules/nixos/mySystem/default.nix unconditionally maps every flake
+  # input, including the pinned "nixpkgs", into nix.registry — conflicting
+  # with nixpkgs-unstable's own nixos/modules/misc/nixpkgs-flake.nix, which
+  # registers "nixpkgs" to point at itself. Force it to unstable here so
+  # `nix run nixpkgs#...`/`nix shell nixpkgs#...` on this host resolve
+  # against the same nixpkgs the system is actually built from.
+  nix.registry.nixpkgs = lib.mkForce { flake = inputs.nixpkgs-unstable; };
 
   mySystem = {
     home-manager = {

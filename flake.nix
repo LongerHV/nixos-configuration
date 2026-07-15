@@ -151,7 +151,17 @@
               ./nixos/anarion
             ];
           };
-          palantir = nixpkgs.lib.nixosSystem {
+          # palantir runs services.desktopManager.plasma6 for its plasma-bigscreen
+          # HTPC session. nixpkgs (pinned nixos-26.05) doesn't ship plasma-bigscreen
+          # at all, and a host-scoped overlay swapping just pkgs.kdePackages to
+          # nixpkgs-unstable hits nixpkgs' kdePackages splicing internals (SDDM's
+          # wrapper mixes cfg.package with pkgs.qt6.* directly, and pkgs.kdePackages
+          # scope members cross-reference each other in ways that don't cleanly
+          # resolve through a partial overlay) — confirmed via repeated failed
+          # build attempts. Building this host's entire system against
+          # nixpkgs-unstable instead avoids all of that: everything (kwin,
+          # plasma-workspace, SDDM, qt6, ...) comes from one coherent evaluation.
+          palantir = nixpkgs-unstable.lib.nixosSystem {
             inherit specialArgs;
             modules = defaultModules ++ [
               inputs.disko.nixosModules.disko
