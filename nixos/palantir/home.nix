@@ -9,6 +9,8 @@
     };
   };
 
+  manual.manpages.enable = false;
+  programs.man.man-db.enable = false;
   services.librespot = {
     enable = true;
     package = pkgs.librespot.override {
