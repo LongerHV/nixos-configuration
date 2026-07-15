@@ -24,7 +24,6 @@
     };
     nix.substituters = [ "nasgul" ];
     plasma-bigscreen.enable = true;
-    gaming.enable = true;
   };
   homelab = {
     nebula.enable = true;
