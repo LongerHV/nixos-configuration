@@ -13,6 +13,7 @@ in
       azure-cli
       eksctl
       fluxcd
+      kevict
       kind
       kubectl
       kubectl-neat
@@ -21,6 +22,7 @@ in
       kubelogin-oidc
       kubernetes-helm
       kubeseal
+      ktools
       mariadb.client
       minio-client
       packer

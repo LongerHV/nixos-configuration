@@ -1,0 +1,17 @@
+[project]
+name = "ktools"
+version = "1.0"
+dependencies = [
+	"click",
+	"pyyaml",
+	"dacite",
+	"kubernetes-asyncio",
+]
+
+[project.scripts]
+kubectl-merge = "ktools.main:main"
+kubectl-cert = "ktools.main:main"
+kubectl-evict = "ktools.main:main"
+
+[tool.ruff]
+line-length = 100
