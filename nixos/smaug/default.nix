@@ -11,6 +11,13 @@
     home = ./home.nix;
   };
 
+  homelab = {
+    nebula.enable = true;
+    monitoringTarget = {
+      enable = true;
+    };
+  };
+
   boot = {
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
     # ttyAMA0 is the serial console broken out to the GPIO

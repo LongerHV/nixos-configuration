@@ -19,6 +19,7 @@ in
         palantir = "10.42.0.3";
         anarion = "10.42.0.4";
         isildur = "10.42.0.5";
+        smaug = "10.42.0.6";
       };
     };
     address = mkOption {

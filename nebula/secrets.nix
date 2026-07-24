@@ -5,6 +5,7 @@ let
     palantir
     anarion
     isildur
+    smaug
     mordor_user
     backup
     ;
@@ -16,4 +17,5 @@ in
   "palantir.key.age".publicKeys = [ palantir ];
   "anarion.key.age".publicKeys = [ anarion ];
   "isildur.key.age".publicKeys = [ isildur ];
+  "smaug.key.age".publicKeys = [ smaug ];
 }
