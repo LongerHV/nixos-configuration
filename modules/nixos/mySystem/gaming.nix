@@ -23,7 +23,6 @@ in
       };
       gamemode.enable = true;
       sunshine.enable = true;
-      sleepy-launcher.enable = true;
     };
     services.avahi.publish = {
       enable = true;
