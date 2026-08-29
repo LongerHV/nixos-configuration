@@ -35,8 +35,9 @@
     packages = with pkgs; [
       brave
       jazz2
-      jellyfin-media-player
+      jellyfin-desktop
       moonlight-qt
+      plezy
       unstable.spotify-qt
       vacuum-tube
     ];
