@@ -7,14 +7,11 @@ in
   options.myHome.devops.enable = lib.mkEnableOption "devops";
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      act
-      ansible
       awscli2
       azure-cli
-      eksctl
-      fluxcd
-      kevict
-      kind
+      clusterctl
+      k3d
+      ktools
       kubectl
       kubectl-neat
       kubectl-tree
@@ -22,20 +19,13 @@ in
       kubelogin-oidc
       kubernetes-helm
       kubeseal
-      ktools
       mariadb.client
       minio-client
+      openstackclient-full
       packer
       swiftclient
+      talosctl
       terraform
-      tilt
-      unstable.clusterctl
-      unstable.k3d
-      unstable.kubernetes-polaris
-      unstable.kubeshark
-      unstable.openstackclient
-      unstable.talosctl
-      unstable.teleport.client
       (writeShellApplication {
         name = "kctx";
         runtimeInputs = [ kubectl fzf ];
@@ -68,6 +58,8 @@ in
         shellAliases = {
           tf = "terraform";
           kk = "k9s";
+          kmerge = "kubectl merge";
+          kcert = "kubectl cert";
         };
         siteFunctions = {
           osctx = ''
