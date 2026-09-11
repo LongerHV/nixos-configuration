@@ -144,7 +144,14 @@
     hostId = "0c55ff12";
   };
 
-  virtualisation.docker.storageDriver = "zfs";
+  virtualisation = {
+    docker.storageDriver = "zfs";
+    waydroid = {
+      enable = true;
+      package = pkgs.waydroid-nftables;
+    };
+  };
+
   # Workaround for https://github.com/NixOS/nixpkgs/issues/467783
   # FreeCAD 1.0's Qt wrapper doesn't propagate GApps env vars, so the GTK3
   # file chooser schema isn't found. Remove once fixed upstream.

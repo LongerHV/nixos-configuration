@@ -56,6 +56,7 @@
     noto-fonts
     noto-fonts-color-emoji
     wl-clipboard
+    android-tools
   ];
 
   systemd.tmpfiles.rules = [
@@ -71,6 +72,13 @@
     };
   };
   networking.firewall.allowedTCPPorts = [ 9999 ]; # libespot
+
+  virtualisation = {
+    waydroid = {
+      enable = true;
+      package = pkgs.waydroid-nftables;
+    };
+  };
 
   hardware = {
     bluetooth.enable = true;
