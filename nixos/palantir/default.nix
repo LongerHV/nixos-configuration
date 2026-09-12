@@ -97,6 +97,12 @@ in
     waydroid-tv-launch
   ];
 
+  programs = {
+    steam = {
+      enable = true;
+    };
+  };
+
   systemd.tmpfiles.rules = [
     "d /games 0755 ${config.mySystem.user} users -"
   ];

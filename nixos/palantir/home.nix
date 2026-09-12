@@ -28,6 +28,7 @@ in
       jazz2
       moonlight-qt
       plezy
+      protonup-ng
       vacuum-tube
       (netflix.override { google-chrome = brave; })
     ];

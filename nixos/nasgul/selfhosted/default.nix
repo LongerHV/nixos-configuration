@@ -11,6 +11,7 @@
     ./nameserver.nix
     ./rss.nix
     ./smarthome.nix
+    ./valheim.nix
     ./vikunja.nix
     ./wireguard.nix
   ];
