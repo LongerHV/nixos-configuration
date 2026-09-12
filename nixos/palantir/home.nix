@@ -40,6 +40,7 @@
       plezy
       unstable.spotify-qt
       vacuum-tube
+      (netflix.override { google-chrome = brave; })
     ];
     activation = {
       # Apply Breeze Dark color scheme to kdeglobals.
