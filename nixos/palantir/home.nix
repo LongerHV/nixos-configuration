@@ -20,34 +20,14 @@ in
 
   manual.manpages.enable = false;
   programs.man.man-db.enable = false;
-  services.librespot = {
-    enable = true;
-    package = pkgs.librespot.override {
-      withMDNS = false;
-      withAvahi = true;
-      withRodio = false;
-      withPulseAudio = true;
-    };
-    settings = {
-      name = "Palantir";
-      backend = "pulseaudio";
-      zeroconf-port = 9999;
-      zeroconf-backend = "avahi";
-      cache = "${config.home.homeDirectory}/.cache/librespot";
-      enable-oauth = true;
-      oauth-port = 0;
-    };
-  };
 
   home = {
     stateVersion = "25.11";
     packages = with pkgs; [
       brave
       jazz2
-      jellyfin-desktop
       moonlight-qt
       plezy
-      unstable.spotify-qt
       vacuum-tube
       (netflix.override { google-chrome = brave; })
     ];
