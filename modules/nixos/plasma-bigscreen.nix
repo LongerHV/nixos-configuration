@@ -88,6 +88,20 @@ in
 
     security.polkit.enable = true;
 
+    # services.desktopManager.plasma6 turns on the kwallet PAM module so the
+    # wallet is unlocked with the password typed at login. This session logs in
+    # automatically (services.displayManager.autoLogin above), so no password is
+    # ever typed and PAM has nothing to unlock with — kwalletd then falls back to
+    # prompting interactively the first time anything asks for a secret (Brave
+    # wants one at startup, so every Netflix launch hits a password dialog on a
+    # machine driven by a TV remote). Disable the wallet outright instead; the
+    # per-user half of this lives in kwalletrc (see nixos/palantir/home.nix).
+    # plasma6.nix sets these without mkDefault, hence mkForce.
+    security.pam.services = {
+      login.kwallet.enable = lib.mkForce false;
+      kde.kwallet.enable = lib.mkForce false;
+    };
+
     # services.desktopManager.plasma6 defaults this to true (for firmware-update
     # notifications) and, as a side effect, installs the Discover GUI app
     # whenever it or services.flatpak.enable is on — neither is something this

@@ -1,5 +1,14 @@
 { pkgs, lib, config, ... }:
 
+let
+  # --password-store=basic keeps Chromium from picking KWallet as its secret
+  # backend on a KDE desktop (see kwalletrc below). kwalletd reporting itself
+  # disabled is already enough, but being explicit means Brave never even
+  # starts kwalletd to ask. Shared with the Netflix launcher so both run the
+  # same build.
+  brave = pkgs.brave.override { commandLineArgs = "--password-store=basic"; };
+in
+
 {
   myHome = {
     zsh.enable = true;
@@ -100,6 +109,20 @@
   };
 
   xdg.configFile = {
+    # Disable KWallet. The session autologins (no password is ever typed), so
+    # kwallet-pam cannot unlock anything and kwalletd would instead pop a
+    # password dialog the first time an app asks for a secret — in practice
+    # every time Brave starts, i.e. every Netflix launch. Turning the wallet off
+    # makes kwalletd report itself disabled over D-Bus, so Chromium/Electron
+    # apps fall back to their plaintext store. "First Use" suppresses the
+    # one-time wallet-creation wizard. See also the kwallet PAM overrides in
+    # modules/nixos/plasma-bigscreen.nix.
+    "kwalletrc".text = ''
+      [Wallet]
+      Enabled=false
+      First Use=false
+    '';
+
     # Disable the screen locker entirely — this is an HTPC, not a desktop.
     # Without this, the session locks after inactivity and requires a keyboard
     # to unlock, which breaks the TV remote / controller workflow.
