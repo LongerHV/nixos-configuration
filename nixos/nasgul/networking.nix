@@ -42,18 +42,25 @@
           UseDNS = false; # Don't override Blocky DNS
           UseRoutes = false;
         };
-        # Permanent neighbor entries for the two OTBR border routers.
+        # Permanent neighbour entries for the two OTBR border routers.
         # nasgul routes Thread prefix fd31:4b6b:8506:1::/64 via their link-locals
         # (learned via RA, proto ra). Without these, NDP for those next-hops goes
-        # through the AP bridge multicast path — which fails due to the Linux 6.6.x
-        # MLD querier bug (MDB entries expire, querier stays permanently silent).
+        # through the AP bridge multicast path - see network-changes.md Problems 4 and 9.
+        #
+        # These are EUI-64 link-locals derived from each MAC
+        # (88:a2:9e:XX:XX:XX -> fe80::8aa2:9eff:feXX:XXXX). They were previously
+        # NetworkManager stable-privacy addresses; when addr-gen-mode changed to EUI-64
+        # these entries silently went stale. Keep in sync with nixos/anarion/default.nix
+        # and verify on each host with: ip -6 addr show wlan0 scope link
         extraConfig = ''
+          # isildur
           [Neighbor]
-          Address=fe80::71a2:9a77:d1f2:f5db
+          Address=fe80::8aa2:9eff:fe8a:a27a
           LinkLayerAddress=88:a2:9e:8a:a2:7a
 
+          # anarion
           [Neighbor]
-          Address=fe80::fc3a:e35f:472f:63bd
+          Address=fe80::8aa2:9eff:fe8c:c80c
           LinkLayerAddress=88:a2:9e:8c:c8:0c
         '';
       };

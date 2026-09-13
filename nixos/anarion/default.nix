@@ -1,16 +1,27 @@
 { config, lib, pkgs, ... }:
 
 let
+  # neighbourMAC/neighbourIP describe the *peer* OTBR, not this host.
+  #
+  # neighbourIP is the peer's EUI-64 link-local, derived from neighbourMAC
+  # (88:a2:9e:XX:XX:XX -> fe80::8aa2:9eff:feXX:XXXX). Both hosts previously used
+  # NetworkManager stable-privacy link-locals; when addr-gen-mode changed to
+  # EUI-64 these pinned addresses silently went stale and the permanent neighbour
+  # entries below pointed at addresses that no longer existed. If addr-gen-mode
+  # ever changes again both values must be updated - verify on each host with:
+  #   ip -6 addr show wlan0 scope link
   this = lib.getAttr config.networking.hostName {
     anarion = {
       rcpDevice = "/dev/serial/by-id/usb-Nordic_Semiconductor_nRF528xx_OpenThread_Device_E212FEDD5954-if00";
+      # isildur
       neighbourMAC = "88:a2:9e:8a:a2:7a";
-      neighbourIP = "fe80::71a2:9a77:d1f2:f5db";
+      neighbourIP = "fe80::8aa2:9eff:fe8a:a27a";
     };
     isildur = {
       rcpDevice = "/dev/serial/by-id/usb-Nordic_Semiconductor_nRF528xx_OpenThread_Device_DA241A36F28D-if00";
+      # anarion
       neighbourMAC = "88:a2:9e:8c:c8:0c";
-      neighbourIP = "fe80::fc3a:e35f:472f:63bd";
+      neighbourIP = "fe80::8aa2:9eff:fe8c:c80c";
     };
   };
 in
@@ -60,12 +71,11 @@ in
       };
       dispatcherScripts = [
         {
-          # Permanent neighbor entry for anarin/isildur (OTBR TREL peer).
-          # Bypasses the Linux 6.6.x bridge MLD querier bug: the bridge querier never
-          # sends MLD queries (IPv6 address not valid at startup, never retried), so MDB
-          # entries expire and multicast-to-unicast stops working. With a permanent neigh
-          # entry, NDP is not needed at all for this peer — the kernel resolves the MAC
-          # directly without sending any Neighbor Solicitation.
+          # Permanent neighbour entry for the peer OTBR (TREL over WiFi).
+          # Bypasses the bridge multicast path entirely: with a permanent neigh entry the
+          # kernel resolves the peer's MAC without ever sending a Neighbor Solicitation,
+          # so it does not matter whether MLD snooping/the querier on the APs is behaving.
+          # See network-changes.md Problems 4, 8 and 9 for the underlying bridge issues.
           source = pkgs.writeShellScript "otbr-neighbors" ''
             [ "$1" = "wlan0" ] && [ "$2" = "up" ] || exit 0
             ip -6 neigh replace ${this.neighbourIP} \
