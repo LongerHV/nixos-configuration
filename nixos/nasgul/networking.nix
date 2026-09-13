@@ -43,8 +43,9 @@
           UseRoutes = false;
         };
         # Permanent neighbour entries for the two OTBR border routers.
-        # nasgul routes Thread prefix fd31:4b6b:8506:1::/64 via their link-locals
-        # (learned via RA, proto ra). Without these, NDP for those next-hops goes
+        # nasgul routes the Thread OMR prefix via their link-locals (learned via RA,
+        # proto ra). The prefix itself is not stable across OTBR restarts, so it is
+        # deliberately not hardcoded anywhere. Without these, NDP for those next-hops goes
         # through the AP bridge multicast path - see network-changes.md Problems 4 and 9.
         #
         # These are EUI-64 link-locals derived from each MAC
