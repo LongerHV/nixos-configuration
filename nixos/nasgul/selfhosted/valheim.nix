@@ -9,7 +9,7 @@ let
   gid = 1500;
   stateDir = "/var/lib/valheim";
   image = pkgs.dockerTools.pullImage {
-    imageName = imageName;
+    inherit imageName;
     imageDigest = "sha256:138c6f10759e8342309cfefe0b191221a956771ada1ea87157013d62e2befa19";
     hash = "sha256-xW05QZJ6DEWHAV4OFS5zMvqwds++asUjaoD46j+7ELA=";
     finalImageName = imageName;
