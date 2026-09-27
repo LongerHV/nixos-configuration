@@ -2,12 +2,15 @@
 
 {
   users.users."${config.mySystem.user}".extraGroups = [ "docker" ];
-  virtualisation.oci-containers.backend = "docker";
-  virtualisation.docker = {
-    enable = true;
-    storageDriver = "zfs";
-    extraOptions = "--firewall-backend=nftables";
-    extraPackages = [ pkgs.nftables ];
+  virtualisation = {
+    podman.enable = true;
+    oci-containers.backend = "docker";
+    docker = {
+      enable = true;
+      storageDriver = "zfs";
+      extraOptions = "--firewall-backend=nftables";
+      extraPackages = [ pkgs.nftables ];
+    };
   };
 
   # Delete only the tables NixOS manages instead of `flush ruleset` on every
