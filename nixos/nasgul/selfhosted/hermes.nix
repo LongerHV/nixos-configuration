@@ -33,17 +33,27 @@ in
     "/var/lib/hermes/workspace"
   ];
 
-  services.authelia.instances.main.settings.identity_providers.oidc.clients = [{
-    client_id = "hermes-dashboard";
-    client_name = "Hermes";
-    public = true;
-    token_endpoint_auth_method = "none";
-    require_pkce = true;
-    pkce_challenge_method = "S256";
-    authorization_policy = "one_factor";
-    redirect_uris = [ "${dashboardUrl}/auth/callback" ];
-    scopes = [ "openid" "profile" "email" ];
-  }];
+  services.authelia.instances.main.settings.identity_providers.oidc = {
+    # The dashboard can read and edit API keys: admins only.
+    authorization_policies.hermes = {
+      default_policy = "deny";
+      rules = [{
+        policy = "one_factor";
+        subject = "group:admin";
+      }];
+    };
+    clients = [{
+      client_id = "hermes-dashboard";
+      client_name = "Hermes";
+      public = true;
+      token_endpoint_auth_method = "none";
+      require_pkce = true;
+      pkce_challenge_method = "S256";
+      authorization_policy = "hermes";
+      redirect_uris = [ "${dashboardUrl}/auth/callback" ];
+      scopes = [ "openid" "profile" "email" ];
+    }];
+  };
 
   services.hermes-agent = {
     enable = true;
