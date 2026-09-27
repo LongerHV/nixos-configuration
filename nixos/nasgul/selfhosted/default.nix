@@ -4,6 +4,7 @@
     ./auth.nix
     ./containers.nix
     ./esphome.nix
+    ./hermes.nix
     ./homepage.nix
     ./immich.nix
     ./lldap.nix
