@@ -27,6 +27,12 @@ in
 
   homelab.traefik.services.hermes.port = dashboardPort;
 
+  # Podman image storage under /var/lib/hermes/.local is reproducible and excluded.
+  homelab.backups.services.hermes.paths = [
+    "/var/lib/hermes/.hermes"
+    "/var/lib/hermes/workspace"
+  ];
+
   services.authelia.instances.main.settings.identity_providers.oidc.clients = [{
     client_id = "hermes-dashboard";
     client_name = "Hermes";
