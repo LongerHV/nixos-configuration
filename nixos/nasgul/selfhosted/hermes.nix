@@ -7,6 +7,9 @@ let
   # gateway unit (NoNewPrivileges, ProtectSystem=strict) cannot run podman
   # itself, so it talks to the API socket in the lingering hermes user manager.
   podmanSocket = "unix:///run/user/${toString hermesUid}/podman/podman.sock";
+  inherit (config.homelab) domain;
+  dashboardPort = 9119;
+  dashboardUrl = "https://hermes.${domain}";
 in
 {
   imports = [ inputs.hermes-agent.nixosModules.default ];
@@ -22,11 +25,31 @@ in
     "${config.mySystem.user}".extraGroups = [ "hermes" ];
   };
 
+  homelab.traefik.services.hermes.port = dashboardPort;
+
+  services.authelia.instances.main.settings.identity_providers.oidc.clients = [{
+    client_id = "hermes-dashboard";
+    client_name = "Hermes";
+    public = true;
+    token_endpoint_auth_method = "none";
+    require_pkce = true;
+    pkce_challenge_method = "S256";
+    # The dashboard can read and edit API keys.
+    authorization_policy = "two_factor";
+    redirect_uris = [ "${dashboardUrl}/auth/callback" ];
+    scopes = [ "openid" "profile" "email" ];
+  }];
+
   services.hermes-agent = {
     enable = true;
     addToSystemPackages = true;
     environmentFiles = [ secrets.hermes_env.path ];
     extraPackages = [ pkgs.podman ];
+    backend = {
+      mode = "dashboard";
+      host = "127.0.0.1";
+      port = dashboardPort;
+    };
     environment = {
       # CONTAINER_HOST makes podman default to --remote.
       CONTAINER_HOST = podmanSocket;
@@ -47,6 +70,16 @@ in
         docker_mount_cwd_to_workspace = true;
         container_cpu = 4;
         container_memory = 8192;
+      };
+      dashboard = {
+        # Required so the dashboard accepts the proxied Host header; it also
+        # engages the auth gate, served by the self_hosted OIDC plugin.
+        public_url = dashboardUrl;
+        trusted_proxies = [ "127.0.0.1" ];
+        oauth.self_hosted = {
+          issuer = "https://auth.${domain}";
+          client_id = "hermes-dashboard";
+        };
       };
     };
   };
