@@ -40,8 +40,7 @@ in
     token_endpoint_auth_method = "none";
     require_pkce = true;
     pkce_challenge_method = "S256";
-    # The dashboard can read and edit API keys.
-    authorization_policy = "two_factor";
+    authorization_policy = "one_factor";
     redirect_uris = [ "${dashboardUrl}/auth/callback" ];
     scopes = [ "openid" "profile" "email" ];
   }];
