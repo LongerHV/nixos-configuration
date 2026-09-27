@@ -32,6 +32,7 @@ in
   "nasgul_mqtt_valetudo_password.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_grafana_environment.age".publicKeys = [ nasgul mordor_user ];
   "nasgul_vikunja_environment.age".publicKeys = [ nasgul mordor_user ];
+  "nasgul_hermes_env.age".publicKeys = [ nasgul mordor mordor_user ];
   "cloudflare_token.age".publicKeys = [ nasgul mordor_user ];
   "cloudflare_email.age".publicKeys = [ nasgul mordor_user ];
   "valheim_environment.age".publicKeys = [ nasgul mordor_user ];
