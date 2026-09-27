@@ -79,10 +79,12 @@ in
       };
       terminal = {
         backend = "docker";
+        # A path inside the sandbox. The module default is the host
+        # workingDirectory, which does not exist in the container; binding it
+        # instead would let the agent plant context files (AGENTS.md) in the
+        # host processes' cwd. /workspace persists under .hermes/sandboxes.
+        cwd = "/workspace";
         docker_persist_across_processes = true;
-        # terminal.cwd is the host workingDirectory; bind it at /workspace so
-        # the sandbox has a real, persistent workdir.
-        docker_mount_cwd_to_workspace = true;
         container_cpu = 4;
         container_memory = 8192;
       };
