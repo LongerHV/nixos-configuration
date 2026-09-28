@@ -26,6 +26,8 @@ in
       well_known.client = "https://${domain}";
       # Only local accounts exist; let clients find the bot before sharing a room.
       show_all_local_users_in_user_directory = true;
+      # Default appends "💕" to new users' display names.
+      new_user_displayname_suffix = "";
     };
   };
 
