@@ -8,6 +8,7 @@
     ./homepage.nix
     ./immich.nix
     ./lldap.nix
+    ./matrix.nix
     ./monitoring.nix
     ./nameserver.nix
     ./rss.nix
