@@ -10,11 +10,15 @@ let
   inherit (config.homelab) domain;
   dashboardPort = 9119;
   dashboardUrl = "https://hermes.${domain}";
+  matrixServer = config.services.matrix-tuwunel.settings.global.server_name;
 in
 {
   imports = [ inputs.hermes-agent.nixosModules.default ];
 
-  age.secrets.hermes_env.file = ../../../secrets/nasgul_hermes_env.age;
+  age.secrets = {
+    hermes_env.file = ../../../secrets/nasgul_hermes_env.age;
+    hermes_matrix_env.file = ../../../secrets/nasgul_hermes_matrix_env.age;
+  };
 
   users.users = {
     hermes = {
@@ -58,7 +62,12 @@ in
   services.hermes-agent = {
     enable = true;
     addToSystemPackages = true;
-    environmentFiles = [ secrets.hermes_env.path ];
+    environmentFiles = [
+      secrets.hermes_env.path
+      # MATRIX_ACCESS_TOKEN of the bot; one token = one device, which keeps
+      # the E2EE identity stable across restarts.
+      secrets.hermes_matrix_env.path
+    ];
     extraPackages = [ pkgs.podman ];
     backend = {
       mode = "dashboard";
@@ -71,6 +80,12 @@ in
       # Hermes prefers `docker` from PATH, and interactive shells on nasgul see
       # the rootful docker CLI; pin podman for both the gateway and the CLI.
       HERMES_DOCKER_BINARY = "${pkgs.podman}/bin/podman";
+      MATRIX_HOMESERVER = "http://127.0.0.1:${toString (builtins.head config.services.matrix-tuwunel.settings.global.port)}";
+      MATRIX_USER_ID = "@hermes:${matrixServer}";
+      MATRIX_ALLOWED_USERS = "@${config.mySystem.user}:${matrixServer}";
+      MATRIX_E2EE_MODE = "required";
+      # Hermes bootstraps cross-signing once and writes the key here (0600).
+      MATRIX_RECOVERY_KEY_OUTPUT_FILE = "/var/lib/hermes/.hermes/platforms/matrix/recovery-key.txt";
     };
     settings = {
       model = {
