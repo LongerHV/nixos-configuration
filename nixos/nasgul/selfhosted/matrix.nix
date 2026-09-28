@@ -35,4 +35,8 @@ in
     backupCleanupCommand = "systemctl start tuwunel.service";
     paths = [ "/var/lib/private/tuwunel" ];
   };
+  # tuwunel stays down for the whole restic run (upload and prune to B2);
+  # cap it so a stalled upload cannot keep Matrix offline. The cleanup
+  # command still runs after the kill and starts tuwunel again.
+  systemd.services.restic-backups-matrix.serviceConfig.TimeoutStartSec = "30min";
 }
