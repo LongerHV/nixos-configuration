@@ -90,7 +90,7 @@ in
     settings = {
       model = {
         provider = "anthropic";
-        default = "claude-sonnet-5";
+        default = "claude-sonnet-5-5";
       };
       terminal = {
         backend = "docker";
