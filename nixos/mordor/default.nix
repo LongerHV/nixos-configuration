@@ -162,6 +162,7 @@
   environment.systemPackages = with pkgs; [
     deploy-rs
     yubioath-flutter
+    android-tools
   ];
   users.users.${config.mySystem.user}.extraGroups = [ "dialout" ];
   fonts.packages = with pkgs; [
