@@ -114,5 +114,9 @@ in
         };
       };
     };
+    mcpServers.onerep = {
+      url = "https://onerep.local.longerhv.xyz/mcp";
+      headers.Authorization = "Bearer \${MCP_ONEREP_API_KEY}";
+    };
   };
 }
