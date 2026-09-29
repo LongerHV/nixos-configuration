@@ -11,6 +11,7 @@
     ./matrix.nix
     ./monitoring.nix
     ./nameserver.nix
+    ./onerep.nix
     ./rss.nix
     ./smarthome.nix
     ./valheim.nix
