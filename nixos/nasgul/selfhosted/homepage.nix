@@ -44,6 +44,12 @@ in
               icon = "vikunja";
             };
           }
+          {
+            n8n = {
+              href = "https://n8n.${domain}";
+              icon = "n8n";
+            };
+          }
         ];
       }
       {

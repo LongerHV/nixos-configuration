@@ -10,6 +10,7 @@
     ./lldap.nix
     ./matrix.nix
     ./monitoring.nix
+    ./n8n.nix
     ./nameserver.nix
     ./onerep.nix
     ./rss.nix
