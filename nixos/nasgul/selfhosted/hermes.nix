@@ -114,12 +114,19 @@ in
         };
       };
     };
-    mcpServers.onerep = {
-      url = "https://onerep.local.longerhv.xyz/mcp";
-      headers.Authorization = "Bearer \${MCP_ONEREP_API_KEY}";
+    mcpServers = {
+      onerep = {
+        url = "https://onerep.local.longerhv.xyz/mcp";
+        headers.Authorization = "Bearer \${MCP_ONEREP_API_KEY}";
+      };
+      # In-process server of the ha_mcp_tools HA integration, bound to loopback;
+      # the secret direct-access path is the credential.
+      home-assistant.url = "http://127.0.0.1:9584/\${MCP_HASS_SECRET_PATH}";
+      # n8n's instance-level MCP server; the token is generated under Settings → MCP Access.
+      n8n = {
+        url = "http://127.0.0.1:${config.services.n8n.environment.N8N_PORT}/mcp-server/http";
+        headers.Authorization = "Bearer \${MCP_N8N_ACCESS_TOKEN}";
+      };
     };
-    # In-process server of the ha_mcp_tools HA integration, bound to loopback;
-    # the secret direct-access path is the credential.
-    mcpServers.home-assistant.url = "http://127.0.0.1:9584/\${MCP_HASS_SECRET_PATH}";
   };
 }
