@@ -118,5 +118,8 @@ in
       url = "https://onerep.local.longerhv.xyz/mcp";
       headers.Authorization = "Bearer \${MCP_ONEREP_API_KEY}";
     };
+    # In-process server of the ha_mcp_tools HA integration, bound to loopback;
+    # the secret direct-access path is the credential.
+    mcpServers.home-assistant.url = "http://127.0.0.1:9584/\${MCP_HASS_SECRET_PATH}";
   };
 }

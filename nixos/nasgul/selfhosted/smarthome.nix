@@ -62,7 +62,14 @@ in
     };
     home-assistant = {
       enable = true;
-      extraPackages = ps: with ps; [ psycopg2 ];
+      # The in-process ha-mcp server (ha_mcp_tools) requires HA >= 2026.8
+      package = pkgs.unstable.home-assistant;
+      extraPackages = ps: with ps; [
+        psycopg2
+        # HA runs with --skip-pip, so ha_mcp_tools uses this package instead
+        # of installing ha-mcp at runtime
+        ha-mcp
+      ];
       extraComponents = [
         # Components required to complete the onboarding
         "analytics"
@@ -80,8 +87,10 @@ in
         "esphome"
         "backblaze_b2"
       ];
-      customComponents = with pkgs.home-assistant-custom-components; [
+      # Must match the Home Assistant package set
+      customComponents = with pkgs.unstable.home-assistant-custom-components; [
         auth_oidc
+        ha_mcp_tools
       ];
       config = {
         default_config = { };
