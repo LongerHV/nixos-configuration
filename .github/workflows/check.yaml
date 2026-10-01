@@ -22,5 +22,9 @@ jobs:
           source-tag: v3.16.3
       - name: Workaround for broken check
         run: nix eval --json .#iproute2
+      # uv2nix reads uv.lock from a filtered source path at eval time, which
+      # `nix flake check --no-build` refuses to realise.
+      - name: Workaround for hermes-agent source realisation
+        run: nix eval --raw .#nixosConfigurations.nasgul.config.services.hermes-agent.package.drvPath
       - name: Run checks
         run: nix flake check --no-build --all-systems
