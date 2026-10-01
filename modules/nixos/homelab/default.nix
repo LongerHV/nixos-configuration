@@ -8,6 +8,7 @@ in
     ./backups.nix
     ./blocky.nix
     ./gitea.nix
+    ./logging.nix
     ./mail.nix
     ./monitoring.nix
     ./monitoring-target.nix

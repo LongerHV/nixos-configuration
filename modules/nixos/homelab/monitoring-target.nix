@@ -8,7 +8,8 @@ let
     systemd
     ;
   inherit (config.services) cadvisor;
-  listenAddress = config.homelab.nebula.address;
+  inherit (config.homelab) logging nebula;
+  listenAddress = nebula.address;
 in
 {
   options.homelab.monitoringTarget = with lib; {
@@ -44,6 +45,11 @@ in
           "--housekeeping_interval=15s"
           "--enable_metrics=cpu,memory,diskIO,pressure,oom_event"
         ];
+      };
+      # Ship the journal to VictoriaLogs on nasgul
+      journald.upload = {
+        enable = true;
+        settings.Upload.URL = "http://${nebula.hosts.nasgul}:${toString logging.port}/insert/journald";
       };
       nebula.networks.homelab.firewall = {
         inbound = map

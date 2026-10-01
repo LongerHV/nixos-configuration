@@ -16,6 +16,9 @@ in
     monitoring = {
       enable = true;
     };
+    logging = {
+      enable = true;
+    };
     blocky.enable = true;
     traefik = {
       enable = true;

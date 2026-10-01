@@ -167,6 +167,12 @@ in
               icon = "grafana";
             };
           }
+          {
+            VictoriaLogs = {
+              href = "https://victorialogs.${domain}/select/vmui/";
+              icon = "si-victoriametrics";
+            };
+          }
         ];
       }
     ];

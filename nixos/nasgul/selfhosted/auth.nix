@@ -25,6 +25,7 @@ in
       "radarr"
       "readarr"
       "sonarr"
+      "victorialogs"
     ]
       (_: { middlewares = [ "authelia" ]; })
     )
