@@ -109,6 +109,7 @@
             home-manager.nixosModules.default
           ];
           specialArgs = { inherit inputs outputs overlays; };
+          deployTarget = { mySystem.deployTarget = true; };
         in
         {
           mordor = nixpkgs.lib.nixosSystem {
@@ -120,6 +121,7 @@
           nasgul = nixpkgs.lib.nixosSystem {
             inherit specialArgs;
             modules = defaultModules ++ [
+              deployTarget
               ./nixos/nasgul
             ];
           };
@@ -132,12 +134,14 @@
           smaug = nixpkgs.lib.nixosSystem {
             inherit specialArgs;
             modules = defaultModules ++ [
+              deployTarget
               ./nixos/smaug
             ];
           };
           anarion = nixpkgs.lib.nixosSystem {
             inherit specialArgs;
             modules = defaultModules ++ [
+              deployTarget
               { networking.hostName = "anarion"; }
               ./nixos/anarion
             ];
@@ -145,6 +149,7 @@
           isildur = nixpkgs.lib.nixosSystem {
             inherit specialArgs;
             modules = defaultModules ++ [
+              deployTarget
               { networking.hostName = "isildur"; }
               ./nixos/anarion
             ];
@@ -163,6 +168,7 @@
             inherit specialArgs;
             modules = defaultModules ++ [
               inputs.disko.nixosModules.disko
+              deployTarget
               ./nixos/palantir
             ];
           };
@@ -217,11 +223,9 @@
               in
               {
                 path = deploy-rs.lib."${system}".activate.nixos configuration;
-                sshUser = "longer";
+                # Root login is restricted to Yubikey (sk-ssh-ed25519) keys, see mySystem.deployTarget
+                sshUser = "root";
                 user = "root";
-                sshOpts = [ "-t" ];
-                magicRollback = false; # Disable because it breaks remote sudo :<
-                interactiveSudo = true;
               };
           };
         in

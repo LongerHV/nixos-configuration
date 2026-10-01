@@ -27,6 +27,28 @@
     gnomeExtensions.tray-icons-reloaded
   ];
 
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks = {
+      # gcr-ssh-agent cannot drive FIDO2 keys, so bypass it and use the key handles directly.
+      # ControlMaster reuses one connection so a deploy needs a single touch.
+      # Only root (deploy-rs) logins; regular logins keep using the agent.
+      deploy-targets = {
+        match = "user root host nasgul.lan,smaug.lan,isildur.lan,anarion.lan,palantir.lan";
+        identityFile = [
+          "~/.ssh/id_ed25519_sk_rk_yubi"
+          "~/.ssh/id_ed25519_sk_rk_yubi_backup"
+        ];
+        identitiesOnly = true;
+        controlMaster = "auto";
+        controlPath = "~/.ssh/control-%C";
+        controlPersist = "5m";
+        extraOptions.IdentityAgent = "none";
+      };
+    };
+  };
+
   xdg.configFile."wireplumber/wireplumber.conf.d" = {
     recursive = true;
     source = ./wireplumber;

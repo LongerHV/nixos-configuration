@@ -75,7 +75,7 @@ in
 
     services.openssh = with lib; {
       settings.PasswordAuthentication = mkDefault false;
-      settings.PermitRootLogin = mkForce "no";
+      settings.PermitRootLogin = mkForce (if cfg.deployTarget then "prohibit-password" else "no");
     };
 
     environment = {
