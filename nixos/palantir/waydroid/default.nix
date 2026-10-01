@@ -67,6 +67,13 @@ in
     Install.WantedBy = [ "graphical-session.target" ];
   };
 
+  # The Android UI fills the 3840x2160 output, so KWin direct-scans out
+  # Waydroid's buffers. They carry no fence (the image runs SurfaceFlinger
+  # without a sync framework), so they often reach the screen half-rendered,
+  # showing flicker and black horizontal stripes. Making KWin composite them
+  # instead (as it already does whenever an OSD covers the window) avoids that.
+  environment.sessionVariables.KWIN_DRM_NO_DIRECT_SCANOUT = "1";
+
   virtualisation = {
     waydroid = {
       enable = true;
