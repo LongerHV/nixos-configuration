@@ -8,6 +8,7 @@ let
     smartctl
     systemd
     ;
+  inherit (config.services) cadvisor;
 in
 {
   services.prometheus.scrapeConfigs = [
@@ -22,6 +23,35 @@ in
     {
       job_name = "systemd";
       static_configs = [{ targets = hosts (toString systemd.port); }];
+    }
+    {
+      job_name = "cadvisor";
+      static_configs = [{ targets = hosts (toString cadvisor.port); }];
+      metric_relabel_configs = [
+        # Keep the host root cgroup, services, scopes (incl. docker) and VMs; drop mounts, sockets, slices
+        {
+          source_labels = [ "id" ];
+          regex = ''/|/system\.slice/(.+/)?[^/]+\.(service|scope)|/user\.slice|/machine\.slice/[^/]+'';
+          action = "keep";
+        }
+        {
+          source_labels = [ "id" ];
+          regex = ''.*/([^/]+)'';
+          target_label = "unit";
+        }
+        {
+          source_labels = [ "id" ];
+          regex = "/";
+          target_label = "unit";
+          replacement = "host";
+        }
+        {
+          source_labels = [ "name" ];
+          regex = "(.+)";
+          target_label = "unit";
+          replacement = "docker:$1";
+        }
+      ];
     }
   ];
 }

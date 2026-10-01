@@ -7,6 +7,7 @@ let
     smartctl
     systemd
     ;
+  inherit (config.services) cadvisor;
   listenAddress = config.homelab.nebula.address;
 in
 {
@@ -32,19 +33,37 @@ in
           inherit listenAddress;
         };
       };
+      # Per systemd unit / docker container CPU, memory, IO and pressure
+      cadvisor = {
+        enable = true;
+        inherit listenAddress;
+        port = 9338;
+        extraOptions = [
+          "--docker_only=false"
+          "--store_container_labels=false"
+          "--housekeeping_interval=15s"
+          "--enable_metrics=cpu,memory,diskIO,pressure,oom_event"
+        ];
+      };
       nebula.networks.homelab.firewall = {
         inbound = map
           (exporter: { proto = "tcp"; inherit (exporter) port; group = "prometheus"; }) [
           node
           smartctl
           systemd
+          cadvisor
         ];
       };
+    };
+    systemd.services.cadvisor.serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = 10;
     };
     networking.firewall.interfaces."nebula.homelab".allowedTCPPorts = [
       node.port
       smartctl.port
       systemd.port
+      cadvisor.port
     ];
   };
 }

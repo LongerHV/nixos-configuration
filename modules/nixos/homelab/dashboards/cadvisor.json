@@ -1,0 +1,257 @@
+{
+  "uid": "cadvisor-units",
+  "title": "Services (cAdvisor)",
+  "tags": ["cadvisor", "systemd"],
+  "editable": true,
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "1m",
+  "time": { "from": "now-24h", "to": "now" },
+  "timepicker": {},
+  "graphTooltip": 1,
+  "templating": {
+    "list": [
+      {
+        "name": "instance",
+        "label": "Host",
+        "type": "query",
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+        "query": { "query": "label_values(container_cpu_usage_seconds_total, instance)", "refId": "instance" },
+        "definition": "label_values(container_cpu_usage_seconds_total, instance)",
+        "refresh": 2,
+        "sort": 1,
+        "includeAll": false,
+        "multi": false
+      },
+      {
+        "name": "unit",
+        "label": "Unit",
+        "type": "query",
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+        "query": { "query": "label_values(container_cpu_usage_seconds_total{instance=\"$instance\", unit!=\"host\"}, unit)", "refId": "unit" },
+        "definition": "label_values(container_cpu_usage_seconds_total{instance=\"$instance\", unit!=\"host\"}, unit)",
+        "refresh": 2,
+        "sort": 1,
+        "includeAll": true,
+        "allValue": ".+",
+        "multi": true,
+        "current": { "text": ["All"], "value": ["$__all"] }
+      },
+      {
+        "name": "topk",
+        "label": "Top N",
+        "type": "custom",
+        "query": "5,10,15,25,50",
+        "current": { "text": "10", "value": "10" },
+        "options": [
+          { "text": "5", "value": "5", "selected": false },
+          { "text": "10", "value": "10", "selected": true },
+          { "text": "15", "value": "15", "selected": false },
+          { "text": "25", "value": "25", "selected": false },
+          { "text": "50", "value": "50", "selected": false }
+        ]
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Host CPU",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "targets": [
+        { "refId": "A", "expr": "sum(rate(container_cpu_usage_seconds_total{instance=\"$instance\", unit=\"host\"}[$__rate_interval])) / max(machine_cpu_cores{instance=\"$instance\"})" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit", "min": 0, "max": 1, "decimals": 1,
+          "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "orange", "value": 0.6 }, { "color": "red", "value": 0.85 } ] }
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "graphMode": "area", "colorMode": "value" }
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Host memory (working set)",
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "targets": [
+        { "refId": "A", "expr": "sum(container_memory_working_set_bytes{instance=\"$instance\", unit=\"host\"}) / max(machine_memory_bytes{instance=\"$instance\"})" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit", "min": 0, "max": 1, "decimals": 1,
+          "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "orange", "value": 0.75 }, { "color": "red", "value": 0.9 } ] }
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "graphMode": "area", "colorMode": "value" }
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Swap used by units",
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "targets": [
+        { "refId": "A", "expr": "sum(container_memory_swap{instance=\"$instance\", unit!=\"host\"})" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes", "decimals": 1,
+          "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "orange", "value": 1073741824 }, { "color": "red", "value": 3221225472 } ] }
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "graphMode": "area", "colorMode": "value" }
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "OOM kills (range)",
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "targets": [
+        { "refId": "A", "expr": "sum(increase(container_oom_events_total{instance=\"$instance\", unit!=\"host\"}[$__range])) or vector(0)" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short", "decimals": 0,
+          "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "red", "value": 1 } ] }
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "graphMode": "none", "colorMode": "value" }
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "CPU by unit (top $topk, cores)",
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 4 },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "targets": [
+        { "refId": "A", "legendFormat": "{{unit}}", "expr": "topk($topk, sum by (unit) (rate(container_cpu_usage_seconds_total{instance=\"$instance\", unit=~\"$unit\", unit!=\"host\"}[$__rate_interval])))" }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "short", "min": 0, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 1, "stacking": { "mode": "none" } } },
+        "overrides": []
+      },
+      "options": { "legend": { "displayMode": "table", "placement": "right", "calcs": ["mean", "max"], "sortBy": "Mean", "sortDesc": true }, "tooltip": { "mode": "multi", "sort": "desc" } }
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Memory working set by unit (top $topk)",
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 4 },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "targets": [
+        { "refId": "A", "legendFormat": "{{unit}}", "expr": "topk($topk, sum by (unit) (container_memory_working_set_bytes{instance=\"$instance\", unit=~\"$unit\", unit!=\"host\"}))" }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "bytes", "min": 0, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 1, "stacking": { "mode": "none" } } },
+        "overrides": []
+      },
+      "options": { "legend": { "displayMode": "table", "placement": "right", "calcs": ["mean", "max"], "sortBy": "Mean", "sortDesc": true }, "tooltip": { "mode": "multi", "sort": "desc" } }
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "Swap by unit (top $topk)",
+      "gridPos": { "h": 9, "w": 12, "x": 0, "y": 14 },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "targets": [
+        { "refId": "A", "legendFormat": "{{unit}}", "expr": "topk($topk, sum by (unit) (container_memory_swap{instance=\"$instance\", unit=~\"$unit\", unit!=\"host\"}) > 0)" }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "bytes", "min": 0, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 1 } },
+        "overrides": []
+      },
+      "options": { "legend": { "displayMode": "table", "placement": "right", "calcs": ["mean", "max"], "sortBy": "Mean", "sortDesc": true }, "tooltip": { "mode": "multi", "sort": "desc" } }
+    },
+    {
+      "id": 8,
+      "type": "timeseries",
+      "title": "Disk IO by unit (top $topk, read + / write -, excl. swap; ZFS writes are not attributed)",
+      "gridPos": { "h": 9, "w": 12, "x": 12, "y": 14 },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "targets": [
+        { "refId": "A", "legendFormat": "{{unit}} read", "expr": "topk($topk, sum by (unit) (rate(container_fs_reads_bytes_total{instance=\"$instance\", unit=~\"$unit\", unit!=\"host\", device!~\"/dev/zram.*\"}[$__rate_interval])) > 0)" },
+        { "refId": "B", "legendFormat": "{{unit}} write", "expr": "-topk($topk, sum by (unit) (rate(container_fs_writes_bytes_total{instance=\"$instance\", unit=~\"$unit\", unit!=\"host\", device!~\"/dev/zram.*\"}[$__rate_interval])) > 0)" }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "Bps", "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 1 } },
+        "overrides": []
+      },
+      "options": { "legend": { "displayMode": "table", "placement": "right", "calcs": ["mean", "max"] }, "tooltip": { "mode": "multi", "sort": "desc" } }
+    },
+    {
+      "id": 9,
+      "type": "timeseries",
+      "title": "CPU pressure by unit (time waiting for CPU)",
+      "gridPos": { "h": 9, "w": 12, "x": 0, "y": 23 },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "targets": [
+        { "refId": "A", "legendFormat": "{{unit}}", "expr": "topk($topk, sum by (unit) (rate(container_pressure_cpu_waiting_seconds_total{instance=\"$instance\", unit=~\"$unit\", unit!=\"host\"}[$__rate_interval])) > 0)" }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "percentunit", "min": 0, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 1 } },
+        "overrides": []
+      },
+      "options": { "legend": { "displayMode": "table", "placement": "right", "calcs": ["mean", "max"], "sortBy": "Mean", "sortDesc": true }, "tooltip": { "mode": "multi", "sort": "desc" } }
+    },
+    {
+      "id": 10,
+      "type": "timeseries",
+      "title": "Memory pressure by unit (time stalled on memory)",
+      "gridPos": { "h": 9, "w": 12, "x": 12, "y": 23 },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "targets": [
+        { "refId": "A", "legendFormat": "{{unit}}", "expr": "topk($topk, sum by (unit) (rate(container_pressure_memory_waiting_seconds_total{instance=\"$instance\", unit=~\"$unit\", unit!=\"host\"}[$__rate_interval])) > 0)" }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "percentunit", "min": 0, "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 1 } },
+        "overrides": []
+      },
+      "options": { "legend": { "displayMode": "table", "placement": "right", "calcs": ["mean", "max"], "sortBy": "Mean", "sortDesc": true }, "tooltip": { "mode": "multi", "sort": "desc" } }
+    },
+    {
+      "id": 11,
+      "type": "table",
+      "title": "Summary over selected range",
+      "gridPos": { "h": 14, "w": 24, "x": 0, "y": 32 },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "targets": [
+        { "refId": "cpu_avg", "instant": true, "format": "table", "expr": "sum by (unit) (rate(container_cpu_usage_seconds_total{instance=\"$instance\", unit=~\"$unit\", unit!=\"host\"}[$__range]))" },
+        { "refId": "cpu_p95", "instant": true, "format": "table", "expr": "quantile_over_time(0.95, sum by (unit) (rate(container_cpu_usage_seconds_total{instance=\"$instance\", unit=~\"$unit\", unit!=\"host\"}[5m]))[$__range:5m])" },
+        { "refId": "mem_avg", "instant": true, "format": "table", "expr": "avg_over_time(sum by (unit) (container_memory_working_set_bytes{instance=\"$instance\", unit=~\"$unit\", unit!=\"host\"})[$__range:5m])" },
+        { "refId": "mem_max", "instant": true, "format": "table", "expr": "max_over_time(sum by (unit) (container_memory_working_set_bytes{instance=\"$instance\", unit=~\"$unit\", unit!=\"host\"})[$__range:5m])" },
+        { "refId": "swap_avg", "instant": true, "format": "table", "expr": "avg_over_time(sum by (unit) (container_memory_swap{instance=\"$instance\", unit=~\"$unit\", unit!=\"host\"})[$__range:5m])" }
+      ],
+      "transformations": [
+        { "id": "merge", "options": {} },
+        { "id": "organize", "options": {
+            "excludeByName": { "Time": true },
+            "renameByName": {
+              "unit": "Unit",
+              "Value #cpu_avg": "CPU avg (cores)",
+              "Value #cpu_p95": "CPU p95 (cores)",
+              "Value #mem_avg": "Memory avg",
+              "Value #mem_max": "Memory max",
+              "Value #swap_avg": "Swap avg"
+            }
+        } }
+      ],
+      "fieldConfig": {
+        "defaults": { "custom": { "align": "auto" } },
+        "overrides": [
+          { "matcher": { "id": "byRegexp", "options": "CPU.*" }, "properties": [ { "id": "unit", "value": "short" }, { "id": "decimals", "value": 3 }, { "id": "custom.cellOptions", "value": { "type": "gauge", "mode": "basic" } }, { "id": "max", "value": 1 } ] },
+          { "matcher": { "id": "byRegexp", "options": "Memory.*|Swap.*" }, "properties": [ { "id": "unit", "value": "bytes" }, { "id": "decimals", "value": 1 } ] }
+        ]
+      },
+      "options": { "showHeader": true, "sortBy": [ { "displayName": "Memory avg", "desc": true } ] }
+    }
+  ]
+}

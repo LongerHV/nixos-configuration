@@ -67,13 +67,21 @@ in
             access = "proxy";
             url = "http://localhost:${builtins.toString prometheus.port}";
             isDefault = true;
-            version = 1;
+            version = 2;
             editable = false;
+            # Match the prometheus scrape interval so $__rate_interval spans enough samples
+            jsonData.timeInterval = "1m";
           }];
-          dashboards.settings.providers = [{
-            name = "system";
-            options.path = ./dashboards/node.json;
-          }];
+          dashboards.settings.providers = [
+            {
+              name = "system";
+              options.path = ./dashboards/node.json;
+            }
+            {
+              name = "services";
+              options.path = ./dashboards/cadvisor.json;
+            }
+          ];
         };
       };
       prometheus = {
