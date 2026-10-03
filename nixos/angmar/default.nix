@@ -19,6 +19,7 @@ in
     ./disko-config.nix
     ./homelab.nix
     ./secrets.nix
+    ./selfhosted
   ];
 
   mySystem = {

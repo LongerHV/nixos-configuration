@@ -37,7 +37,7 @@ in
   "hermes_matrix_env.age".publicKeys = [ nasgul mordor_user ];
   "cloudflare_token.age".publicKeys = [ nasgul angmar mordor_user ];
   "cloudflare_email.age".publicKeys = [ nasgul angmar mordor_user ];
-  "valheim_environment.age".publicKeys = [ nasgul mordor_user ];
+  "valheim_environment.age".publicKeys = [ angmar mordor_user ];
 
   # Mordor
   "mordor_cache_priv_key.pem.age".publicKeys = [ mordor mordor_user ];
