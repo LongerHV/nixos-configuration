@@ -20,6 +20,7 @@ in
         anarion = "10.42.0.4";
         isildur = "10.42.0.5";
         smaug = "10.42.0.6";
+        angmar = "10.42.0.7";
       };
     };
     address = mkOption {

@@ -118,6 +118,14 @@
               ./nixos/mordor
             ];
           };
+          angmar = nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            modules = defaultModules ++ [
+              inputs.disko.nixosModules.disko
+              deployTarget
+              ./nixos/angmar
+            ];
+          };
           nasgul = nixpkgs.lib.nixosSystem {
             inherit specialArgs;
             modules = defaultModules ++ [
@@ -230,6 +238,7 @@
           };
         in
         {
+          angmar = mkDeployConfig "angmar.lan" self.nixosConfigurations.angmar;
           nasgul = mkDeployConfig "nasgul.lan" self.nixosConfigurations.nasgul;
           smaug = mkDeployConfig "smaug.lan" self.nixosConfigurations.smaug;
           isildur = mkDeployConfig "isildur.lan" self.nixosConfigurations.isildur;
