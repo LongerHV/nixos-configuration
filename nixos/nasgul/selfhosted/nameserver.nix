@@ -1,5 +1,20 @@
 { config, lib, pkgs, ... }:
 
+let
+  inherit (config.homelab) domain traefik;
+  # Host answering every name under the domain that is not listed below.
+  wildcardHost = "nasgul.lan";
+  # Names routed by this host's Traefik: homelab services, the dashboard and
+  # routers declared through docker labels.
+  ruleHost = rule:
+    let match = builtins.match ".*Host\\(`([a-z0-9-]+)\\.${lib.escapeRegex domain}`\\).*" rule;
+    in if match == null then [ ] else match;
+  isRouterRule = label: builtins.match "traefik\\.http\\.routers\\..+\\.rule" label != null;
+  dockerHosts = lib.concatMap
+    (container: lib.concatMap ruleHost (lib.attrValues (lib.filterAttrs (label: _: isRouterRule label) container.labels)))
+    (lib.attrValues config.virtualisation.oci-containers.containers);
+  localNames = lib.unique (lib.attrNames traefik.services ++ [ traefik.dashboardHost ] ++ dockerHosts);
+in
 {
   services.blocky.settings = {
     # Reverse lookup (does this even work?)
@@ -10,9 +25,9 @@
     customDNS = {
       customTTL = "1h";
       zone = ''
-        $ORIGIN ${config.homelab.domain}.
-        @ 3600 CNAME nasgul.lan.
-      '';
+        $ORIGIN ${domain}.
+        @ 3600 CNAME ${wildcardHost}.
+      '' + lib.concatMapStrings (name: "${name} 3600 CNAME nasgul.lan.\n") localNames;
       mapping = lib.mapAttrs'
         (name: ip: lib.nameValuePair "${name}.nebula.arpa" ip)
         config.homelab.nebula.hosts;

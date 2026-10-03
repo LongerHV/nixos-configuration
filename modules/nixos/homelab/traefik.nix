@@ -95,6 +95,11 @@ in
       type = types.str;
       default = "local-ip-whitelist";
     };
+    dashboardHost = mkOption {
+      type = types.str;
+      default = "traefik";
+      description = "Subdomain of the Traefik dashboard; must be unique across hosts.";
+    };
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -155,14 +160,15 @@ in
               (builtins.mapAttrs mkRouter cfg.services)
               {
                 traefik = {
-                  rule = "Host(`traefik.${hl.domain}`)";
+                  rule = "Host(`${cfg.dashboardHost}.${hl.domain}`)";
                   service = "api@internal";
                   middlewares = lib.lists.optional (cfg.defaultIPWhitelist != "") cfg.defaultIPWhitelist;
                   entrypoints = [ cfg.entrypoint ];
                 };
               }
             ];
-            services = builtins.mapAttrs mkService cfg.services;
+            # Traefik rejects the whole file on an empty services map
+            services = lib.mkIf (cfg.services != { }) (builtins.mapAttrs mkService cfg.services);
             middlewares = {
               localhost-only.IPWhitelist.sourceRange = [ "127.0.0.1/32" ];
               local-ip-whitelist.IPWhiteList = {

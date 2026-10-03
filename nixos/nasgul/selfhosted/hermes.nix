@@ -16,8 +16,8 @@ in
   imports = [ inputs.hermes-agent.nixosModules.default ];
 
   age.secrets = {
-    hermes_env.file = ../../../secrets/nasgul_hermes_env.age;
-    hermes_matrix_env.file = ../../../secrets/nasgul_hermes_matrix_env.age;
+    hermes_env.file = ../../../secrets/hermes_env.age;
+    hermes_matrix_env.file = ../../../secrets/hermes_matrix_env.age;
   };
 
   users.users = {
@@ -29,34 +29,36 @@ in
     "${config.mySystem.user}".extraGroups = [ "hermes" ];
   };
 
-  homelab.traefik.services.hermes.port = dashboardPort;
+  homelab = {
+    traefik.services.hermes.port = dashboardPort;
 
-  # Podman image storage under /var/lib/hermes/.local is reproducible and excluded.
-  homelab.backups.services.hermes.paths = [
-    "/var/lib/hermes/.hermes"
-    "/var/lib/hermes/workspace"
-  ];
+    # Podman image storage under /var/lib/hermes/.local is reproducible and excluded.
+    backups.services.hermes.paths = [
+      "/var/lib/hermes/.hermes"
+      "/var/lib/hermes/workspace"
+    ];
 
-  services.authelia.instances.main.settings.identity_providers.oidc = {
-    # The dashboard can read and edit API keys: admins only.
-    authorization_policies.hermes = {
-      default_policy = "deny";
-      rules = [{
-        policy = "one_factor";
-        subject = "group:admin";
+    auth.oidc = {
+      # The dashboard can read and edit API keys: admins only.
+      authorization_policies.hermes = {
+        default_policy = "deny";
+        rules = [{
+          policy = "one_factor";
+          subject = "group:admin";
+        }];
+      };
+      clients = [{
+        client_id = "hermes-dashboard";
+        client_name = "Hermes";
+        public = true;
+        token_endpoint_auth_method = "none";
+        require_pkce = true;
+        pkce_challenge_method = "S256";
+        authorization_policy = "hermes";
+        redirect_uris = [ "${dashboardUrl}/auth/callback" ];
+        scopes = [ "openid" "profile" "email" ];
       }];
     };
-    clients = [{
-      client_id = "hermes-dashboard";
-      client_name = "Hermes";
-      public = true;
-      token_endpoint_auth_method = "none";
-      require_pkce = true;
-      pkce_challenge_method = "S256";
-      authorization_policy = "hermes";
-      redirect_uris = [ "${dashboardUrl}/auth/callback" ];
-      scopes = [ "openid" "profile" "email" ];
-    }];
   };
 
   services.hermes-agent = {

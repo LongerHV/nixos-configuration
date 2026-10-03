@@ -13,7 +13,7 @@
   age = {
     secrets = {
       anki_password = {
-        file = ../../../secrets/nasgul_anki_password.age;
+        file = ../../../secrets/anki_password.age;
         mode = "0440";
       };
     };

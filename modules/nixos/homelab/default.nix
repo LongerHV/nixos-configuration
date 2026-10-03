@@ -5,6 +5,7 @@ let
 in
 {
   imports = [
+    ./auth.nix
     ./backups.nix
     ./blocky.nix
     ./gitea.nix

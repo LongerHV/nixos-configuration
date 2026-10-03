@@ -7,6 +7,9 @@ let
       DHCP = "yes";
       IPv6AcceptRA = true;
     };
+    # The router cannot resolve the homelab domain; blocky (below) can.
+    dhcpV4Config.UseDNS = false;
+    ipv6AcceptRAConfig.UseDNS = false;
   };
 in
 {
@@ -14,6 +17,8 @@ in
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     ./hardware-configuration.nix
     ./disko-config.nix
+    ./homelab.nix
+    ./secrets.nix
   ];
 
   mySystem = {
@@ -72,6 +77,8 @@ in
   };
 
   services = {
+    # Blocky on nasgul
+    resolved.settings.Resolve.DNS = "10.123.1.243";
     openssh.enable = true;
     zfs = {
       autoScrub.enable = true;

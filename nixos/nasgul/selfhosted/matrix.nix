@@ -6,7 +6,7 @@ let
 in
 {
   age.secrets.tuwunel_registration_token = {
-    file = ../../../secrets/nasgul_tuwunel_registration_token.age;
+    file = ../../../secrets/tuwunel_registration_token.age;
     owner = "tuwunel";
   };
 

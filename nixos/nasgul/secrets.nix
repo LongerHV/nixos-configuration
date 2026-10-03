@@ -25,7 +25,7 @@ in
 
       # SMTP (sendgrid)
       sendgrid_token = {
-        file = ../../secrets/nasgul_sendgrid_token.age;
+        file = ../../secrets/sendgrid_token.age;
         mode = "0440";
         group = "sendgrid";
       };
@@ -42,78 +42,78 @@ in
 
       # Restic
       restic_credentials = {
-        file = ../../secrets/nasgul_restic_s3_key.age;
+        file = ../../secrets/restic_s3_key.age;
         mode = "0440";
         group = "restic";
       };
       restic_password = {
-        file = ../../secrets/nasgul_restic_password.age;
+        file = ../../secrets/restic_password.age;
         mode = "0440";
         group = "restic";
       };
 
       # Nextcloud
       nextcloud_admin_password = {
-        file = ../../secrets/nasgul_nextcloud_admin_password.age;
+        file = ../../secrets/nextcloud_admin_password.age;
         owner = "nextcloud";
       };
 
       # Gitea
       gitea_actions_token = {
-        file = ../../secrets/nasgul_gitea_actions_token.age;
+        file = ../../secrets/gitea_actions_token.age;
         mode = "0440";
         group = "gitea-secrets";
       };
 
       # Authelia
       authelia_jwt_secret = {
-        file = ../../secrets/nasgul_authelia_jwt_secret.age;
+        file = ../../secrets/authelia_jwt_secret.age;
         owner = autheliaUser;
       };
       authelia_storage_encryption_key = {
-        file = ../../secrets/nasgul_authelia_storage_encryption_key.age;
+        file = ../../secrets/authelia_storage_encryption_key.age;
         owner = autheliaUser;
       };
       authelia_session_secret = {
-        file = ../../secrets/nasgul_authelia_session_secret.age;
+        file = ../../secrets/authelia_session_secret.age;
         owner = autheliaUser;
       };
       authelia_hmac_secret = {
-        file = ../../secrets/nasgul_authelia_hmac_secret.age;
+        file = ../../secrets/authelia_hmac_secret.age;
         owner = autheliaUser;
       };
       authelia_issuer_priv_key = {
-        file = ../../secrets/nasgul_authelia_issuer_private_key.age;
+        file = ../../secrets/authelia_issuer_private_key.age;
         owner = autheliaUser;
       };
       authelia_mysql_password = {
-        file = ../../secrets/nasgul_authelia_mysql_password.age;
+        file = ../../secrets/authelia_mysql_password.age;
         owner = autheliaUser;
       };
       ldap_password = {
-        file = ../../secrets/nasgul_ldap_password.age;
+        file = ../../secrets/ldap_password.age;
         owner = autheliaUser;
       };
 
       # LLDAP
       lldap_private_key = {
-        file = ../../secrets/nasgul_lldap_private_key.age;
+        file = ../../secrets/lldap_private_key.age;
         mode = "0440";
         group = "lldap-secrets";
       };
       lldap_jwt_secret = {
-        file = ../../secrets/nasgul_lldap_jwt_secret.age;
+        file = ../../secrets/lldap_jwt_secret.age;
         mode = "0440";
         group = "lldap-secrets";
       };
       lldap_user_pass = {
-        file = ../../secrets/nasgul_lldap_user_pass.age;
+        file = ../../secrets/lldap_user_pass.age;
         mode = "0440";
         group = "lldap-secrets";
       };
 
       # Vikunja
-      vikunja_environment.file = ../../secrets/nasgul_vikunja_environment.age;
+      vikunja_environment.file = ../../secrets/vikunja_environment.age;
 
       # Wireguard
       wireguard_priv_key.file = ../../secrets/nasgul_wireguard_priv_key.age;

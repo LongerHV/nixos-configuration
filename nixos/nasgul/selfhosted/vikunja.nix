@@ -52,7 +52,7 @@ in
         }];
       };
 
-      age.secrets.vikunja_environment.file = ../../../secrets/nasgul_vikunja_environment.age;
+      age.secrets.vikunja_environment.file = ../../../secrets/vikunja_environment.age;
     }
 
     (lib.mkIf hl.backups.enable {

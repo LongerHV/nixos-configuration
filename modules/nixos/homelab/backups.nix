@@ -34,6 +34,7 @@ in
     };
     services = mkOption {
       type = types.attrs;
+      default = { };
     };
   };
 

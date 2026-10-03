@@ -26,11 +26,11 @@ in
   users.groups.miniflux-secrets = { };
   systemd.services.miniflux.serviceConfig.SupplementaryGroups = [ "miniflux-secrets" ];
   age.secrets = lib.genAttrs [ "miniflux_admin_credentials" "miniflux_client_id" "miniflux_client_secret" ] (name: {
-    file = ../../../secrets/nasgul_${name}.age;
+    file = ../../../secrets/${name}.age;
     mode = "0440";
     group = "miniflux-secrets";
   });
-  services.authelia.instances.main.settings.identity_providers.oidc.clients = [{
+  homelab.auth.oidc.clients = [{
     authorization_policy = "one_factor";
     client_id = "miniflux";
     client_secret = "$pbkdf2-sha512$310000$04zWVx1B/vunExsKbVoelQ$PlGGkOG691I5YFEfY5J0uknApI63w.5xeBIsnDA0BuxXGa4ofKCw2Ze0qv1P4ES.It9XQTgB4x0UXzN/hNN6LA";

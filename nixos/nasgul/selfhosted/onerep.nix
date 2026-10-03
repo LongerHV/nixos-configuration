@@ -47,7 +47,7 @@ in
     extraOptions = [ "--dns" "172.17.0.1" ];
   };
 
-  services.authelia.instances.main.settings.identity_providers.oidc.clients = [{
+  homelab.auth.oidc.clients = [{
     client_id = "onerep";
     client_name = "onerep";
     public = true;

@@ -128,8 +128,8 @@ in
     };
   };
   age = {
-    secrets.hass_environment.file = ../../../secrets/nasgul_hass_environment.age;
-    secrets.mqtt_valetudo_password.file = ../../../secrets/nasgul_mqtt_valetudo_password.age;
+    secrets.hass_environment.file = ../../../secrets/hass_environment.age;
+    secrets.mqtt_valetudo_password.file = ../../../secrets/mqtt_valetudo_password.age;
   };
   systemd = {
     services = {

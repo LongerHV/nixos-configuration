@@ -95,7 +95,7 @@ in
     ];
 
     # Grafana OIDC environment
-    age.secrets.grafana_environment.file = ../../../secrets/nasgul_grafana_environment.age;
+    age.secrets.grafana_environment.file = ../../../secrets/grafana_environment.age;
     systemd.services.grafana.serviceConfig.EnvironmentFile = config.age.secrets.grafana_environment.path;
   };
 }
