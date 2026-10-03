@@ -35,7 +35,7 @@
       # ControlMaster reuses one connection so a deploy needs a single touch.
       # Only root (deploy-rs) logins; regular logins keep using the agent.
       deploy-targets = {
-        match = "user root host nasgul.lan,smaug.lan,isildur.lan,anarion.lan,palantir.lan";
+        match = "user root host nasgul.lan,smaug.lan,isildur.lan,anarion.lan,palantir.lan,angmar.lan";
         identityFile = [
           "~/.ssh/id_ed25519_sk_rk_yubi"
           "~/.ssh/id_ed25519_sk_rk_yubi_backup"
