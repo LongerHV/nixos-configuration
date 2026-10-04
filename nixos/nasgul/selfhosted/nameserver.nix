@@ -23,11 +23,12 @@ in
     };
     # My custom entries for local network
     customDNS = {
-      customTTL = "1h";
+      # Short TTL so moving a name between hosts takes effect quickly.
+      customTTL = "5m";
       zone = ''
         $ORIGIN ${domain}.
-        @ 3600 CNAME ${wildcardHost}.
-      '' + lib.concatMapStrings (name: "${name} 3600 CNAME nasgul.lan.\n") localNames;
+        @ 300 CNAME ${wildcardHost}.
+      '' + lib.concatMapStrings (name: "${name} 300 CNAME nasgul.lan.\n") localNames;
       mapping = lib.mapAttrs'
         (name: ip: lib.nameValuePair "${name}.nebula.arpa" ip)
         config.homelab.nebula.hosts;
