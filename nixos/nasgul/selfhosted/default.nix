@@ -7,7 +7,6 @@
     ./hermes.nix
     ./homepage.nix
     ./immich.nix
-    ./lldap.nix
     ./matrix.nix
     ./monitoring.nix
     ./n8n.nix

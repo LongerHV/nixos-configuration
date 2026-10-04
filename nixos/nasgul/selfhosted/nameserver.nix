@@ -3,7 +3,7 @@
 let
   inherit (config.homelab) domain traefik;
   # Host answering every name under the domain that is not listed below.
-  wildcardHost = "nasgul.lan";
+  wildcardHost = "angmar.lan";
   # Names routed by this host's Traefik: homelab services, the dashboard and
   # routers declared through docker labels.
   ruleHost = rule:

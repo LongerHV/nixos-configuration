@@ -1,12 +1,8 @@
 { config, ... }:
 
-let
-  autheliaUser = config.services.authelia.instances.main.user;
-in
 {
   users = {
     groups = {
-      lldap-secrets = { };
       gitea-secrets = { };
     };
   };
@@ -63,53 +59,6 @@ in
         file = ../../secrets/gitea_actions_token.age;
         mode = "0440";
         group = "gitea-secrets";
-      };
-
-      # Authelia
-      authelia_jwt_secret = {
-        file = ../../secrets/authelia_jwt_secret.age;
-        owner = autheliaUser;
-      };
-      authelia_storage_encryption_key = {
-        file = ../../secrets/authelia_storage_encryption_key.age;
-        owner = autheliaUser;
-      };
-      authelia_session_secret = {
-        file = ../../secrets/authelia_session_secret.age;
-        owner = autheliaUser;
-      };
-      authelia_hmac_secret = {
-        file = ../../secrets/authelia_hmac_secret.age;
-        owner = autheliaUser;
-      };
-      authelia_issuer_priv_key = {
-        file = ../../secrets/authelia_issuer_private_key.age;
-        owner = autheliaUser;
-      };
-      authelia_mysql_password = {
-        file = ../../secrets/authelia_mysql_password.age;
-        owner = autheliaUser;
-      };
-      ldap_password = {
-        file = ../../secrets/ldap_password.age;
-        owner = autheliaUser;
-      };
-
-      # LLDAP
-      lldap_private_key = {
-        file = ../../secrets/lldap_private_key.age;
-        mode = "0440";
-        group = "lldap-secrets";
-      };
-      lldap_jwt_secret = {
-        file = ../../secrets/lldap_jwt_secret.age;
-        mode = "0440";
-        group = "lldap-secrets";
-      };
-      lldap_user_pass = {
-        file = ../../secrets/lldap_user_pass.age;
-        mode = "0440";
-        group = "lldap-secrets";
       };
 
       # Vikunja
