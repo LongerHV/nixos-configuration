@@ -3,6 +3,7 @@
 let
   inherit (config.age) secrets;
   hl = config.homelab;
+  ldapPort = config.services.lldap.settings.ldap_port;
   lldapSecret = file: {
     file = ../../../secrets/${file}.age;
     mode = "0440";
@@ -21,6 +22,10 @@ in
     };
   };
 
+  # LDAP for nasgul's services (Nextcloud user_ldap).
+  services.nebula.networks.homelab.firewall.inbound = [{ proto = "tcp"; port = ldapPort; host = "nasgul"; }];
+  networking.firewall.interfaces."nebula.homelab".allowedTCPPorts = [ ldapPort ];
+
   users.groups.lldap-secrets = { };
   age.secrets = {
     lldap_private_key = lldapSecret "lldap_private_key";
@@ -34,7 +39,9 @@ in
       http_url = "https://ldap.${hl.domain}";
       ldap_base_dn = "dc=longerhv,dc=xyz";
       key_file = secrets.lldap_private_key.path;
-      ldap_host = "127.0.0.1";
+      # Local Authelia plus nasgul's Nextcloud over nebula; the firewall only
+      # opens the port on the nebula interface.
+      ldap_host = "0.0.0.0";
       http_host = "127.0.0.1";
     };
     environment = {
