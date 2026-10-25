@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   hl = config.homelab;
@@ -11,6 +11,7 @@ in
       homelab.traefik.services.immich.port = cfg.port;
       services.immich = {
         enable = true;
+        package = pkgs.unstable.immich;
         mediaLocation = dataDir;
         host = "127.0.0.1";
       };
