@@ -40,10 +40,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    initrd = {
-      systemd.enable = true;
-      luks.devices."cryptroot".crypttabExtraOpts = [ "tpm2-device=auto" ];
-    };
+    initrd.luks.devices."cryptroot".crypttabExtraOpts = [ "tpm2-device=auto" ];
     zfs.forceImportRoot = false;
   };
 

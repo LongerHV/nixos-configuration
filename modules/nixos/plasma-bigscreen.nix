@@ -70,7 +70,6 @@ in
         ark
         elisa
         spectacle
-        kwin-x11
         aurorae
         plasma-workspace-wallpapers
         krdp
