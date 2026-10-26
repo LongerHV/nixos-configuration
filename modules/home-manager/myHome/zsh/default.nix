@@ -65,7 +65,6 @@
       autosuggestion.enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
-      enableVteIntegration = true;
       historySubstringSearch = {
         enable = true;
         # searchUpKey = [ "^[[A" "^[OA" ];

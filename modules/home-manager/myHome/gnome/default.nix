@@ -83,5 +83,6 @@ in
         edge-tiling = true;
       };
     };
+    programs.zsh.enableVteIntegration = true;
   };
 }
