@@ -228,9 +228,23 @@
             profiles.system =
               let
                 inherit (configuration.config.nixpkgs.hostPlatform) system;
+                # Use deploy-rs from nixpkgs (prebuilt in cache.nixos.org) instead of
+                # building it from the flake input, which is slow on ARM targets.
+                deployPkgs = import nixpkgs {
+                  inherit system;
+                  overlays = [
+                    deploy-rs.overlays.default
+                    (_: super: {
+                      deploy-rs = {
+                        inherit (nixpkgs.legacyPackages.${system}) deploy-rs;
+                        inherit (super.deploy-rs) lib;
+                      };
+                    })
+                  ];
+                };
               in
               {
-                path = deploy-rs.lib."${system}".activate.nixos configuration;
+                path = deployPkgs.deploy-rs.lib.activate.nixos configuration;
                 # Root login is restricted to Yubikey (sk-ssh-ed25519) keys, see mySystem.deployTarget
                 sshUser = "root";
                 user = "root";
