@@ -64,6 +64,7 @@ in
         ads = [
           (pkgs.writeText "allowlist.txt" ''
             piwik.pro
+            s.click.aliexpress.com
           '')
         ];
       };
