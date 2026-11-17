@@ -4,6 +4,7 @@ final: prev: {
   xerox-generic-driver = prev.callPackage ./xerox.nix prev;
   chip-ota-provider = prev.callPackage ./chip-ota-provider.nix { };
   ktools = prev.callPackage ./ktools { };
+  katapult-flashtool = prev.callPackage ./katapult-flashtool.nix { };
 
   # Waiting for https://github.com/mhartington/oceanic-next/pull/123
   nvimPlugins = prev.nvimPlugins // {
