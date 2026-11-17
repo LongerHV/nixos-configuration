@@ -12,9 +12,35 @@ let
     mcu = "host";
     firmwareConfig = ./config-host;
   };
+  # Must match CONFIG_SERIAL_BAUD of both katapult and ./config
+  baud = "250000";
+  # Flash the MCU firmware built from ./config via the katapult bootloader.
+  # Usage: klipper-flash-mcu [path/to/klipper.bin]
+  klipperFlashMcu = pkgs.writeShellApplication {
+    name = "klipper-flash-mcu";
+    runtimeInputs = [ pkgs.katapult-flashtool pkgs.systemd ];
+    text = ''
+      if [ "$EUID" -ne 0 ]; then
+        exec sudo "$0" "$@"
+      fi
+      firmware="''${1:-${config.services.klipper.firmwares.mcu.package}/klipper.bin}"
+      [ -f "$firmware" ] || { echo "firmware not found: $firmware" >&2; exit 1; }
+
+      echo "Stopping klipper"
+      systemctl stop klipper.service
+      trap 'echo "Starting klipper"; systemctl start klipper.service' EXIT
+
+      echo "Requesting katapult bootloader"
+      katapult-flashtool -d ${serial} -b ${baud} -r
+      echo "Flashing $firmware"
+      katapult-flashtool -d ${serial} -b ${baud} -f "$firmware"
+    '';
+  };
 in
 {
   security.polkit.enable = true;
+  # Flash klipper over USB through the katapult bootloader (see README.md)
+  environment.systemPackages = [ pkgs.katapult-flashtool klipperFlashMcu ];
   networking.firewall.allowedTCPPorts = [ 80 config.services.moonraker.port ];
   services = {
     nginx.clientMaxBodySize = "100M";
