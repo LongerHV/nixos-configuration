@@ -23,7 +23,7 @@
     signal-desktop
     freecad
     prusa-slicer
-
+    unstable.orca-slicer
     gnomeExtensions.tray-icons-reloaded
   ];
 
