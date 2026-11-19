@@ -91,6 +91,14 @@ in
       customComponents = with pkgs.unstable.home-assistant-custom-components; [
         auth_oidc
         ha_mcp_tools
+        # Klipper on smaug; nasgul's LAN address is a moonraker trusted client
+        # Marked broken only because its own tests fail with HA >= 2026.9
+        # (https://github.com/marcolivierarsenault/moonraker-home-assistant/issues/789).
+        # 1.14.0 fixes them but needs moonraker-api 4.x, which nixpkgs lacks.
+        (moonraker.overrideAttrs (old: {
+          doInstallCheck = false;
+          meta = old.meta // { broken = false; };
+        }))
       ];
       config = {
         default_config = { };
