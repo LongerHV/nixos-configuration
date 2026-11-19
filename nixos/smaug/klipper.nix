@@ -42,7 +42,21 @@ in
   # Flash klipper over USB through the katapult bootloader (see README.md)
   environment.systemPackages = [ pkgs.katapult-flashtool klipperFlashMcu ];
   networking.firewall.allowedTCPPorts = [ 80 config.services.moonraker.port ];
+  # Klipper exporter: probes moonraker on localhost (a trusted client, no API key),
+  # scraped by prometheus on nasgul over nebula
+  networking.firewall.interfaces."nebula.homelab".allowedTCPPorts = [
+    config.services.prometheus.exporters.klipper.port
+  ];
   services = {
+    prometheus.exporters.klipper = {
+      enable = true;
+      listenAddress = config.homelab.nebula.address;
+    };
+    nebula.networks.homelab.firewall.inbound = [{
+      proto = "tcp";
+      inherit (config.services.prometheus.exporters.klipper) port;
+      group = "prometheus";
+    }];
     nginx.clientMaxBodySize = "100M";
     fluidd.enable = true;
     moonraker = {

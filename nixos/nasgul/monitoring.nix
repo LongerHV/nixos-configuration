@@ -7,6 +7,7 @@ let
     node
     smartctl
     systemd
+    klipper
     ;
   inherit (config.services) cadvisor;
 in
@@ -23,6 +24,24 @@ in
     {
       job_name = "systemd";
       static_configs = [{ targets = hosts (toString systemd.port); }];
+    }
+    {
+      # The exporter on smaug probes its local moonraker
+      job_name = "klipper";
+      metrics_path = "/probe";
+      params = {
+        target = [ "localhost:7125" ];
+        modules = [
+          "process_stats"
+          "job_queue"
+          "system_info"
+          "network_stats"
+          "directory_info"
+          "printer_objects"
+          "history"
+        ];
+      };
+      static_configs = [{ targets = [ "smaug.${domain}:${toString klipper.port}" ]; }];
     }
     {
       job_name = "cadvisor";
