@@ -37,10 +37,23 @@
     useNetworkd = true;
     enableIPv6 = false;
     dhcpcd.enable = false;
+    # DHCP on end0 and wlan0 comes from networking.useDHCP (networkd defaults)
+    wireless = {
+      enable = true;
+      # Contains: psk_millennium_falcon=<passphrase>
+      secretsFile = config.age.secrets.smaug_wifi.path;
+      networks.MillenniumFalcon.pskRaw = "ext:psk_millennium_falcon";
+    };
+  };
+  age.secrets.smaug_wifi = {
+    file = ../../secrets/smaug_wifi.age;
+    # wpa_supplicant runs unprivileged and reads the PSK at runtime
+    owner = "wpa_supplicant";
   };
   systemd.network = {
     enable = true;
-    wait-online.extraArgs = [ "--interface" "end0" ];
+    # Online as soon as either ethernet or WiFi is up
+    wait-online.anyInterface = true;
   };
   services.openssh.enable = true;
 

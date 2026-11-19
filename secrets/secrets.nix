@@ -1,5 +1,5 @@
 let
-  inherit (import ./secrets_keys.nix) nasgul angmar mordor mordor_user backup;
+  inherit (import ./secrets_keys.nix) nasgul angmar mordor smaug mordor_user backup;
 in
 {
   # Tokens
@@ -37,6 +37,9 @@ in
   "cloudflare_token.age".publicKeys = [ nasgul angmar mordor_user ];
   "cloudflare_email.age".publicKeys = [ nasgul angmar mordor_user ];
   "valheim_environment.age".publicKeys = [ angmar mordor_user ];
+
+  # Smaug
+  "smaug_wifi.age".publicKeys = [ smaug mordor_user ];
 
   # Mordor
   "mordor_cache_priv_key.pem.age".publicKeys = [ mordor mordor_user ];
