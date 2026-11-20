@@ -61,12 +61,32 @@ in
     fluidd.enable = true;
     moonraker = {
       enable = true;
+      # gpiod is needed by the gpio [power] device
+      package = pkgs.moonraker.override { useGpiod = true; };
       address = "0.0.0.0";
       allowSystemControl = true;
-      settings.authorization = {
-        force_logins = true;
-        trusted_clients = [ "10.123.1.0/24" "127.0.0.1/32" ];
-        cors_domains = [ "*.lan" ];
+      settings = {
+        authorization = {
+          force_logins = true;
+          trusted_clients = [ "10.123.1.0/24" "127.0.0.1/32" ];
+          cors_domains = [ "*.lan" ];
+        };
+        # Relay switching the 24V PSU, active-high on GPIO26 (header pin 37).
+        # GPIO9-27 default to pull-down at boot, so the PSU stays off until
+        # moonraker takes the pin (GPIO0-8 are pulled up and would switch it on).
+        "power printer" = {
+          type = "gpio";
+          pin = "gpiochip0/gpio26";
+          initial_state = "off";
+          # cut power if Klipper hits an emergency shutdown
+          off_when_shutdown = true;
+          # can't switch it off by accident mid-print
+          locked_while_printing = true;
+          restart_klipper_when_powered = true;
+          restart_delay = 3;
+          # power on automatically when a job is queued
+          on_when_job_queued = true;
+        };
       };
     };
     klipper = {
@@ -106,4 +126,11 @@ in
 
   # The host MCU pty is owned by root:tty with mode 0660
   systemd.services.klipper.serviceConfig.SupplementaryGroups = [ "tty" ];
+
+  # Let moonraker drive the PSU relay through /dev/gpiochip*
+  users.groups.gpio = { };
+  services.udev.extraRules = ''
+    SUBSYSTEM=="gpio", KERNEL=="gpiochip*", GROUP="gpio", MODE="0660"
+  '';
+  systemd.services.moonraker.serviceConfig.SupplementaryGroups = [ "gpio" ];
 }
