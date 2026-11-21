@@ -103,34 +103,36 @@ in
     };
   };
 
-  # Port of klipper's scripts/klipper-mcu.service
-  systemd.services.klipper-mcu = {
-    description = "Klipper Linux host MCU";
-    documentation = [ "https://www.klipper3d.org/RPi_microcontroller.html" ];
-    wantedBy = [ "multi-user.target" ];
-    before = [ "klipper.service" ];
-    environment.KLIPPER_HOST_MCU_SERIAL = hostMcuSerial;
-    serviceConfig = {
-      Type = "simple";
-      RemainAfterExit = true;
-      ExecStart = "${hostMcu}/klipper.elf -r -I \${KLIPPER_HOST_MCU_SERIAL}";
-      ExecStop = [
-        "${pkgs.runtimeShell} -c 'echo FORCE_SHUTDOWN > \${KLIPPER_HOST_MCU_SERIAL}'"
-        "${pkgs.coreutils}/bin/sleep 1"
-      ];
-      TimeoutStopSec = 2;
-      Restart = "always";
-      RestartSec = 5;
+  systemd.services = {
+    # Port of klipper's scripts/klipper-mcu.service
+    klipper-mcu = {
+      description = "Klipper Linux host MCU";
+      documentation = [ "https://www.klipper3d.org/RPi_microcontroller.html" ];
+      wantedBy = [ "multi-user.target" ];
+      before = [ "klipper.service" ];
+      environment.KLIPPER_HOST_MCU_SERIAL = hostMcuSerial;
+      serviceConfig = {
+        Type = "simple";
+        RemainAfterExit = true;
+        ExecStart = "${hostMcu}/klipper.elf -r -I \${KLIPPER_HOST_MCU_SERIAL}";
+        ExecStop = [
+          "${pkgs.runtimeShell} -c 'echo FORCE_SHUTDOWN > \${KLIPPER_HOST_MCU_SERIAL}'"
+          "${pkgs.coreutils}/bin/sleep 1"
+        ];
+        TimeoutStopSec = 2;
+        Restart = "always";
+        RestartSec = 5;
+      };
     };
-  };
 
-  # The host MCU pty is owned by root:tty with mode 0660
-  systemd.services.klipper.serviceConfig.SupplementaryGroups = [ "tty" ];
+    # The host MCU pty is owned by root:tty with mode 0660
+    klipper.serviceConfig.SupplementaryGroups = [ "tty" ];
+    moonraker.serviceConfig.SupplementaryGroups = [ "gpio" ];
+  };
 
   # Let moonraker drive the PSU relay through /dev/gpiochip*
   users.groups.gpio = { };
   services.udev.extraRules = ''
     SUBSYSTEM=="gpio", KERNEL=="gpiochip*", GROUP="gpio", MODE="0660"
   '';
-  systemd.services.moonraker.serviceConfig.SupplementaryGroups = [ "gpio" ];
 }
