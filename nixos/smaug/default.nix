@@ -32,6 +32,43 @@
     };
   };
 
+  # Enable SPI0 with a spidev on CE0 (/dev/spidev0.0) for the ADXL345
+  # accelerometer used by klipper's input shaper (via the host MCU).
+  # Wiring: 3V3 pin 1, GND pin 6, MOSI pin 19, MISO pin 21, SCLK pin 23, CS pin 24
+  hardware.deviceTree = {
+    filter = "bcm2711-rpi-4-b.dtb";
+    overlays = [{
+      name = "spi0-spidev";
+      dtsText = ''
+        /dts-v1/;
+        /plugin/;
+        / {
+          compatible = "brcm,bcm2711";
+          fragment@0 {
+            target = <&spi>;
+            __overlay__ {
+              status = "okay";
+              pinctrl-names = "default";
+              pinctrl-0 = <&spi0_gpio7>;
+              /* CE0 = GPIO8, active low. Without explicit cs-gpios the
+                 driver looks up native CS on a "pinctrl-bcm2835" gpiochip,
+                 which on BCM2711 is "pinctrl-bcm2711", so probing fails. */
+              cs-gpios = <&gpio 8 1>;
+              #address-cells = <1>;
+              #size-cells = <0>;
+              spidev@0 {
+                /* any compatible from spidev's match table binds it */
+                compatible = "rohm,dh2228fv";
+                reg = <0>;
+                spi-max-frequency = <5000000>;
+              };
+            };
+          };
+        };
+      '';
+    }];
+  };
+
   networking = {
     hostName = "smaug";
     useNetworkd = true;
